@@ -1,15 +1,14 @@
 package logic;
 
 public class Game {
-
+	private int numOfPlayers;
+	
 	public void setNumPlayers(int numOfPlayers) {
-		// TODO Auto-generated method stub
-		
+		this.numOfPlayers = numOfPlayers;
 	}
 
-	public Object getNumPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNumPlayers() {
+		return numOfPlayers;
 	}
 
 }
