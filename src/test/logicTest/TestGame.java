@@ -11,13 +11,15 @@ import utils.Config;
 
 public class TestGame {
 	private static final int NUM_OF_PLAYERS = 2;
-	private static final String PLAYER_ONE_NAME = "Sam";
+	private static final String PLAYER_ONE_NAME = "Jack";
+	private static final String PLAYER_TWO_NAME = "Chloe";
 	
 	Game game;
 	
 	@Before
 	public void setUp() {
 		game = new Game();
+		game.setNumPlayers(NUM_OF_PLAYERS);
 	}
 	
 	@Test
@@ -29,10 +31,17 @@ public class TestGame {
 	
 	@Test
 	public void addPlayer() {
-		game.setNumPlayers(NUM_OF_PLAYERS);
 		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
 		
 		assertNotEquals(null, game.getPlayers()[0]);
+	}
+	
+	@Test
+	public void startingPlayer() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		assertEquals(PLAYER_TWO_NAME, game.getStartingPlayer().getName());
 	}
 	
 	@After

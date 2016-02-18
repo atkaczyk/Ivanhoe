@@ -38,4 +38,9 @@ public class Game {
 		tokensPicked++;
 		return startingGameTokens[tokensPicked-1];
 	}
+
+	public Player getStartingPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
