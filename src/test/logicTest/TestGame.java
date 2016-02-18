@@ -44,6 +44,14 @@ public class TestGame {
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 	
+	@Test
+	public void isGameReady() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		assertEquals(true, game.isReadyToStart());
+	}
+	
 	@After
 	public void tearDown() {
 		game = null;

@@ -49,4 +49,9 @@ public class Game {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+
+	public Object isReadyToStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
