@@ -17,4 +17,14 @@ public class Game {
 		return numOfPlayers;
 	}
 
+	public void addPlayer(String playerOneName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object[] getPlayers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
