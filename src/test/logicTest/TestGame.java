@@ -41,7 +41,7 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
-		assertEquals(PLAYER_TWO_NAME, game.getStartingPlayer().getName());
+		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 	
 	@After

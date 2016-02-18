@@ -5,17 +5,17 @@ import utils.Config;
 public class Game {
 	private int numOfPlayers;
 	private Player[] players;
-	private int tokensPicked = 0;
 	
+	// To keep track of whose turn it is
+	private Player currentPlayer;
+	
+	// Needed to start the game
+	private int tokensPicked = 0;
 	private int[] startingGameTokens = Config.ALL_TOKEN_COLOURS;
 	
 	public void setNumPlayers(int numOfPlayers) {
 		this.numOfPlayers = numOfPlayers;
 		players = new Player[numOfPlayers];
-		
-		for (int i = 0; i < numOfPlayers; i++) {
-			players[i] = new Player();
-		}
 	}
 
 	public int getNumPlayers() {
@@ -23,9 +23,16 @@ public class Game {
 	}
 
 	public void addPlayer(String playerName, int tokenColour) {
+		System.out.println(tokenColour);
 		for (int i=0; i<numOfPlayers; i++) {
-			if (players[i].getName().equals("")) {
+			if (players[i] == null) {
+				players[i] = new Player();
 				players[i].setName(playerName);
+				
+				if (tokenColour == Config.PURPLE) {
+					currentPlayer = players[i];
+				}
+				break;
 			}
 		}
 	}
@@ -39,8 +46,7 @@ public class Game {
 		return startingGameTokens[tokensPicked-1];
 	}
 
-	public Player getStartingPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 }
