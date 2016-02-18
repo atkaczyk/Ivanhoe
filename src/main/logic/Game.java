@@ -17,14 +17,16 @@ public class Game {
 		return numOfPlayers;
 	}
 
-	public void addPlayer(String playerOneName) {
-		// TODO Auto-generated method stub
-		
+	public void addPlayer(String playerName) {
+		for (int i=0; i<numOfPlayers; i++) {
+			if (players[i].getName().equals("")) {
+				players[i].setName(playerName);
+			}
+		}
 	}
 
-	public Object[] getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+	public Player[] getPlayers() {
+		return players;
 	}
 
 }

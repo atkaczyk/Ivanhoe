@@ -1,7 +1,6 @@
 package logicTest;
 
 import static org.junit.Assert.*;
-import logic.Game;
 import logic.Player;
 
 import org.junit.Test;

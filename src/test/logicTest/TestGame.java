@@ -27,6 +27,7 @@ public class TestGame {
 	
 	@Test
 	public void addPlayer() {
+		game.setNumPlayers(NUM_OF_PLAYERS);
 		game.addPlayer(PLAYER_ONE_NAME);
 		
 		assertNotEquals(null, game.getPlayers()[0]);
@@ -34,7 +35,6 @@ public class TestGame {
 	
 	@After
 	public void tearDown() {
-		
+		game = null;
 	}
-	
 }
