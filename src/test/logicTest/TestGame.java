@@ -45,11 +45,18 @@ public class TestGame {
 	}
 	
 	@Test
-	public void isGameReady() {
+	public void gameReady() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
 		assertEquals(true, game.isReadyToStart());
+	}
+	
+	@Test
+	public void gameNotReady() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		
+		assertEquals(false, game.isReadyToStart());
 	}
 	
 	@After
