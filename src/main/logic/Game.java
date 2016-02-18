@@ -1,8 +1,13 @@
 package logic;
 
+import utils.Config;
+
 public class Game {
 	private int numOfPlayers;
 	private Player[] players;
+	private int tokensPicked = 0;
+	
+	private int[] startingGameTokens = Config.ALL_TOKEN_COLOURS;
 	
 	public void setNumPlayers(int numOfPlayers) {
 		this.numOfPlayers = numOfPlayers;
@@ -17,7 +22,7 @@ public class Game {
 		return numOfPlayers;
 	}
 
-	public void addPlayer(String playerName) {
+	public void addPlayer(String playerName, int tokenColour) {
 		for (int i=0; i<numOfPlayers; i++) {
 			if (players[i].getName().equals("")) {
 				players[i].setName(playerName);
@@ -28,5 +33,9 @@ public class Game {
 	public Player[] getPlayers() {
 		return players;
 	}
-
+	
+	public int getNextToken() {
+		tokensPicked++;
+		return startingGameTokens[tokensPicked-1];
+	}
 }

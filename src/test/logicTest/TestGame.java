@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import utils.Config;
+
 public class TestGame {
 	private static final int NUM_OF_PLAYERS = 2;
 	private static final String PLAYER_ONE_NAME = "Sam";
@@ -28,7 +30,7 @@ public class TestGame {
 	@Test
 	public void addPlayer() {
 		game.setNumPlayers(NUM_OF_PLAYERS);
-		game.addPlayer(PLAYER_ONE_NAME);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
 		
 		assertNotEquals(null, game.getPlayers()[0]);
 	}
