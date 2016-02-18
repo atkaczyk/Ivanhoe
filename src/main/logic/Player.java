@@ -1,15 +1,14 @@
 package logic;
 
 public class Player {
-
+	private String name;
+	
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		this.name = name;
 	}
 
-	public Object getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
 
 }
