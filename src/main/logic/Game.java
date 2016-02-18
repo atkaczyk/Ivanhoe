@@ -10,6 +10,7 @@ public class Game {
 	private Player currentPlayer;
 	
 	// Needed to start the game
+	private int playersRegistered = 0;
 	private int tokensPicked = 0;
 	private int[] startingGameTokens = Config.ALL_TOKEN_COLOURS;
 	
@@ -23,7 +24,6 @@ public class Game {
 	}
 
 	public void addPlayer(String playerName, int tokenColour) {
-		System.out.println(tokenColour);
 		for (int i=0; i<numOfPlayers; i++) {
 			if (players[i] == null) {
 				players[i] = new Player();
@@ -35,6 +35,8 @@ public class Game {
 				break;
 			}
 		}
+		
+		playersRegistered++;
 	}
 
 	public Player[] getPlayers() {
@@ -50,8 +52,7 @@ public class Game {
 		return currentPlayer;
 	}
 
-	public Object isReadyToStart() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean isReadyToStart() {
+		return numOfPlayers == playersRegistered;
 	}
 }
