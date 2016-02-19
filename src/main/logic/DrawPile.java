@@ -131,10 +131,6 @@ public class DrawPile {
 	public Card getCard() {
 		return cards.pop();
 	}
-
-	public ArrayDeque<Card> getAllCards() {
-		return cards;
-	}
 	
 	// Shuffle all the cards currently in the discard pile
 	private void shuffle() {
@@ -151,6 +147,11 @@ public class DrawPile {
 		for (Card c: tempList) {
 			cards.push(c);
 		}
+	}
+
+	public Object getNumCards() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

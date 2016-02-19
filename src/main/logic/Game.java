@@ -75,8 +75,6 @@ public class Game {
 			System.out.println("\n\nPLAYER "+ i);
 			PrintHelper.printCards(players[i].getHand());
 		}
-		
-		
 	}
 
 	public void readyScreen() {
