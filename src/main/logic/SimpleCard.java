@@ -3,23 +3,20 @@ package logic;
 public class SimpleCard extends Card {
 	
 	private int number;
-	
-	public SimpleCard(String cardName, int cardNumber) {
-		name = cardName;
-		number = cardNumber;
-	}
+	private int colour;
 	
 	public SimpleCard(String cardName, int cardNumber, int cardColour) {
-		// TODO Auto-generated constructor stub
+		name = cardName;
+		number = cardNumber;
+		colour = cardColour;
 	}
 
 	public int getNumber() {
 		return number;
 	}
 
-	public Object getColour() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getColour() {
+		return colour;
 	}
 	
 }
