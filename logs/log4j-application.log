@@ -1,0 +1,19 @@
+2016-Feb-18 21:07:20 INFO  Server:57 - Binding to port 5050
+@2016-Feb-18 21:07:20 INFO  Server:95 - Waiting for a client ...
+@2016-Feb-18 21:07:20 INFO  Server:85 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 8
+@2016-Feb-18 21:15:59 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 21:15:59 INFO  Server:84 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-18 21:15:59 INFO  Server:94 - Waiting for a client ...
+@2016-Feb-18 22:31:59 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 22:31:59 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-18 22:41:20 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 22:41:20 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-18 22:47:09 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 22:47:09 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-18 22:47:21 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 22:47:21 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-18 22:49:36 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 22:49:36 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-18 23:07:34 INFO  Server:56 - Binding to port 5050
+@2016-Feb-18 23:07:34 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@
