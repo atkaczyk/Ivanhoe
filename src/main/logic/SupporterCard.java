@@ -13,4 +13,8 @@ public class SupporterCard extends Card {
 		return number;
 	}
 	
+	public String toString() {
+		return name + " " + number;
+	}
+	
 }

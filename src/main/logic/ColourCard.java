@@ -19,4 +19,8 @@ public class ColourCard extends Card {
 		return colour;
 	}
 	
+	public String toString() {
+		return name + " " + colour;
+	}
+	
 }
