@@ -49,7 +49,6 @@ public class Server implements Runnable {
 	public Server(int port) {
 		try {
 			/** Set up our message filter object */
-			// filter = new Filter();
 
 			System.out
 					.println("Binding to port " + port + ", please wait  ...");
@@ -131,6 +130,10 @@ public class Server implements Runnable {
 			Trace.getInstance().write(this,
 					"Client refused: maximum number of clients reached",
 					maxNumClients);
+		}
+		if(serverThreads.keySet().size() == game.getNumPlayers()){
+			System.out.println();
+			game.readyScreen();		
 		}
 	}
 
@@ -334,15 +337,16 @@ public class Server implements Runnable {
 //		}
 	}
 
-	public void displayGameStart(int numOfPlayers, int numOfSessions) {
+	public void displayGameStart(int numOfPlayers) {
+		System.out.println("in display game start server");
 		synchronized (serverThreadsLock) {
-//			String message = "STARTING THE GAME! " + game.getNumPlayers()
-//					+ " players, " + game.getNumRounds() + " sessions.\n";
-//			for (ServerThread to : serverThreads.values()) {
-//				to.send(message);
-//				System.out.println(message);
-//			}
-//			logOutput(message);
+			String message = "STARTING THE GAME! " + game.getNumPlayers()
+					+ " players \n";
+			for (ServerThread to : serverThreads.values()) {
+				to.send(message);
+				System.out.println(message);
+			}
+			logOutput(message);
 		}
 	}
 

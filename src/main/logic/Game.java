@@ -55,4 +55,9 @@ public class Game {
 	public Boolean isReadyToStart() {
 		return numOfPlayers == playersRegistered;
 	}
+
+	public void readyScreen() {
+		// TODO Auto-generated method stub
+		
+	}
 }

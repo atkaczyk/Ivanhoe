@@ -29,20 +29,11 @@ public class StartServer {
 		server = new Server(Config.DEFAULT_PORT);
 		started = Boolean.TRUE;
 
-		System.out
-				.println("Type \"startGame <number of players><number of rounds>\" to start the game.");
+		System.out.println("Type the number of players participating in the game.");
 
 		do {
 			String input = sc.nextLine();
-
-			if (input.contains("startGame")) {
-				int numOfPlayers = Integer.parseInt(input.split(" ")[1]);
-				int numOfSessions = Integer.parseInt(input.split(" ")[2]);
-				//server.getGame().start(numOfPlayers, numOfSessions);
-				
-				server.displayGameStart(numOfPlayers, numOfSessions);
-			}
-
+			
 			if (input.equalsIgnoreCase("SHUTDOWN") && started) {
 				System.out.println("Shutting server down ...");
 				Trace.getInstance().close();
@@ -50,8 +41,25 @@ public class StartServer {
 				started = Boolean.FALSE;
 				done = Boolean.TRUE;
 			}
+			
+			//while((Integer.parseInt(input)<2) || (Integer.parseInt(input)>5)){
+			//	System.out.println("Type the number of players participating in the game.");
+			//	input = sc.nextInt();
+			//}
+
+			if ((Integer.parseInt(input) >= 2) && (Integer.parseInt(input) <= 5)) {
+				int numOfPlayers = Integer.parseInt(input);
+				//server.getGame().start(numOfPlayers);
+				server.displayGameStart(numOfPlayers);
+				server.getGame().setNumPlayers(numOfPlayers);
+			} else {
+				System.out.println("invalid input");
+			}
+
+			
 		} while (!done);
 
 		System.exit(1);
 	}
 }
+
