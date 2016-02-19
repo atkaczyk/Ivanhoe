@@ -67,6 +67,7 @@ public class TestGame {
 		game.start();
 		
 		assertEquals(1, game.getTournamentNumber());
+		assertEquals(false, game.getPlayers()[0].isEmptyHanded());
 	}
 	
 	@After

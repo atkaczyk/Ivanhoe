@@ -67,8 +67,9 @@ public class Game {
 		tournamentNumber++;
 		
 		// Distribute 8 cards to each player
+		
 	}
-	
+
 	public void readyScreen() {
 		// TODO Auto-generated method stub
 		
