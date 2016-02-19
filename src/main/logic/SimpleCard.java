@@ -6,10 +6,11 @@ public class SimpleCard extends Card {
 	
 	public SimpleCard(String cardName, int cardNumber) {
 		name = cardName;
+		number = cardNumber;
 	}
 	
-	public Object getNumber() {
-		return null;
+	public int getNumber() {
+		return number;
 	}
 	
 }
