@@ -1,8 +1,12 @@
 package logic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import utils.Config;
+import utils.PrintHelper;
 
 public class DrawPile {
 
@@ -37,6 +41,9 @@ public class DrawPile {
 		cards.addFirst(new ActionCard("Disgrace"));
 		cards.addFirst(new ActionCard("Adapt"));
 		cards.addFirst(new ActionCard("Outwit"));
+		
+		shuffle();
+		PrintHelper.printCards(cards);
 	}
 
 	private void initColourCards() {
@@ -128,6 +135,23 @@ public class DrawPile {
 
 	public ArrayDeque<Card> getAllCards() {
 		return cards;
+	}
+	
+	// Shuffle all the cards currently in the discard pile
+	private void shuffle() {
+		List<Card> tempList = new ArrayList<Card>();
+		
+		while (!cards.isEmpty()) {
+			tempList.add(cards.pop());
+		}
+		
+		// Shuffle the list
+		Collections.shuffle(tempList);
+		
+		// Copy back into the deque
+		for (Card c: tempList) {
+			cards.push(c);
+		}
 	}
 
 }

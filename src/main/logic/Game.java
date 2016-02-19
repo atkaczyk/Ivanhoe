@@ -62,6 +62,11 @@ public class Game {
 	}
 
 	public void start() {
+		// Increase the tournament number
 		tournamentNumber++;
+		
+		// Shuffle the draw pile
+		
+		// Distribute 8 cards to each player
 	}
 }
