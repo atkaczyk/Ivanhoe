@@ -8,8 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import utils.Config;
-
 public class TestActionCard {
 	private static final String CARD_NAME = "Dodge";
 	
