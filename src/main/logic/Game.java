@@ -5,6 +5,7 @@ import utils.Config;
 public class Game {
 	private int numOfPlayers;
 	private Player[] players;
+	private int tournamentNumber = 0;
 	
 	// To keep track of whose turn it is
 	private Player currentPlayer;
@@ -56,8 +57,11 @@ public class Game {
 		return numOfPlayers == playersRegistered;
 	}
 
-	public Object getTournamentNumber() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getTournamentNumber() {
+		return tournamentNumber;
+	}
+
+	public void start() {
+		tournamentNumber++;
 	}
 }
