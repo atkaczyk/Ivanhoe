@@ -55,4 +55,9 @@ public class Game {
 	public Boolean isReadyToStart() {
 		return numOfPlayers == playersRegistered;
 	}
+
+	public Object getTournamentNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
