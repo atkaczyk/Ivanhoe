@@ -18,6 +18,8 @@ public class DrawPile {
 		initColourCards();
 
 		initActionCards();
+		
+		shuffle();
 	}
 
 	private void initActionCards() {
@@ -41,9 +43,6 @@ public class DrawPile {
 		cards.addFirst(new ActionCard("Disgrace"));
 		cards.addFirst(new ActionCard("Adapt"));
 		cards.addFirst(new ActionCard("Outwit"));
-		
-		shuffle();
-		PrintHelper.printCards(cards);
 	}
 
 	private void initColourCards() {

@@ -6,6 +6,7 @@ public class Game {
 	private int numOfPlayers;
 	private Player[] players;
 	private int tournamentNumber = 0;
+	private DrawPile drawPile = new DrawPile();
 	
 	// To keep track of whose turn it is
 	private Player currentPlayer;
@@ -64,8 +65,6 @@ public class Game {
 	public void start() {
 		// Increase the tournament number
 		tournamentNumber++;
-		
-		// Shuffle the draw pile
 		
 		// Distribute 8 cards to each player
 	}
