@@ -1,9 +1,15 @@
 package logic;
 
 public class SimpleCard extends Card {
-
-	public SimpleCard(String cardName) {
+	
+	private int number;
+	
+	public SimpleCard(String cardName, int cardNumber) {
 		name = cardName;
+	}
+	
+	public Object getNumber() {
+		return null;
 	}
 	
 }

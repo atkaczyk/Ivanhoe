@@ -16,8 +16,15 @@ public class TestSimpleCard {
 	
 	@Test
 	public void nameSet() {
-		Card card = new SimpleCard(CARD_NAME);
+		Card card = new SimpleCard(CARD_NAME, CARD_NUMBER);
 		
 		assertEquals(CARD_NAME, card.getName());
+	}
+	
+	@Test
+	public void numberSet() {
+		Card card = new SimpleCard(CARD_NAME, CARD_NUMBER);
+		
+		assertEquals(CARD_NUMBER, ((SimpleCard) card).getNumber());
 	}
 }
