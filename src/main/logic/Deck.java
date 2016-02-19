@@ -1,9 +1,17 @@
 package logic;
 
-public class Deck {
+import java.util.Stack;
 
-	public Object getCard() {
-		// TODO Auto-generated method stub
+public class Deck {
+	
+	Stack<Card> stack = new Stack<Card>();
+	
+	public Deck() {
+		
+	}
+	
+	// Return the card on the top of the deck
+	public Card getCard() {
 		return null;
 	}
 
