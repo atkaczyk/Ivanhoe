@@ -6,6 +6,7 @@ public class Config {
 	public static final int YELLOW = 2;
 	public static final int GREEN = 3;
 	public static final int BLUE = 4;
+	public static final int WHITE = 5;
 	
 	public static final int[] ALL_TOKEN_COLOURS = {PURPLE, RED, YELLOW, GREEN, BLUE};
 }

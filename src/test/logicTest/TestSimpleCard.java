@@ -13,18 +13,14 @@ import utils.Config;
 public class TestSimpleCard {
 	private static final String CARD_NAME = "Supporter";
 	private static final int CARD_NUMBER = 2;
+	private static final int CARD_COLOUR = Config.WHITE;
 	
 	@Test
-	public void nameSet() {
-		Card card = new SimpleCard(CARD_NAME, CARD_NUMBER);
+	public void initializeCard() {
+		Card card = new SimpleCard(CARD_NAME, CARD_NUMBER, CARD_COLOUR);
 		
 		assertEquals(CARD_NAME, card.getName());
-	}
-	
-	@Test
-	public void numberSet() {
-		Card card = new SimpleCard(CARD_NAME, CARD_NUMBER);
-		
 		assertEquals(CARD_NUMBER, ((SimpleCard) card).getNumber());
+		assertEquals(CARD_COLOUR, ((SimpleCard) card).getColour());
 	}
 }

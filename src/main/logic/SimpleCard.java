@@ -9,8 +9,17 @@ public class SimpleCard extends Card {
 		number = cardNumber;
 	}
 	
+	public SimpleCard(String cardName, int cardNumber, int cardColour) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getNumber() {
 		return number;
+	}
+
+	public Object getColour() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
