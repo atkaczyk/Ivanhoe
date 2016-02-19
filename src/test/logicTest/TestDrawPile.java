@@ -15,7 +15,6 @@ public class TestDrawPile {
 	public void initializeDeck() {
 		DrawPile cards = new DrawPile();
 		
-		assertNotEquals(null, cards.getCard());
 		assertNotEquals(0, cards.getNumCards());
 	}
 	

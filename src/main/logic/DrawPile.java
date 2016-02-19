@@ -149,9 +149,8 @@ public class DrawPile {
 		}
 	}
 
-	public Object getNumCards() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNumCards() {
+		return cards.size();
 	}
 
 }
