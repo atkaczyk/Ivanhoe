@@ -16,4 +16,6 @@
 @2016-Feb-18 22:49:36 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
 @2016-Feb-18 23:07:34 INFO  Server:56 - Binding to port 5050
 @2016-Feb-18 23:07:34 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-19 15:29:33 INFO  Server:56 - Binding to port 5050
+@2016-Feb-19 15:29:33 FATAL Server:73 - java.net.BindException: Address already in use: JVM_Bind
 @
