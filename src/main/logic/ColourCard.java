@@ -1,11 +1,11 @@
 package logic;
 
-public class SimpleCard extends Card {
+public class ColourCard extends Card {
 	
 	private int number;
 	private int colour;
 	
-	public SimpleCard(String cardName, int cardNumber, int cardColour) {
+	public ColourCard(String cardName, int cardNumber, int cardColour) {
 		name = cardName;
 		number = cardNumber;
 		colour = cardColour;
@@ -17,6 +17,10 @@ public class SimpleCard extends Card {
 
 	public int getColour() {
 		return colour;
+	}
+	
+	public String toString() {
+		return name + " " + number;
 	}
 	
 }

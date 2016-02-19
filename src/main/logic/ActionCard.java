@@ -6,4 +6,8 @@ public class ActionCard extends Card {
 		name = cardName;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 }
