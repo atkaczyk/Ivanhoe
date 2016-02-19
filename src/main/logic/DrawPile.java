@@ -129,7 +129,7 @@ public class DrawPile {
 
 	// Return the card on the top of the deck
 	public Card getCard() {
-		return cards.getFirst();
+		return cards.pop();
 	}
 
 	public ArrayDeque<Card> getAllCards() {

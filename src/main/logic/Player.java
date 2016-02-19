@@ -22,4 +22,8 @@ public class Player {
 		return hand.isEmpty();
 	}
 
+	public ArrayDeque<Card> getHand() {
+		return hand;
+	}
+
 }

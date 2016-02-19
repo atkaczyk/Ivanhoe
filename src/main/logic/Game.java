@@ -1,6 +1,7 @@
 package logic;
 
 import utils.Config;
+import utils.PrintHelper;
 
 public class Game {
 	private int numOfPlayers;
@@ -67,6 +68,14 @@ public class Game {
 		tournamentNumber++;
 		
 		// Distribute 8 cards to each player
+		for (int i = 0; i < numOfPlayers; i++) {
+			for (int j = 1; j <= 8; j++) {
+				players[i].addCard(drawPile.getCard());
+			}
+			System.out.println("\n\nPLAYER "+ i);
+			PrintHelper.printCards(players[i].getHand());
+		}
+		
 		
 	}
 
