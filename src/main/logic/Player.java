@@ -11,4 +11,14 @@ public class Player {
 		return name;
 	}
 
+	public void addCard(Card card) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object isEmptyHanded() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
