@@ -1,7 +1,10 @@
 package logic;
 
+import java.util.ArrayDeque;
+
 public class Player {
 	private String name = "";
+	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -12,13 +15,11 @@ public class Player {
 	}
 
 	public void addCard(Card card) {
-		// TODO Auto-generated method stub
-		
+		hand.addLast(card);
 	}
 
-	public Object isEmptyHanded() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean isEmptyHanded() {
+		return hand.isEmpty();
 	}
 
 }
