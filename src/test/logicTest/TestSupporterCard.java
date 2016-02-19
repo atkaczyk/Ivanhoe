@@ -20,6 +20,6 @@ public class TestSupporterCard {
 		Card card = new SupporterCard(CARD_NAME, CARD_NUMBER);
 		
 		assertEquals(CARD_NAME, card.getName());
-		assertEquals(CARD_NUMBER, ((ColourCard) card).getNumber());
+		assertEquals(CARD_NUMBER, ((SupporterCard) card).getNumber());
 	}
 }

@@ -5,6 +5,7 @@ import logicTest.TestDeck;
 import logicTest.TestGame;
 import logicTest.TestPlayer;
 import logicTest.TestColourCard;
+import logicTest.TestSupporterCard;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -15,7 +16,8 @@ import org.junit.runners.Suite;
 	TestPlayer.class,
 	TestColourCard.class,
 	TestActionCard.class,
-	TestDeck.class
+	TestDeck.class,
+	TestSupporterCard.class
 })
 
 public class TestSuite {
