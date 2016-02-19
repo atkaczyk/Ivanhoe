@@ -1,10 +1,9 @@
 package logic;
 
 public abstract class Card {
-	private String name;
+	protected String name;
 
-	public Object getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
 }
