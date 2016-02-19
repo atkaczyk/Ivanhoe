@@ -1,7 +1,7 @@
 package testSuite;
 
 import logicTest.TestActionCard;
-import logicTest.TestDeck;
+import logicTest.TestDrawPile;
 import logicTest.TestGame;
 import logicTest.TestPlayer;
 import logicTest.TestColourCard;
@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
 	TestPlayer.class,
 	TestColourCard.class,
 	TestActionCard.class,
-	TestDeck.class,
+	TestDrawPile.class,
 	TestSupporterCard.class
 })
 

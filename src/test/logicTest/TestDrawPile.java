@@ -1,7 +1,7 @@
 package logicTest;
 
 import static org.junit.Assert.*;
-import logic.Deck;
+import logic.DrawPile;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,15 +9,15 @@ import org.junit.Test;
 
 import utils.PrintHelper;
 
-public class TestDeck {
+public class TestDrawPile {
 	
 	@Test
 	public void initializeDeck() {
-		Deck deck = new Deck();
+		DrawPile cards = new DrawPile();
 		
-		PrintHelper.printCards(deck.getAllCards());
+		//PrintHelper.printCards(cards.getAllCards());
 		
-		assertNotEquals(null, deck.getCard());
+		assertNotEquals(null, cards.getCard());
 	}
 	
 }

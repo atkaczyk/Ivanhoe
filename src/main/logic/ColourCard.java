@@ -20,7 +20,7 @@ public class ColourCard extends Card {
 	}
 	
 	public String toString() {
-		return name + " " + colour;
+		return name + " " + number;
 	}
 	
 }
