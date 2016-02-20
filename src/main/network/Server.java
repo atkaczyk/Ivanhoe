@@ -165,6 +165,11 @@ public class Server implements Runnable {
 				if (input.contains("drawToken")){
 					game.getNextToken();
 				}
+				if (input.contains("joinGame")){
+					String[] a = input.split(" ");
+					game.addPlayer(a[1], Integer.parseInt(a[2]));
+					playerNumbers.put(ID, game.getPlayersRegistered()-1);
+				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
 //					game.addPlayer(separated[1], new Player(separated[1],
