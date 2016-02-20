@@ -94,16 +94,18 @@ public class Game {
 	// Change the current player to be the next player
 	private void goToNextPlayer() {
 		// If the current player is the last one in the deque set to first player
-		if (players[players.length-1].getName().equals(currentPlayer.getName())) {
+		if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
 			currentPlayer = players[0];
 			return;
 		}
 		
 		// Otherwise, get position of current player
 		int i;
-		for (i=0; i < players.length; i++) {
+		for (i=0; i < numOfPlayers; i++) {
 			if (players[i].getName().equals(currentPlayer.getName())) {
+				System.out.println("CURREN PLAYER WAS: "+currentPlayer.getName());
 				currentPlayer = players[i+1];
+				System.out.println("CURREN PLAYER IS: "+currentPlayer.getName());
 				break;
 			}
 		}

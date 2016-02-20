@@ -99,7 +99,7 @@ public class TestGame {
 		
 		game.startGame();
 		
-		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
+		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 	
 	@After
