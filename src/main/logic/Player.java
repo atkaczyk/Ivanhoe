@@ -36,9 +36,8 @@ public class Player {
 		return display;
 	}
 
-	public Object getActive() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean getActive() {
+		return active;
 	}
 
 }
