@@ -68,9 +68,6 @@ public class Game {
 	}
 
 	public void startGame() {
-		// Increase the tournament number
-		tournamentNumber++;
-
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -103,9 +100,7 @@ public class Game {
 		int i;
 		for (i=0; i < numOfPlayers; i++) {
 			if (players[i].getName().equals(currentPlayer.getName())) {
-				System.out.println("CURREN PLAYER WAS: "+currentPlayer.getName());
 				currentPlayer = players[i+1];
-				System.out.println("CURREN PLAYER IS: "+currentPlayer.getName());
 				break;
 			}
 		}
@@ -114,5 +109,15 @@ public class Game {
 
 	public List<Integer> getTokens() {
 		return tokens;
+	}
+
+	public Object getTournamentColour() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setTournamentColour(int red) {
+		// TODO Auto-generated method stub
+		
 	}
 }

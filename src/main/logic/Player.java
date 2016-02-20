@@ -40,4 +40,9 @@ public class Player {
 		return active;
 	}
 
+	public void clearHand() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
