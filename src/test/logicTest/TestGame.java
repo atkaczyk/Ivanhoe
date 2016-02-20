@@ -64,10 +64,11 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
-		game.start();
+		game.startGame();
 		
 		assertEquals(1, game.getTournamentNumber());
 		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
+		assertEquals(false, game.getTokens().isEmpty());
 	}
 	
 	@After

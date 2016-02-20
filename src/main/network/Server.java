@@ -133,7 +133,7 @@ public class Server implements Runnable {
 		}
 		if(serverThreads.keySet().size() == game.getNumPlayers()){
 			System.out.println();
-			game.readyScreen();		
+			//game.readyScreen();		
 		}
 	}
 

@@ -3,9 +3,14 @@ package logic;
 import java.util.ArrayDeque;
 
 public class Player {
+	private Boolean active = true;
 	private String name = "";
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
+	
+	public void setActive(Boolean status) {
+		active = status;
+	}
 	
 	public void setName(String name) {
 		this.name = name;

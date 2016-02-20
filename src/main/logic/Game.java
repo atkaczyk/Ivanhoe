@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.List;
+
 import utils.Config;
 import utils.PrintHelper;
 
@@ -63,7 +65,7 @@ public class Game {
 		return tournamentNumber;
 	}
 
-	public void start() {
+	public void startGame() {
 		// Increase the tournament number
 		tournamentNumber++;
 		
@@ -77,8 +79,8 @@ public class Game {
 		}
 	}
 
-	public void readyScreen() {
+	public List<Integer> getTokens() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }
