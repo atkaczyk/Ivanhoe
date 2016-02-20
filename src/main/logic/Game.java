@@ -12,6 +12,7 @@ public class Game {
 	private int tournamentNumber = 0;
 	private DrawPile drawPile = new DrawPile();
 	private List<Integer> tokens = new ArrayList<Integer>();
+	private int tournamentColour;
 
 	// To keep track of whose turn it is
 	private Player currentPlayer;
@@ -73,8 +74,8 @@ public class Game {
 			for (int j = 1; j <= 8; j++) {
 				players[i].addCardToHand(drawPile.getCard());
 			}
-			System.out.println("\n\nPLAYER " + i);
-			PrintHelper.printCards(players[i].getHandCards());
+			//System.out.println("\n\nPLAYER " + i);
+			//PrintHelper.printCards(players[i].getHandCards());
 		}
 
 		// Initialize the 25 tokens (5 of each colour)
@@ -83,41 +84,57 @@ public class Game {
 				tokens.add(colour);
 			}
 		}
-		
+
 		// Figure out which player is first
 		goToNextPlayer();
 	}
 
 	// Change the current player to be the next player
 	private void goToNextPlayer() {
-		// If the current player is the last one in the deque set to first player
+		// If the current player is the last one in the deque set to first
+		// player
 		if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
 			currentPlayer = players[0];
 			return;
 		}
-		
+
 		// Otherwise, get position of current player
 		int i;
-		for (i=0; i < numOfPlayers; i++) {
+		for (i = 0; i < numOfPlayers; i++) {
 			if (players[i].getName().equals(currentPlayer.getName())) {
-				currentPlayer = players[i+1];
+				currentPlayer = players[i + 1];
 				break;
 			}
 		}
-		
+
 	}
 
 	public List<Integer> getTokens() {
 		return tokens;
 	}
 
-	public Object getTournamentColour() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getTournamentColour() {
+		return tournamentColour;
 	}
 
-	public void setTournamentColour(int red) {
-		// TODO Auto-generated method stub
+	/** Set the colour of the current tournament **/
+	public Boolean setTournamentColour(int colour) {
+		Boolean playableCardFound = false;
+
+		// Make sure that the current player that is choosing the token
+		// has either that colour in their hand, or a supporter card
+		for (Card c: currentPlayer.getHandCards()) {
+			if (c instanceof ColourCard && ((ColourCard) c).getColour() == colour) {
+				playableCardFound = true;
+			}
+			else if (c instanceof SupporterCard) {
+				playableCardFound = true;
+			}
+		}
 		
+		if (playableCardFound) {
+			tournamentColour = colour;
+		}
+		return playableCardFound;
 	}
 }

@@ -41,8 +41,7 @@ public class Player {
 	}
 
 	public void clearHand() {
-		// TODO Auto-generated method stub
-		
+		hand.clear();
 	}
 
 }
