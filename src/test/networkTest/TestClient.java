@@ -54,6 +54,13 @@ public class TestClient {
 		assertEquals(1, server.getGame().getTokensPicked());
 		
 	}
+	
+	@Test
+	public void lauchGameReadyScreen(){
+		server.handle(clientOne.getID(), "");
+		
+		assertEquals(true, clientOne.getGameScreenLaunched());
+	}
 
 	//@Test
 	//public void oneClientSelectCommand() {

@@ -114,7 +114,8 @@ public class Server implements Runnable {
 				/** Open and start the thread */
 				serverThread.open();
 				serverThread.start();
-				serverThread.send("GAME READY\n");
+				serverThread.send("launch game ready screen\n");
+				
 				synchronized (serverThreadsLock) {
 					serverThreads.put(serverThread.getID(), serverThread);
 				}

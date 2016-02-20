@@ -75,10 +75,12 @@ public class Client implements Runnable {
    }
 
    public void handle (String msg) {
-   	if (msg.equalsIgnoreCase("quit!")) {  
+   		if (msg.equalsIgnoreCase("quit!")) {  
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");
 			stop();
-		} else {
+		} 
+
+   		else {
 			System.out.println(msg);
 		}
    }
@@ -104,6 +106,11 @@ public class Client implements Runnable {
 
 	public Boolean isConnected() {
 		return connected;
+	}
+
+	public Object getGameScreenLaunched() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
