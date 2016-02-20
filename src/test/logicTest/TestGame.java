@@ -71,6 +71,15 @@ public class TestGame {
 		assertEquals(false, game.getTokens().isEmpty());
 	}
 	
+	@Test
+	public void startTournamentFirstPlayerStarts() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		assertEquals(true, game.getPlayers()[0].getActive());
+		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer());
+	}
+	
 	@After
 	public void tearDown() {
 		game = null;
