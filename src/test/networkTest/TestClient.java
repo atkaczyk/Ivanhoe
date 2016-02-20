@@ -61,6 +61,14 @@ public class TestClient {
 		
 		assertEquals(true, clientOne.getGameScreenLaunched());
 	}
+	
+	@Test
+	public void personAddedAsPlayer(){
+	//sophia 1
+	server.handle(clientOne.getID(), "name 1");
+	
+	assertEquals(1, server.getGame().getPlayersRegistered());
+	}
 
 	//@Test
 	//public void oneClientSelectCommand() {

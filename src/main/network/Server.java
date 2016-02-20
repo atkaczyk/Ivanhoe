@@ -25,6 +25,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -45,6 +46,9 @@ public class Server implements Runnable {
 	private Logger logger = Trace.getInstance().getLogger(this);
 	private Game game = new Game();
 
+	//maps server thread id to its corresponding game player number
+	private Map<Integer, Integer> playerNumbers = new HashMap<Integer, Integer>();
+	
 	private List<String> rolls = new ArrayList<String>();
 
 	public Server(int port) {
