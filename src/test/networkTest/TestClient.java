@@ -40,11 +40,19 @@ public class TestClient {
 		assertEquals(clientThree.isConnected(), CONNECTED);
 	}
 
+//	@Test
+//	public void oneClientJoinGame() {
+//		server.handle(clientOne.getID(), JOIN_COMMAND_ONE);
+//
+//		assertEquals(server.getGame().getPlayers().length, ONE_PLAYER);
+//	}
+	
 	@Test
-	public void oneClientJoinGame() {
-		server.handle(clientOne.getID(), JOIN_COMMAND_ONE);
-
-		assertEquals(server.getGame().getPlayers().length, ONE_PLAYER);
+	public void drawTokenFromPool(){
+		server.handle(clientOne.getID(), "getToken");
+		
+		assertEquals(1, server.getGame().getTokensPicked());
+		
 	}
 
 	//@Test
