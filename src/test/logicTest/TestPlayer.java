@@ -32,7 +32,7 @@ public class TestPlayer {
 	public void addCardToHand() {
 		player.addCardToHand(CARD);
 		
-		assertEquals(false, player.isEmptyHanded());
+		assertEquals(true, player.getHandCards().contains(CARD));
 	}
 	
 	@Test

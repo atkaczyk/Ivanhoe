@@ -73,7 +73,7 @@ public class Game {
 				players[i].addCardToHand(drawPile.getCard());
 			}
 			System.out.println("\n\nPLAYER "+ i);
-			PrintHelper.printCards(players[i].getHand());
+			PrintHelper.printCards(players[i].getHandCards());
 		}
 	}
 
