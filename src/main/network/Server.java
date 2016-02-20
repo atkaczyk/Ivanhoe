@@ -133,6 +133,10 @@ public class Server implements Runnable {
 					"Client refused: maximum number of clients reached",
 					game.getNumPlayers());
 		}
+		if(serverThreads.keySet().size() == game.getNumPlayers()){
+			System.out.println();
+			//game.readyScreen();		
+		}
 		//if(serverThreads.keySet().size() == game.getNumPlayers()){
 		//	System.out.println("sending to showReadyScreen()");
 		//	game.showReadyScreen();		
