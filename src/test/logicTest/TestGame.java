@@ -162,7 +162,21 @@ public class TestGame {
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
 		
-		assertEquals(game.setTournamentColour(Config.BLUE), false);
+		assertEquals(false, game.setTournamentColour(Config.BLUE));
+	}
+	
+	@Test
+	public void invalidPurpleTokenPreviousPurpleTournament() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.getCurrentPlayer().clearHand();
+
+		game.getCurrentPlayer().addCardToHand(SUPPORTER_CARD);
+
+		game.setTournamentColour(Config.PURPLE);
+		assertEquals(false, game.setTournamentColour(Config.PURPLE));
 	}
 
 	@After
