@@ -29,10 +29,17 @@ public class TestPlayer {
 	}
 	
 	@Test
-	public void addCard() {
-		player.addCard(CARD);
+	public void addCardToHand() {
+		player.addCardToHand(CARD);
 		
 		assertEquals(false, player.isEmptyHanded());
+	}
+	
+	@Test
+	public void addCardToDisplay() {
+		player.addCardToDisplay(CARD);
+		
+		assertEquals(true, player.getDisplayCards().contains(CARD));
 	}
 	
 	@After

@@ -14,7 +14,7 @@ public class Player {
 		return name;
 	}
 
-	public void addCard(Card card) {
+	public void addCardToHand(Card card) {
 		hand.addLast(card);
 	}
 
@@ -24,6 +24,16 @@ public class Player {
 
 	public ArrayDeque<Card> getHand() {
 		return hand;
+	}
+
+	public void addCardToDisplay(Card card) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayDeque<Card> getDisplayCards() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
