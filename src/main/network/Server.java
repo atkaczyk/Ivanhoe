@@ -31,10 +31,11 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 
+import utils.Config;
 import utils.Trace;
 
 public class Server implements Runnable {
-	private int maxNumClients = 5;
+	//private int maxNumClients = 5;
 	int clientCount = 0;
 	private Thread thread = null;
 	private ServerSocket server = null;
@@ -106,13 +107,14 @@ public class Server implements Runnable {
 	private void addThread(Socket socket) {
 		Trace.getInstance().write(this, "Client accepted", socket);
 		logger.info(String.format("Client connected: %s", socket));
-		if (clientCount < maxNumClients) {
+		if (clientCount < game.getNumPlayers()) {
 			try {
 				/** Create a separate server thread for each client */
 				ServerThread serverThread = new ServerThread(this, socket);
 				/** Open and start the thread */
 				serverThread.open();
 				serverThread.start();
+				serverThread.send("GAME READY\n");
 				synchronized (serverThreadsLock) {
 					serverThreads.put(serverThread.getID(), serverThread);
 				}
@@ -124,17 +126,21 @@ public class Server implements Runnable {
 			logger.info(String.format("Client Tried to connect: %s", socket));
 			logger.info(String.format(
 					"Client refused: maximum number of clients reached: d",
-					maxNumClients));
+					game.getNumPlayers()));
 
 			Trace.getInstance().write(this, "Client Tried to connect", socket);
 			Trace.getInstance().write(this,
 					"Client refused: maximum number of clients reached",
-					maxNumClients);
+					game.getNumPlayers());
 		}
 		if(serverThreads.keySet().size() == game.getNumPlayers()){
 			System.out.println();
 			//game.readyScreen();		
 		}
+		//if(serverThreads.keySet().size() == game.getNumPlayers()){
+		//	System.out.println("sending to showReadyScreen()");
+		//	game.showReadyScreen();		
+		//}
 	}
 
 	public synchronized void handle(int ID, String input) {
