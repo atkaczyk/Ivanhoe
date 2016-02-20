@@ -157,6 +157,9 @@ public class Server implements Runnable {
 			} else if (input.equals("shutdown!")) {
 				shutdown();
 			} else {
+				if (input.contains("drawToken")){
+					game.getNextToken();
+				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
 //					game.addPlayer(separated[1], new Player(separated[1],

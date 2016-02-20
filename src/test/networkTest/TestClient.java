@@ -49,7 +49,7 @@ public class TestClient {
 	
 	@Test
 	public void drawTokenFromPool(){
-		server.handle(clientOne.getID(), "getToken");
+		server.handle(clientOne.getID(), "drawToken");
 		
 		assertEquals(1, server.getGame().getTokensPicked());
 		
