@@ -86,6 +86,28 @@ public class Game {
 				tokens.add(colour);
 			}
 		}
+		
+		// Figure out which player is first
+		goToNextPlayer();
+	}
+
+	// Change the current player to be the next player
+	private void goToNextPlayer() {
+		// If the current player is the last one in the deque set to first player
+		if (players[players.length-1].getName().equals(currentPlayer.getName())) {
+			currentPlayer = players[0];
+			return;
+		}
+		
+		// Otherwise, get position of current player
+		int i;
+		for (i=0; i < players.length; i++) {
+			if (players[i].getName().equals(currentPlayer.getName())) {
+				currentPlayer = players[i+1];
+				break;
+			}
+		}
+		
 	}
 
 	public List<Integer> getTokens() {

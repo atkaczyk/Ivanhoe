@@ -72,12 +72,13 @@ public class TestGame {
 	}
 	
 	@Test
-	public void startTournamentFirstPlayerStarts() {
+	public void startTournamentTwoPlayersFirstPlayerStarts() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
-		assertEquals(true, game.getPlayers()[0].getActive());
-		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer());
+		game.startGame();
+		
+		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
 	}
 	
 	@After
