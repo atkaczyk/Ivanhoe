@@ -137,4 +137,8 @@ public class Game {
 		}
 		return playableCardFound;
 	}
+	
+	public int getTokensPicked() {
+		return tokensPicked;
+	}
 }
