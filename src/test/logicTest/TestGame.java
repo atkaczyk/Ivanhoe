@@ -92,6 +92,16 @@ public class TestGame {
 		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
 	}
 	
+	@Test
+	public void startTournamentTwoPlayersSecondPlayerStarts() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.RED);
+		
+		game.startGame();
+		
+		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
+	}
+	
 	@After
 	public void tearDown() {
 		game = null;
