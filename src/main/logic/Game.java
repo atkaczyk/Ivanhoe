@@ -59,6 +59,10 @@ public class Game {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	
+	public int getPlayersRegistered() {
+		return playersRegistered;
+	}
 
 	public Boolean isReadyToStart() {
 		return numOfPlayers == playersRegistered;
