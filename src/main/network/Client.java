@@ -15,6 +15,7 @@ public class Client implements Runnable {
 	private BufferedWriter streamOut = null;
 	
 	private Boolean connected		 = false;
+	private Boolean gameScreenLaunched = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -79,7 +80,9 @@ public class Client implements Runnable {
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");
 			stop();
 		} 
-
+   		else if (msg.equalsIgnoreCase("launch game ready screen")){
+   			gameScreenLaunched = true;   			
+   		}
    		else {
 			System.out.println(msg);
 		}
@@ -109,8 +112,7 @@ public class Client implements Runnable {
 	}
 
 	public Object getGameScreenLaunched() {
-		// TODO Auto-generated method stub
-		return null;
+		return gameScreenLaunched;
 	}
 
 }

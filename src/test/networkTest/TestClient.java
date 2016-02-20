@@ -57,7 +57,7 @@ public class TestClient {
 	
 	@Test
 	public void lauchGameReadyScreen(){
-		server.handle(clientOne.getID(), "");
+		clientOne.handle("launch game ready screen");
 		
 		assertEquals(true, clientOne.getGameScreenLaunched());
 	}
