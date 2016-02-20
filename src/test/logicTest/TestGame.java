@@ -153,6 +153,17 @@ public class TestGame {
 		game.setTournamentColour(Config.BLUE);
 		assertEquals(Config.BLUE, game.getTournamentColour());
 	}
+	
+	@Test
+	public void pickTournColourInvalidHand() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.getCurrentPlayer().clearHand();
+		
+		assertEquals(game.setTournamentColour(Config.BLUE), false);
+	}
 
 	@After
 	public void tearDown() {
