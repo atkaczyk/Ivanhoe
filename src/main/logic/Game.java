@@ -123,6 +123,11 @@ public class Game {
 
 	/** Set the colour of the current tournament **/
 	public Boolean setTournamentColour(int colour) {
+		int previousColour = tournamentColour;
+		if (previousColour == Config.PURPLE && colour == Config.PURPLE) {
+			return false;
+		}
+		
 		Boolean playableCardFound = false;
 
 		// Make sure that the current player that is choosing the token
@@ -144,5 +149,15 @@ public class Game {
 	
 	public int getTokensPicked() {
 		return tokensPicked;
+	}
+
+	public int getCurrentPlayerNumber() {
+		int i;
+		for (i=0; i<numOfPlayers; i++) {
+			if (players[i].getName().equals(currentPlayer.getName())) {
+				break;
+			}
+		}
+		return i;
 	}
 }
