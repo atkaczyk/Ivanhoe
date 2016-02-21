@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import utils.Config;
+
 public class TestPlayer {
 	private static final String NAME = "Sam";
 	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
@@ -37,16 +39,16 @@ public class TestPlayer {
 	
 	@Test
 	public void addCardToDisplay() {
-		player.addCardToDisplay(SQUIRE_CARD);
+		player.addCardToDisplay(SQUIRE_CARD, Config.YELLOW);
 		
 		assertEquals(true, player.getDisplayCards().contains(SQUIRE_CARD));
 	}
 	
 	@Test
-	public void addSquireCardToDisplay() {
-		player.addCardToDisplay(SQUIRE_CARD);
+	public void addSquireCardToDisplayNormalTournamentColour() {
+		player.addCardToDisplay(SQUIRE_CARD, Config.YELLOW);
 		
-		assertEquals(3, player.getDisplayTotal());
+		assertEquals(((SupporterCard) SQUIRE_CARD).getNumber(), player.getDisplayTotal());
 	}
 	
 	@After
