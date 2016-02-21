@@ -81,12 +81,24 @@ public class Client implements Runnable {
 			stop();
 		} 
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
-   			gameScreenLaunched = true;   			
+   			gameScreenLaunched = true;
+   			//gui.launchGameReadyScreen();
+   			// wait for an action change
+   			// recieve getToken
+   			//if (gui.tokenRequest == true){
+   			//	client.send();
+   			//}
+   				
+   			
+   		}
+   		else if (msg.contains("drawToken")){
+   			System.out.println("containsIgnoreCase");
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
+   			//gui.launchGamePlayWindow();
    		}
-   		else if (msg.equalsIgnoreCase("launchMainGameScree currentPlayer")){
+   		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
    			System.out.println("launchMainGameScree currentPlayer");
    		}
    		else {

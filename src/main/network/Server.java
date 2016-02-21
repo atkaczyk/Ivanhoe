@@ -163,7 +163,9 @@ public class Server implements Runnable {
 				shutdown();
 			} else {
 				if (input.contains("drawToken")){
-					game.getNextToken();
+					int tokenColour = game.getNextToken();
+					String msg = "drawToken " + tokenColour;
+					broadcastMessageToPlayer(msg, ID, 0);
 				}
 				if (input.contains("joinGame")){
 					String[] a = input.split(" ");
@@ -178,23 +180,13 @@ public class Server implements Runnable {
 						int currentPlayerNum = game.getCurrentPlayerNumber();
 						// look in your map playerNumbers and see which server thread needs to get the special message
 						
-						int currentID;
+						int currentID = -1;
 						for (int id: playerNumbers.keySet()){
 							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
 							if(playerNumbers.get(id).equals(currentPlayerNum)){
 								currentID = id;
-								
-								//send message displayGame to client
-								serverThreads.get(ID).send("launchMainGameScreen currentPlayer" + "\n");
-								break;
 							}
-							// else send message to all clients that are not starting the tournament saying message: "launchMainGameScreen"
-							else {
-								broadcastToOtherPlayers("displayGameScreen", currentID);
-							}
-							
-							//or this instead??????????
-							broadcastMessageToClients("launchMainGameScreen", "launchMainGameScree currentPlayer", currentID);
+							broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
 							
 						}
 					}					
@@ -355,6 +347,33 @@ public class Server implements Runnable {
 			}
 		}
 	}
+	
+	
+	//if direction is 0 then the server received that message from the given client
+	//if direction is 1 then the server is sending that message to the given client
+	public synchronized void broadcastMessageToPlayer(String message, int senderID, int direction) {
+		synchronized (serverThreadsLock) {
+			if (serverThreads.containsKey(senderID)) {
+				ServerThread current = serverThreads.get(senderID);
+				if (direction == 0){
+					logger.info(String
+							.format("SERVER RECIEVED MESSAGE FROM %s %d: %s",
+									current.getSocketAddress(), current.getID(),
+									message));
+				}
+				if (direction == 1){
+					logger.info(String
+							.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
+									current.getSocketAddress(), current.getID(),
+									message));
+				}
+				
+				Trace.getInstance().logchat(this, serverThreads.get(senderID), current, message);
+			}
+		}
+	}
+	
+	
 	
 	public synchronized void broadcastToOtherPlayers(String message, int senderID) {
 		synchronized (serverThreadsLock) {
