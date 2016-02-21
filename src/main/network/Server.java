@@ -25,6 +25,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -45,6 +46,9 @@ public class Server implements Runnable {
 	private Logger logger = Trace.getInstance().getLogger(this);
 	private Game game = new Game();
 
+	//maps server thread id to its corresponding game player number
+	private Map<Integer, Integer> playerNumbers = new HashMap<Integer, Integer>();
+	
 	private List<String> rolls = new ArrayList<String>();
 
 	public Server(int port) {
@@ -114,7 +118,8 @@ public class Server implements Runnable {
 				/** Open and start the thread */
 				serverThread.open();
 				serverThread.start();
-				serverThread.send("GAME READY\n");
+				serverThread.send("launch game ready screen\n");
+				
 				synchronized (serverThreadsLock) {
 					serverThreads.put(serverThread.getID(), serverThread);
 				}
@@ -157,6 +162,35 @@ public class Server implements Runnable {
 			} else if (input.equals("shutdown!")) {
 				shutdown();
 			} else {
+				if (input.contains("drawToken")){
+					int tokenColour = game.getNextToken();
+					String msg = "drawToken " + tokenColour;
+					broadcastMessageToPlayer(msg, ID, 0);
+				}
+				if (input.contains("joinGame")){
+					String[] a = input.split(" ");
+					game.addPlayer(a[1], Integer.parseInt(a[2]));
+					playerNumbers.put(ID, game.getPlayersRegistered()-1);
+					
+					// after adding a player, then game.isReadyToStart() then when all players have been added to the game
+					if (game.isReadyToStart()){
+						// call game.start() to initialize the deck and everything 
+						game.startGame();
+						// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
+						int currentPlayerNum = game.getCurrentPlayerNumber();
+						// look in your map playerNumbers and see which server thread needs to get the special message
+						
+						int currentID = -1;
+						for (int id: playerNumbers.keySet()){
+							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
+							if(playerNumbers.get(id).equals(currentPlayerNum)){
+								currentID = id;
+							}
+							broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
+							
+						}
+					}					
+				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
 //					game.addPlayer(separated[1], new Player(separated[1],
@@ -285,8 +319,63 @@ public class Server implements Runnable {
 		}
 	}
 
-	public synchronized void broadcastToOtherPlayers(String message,
-			int senderID) {
+	public synchronized void broadcastMessageToClients(String messageToOthers, String messageToSpecified, int senderID){
+		synchronized (serverThreadsLock) {
+			if (serverThreads.containsKey(senderID)) {
+				ServerThread from = serverThreads.get(senderID);
+
+				for (ServerThread to : serverThreads.values()) {
+					if (to.getID() != senderID) {
+						to.send(String.format("%5d: %s\n", senderID, messageToOthers));
+						logger.info(String.format(
+								"SENT Sending Message from %s:%d to %s:%d: %s",
+								from.getSocketAddress(), from.getID(),
+								to.getSocketAddress(), to.getID(), messageToOthers));
+						Trace.getInstance().logchat(this,
+								serverThreads.get(senderID), to, messageToOthers);
+					} else {
+						to.send(String.format("%5d: %s\n", senderID, messageToSpecified));
+						logger.info(String
+								.format("RECEIVED Received Message from %s:%d to %s:%d: %s",
+										to.getSocketAddress(), to.getID(),
+										from.getSocketAddress(), from.getID(),
+										messageToSpecified));
+						Trace.getInstance().logchat(this,
+								serverThreads.get(senderID), from, messageToSpecified);
+					}
+				}
+			}
+		}
+	}
+	
+	
+	//if direction is 0 then the server received that message from the given client
+	//if direction is 1 then the server is sending that message to the given client
+	public synchronized void broadcastMessageToPlayer(String message, int senderID, int direction) {
+		synchronized (serverThreadsLock) {
+			if (serverThreads.containsKey(senderID)) {
+				ServerThread current = serverThreads.get(senderID);
+				if (direction == 0){
+					logger.info(String
+							.format("SERVER RECIEVED MESSAGE FROM %s %d: %s",
+									current.getSocketAddress(), current.getID(),
+									message));
+				}
+				if (direction == 1){
+					logger.info(String
+							.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
+									current.getSocketAddress(), current.getID(),
+									message));
+				}
+				
+				Trace.getInstance().logchat(this, serverThreads.get(senderID), current, message);
+			}
+		}
+	}
+	
+	
+	
+	public synchronized void broadcastToOtherPlayers(String message, int senderID) {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
 				ServerThread from = serverThreads.get(senderID);
@@ -354,6 +443,13 @@ public class Server implements Runnable {
 			}
 			logOutput(message);
 		}
+	}
+	
+	
+	public void update(){
+		//String gameInfo = game.getAllPlayersInfo();
+		
+		
 	}
 
 }

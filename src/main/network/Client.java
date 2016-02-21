@@ -15,6 +15,7 @@ public class Client implements Runnable {
 	private BufferedWriter streamOut = null;
 	
 	private Boolean connected		 = false;
+	private Boolean gameScreenLaunched = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -75,10 +76,32 @@ public class Client implements Runnable {
    }
 
    public void handle (String msg) {
-   	if (msg.equalsIgnoreCase("quit!")) {  
+   		if (msg.equalsIgnoreCase("quit!")) {  
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");
 			stop();
-		} else {
+		} 
+   		else if (msg.equalsIgnoreCase("launch game ready screen")){
+   			gameScreenLaunched = true;
+   			//gui.launchGameReadyScreen();
+   			// wait for an action change
+   			// recieve getToken
+   			//if (gui.tokenRequest == true){
+   			//	client.send();
+   			//}
+   				
+   			
+   		}
+   		else if (msg.contains("drawToken")){
+   			System.out.println("containsIgnoreCase");
+   		}
+   		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
+   			System.out.println("launchMainGameScreen");
+   			//gui.launchGamePlayWindow();
+   		}
+   		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
+   			System.out.println("launchMainGameScree currentPlayer");
+   		}
+   		else {
 			System.out.println(msg);
 		}
    }
@@ -104,6 +127,10 @@ public class Client implements Runnable {
 
 	public Boolean isConnected() {
 		return connected;
+	}
+
+	public Object getGameScreenLaunched() {
+		return gameScreenLaunched;
 	}
 
 }

@@ -49,12 +49,48 @@ public class TestClient {
 	
 	@Test
 	public void drawTokenFromPool(){
-		server.handle(clientOne.getID(), "getToken");
+		server.handle(clientOne.getID(), "drawToken");
 		
 		assertEquals(1, server.getGame().getTokensPicked());
 		
 	}
+	
+	@Test
+	public void lauchGameReadyScreen(){
+		clientOne.handle("launch game ready screen");
+		
+		assertEquals(true, clientOne.getGameScreenLaunched());
+	}
+	
+	@Test
+	public void personAddedAsPlayer(){
+		server.handle(clientOne.getID(), "joinGame name 1");
+		
+		assertEquals(1, server.getGame().getPlayersRegistered());
+	}
+	
+	@Test
+	public void manyPeopleAddedAsPlayer(){
+		server.handle(clientOne.getID(), "joinGame vici 1");
+		server.handle(clientTwo.getID(), "joinGame sophia 2");
+		server.handle(clientThree.getID(), "joinGame alisa 2");
+		assertEquals(3, server.getGame().getPlayersRegistered());
+	}
 
+	@Test
+	public void firstPlayer(){
+		clientOne.handle("launch game ready screen");
+	}
+	
+	// THE CODE
+	// after adding a player, then game.isReadyToStart() then when all players have been added to the game
+	// call game.start() to initialize the deck and everything 
+	// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
+	// look in your map playerNumbers and see which server thread needs to get the special message
+	// send message to all clients that are not starting the tournament saying message: "launchMainGameScreen"
+	// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
+	
+	
 	//@Test
 	//public void oneClientSelectCommand() {
 		//server.handle(clientTwo.getID(), JOIN_COMMAND_ONE);

@@ -47,7 +47,6 @@ public class ClientThread extends Thread {
 		while (!done) { 
 			try {  
 				client.handle(streamIn.readLine());
-				System.out.println("\n\n\nI FOUND SCHTUFF");
 			} catch(IOException ioe) {  
 				Trace.getInstance().exception(this,ioe);
 	    }}
