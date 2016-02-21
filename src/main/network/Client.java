@@ -83,6 +83,12 @@ public class Client implements Runnable {
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
    			gameScreenLaunched = true;   			
    		}
+   		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
+   			System.out.println("launchMainGameScreen");
+   		}
+   		else if (msg.equalsIgnoreCase("launchMainGameScree currentPlayer")){
+   			System.out.println("launchMainGameScree currentPlayer");
+   		}
    		else {
 			System.out.println(msg);
 		}

@@ -169,6 +169,35 @@ public class Server implements Runnable {
 					String[] a = input.split(" ");
 					game.addPlayer(a[1], Integer.parseInt(a[2]));
 					playerNumbers.put(ID, game.getPlayersRegistered()-1);
+					
+					// after adding a player, then game.isReadyToStart() then when all players have been added to the game
+					if (game.isReadyToStart()){
+						// call game.start() to initialize the deck and everything 
+						game.startGame();
+						// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
+						int currentPlayerNum = game.getCurrentPlayerNumber();
+						// look in your map playerNumbers and see which server thread needs to get the special message
+						
+						int currentID;
+						for (int id: playerNumbers.keySet()){
+							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
+							if(playerNumbers.get(id).equals(currentPlayerNum)){
+								currentID = id;
+								
+								//send message displayGame to client
+								serverThreads.get(ID).send("launchMainGameScreen currentPlayer" + "\n");
+								break;
+							}
+							// else send message to all clients that are not starting the tournament saying message: "launchMainGameScreen"
+							else {
+								broadcastToOtherPlayers("displayGameScreen", currentID);
+							}
+							
+							//or this instead??????????
+							broadcastMessageToClients("launchMainGameScreen", "launchMainGameScree currentPlayer", currentID);
+							
+						}
+					}					
 				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
@@ -298,8 +327,36 @@ public class Server implements Runnable {
 		}
 	}
 
-	public synchronized void broadcastToOtherPlayers(String message,
-			int senderID) {
+	public synchronized void broadcastMessageToClients(String messageToOthers, String messageToSpecified, int senderID){
+		synchronized (serverThreadsLock) {
+			if (serverThreads.containsKey(senderID)) {
+				ServerThread from = serverThreads.get(senderID);
+
+				for (ServerThread to : serverThreads.values()) {
+					if (to.getID() != senderID) {
+						to.send(String.format("%5d: %s\n", senderID, messageToOthers));
+						logger.info(String.format(
+								"SENT Sending Message from %s:%d to %s:%d: %s",
+								from.getSocketAddress(), from.getID(),
+								to.getSocketAddress(), to.getID(), messageToOthers));
+						Trace.getInstance().logchat(this,
+								serverThreads.get(senderID), to, messageToOthers);
+					} else {
+						to.send(String.format("%5d: %s\n", senderID, messageToSpecified));
+						logger.info(String
+								.format("RECEIVED Received Message from %s:%d to %s:%d: %s",
+										to.getSocketAddress(), to.getID(),
+										from.getSocketAddress(), from.getID(),
+										messageToSpecified));
+						Trace.getInstance().logchat(this,
+								serverThreads.get(senderID), from, messageToSpecified);
+					}
+				}
+			}
+		}
+	}
+	
+	public synchronized void broadcastToOtherPlayers(String message, int senderID) {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
 				ServerThread from = serverThreads.get(senderID);
