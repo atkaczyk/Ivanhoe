@@ -105,6 +105,16 @@ public class TestGame {
 
 		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
 	}
+	
+	@Test
+	public void getCurrentPlayerNumber() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+
+		assertEquals(0, game.getCurrentPlayerNumber());
+	}
 
 	@Test
 	public void startGameTwoPlayersSecondPlayerStarts() {

@@ -150,4 +150,14 @@ public class Game {
 	public int getTokensPicked() {
 		return tokensPicked;
 	}
+
+	public int getCurrentPlayerNumber() {
+		int i;
+		for (i=0; i<numOfPlayers; i++) {
+			if (players[i].getName().equals(currentPlayer.getName())) {
+				break;
+			}
+		}
+		return i;
+	}
 }
