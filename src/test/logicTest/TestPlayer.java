@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class TestPlayer {
 	private static final String NAME = "Sam";
-	private static final Card CARD = new SupporterCard("Squire", 3);
+	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
 	
 	Player player;
 	
@@ -30,16 +30,23 @@ public class TestPlayer {
 	
 	@Test
 	public void addCardToHand() {
-		player.addCardToHand(CARD);
+		player.addCardToHand(SQUIRE_CARD);
 		
-		assertEquals(true, player.getHandCards().contains(CARD));
+		assertEquals(true, player.getHandCards().contains(SQUIRE_CARD));
 	}
 	
 	@Test
 	public void addCardToDisplay() {
-		player.addCardToDisplay(CARD);
+		player.addCardToDisplay(SQUIRE_CARD);
 		
-		assertEquals(true, player.getDisplayCards().contains(CARD));
+		assertEquals(true, player.getDisplayCards().contains(SQUIRE_CARD));
+	}
+	
+	@Test
+	public void addSquireCardToDisplay() {
+		player.addCardToDisplay(SQUIRE_CARD);
+		
+		assertEquals(3, player.getDisplayTotal());
 	}
 	
 	@After
