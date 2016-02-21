@@ -2,11 +2,14 @@ package logic;
 
 import java.util.ArrayDeque;
 
+import utils.Config;
+
 public class Player {
 	private Boolean active = true;
 	private String name = "";
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
+	private int displayTotal = 0;
 	
 	public void setActive(Boolean status) {
 		active = status;
@@ -28,7 +31,17 @@ public class Player {
 		return hand;
 	}
 
-	public void addCardToDisplay(Card card) {
+	public void addCardToDisplay(Card card, int tournamentColour) {
+		// If card is a supporter card, increase by number
+		if (card instanceof SupporterCard) {
+			if (tournamentColour != Config.GREEN) {
+				displayTotal += ((SupporterCard) card).getNumber();
+			}
+			else {
+				displayTotal += 1;
+			}
+		}
+		
 		display.addLast(card);
 	}
 
@@ -44,9 +57,8 @@ public class Player {
 		hand.clear();
 	}
 
-	public Object getDisplayTotal() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getDisplayTotal() {
+		return displayTotal;
 	}
 
 }
