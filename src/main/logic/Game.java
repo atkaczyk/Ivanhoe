@@ -150,4 +150,9 @@ public class Game {
 	public int getTokensPicked() {
 		return tokensPicked;
 	}
+
+	public Object getCurrentPlayerNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
