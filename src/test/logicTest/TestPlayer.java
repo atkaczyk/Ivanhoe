@@ -51,6 +51,13 @@ public class TestPlayer {
 		assertEquals(((SupporterCard) SQUIRE_CARD).getNumber(), player.getDisplayTotal());
 	}
 	
+	@Test
+	public void addSquireCardToDisplayGreenTournamentColour() {
+		player.addCardToDisplay(SQUIRE_CARD, Config.GREEN);
+		
+		assertEquals(1, player.getDisplayTotal());
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
