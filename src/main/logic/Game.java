@@ -123,6 +123,11 @@ public class Game {
 
 	/** Set the colour of the current tournament **/
 	public Boolean setTournamentColour(int colour) {
+		int previousColour = tournamentColour;
+		if (previousColour == Config.PURPLE && colour == Config.PURPLE) {
+			return false;
+		}
+		
 		Boolean playableCardFound = false;
 
 		// Make sure that the current player that is choosing the token

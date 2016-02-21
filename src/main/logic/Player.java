@@ -44,4 +44,9 @@ public class Player {
 		hand.clear();
 	}
 
+	public Object getDisplayTotal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
