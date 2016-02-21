@@ -444,5 +444,12 @@ public class Server implements Runnable {
 			logOutput(message);
 		}
 	}
+	
+	
+	public void update(){
+		//String gameInfo = game.getAllPlayersInfo();
+		
+		
+	}
 
 }
