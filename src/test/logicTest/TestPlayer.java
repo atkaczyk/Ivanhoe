@@ -66,6 +66,14 @@ public class TestPlayer {
 		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal());
 	}
 	
+	@Test
+	public void addSecondMaidenCardToDisplay() {
+		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		
+		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal());
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
