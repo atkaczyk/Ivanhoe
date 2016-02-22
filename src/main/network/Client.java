@@ -88,6 +88,28 @@ public class Client implements Runnable {
          }}
 		System.out.println(ID + ": Client Stopped...");
    }
+	
+
+	public void sendMessageToServer(String msg) { 
+		
+		//running all the time
+		//was looking at the console
+		//take a msg
+
+		try {  
+			if (streamOut != null) {
+				streamOut.flush();
+				streamOut.write(msg + "\n");
+			} else {
+				System.out.println(ID + ": Stream Closed");
+			}
+         }
+         catch(IOException e) {  
+         	Trace.getInstance().exception(this,e);
+         	stop();
+         }
+   }
+	
 
    public void handle (String msg) {
    		if (msg.equalsIgnoreCase("quit!")) {  
