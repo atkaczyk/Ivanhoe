@@ -104,6 +104,7 @@ public class Client implements Runnable {
    		}
    		else if (msg.contains("GAMEINFORMATION~")){
    			System.out.println("message to client containing GAMEINFORMATION~");
+   			updateAllPlayersInfo = true;
    			//gui.setAllPlayersInfo(msg);
    		}
    		else {
