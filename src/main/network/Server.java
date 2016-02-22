@@ -191,6 +191,19 @@ public class Server implements Runnable {
 						}
 					}					
 				}
+				if (input.contains("gameReady")){
+					//String[] playerInfo = message.split(" ");
+	   				//String name = playerInfo[1];
+	   				//String tokenNumber = playerInfo[2];
+	   				//game.addPlayer(name, tokenNumber);
+	   				//check to see if game is ready using game.isReadyToStart()
+				}
+				if (input.contains("cardPlayed")){
+					//String[] cardInfo = message.split(" ");
+					//gather card info to pass to:
+					//game.cardPlayed();
+					
+				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
 //					game.addPlayer(separated[1], new Player(separated[1],

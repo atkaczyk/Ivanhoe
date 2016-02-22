@@ -66,6 +66,12 @@ public class Client implements Runnable {
    }
 
 	public void run() { 
+		
+		//running all the time
+		//was looking at the console
+		//take a msg
+		
+		
 		System.out.println(ID + ": Client Started...");
 		while (thread != null) {  
 			try {  
@@ -106,14 +112,7 @@ public class Client implements Runnable {
    			
    			//when UI status is Config.PLAYER_READY == true){
    				//String message = gui.getPlayerInformation();
-   				//String[] playerInfo = message.split(" ");
-   				//String name = playerInfo[1];
-   				//String tokenNumber = playerInfo[2];
-   				//game.addPlayer(name, tokenNumber);
-   				//check to see if game is ready using game.isReadyToStart()
-   			
-   			
-   			
+   				//send the message to the server handle???? using message "gameReady"  			
    			
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){

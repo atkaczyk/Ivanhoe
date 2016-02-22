@@ -94,6 +94,11 @@ public class TestClient {
 		assertEquals(true, clientOne.getUpdateShowPlayerHand());
 	}
 	
+	@Test
+	public void playerPlaysCard(){
+		clientOne.handle("");
+	}
+	
 	// THE CODE
 	// after adding a player, then game.isReadyToStart() then when all players have been added to the game
 	// call game.start() to initialize the deck and everything 
