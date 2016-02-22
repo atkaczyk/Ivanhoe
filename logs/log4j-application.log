@@ -1,0 +1,7 @@
+2016-Feb-21 14:15:51 INFO  Server:61 - Binding to port 5050
+@2016-Feb-21 14:15:51 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-21 14:15:51 INFO  Server:99 - Waiting for a client ...
+@2016-Feb-21 14:16:14 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=52688,localport=5050]
+@2016-Feb-21 14:16:14 INFO  Server:99 - Waiting for a client ...
+@2016-Feb-21 14:17:08 INFO  Server:394 - RECEIVED Received Message from 127.0.0.1:52688 to 127.0.0.1:52688: 
+@
