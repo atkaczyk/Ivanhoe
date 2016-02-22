@@ -378,6 +378,7 @@ public class Server implements Runnable {
 	public synchronized void broadcastToAllPlayers(String message){
 		synchronized (serverThreadsLock) {
 			for (ServerThread to : serverThreads.values()) {
+				to.send(String.format("%s\n", message));
 				logger.info(String.format("SERVER BROADCASTING MESSAGE TO ALL PLAYERS: %s", message));
 				Trace.getInstance().logchatToAll(this, message);
 			}		
@@ -457,8 +458,14 @@ public class Server implements Runnable {
 	
 	
 	public void update(){
+		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
-		//broadcastMessageToClients(gameInfo);
+		//String msg = "GAMEINFORMATION~" + gameInfo;
+		//broadcastMessageToAllPlayers(msg);
+		
+		//update the card hand for the specific client
+		//loop through all server threads, pass only to the one current client:
+		//do player.getHandAsString()
 		
 	}
 

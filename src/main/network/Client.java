@@ -16,6 +16,7 @@ public class Client implements Runnable {
 	
 	private Boolean connected		 = false;
 	private Boolean gameScreenLaunched = false;
+	private Boolean updateAllPlayersInfo = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -92,14 +93,18 @@ public class Client implements Runnable {
    			
    		}
    		else if (msg.contains("drawToken")){
-   			System.out.println("containsIgnoreCase");
+   			System.out.println("drawToken");
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
    			//gui.launchGamePlayWindow();
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
-   			System.out.println("launchMainGameScree currentPlayer");
+   			System.out.println("launchMainGameScreen currentPlayer");
+   		}
+   		else if (msg.contains("GAMEINFORMATION~")){
+   			System.out.println("message to client containing GAMEINFORMATION~");
+   			//gui.setAllPlayersInfo(msg);
    		}
    		else {
 			System.out.println(msg);
@@ -133,4 +138,7 @@ public class Client implements Runnable {
 		return gameScreenLaunched;
 	}
 
+	public Object getUpdateAllPlayersInfo() {
+		return updateAllPlayersInfo;
+	}
 }
