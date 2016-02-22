@@ -160,4 +160,9 @@ public class Game {
 		}
 		return i;
 	}
+
+	public Card getPlayer(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
