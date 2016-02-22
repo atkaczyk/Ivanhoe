@@ -31,18 +31,34 @@ public class Player {
 		return hand;
 	}
 
-	public void addCardToDisplay(Card card, int tournamentColour) {
+	public Boolean addCardToDisplay(Card card, int tournamentColour) {
 		// If card is a supporter card, increase by number
 		if (card instanceof SupporterCard) {
-			if (tournamentColour != Config.GREEN) {
-				displayTotal += ((SupporterCard) card).getNumber();
+			// If the card is a maiden, we must check that there isn't already a maiden
+			if (card.getName().equals("Maiden") && maidenInDisplay()) {
+				return false;
 			}
 			else {
-				displayTotal += 1;
+				if (tournamentColour != Config.GREEN) {
+					displayTotal += ((SupporterCard) card).getNumber();
+				}
+				else {
+					displayTotal += 1;
+				}
 			}
 		}
 		
 		display.addLast(card);
+		return true;
+	}
+
+	private boolean maidenInDisplay() {
+		for (Card c: display) {
+			if (c.getName().equals("Maiden")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public ArrayDeque<Card> getDisplayCards() {
