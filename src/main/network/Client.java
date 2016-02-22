@@ -108,6 +108,11 @@ public class Client implements Runnable {
    			updateAllPlayersInfo = true;
    			//gui.setAllPlayersInfo(msg);
    		}
+   		else if (msg.contains("PLAYERHAND~")){
+   			System.out.println("message to specific player containing PLAYERHAND~");
+   			updateShowPlayerHand = true;
+   			//gui.showPlayerHand(msg);
+   		}
    		else {
 			System.out.println(msg);
 		}

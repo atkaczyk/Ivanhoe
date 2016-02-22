@@ -457,7 +457,7 @@ public class Server implements Runnable {
 	}
 	
 	
-	public void update(){
+	public void update(int ID){
 		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
 		//String msg = "GAMEINFORMATION~" + gameInfo;
@@ -465,8 +465,36 @@ public class Server implements Runnable {
 		
 		//update the card hand for the specific client
 		//loop through all server threads, pass only to the one current client:
-		//do player.getHandAsString()
 		
+		int currentPlayerNum = game.getCurrentPlayerNumber();
+		// look in your map playerNumbers and see which server thread matches the player
+		
+		int currentID = -1;
+		String message = "PLAYERHAND~";
+				
+		for (int id: playerNumbers.keySet()){
+			// if they are the current player then they get a message like "launchMainGameScreen currentPlayer"
+			if(playerNumbers.get(id).equals(currentPlayerNum)){
+				currentID = id;
+			}
+			//send the message to the one player
+			synchronized (serverThreadsLock) {
+				if (serverThreads.containsKey(currentID)) {
+					ServerThread current = serverThreads.get(currentID);
+					
+					//UNCOMMENT*************
+					//String handAsString = current.getHandAsString();
+					//message = "PLAYERHAND~" + handAsString;
+					
+					logger.info(String.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
+									current.getSocketAddress(), current.getID(), message));
+				
+					
+					Trace.getInstance().logchat(this, serverThreads.get(currentID), current, message);
+				}
+			}
+			
+		}
 	}
 
 }
