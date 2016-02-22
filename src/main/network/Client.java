@@ -3,9 +3,14 @@ package network;
 import java.net.*;
 import java.io.*;
 
+import logic.Game;
+import userinterface.GUIController;
 import utils.Trace;
 
 public class Client implements Runnable {
+	
+	private GUIController gui = new GUIController();
+	
 	private int ID = 0;
 	private Socket socket            = null;
 	private Thread thread            = null;
@@ -97,6 +102,15 @@ public class Client implements Runnable {
    			System.out.println("drawToken");
    			String[] tokenNumber = msg.split(" ");
    			//gui.displayTokenColour(tokenNumber[1]);
+   			
+   			//when UI status is Config.PLAYER_READY == true){
+   				//String message = gui.getPlayerInformation();
+   				//String[] playerInfo = message.split(" ");
+   				//String name = playerInfo[1];
+   				//String tokenNumber = playerInfo[2];
+   				//game.addPlayer(name, tokenNumber);
+   				//check to see if game is ready using game.isReadyToStart()
+   			
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
