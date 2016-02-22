@@ -90,7 +90,8 @@ public class TestClient {
 	
 	@Test
 	public void updateShowPlayerHand(){
-		
+		clientOne.handle("PLAYERHAND~");
+		assertEquals(true, clientOne.getUpdateShowPlayerHand());
 	}
 	
 	// THE CODE

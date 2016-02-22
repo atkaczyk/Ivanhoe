@@ -17,6 +17,7 @@ public class Client implements Runnable {
 	private Boolean connected		 = false;
 	private Boolean gameScreenLaunched = false;
 	private Boolean updateAllPlayersInfo = false;
+	private Boolean updateShowPlayerHand = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -141,5 +142,9 @@ public class Client implements Runnable {
 
 	public Object getUpdateAllPlayersInfo() {
 		return updateAllPlayersInfo;
+	}
+	
+	public Object getUpdateShowPlayerHand() {
+		return updateShowPlayerHand;
 	}
 }

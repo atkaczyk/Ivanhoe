@@ -11,4 +11,6 @@
 @2016-Feb-21 21:33:51 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=55612,localport=5050]
 @2016-Feb-21 21:38:00 INFO  Server:61 - Binding to port 5050
 @2016-Feb-21 21:38:00 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-21 21:42:44 INFO  Server:61 - Binding to port 5050
+@2016-Feb-21 21:42:44 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
 @
