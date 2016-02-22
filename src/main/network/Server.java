@@ -458,6 +458,7 @@ public class Server implements Runnable {
 	
 	
 	public void update(int ID){
+		
 		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
 		//String msg = "GAMEINFORMATION~" + gameInfo;

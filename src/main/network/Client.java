@@ -46,6 +46,7 @@ public class Client implements Runnable {
 		return this.ID;
 	}
 	
+	
    public void start() throws IOException {  
 	   try {
 	   	console	= new BufferedReader(new InputStreamReader(System.in));
@@ -110,6 +111,9 @@ public class Client implements Runnable {
    				//String tokenNumber = playerInfo[2];
    				//game.addPlayer(name, tokenNumber);
    				//check to see if game is ready using game.isReadyToStart()
+   			
+   			
+   			
    			
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
