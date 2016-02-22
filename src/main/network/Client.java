@@ -95,6 +95,8 @@ public class Client implements Runnable {
    		}
    		else if (msg.contains("drawToken")){
    			System.out.println("drawToken");
+   			String[] tokenNumber = msg.split(" ");
+   			//gui.displayTokenColour(tokenNumber[1]);
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
