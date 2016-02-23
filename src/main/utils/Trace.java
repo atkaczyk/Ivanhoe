@@ -143,6 +143,11 @@ public class Trace {
 		writeToClientFile (o,message);
 	}
 	
+	public void logchatToAll (Object o, String m){
+		String message = String.format("Sending to all players message: %s", m);
+		writeToClientFile (o, message);
+	}
+	
 	public void close() {
 		try {
 			clientLogger.close();
