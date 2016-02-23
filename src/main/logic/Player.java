@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 import utils.Config;
 
@@ -75,6 +76,16 @@ public class Player {
 
 	public int getDisplayTotal() {
 		return displayTotal;
+	}
+
+	public Boolean addToken(int colour) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public List<Integer> getTokens() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

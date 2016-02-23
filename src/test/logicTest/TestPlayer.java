@@ -81,6 +81,12 @@ public class TestPlayer {
 		assertEquals(1, player.getDisplayTotal());
 	}
 	
+	@Test
+	public void addToken() {
+		player.addToken(Config.RED);
+		
+		assertEquals(1, player.getTokens().size());
+	}
 	
 	@After
 	public void tearDown() {
