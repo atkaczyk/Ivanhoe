@@ -109,4 +109,14 @@ public class Player {
 		return specialCard.contains(s);
 	}
 
+	public void withdraw() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object isWithdrawn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

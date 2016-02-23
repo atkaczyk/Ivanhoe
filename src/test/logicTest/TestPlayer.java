@@ -105,6 +105,13 @@ public class TestPlayer {
 		assertEquals(true, player.hasSpecialCard("Shield"));
 	}
 	
+	@Test
+	public void playerWithdraws() {
+		player.withdraw();
+		
+		assertEquals(true, player.isWithdrawn());
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
