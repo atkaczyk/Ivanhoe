@@ -161,7 +161,9 @@ public class Client implements Runnable {
    }
 
    public void cardPlayed(String msg){
-
+	   String message = "cardPlayed" + msg;
+	   //sendMessageToServer(message);
+	   cardPlayed = true;
    }
    
    

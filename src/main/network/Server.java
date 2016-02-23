@@ -199,7 +199,7 @@ public class Server implements Runnable {
 	   				//check to see if game is ready using game.isReadyToStart()
 				}
 				if (input.contains("cardPlayed")){
-					//String[] cardInfo = message.split(" ");
+					String[] cardInfo = input.split(" ");
 					//gather card info to pass to:
 					//game.cardPlayed();
 					
