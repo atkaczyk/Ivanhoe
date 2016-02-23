@@ -3,9 +3,14 @@ package network;
 import java.net.*;
 import java.io.*;
 
+import logic.Game;
+import userinterface.GUIController;
 import utils.Trace;
 
 public class Client implements Runnable {
+	
+	//private GUIController gui = new GUIController();
+	
 	private int ID = 0;
 	private Socket socket            = null;
 	private Thread thread            = null;
@@ -16,6 +21,9 @@ public class Client implements Runnable {
 	
 	private Boolean connected		 = false;
 	private Boolean gameScreenLaunched = false;
+	private Boolean updateAllPlayersInfo = false;
+	private Boolean updateShowPlayerHand = false;
+	private Boolean cardPlayed = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -39,6 +47,7 @@ public class Client implements Runnable {
 		return this.ID;
 	}
 	
+	
    public void start() throws IOException {  
 	   try {
 	   	console	= new BufferedReader(new InputStreamReader(System.in));
@@ -58,6 +67,12 @@ public class Client implements Runnable {
    }
 
 	public void run() { 
+		
+		//running all the time
+		//was looking at the console
+		//take a msg
+		
+		
 		System.out.println(ID + ": Client Started...");
 		while (thread != null) {  
 			try {  
@@ -74,6 +89,28 @@ public class Client implements Runnable {
          }}
 		System.out.println(ID + ": Client Stopped...");
    }
+	
+
+	public void sendMessageToServer(String msg) { 
+		
+		//running all the time
+		//was looking at the console
+		//take a msg
+		while (thread != null) {
+			try {  
+				if (streamOut != null) {
+					streamOut.flush();
+					streamOut.write(msg + "\n");
+				} else {
+					System.out.println(ID + ": Stream Closed");
+				}
+			}
+         catch(IOException e) {  
+         	Trace.getInstance().exception(this,e);
+         	stop();
+         }}
+   }
+	
 
    public void handle (String msg) {
    		if (msg.equalsIgnoreCase("quit!")) {  
@@ -92,20 +129,44 @@ public class Client implements Runnable {
    			
    		}
    		else if (msg.contains("drawToken")){
-   			System.out.println("containsIgnoreCase");
+   			System.out.println("drawToken");
+   			String[] tokenNumber = msg.split(" ");
+   			//gui.displayTokenColour(tokenNumber[1]);
+   			
+   			//when UI status is Config.PLAYER_READY == true){
+   				//String message = gui.getPlayerInformation();
+   				//send the message to the server handle???? using message "gameReady"  			
+   			
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
    			//gui.launchGamePlayWindow();
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
-   			System.out.println("launchMainGameScree currentPlayer");
+   			System.out.println("launchMainGameScreen currentPlayer");
+   		}
+   		else if (msg.contains("GAMEINFORMATION~")){
+   			System.out.println("message to client containing GAMEINFORMATION~");
+   			updateAllPlayersInfo = true;
+   			//gui.setAllPlayersInfo(msg);
+   		}
+   		else if (msg.contains("PLAYERHAND~")){
+   			System.out.println("message to specific player containing PLAYERHAND~");
+   			updateShowPlayerHand = true;
+   			//gui.showPlayerHand(msg);
    		}
    		else {
 			System.out.println(msg);
 		}
    }
 
+   public void cardPlayed(String msg){
+	   String message = "cardPlayed" + msg;
+	   //sendMessageToServer(message);
+	   cardPlayed = true;
+   }
+   
+   
    public void stop() {  
       try { 
       	if (thread != null) thread = null;
@@ -133,4 +194,15 @@ public class Client implements Runnable {
 		return gameScreenLaunched;
 	}
 
+	public Object getUpdateAllPlayersInfo() {
+		return updateAllPlayersInfo;
+	}
+	
+	public Object getUpdateShowPlayerHand() {
+		return updateShowPlayerHand;
+	}
+	
+	public Object getCardPlayed() {
+		return cardPlayed;
+	}
 }

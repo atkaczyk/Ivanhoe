@@ -191,6 +191,19 @@ public class Server implements Runnable {
 						}
 					}					
 				}
+				if (input.contains("gameReady")){
+					//String[] playerInfo = message.split(" ");
+	   				//String name = playerInfo[1];
+	   				//String tokenNumber = playerInfo[2];
+	   				//game.addPlayer(name, tokenNumber);
+	   				//check to see if game is ready using game.isReadyToStart()
+				}
+				if (input.contains("cardPlayed")){
+					String[] cardInfo = input.split(" ");
+					//gather card info to pass to:
+					//game.cardPlayed();
+					
+				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
 //					game.addPlayer(separated[1], new Player(separated[1],
@@ -374,6 +387,17 @@ public class Server implements Runnable {
 	}
 	
 	
+	//broadcast a message to all players
+	public synchronized void broadcastToAllPlayers(String message){
+		synchronized (serverThreadsLock) {
+			for (ServerThread to : serverThreads.values()) {
+				to.send(String.format("%s\n", message));
+				logger.info(String.format("SERVER BROADCASTING MESSAGE TO ALL PLAYERS: %s", message));
+				Trace.getInstance().logchatToAll(this, message);
+			}		
+		}
+	}
+	
 	
 	public synchronized void broadcastToOtherPlayers(String message, int senderID) {
 		synchronized (serverThreadsLock) {
@@ -446,10 +470,45 @@ public class Server implements Runnable {
 	}
 	
 	
-	public void update(){
+	public void update(int ID){
+		
+		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
+		//String msg = "GAMEINFORMATION~" + gameInfo;
+		//broadcastMessageToAllPlayers(msg);
 		
+		//update the card hand for the specific client
+		//loop through all server threads, pass only to the one current client:
 		
+		int currentPlayerNum = game.getCurrentPlayerNumber();
+		// look in your map playerNumbers and see which server thread matches the player
+		
+		int currentID = -1;
+		String message = "PLAYERHAND~";
+				
+		for (int id: playerNumbers.keySet()){
+			// if they are the current player then they get a message like "launchMainGameScreen currentPlayer"
+			if(playerNumbers.get(id).equals(currentPlayerNum)){
+				currentID = id;
+			}
+			//send the message to the one player
+			synchronized (serverThreadsLock) {
+				if (serverThreads.containsKey(currentID)) {
+					ServerThread current = serverThreads.get(currentID);
+					
+					//UNCOMMENT*************
+					//String handAsString = current.getHandAsString();
+					//message = "PLAYERHAND~" + handAsString;
+					
+					logger.info(String.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
+									current.getSocketAddress(), current.getID(), message));
+				
+					
+					Trace.getInstance().logchat(this, serverThreads.get(currentID), current, message);
+				}
+			}
+			
+		}
 	}
 	
 	// | will be before each player's information

@@ -82,6 +82,25 @@ public class TestClient {
 		clientOne.handle("launch game ready screen");
 	}
 	
+	@Test
+	public void updateAllPlayersInfo(){
+		clientOne.handle("GAMEINFORMATION~");
+		assertEquals(true, clientOne.getUpdateAllPlayersInfo());
+	}
+	
+	@Test
+	public void updateShowPlayerHand(){
+		clientOne.handle("PLAYERHAND~");
+		assertEquals(true, clientOne.getUpdateShowPlayerHand());
+	}
+	
+	@Test
+	public void playerPlaysCardFromGui(){
+		String msg = " ";
+		clientOne.cardPlayed(msg);
+		assertEquals(true, clientOne.getCardPlayed());
+	}
+	
 	// THE CODE
 	// after adding a player, then game.isReadyToStart() then when all players have been added to the game
 	// call game.start() to initialize the deck and everything 
