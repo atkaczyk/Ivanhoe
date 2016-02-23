@@ -95,8 +95,10 @@ public class TestClient {
 	}
 	
 	@Test
-	public void playerPlaysCard(){
-		clientOne.handle("");
+	public void playerPlaysCardFromGui(){
+		String msg = " ";
+		clientOne.cardPlayed(msg);
+		assertEquals(true, clientOne.getCardPlayed());
 	}
 	
 	// THE CODE

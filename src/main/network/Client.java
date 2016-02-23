@@ -9,7 +9,7 @@ import utils.Trace;
 
 public class Client implements Runnable {
 	
-	private GUIController gui = new GUIController();
+	//private GUIController gui = new GUIController();
 	
 	private int ID = 0;
 	private Socket socket            = null;
@@ -23,6 +23,7 @@ public class Client implements Runnable {
 	private Boolean gameScreenLaunched = false;
 	private Boolean updateAllPlayersInfo = false;
 	private Boolean updateShowPlayerHand = false;
+	private Boolean cardPlayed = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -95,19 +96,19 @@ public class Client implements Runnable {
 		//running all the time
 		//was looking at the console
 		//take a msg
-
-		try {  
-			if (streamOut != null) {
-				streamOut.flush();
-				streamOut.write(msg + "\n");
-			} else {
-				System.out.println(ID + ": Stream Closed");
+		while (thread != null) {
+			try {  
+				if (streamOut != null) {
+					streamOut.flush();
+					streamOut.write(msg + "\n");
+				} else {
+					System.out.println(ID + ": Stream Closed");
+				}
 			}
-         }
          catch(IOException e) {  
          	Trace.getInstance().exception(this,e);
          	stop();
-         }
+         }}
    }
 	
 
@@ -159,6 +160,11 @@ public class Client implements Runnable {
 		}
    }
 
+   public void cardPlayed(String msg){
+
+   }
+   
+   
    public void stop() {  
       try { 
       	if (thread != null) thread = null;
@@ -192,5 +198,9 @@ public class Client implements Runnable {
 	
 	public Object getUpdateShowPlayerHand() {
 		return updateShowPlayerHand;
+	}
+	
+	public Object getCardPlayed() {
+		return cardPlayed;
 	}
 }
