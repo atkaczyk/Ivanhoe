@@ -92,8 +92,8 @@ public class TestGame {
 
 		game.startGame();
 
-		assertEquals(true, game.getPlayers()[0].getActive());
-		assertEquals(true, game.getPlayers()[1].getActive());
+		assertEquals(false, game.getPlayers()[0].isWithdrawn());
+		assertEquals(false, game.getPlayers()[1].isWithdrawn());
 	}
 
 	@Test

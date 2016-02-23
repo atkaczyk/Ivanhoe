@@ -7,7 +7,7 @@ import java.util.List;
 import utils.Config;
 
 public class Player {
-	private Boolean active = true;
+	private Boolean withdrawn = false;
 	private String name = "";
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
@@ -15,8 +15,8 @@ public class Player {
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private String specialCard = "";
 	
-	public void setActive(Boolean status) {
-		active = status;
+	public void setWithdrawn(Boolean status) {
+		withdrawn = status;
 	}
 	
 	public void setName(String name) {
@@ -69,8 +69,8 @@ public class Player {
 		return display;
 	}
 
-	public Boolean getActive() {
-		return active;
+	public Boolean isWithdrawn() {
+		return withdrawn;
 	}
 
 	public void clearHand() {
@@ -110,13 +110,7 @@ public class Player {
 	}
 
 	public void withdraw() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object isWithdrawn() {
-		// TODO Auto-generated method stub
-		return null;
+		withdrawn = true;
 	}
 
 }
