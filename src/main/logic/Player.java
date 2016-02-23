@@ -92,9 +92,12 @@ public class Player {
 		return tokens;
 	}
 
-	public void removeToken(int red) {
-		// TODO Auto-generated method stub
-		
+	public Boolean removeToken(int colour) {
+		if (tokens.contains(colour)) {
+			tokens.remove((Object)colour);
+			return true;
+		}
+		return false;
 	}
 
 }
