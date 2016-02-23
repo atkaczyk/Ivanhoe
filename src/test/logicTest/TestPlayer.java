@@ -1,6 +1,7 @@
 package logicTest;
 
 import static org.junit.Assert.*;
+import logic.ActionCard;
 import logic.Card;
 import logic.Player;
 import logic.SupporterCard;
@@ -15,6 +16,7 @@ public class TestPlayer {
 	private static final String NAME = "Sam";
 	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
 	private static final Card MAIDEN_CARD = new SupporterCard("Maiden", 6);
+	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	
 	Player player;
 	
@@ -98,7 +100,7 @@ public class TestPlayer {
 	
 	@Test
 	public void addShieldCard() {
-		player.addSpecialCard("Shield");
+		player.addSpecialCard(SHIELD_CARD);
 		
 		assertEquals(true, player.hasSpecialCard("Shield"));
 	}

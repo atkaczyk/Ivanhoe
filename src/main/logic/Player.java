@@ -13,6 +13,7 @@ public class Player {
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
 	private int displayTotal = 0;
 	private List<Integer> tokens = new ArrayList<Integer>();
+	private String specialCard = "";
 	
 	public void setActive(Boolean status) {
 		active = status;
@@ -100,14 +101,12 @@ public class Player {
 		return false;
 	}
 
-	public void addSpecialCard(String string) {
-		// TODO Auto-generated method stub
-		
+	public void addSpecialCard(Card c) {
+		specialCard = c.getName();
 	}
 
-	public Object hasSpecialCard(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean hasSpecialCard(String s) {
+		return specialCard.contains(s);
 	}
 
 }
