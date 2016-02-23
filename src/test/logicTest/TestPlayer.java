@@ -1,6 +1,7 @@
 package logicTest;
 
 import static org.junit.Assert.*;
+import logic.ActionCard;
 import logic.Card;
 import logic.Player;
 import logic.SupporterCard;
@@ -15,6 +16,7 @@ public class TestPlayer {
 	private static final String NAME = "Sam";
 	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
 	private static final Card MAIDEN_CARD = new SupporterCard("Maiden", 6);
+	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	
 	Player player;
 	
@@ -72,6 +74,42 @@ public class TestPlayer {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		
 		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal());
+	}
+	
+	@Test
+	public void addOneMaidenCardGreenTournament() {
+		player.addCardToDisplay(MAIDEN_CARD, Config.GREEN);
+		
+		assertEquals(1, player.getDisplayTotal());
+	}
+	
+	@Test
+	public void addToken() {
+		player.addToken(Config.RED);
+		
+		assertEquals(1, player.getTokens().size());
+	}
+	
+	@Test
+	public void removeToken() {
+		player.addToken(Config.RED);
+		player.removeToken(Config.RED);
+		
+		assertEquals(false, player.getTokens().contains(Config.RED));
+	}
+	
+	@Test
+	public void addShieldCard() {
+		player.addSpecialCard(SHIELD_CARD);
+		
+		assertEquals(true, player.hasSpecialCard("Shield"));
+	}
+	
+	@Test
+	public void playerWithdraws() {
+		player.withdraw();
+		
+		assertEquals(true, player.isWithdrawn());
 	}
 	
 	@After

@@ -160,4 +160,14 @@ public class Game {
 		}
 		return i;
 	}
+
+	public Player getPlayer(int playerNumber) {
+		int i;
+		for (i=0; i<numOfPlayers; i++) {
+			if (i == playerNumber) {
+				break;
+			}
+		}
+		return players[i];
+	}
 }

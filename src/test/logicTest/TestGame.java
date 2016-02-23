@@ -92,8 +92,8 @@ public class TestGame {
 
 		game.startGame();
 
-		assertEquals(true, game.getPlayers()[0].getActive());
-		assertEquals(true, game.getPlayers()[1].getActive());
+		assertEquals(false, game.getPlayers()[0].isWithdrawn());
+		assertEquals(false, game.getPlayers()[1].isWithdrawn());
 	}
 
 	@Test
@@ -187,6 +187,13 @@ public class TestGame {
 
 		game.setTournamentColour(Config.PURPLE);
 		assertEquals(false, game.setTournamentColour(Config.PURPLE));
+	}
+	
+	@Test
+	public void getPlayerNumber() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		
+		assertEquals(PLAYER_ONE_NAME, game.getPlayer(0).getName());
 	}
 
 	@After

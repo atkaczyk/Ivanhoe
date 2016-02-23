@@ -510,5 +510,55 @@ public class Server implements Runnable {
 			
 		}
 	}
+	
+	// | will be before each player's information
+	public String getAllGameInfo() {
+		String result = "GAMEINFORMATION~";
+		
+		for (int i=0; i<game.getNumPlayers(); i++) {
+			result+="@"+getPlayerInfo(game.getPlayer(i));
+		}
+		return result;
+	}
+	
+	// , will separate information
+	public String getPlayerInfo(Player p){
+		String result = "";
+		
+		result += p.getName() + ",";
+
+		List<Integer> tokens = p.getTokens();
+		for (int colour=0; colour<=4; colour++) {
+			if (tokens.contains(colour)) {
+				result += colour;
+			}
+		}
+		result += ",";
+		
+		result += p.hasSpecialCard("Shield") + ",";
+		result += p.hasSpecialCard("Stunned") + ",";
+		result += p.hasSpecialCard("Ivanhoe") + ",";
+		
+		result += p.getDisplayTotal() + ",";
+		
+		result += p.isWithdrawn();
+		
+		return result;
+	}
+	
+	public List<String[]> parseAllInfo(String s) {
+		List<String[]> result = new ArrayList<String[]>();
+		
+		s = s.split("~")[1];
+		
+		String[] parsed = s.split("@");
+		
+		for (int i=1;i<parsed.length;i++) {
+			// this now contains all the player information
+			String[] playerInfo = parsed[i].split(",");
+			result.add(playerInfo);
+		}
+		return result;
+	}
 
 }
