@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 import utils.Config;
@@ -11,6 +12,7 @@ public class Player {
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
 	private int displayTotal = 0;
+	private List<Integer> tokens = new ArrayList<Integer>();
 	
 	public void setActive(Boolean status) {
 		active = status;
@@ -79,13 +81,15 @@ public class Player {
 	}
 
 	public Boolean addToken(int colour) {
-		// TODO Auto-generated method stub
-		return false;
+		if (tokens.contains(colour)) {
+			return false;
+		}
+		tokens.add(colour);
+		return true;
 	}
 
 	public List<Integer> getTokens() {
-		// TODO Auto-generated method stub
-		return null;
+		return tokens;
 	}
 
 }
