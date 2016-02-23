@@ -96,6 +96,13 @@ public class TestPlayer {
 		assertEquals(false, player.getTokens().contains(Config.RED));
 	}
 	
+	@Test
+	public void addShieldCard() {
+		player.addSpecialCard("Shield");
+		
+		assertEquals(true, player.hasSpecialCard("Shield"));
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;

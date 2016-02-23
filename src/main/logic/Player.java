@@ -100,4 +100,14 @@ public class Player {
 		return false;
 	}
 
+	public void addSpecialCard(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object hasSpecialCard(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
