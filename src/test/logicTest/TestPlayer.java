@@ -88,6 +88,14 @@ public class TestPlayer {
 		assertEquals(1, player.getTokens().size());
 	}
 	
+	@Test
+	public void removeToken() {
+		player.addToken(Config.RED);
+		player.removeToken(Config.RED);
+		
+		assertEquals(false, player.getTokens().contains(Config.RED));
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;

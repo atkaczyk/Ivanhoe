@@ -92,4 +92,9 @@ public class Player {
 		return tokens;
 	}
 
+	public void removeToken(int red) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
