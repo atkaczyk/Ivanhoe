@@ -11,7 +11,7 @@ public class GUIController {
 
 	public GUIController(){
 
-		Client = new Client(5050, "127.0.0.1");
+		client = new Client("127.0.0.1", 5050);
 		boolean tokenRequest;		
 		gameReadyWindow = new GameReadyWindow();
 		gamePlayWindow = new GamePlayWindow();
