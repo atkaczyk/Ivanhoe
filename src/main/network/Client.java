@@ -150,7 +150,7 @@ public class Client implements Runnable {
    			
    		}
    		else if (msg.contains("gameReady")){
-   			
+   			gameReady = true;
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");

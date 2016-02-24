@@ -163,4 +163,34 @@
 @2016-Feb-24 16:32:02 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52889,localport=5050]
 @2016-Feb-24 16:32:02 INFO  Server:130 - Client refused: maximum number of clients reached: d
 @2016-Feb-24 16:32:02 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:21 INFO  Server:59 - Binding to port 5050
+@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:21 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
+@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52943,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52943,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52944,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52944,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52945,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52945,localport=5050]
+@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:47 INFO  Server:59 - Binding to port 5050
+@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:47 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
+@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52948,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52948,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52949,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52949,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52950,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52950,localport=5050]
+@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
+@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
 @
