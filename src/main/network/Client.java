@@ -9,7 +9,7 @@ import utils.Trace;
 
 public class Client implements Runnable {
 	
-	//private GUIController gui = new GUIController();
+	private GUIController gui = new GUIController();
 	
 	private int ID = 0;
 	private Socket socket            = null;
@@ -119,7 +119,7 @@ public class Client implements Runnable {
 		} 
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
    			gameScreenLaunched = true;
-   			//gui.launchGameReadyScreen();
+   			gui.launchGameReadyWindow();
    			// wait for an action change
    			// recieve getToken
    			//if (gui.tokenRequest == true){

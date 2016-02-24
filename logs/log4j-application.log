@@ -96,4 +96,12 @@
 @2016-Feb-22 22:14:31 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59927,localport=5050]
 @2016-Feb-22 22:14:31 INFO  Server:132 - Client refused: maximum number of clients reached: d
 @2016-Feb-22 22:14:31 INFO  Server:99 - Waiting for a client ...
+@2016-Feb-23 23:13:48 INFO  Server:61 - Binding to port 5050
+@2016-Feb-23 23:13:48 INFO  Server:99 - Waiting for a client ...
+@2016-Feb-23 23:13:48 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-23 23:15:42 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=51560,localport=5050]
+@2016-Feb-23 23:15:42 INFO  Server:99 - Waiting for a client ...
+@2016-Feb-23 23:16:00 INFO  Server:418 - RECEIVED Received Message from 127.0.0.1:51560 to 127.0.0.1:51560: 
+@2016-Feb-23 23:16:57 INFO  Server:372 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 51560: drawToken 0
+@2016-Feb-23 23:16:57 INFO  Server:418 - RECEIVED Received Message from 127.0.0.1:51560 to 127.0.0.1:51560: drawToken
 @
