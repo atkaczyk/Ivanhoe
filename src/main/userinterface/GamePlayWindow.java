@@ -16,6 +16,7 @@ public class GamePlayWindow extends JFrame{
 	PlayerCard playerCard2;
 	PlayerCard playerCard3;
 	PlayerCard playerCard4;
+	CardHand hand;
 	
 	PlayerCardDisplay	playerDisplay;
 	//will hold the player cards
@@ -96,13 +97,14 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 3;
 		add(buttonPanel, c);
 		
-		button = new JButton("MY CARD HAND DISPLAY SCROLLER");
-		c.ipady = 300;      //make this component tall
+		hand = new CardHand(); //"MY CARD HAND DISPLAY SCROLLER");
+		c.ipady = 200;     
 		c.weightx = 0.0;
-		c.gridwidth = 4;
+		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy = 4;
-		add(button, c);
+		add(hand, c);
+
 
 		// Set program to stop when window closed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
