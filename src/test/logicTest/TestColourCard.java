@@ -11,9 +11,9 @@ import org.junit.Test;
 import utils.Config;
 
 public class TestColourCard {
-	private static final String CARD_NAME = "Supporter";
+	private static final String CARD_NAME = "Purple";
 	private static final int CARD_NUMBER = 2;
-	private static final int CARD_COLOUR = Config.WHITE;
+	private static final int CARD_COLOUR = Config.PURPLE;
 	
 	@Test
 	public void initializeCard() {
