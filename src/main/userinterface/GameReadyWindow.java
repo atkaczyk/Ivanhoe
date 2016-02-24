@@ -14,49 +14,54 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class GameReadyWindow extends JFrame implements ActionListener{
+	//private Client client = new Client();
 
 	JLabel token;
 	ImageIcon[] tokens;
 
 	ImageIcon blueToken;
-	ImageIcon greyToken;
+	ImageIcon whiteToken;
 	ImageIcon redToken;
 	ImageIcon purpleToken;
 	ImageIcon greenToken;
-	ImageIcon goldToken;
+	ImageIcon yellowToken;
 
 	JTextField playerName;
 	JButton playerNameSubmit;
+
 	JButton gameReady;
+
 	JLabel finalToken;
 	JLabel Step1;
+
 	JButton tokenRequest;
 
+
+	GUIController guiController;
 	JLabel Step2;
 	JLabel Step3 ;
 	JLabel avatar;
 	javax.swing.JFrame frame ;
 
 	public GameReadyWindow(){
-
 		super(); // Set the title of the window
 		//frame = new javax.swing.JFrame("This appears at the top of the window");
-
+		guiController = new GUIController();
 		blueToken= new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
-		greyToken =new ImageIcon(this.getClass().getResource("Images/Tokens/greyToken.png"));
+		whiteToken =new ImageIcon(this.getClass().getResource("Images/Tokens/greyToken.png"));
 		redToken= new ImageIcon(this.getClass().getResource("Images/Tokens/redToken.png"));
 		purpleToken =new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
 		greenToken=new ImageIcon(this.getClass().getResource("Images/Tokens/greenToken.png"));
-		goldToken=new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
+		yellowToken =new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
 
-		tokens = new ImageIcon[]{blueToken, greyToken, redToken, purpleToken, greenToken, goldToken};
+		tokens = new ImageIcon[]{purpleToken, redToken, yellowToken, greenToken, blueToken, whiteToken}; //blueToken, greyToken, redToken, purpleToken, greenToken, goldToken};
 
 		setPreferredSize(new Dimension(500,500));
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		 Step1 = new JLabel("Step 1: Enter your Name");
+		Step1 = new JLabel("Step 1: Enter your Name");
 		c.fill = GridBagConstraints.HORIZONTAL;
 
 		c.ipady = 10;      //make this component tall
@@ -65,7 +70,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		c.gridy = 0;
 		add(Step1, c);
 
-		 avatar = new JLabel();
+		avatar = new JLabel();
 		avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
 		c.ipady = avatar.getHeight();     
 		c.weightx = 0.5;
@@ -102,7 +107,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		add(Step2, c);
 
 		token = new JLabel();
-		token.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
+		token.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = token.getHeight();   
 		c.weightx = 0.5;
 		c.gridx = 2;
@@ -118,7 +123,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		tokenRequest.setVisible(false);
 		add(tokenRequest, c);
-		
+
 		tokenRequest.addActionListener(this);
 
 
@@ -132,7 +137,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		add(Step3, c);
 
 		//THE FINAL TOKEN IS THE VALUE RECIEVED FROM THE SERVER AND UPDATES THE ICON ACCORDINGLY. MUST BE DONE SEPARATELY.
-		 finalToken = new JLabel();//"This is the token you retrieved");
+		finalToken = new JLabel();//"This is the token you retrieved");
 		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = finalToken.getHeight();   
 		c.weightx = 0.5;
@@ -142,7 +147,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		finalToken.setVisible(false);
 		add(finalToken, c);
 
-		 gameReady = new JButton("Game Ready");
+		gameReady = new JButton("Game Ready");
 		//gameReady.setIcon(new ImageIcon(this.getClass().getResource("Images/GameReady.jpg")));
 		c.weightx = 0.8;
 		c.gridx = 3;
@@ -161,12 +166,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 
 
-//	public static void main(String args[]) { // Instantiate a FirstApplication object so you can display it FirstApplication frame = new FirstApplication("FirstApplication
-//		GameReadyWindow startWindow = new GameReadyWindow("");
-//		startWindow.setVisible(true);
-//	}
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
@@ -177,7 +176,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 			token.setVisible(true);
 			tokenRequest.setVisible(true);
-			
+
 			Step3.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
 			Step2.setText("Step 2: " + playerName.getText() + " Press to Retrieve a Token");
 			//SEND THE PLAYERS NAME TO BE STORED.
@@ -189,21 +188,26 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			Step3.setVisible(true);
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
-			//SEND THE REQUEST FOR A TOKEN GUI CONTROL WHO WILL SEND TO SERVER?
-			//OR JUST SEND TO THE SERVER
-			//client.send(
+
+			guiController.sendTokenRequest();
 		}
 		else if(action.equals("Game Ready")){
 			System.out.println("Game Ready");
-			//SEND MESSAGE GAME READY TO GUI CONTROL WHO WILL SEND TO SERVER?
-			//OR JUST SEND TO THE SERVER
+			guiController.sendGameReady();		
 		}
 
 	}
-	
+
 	public void getFinalToken(){
 		//RECIEVE RANDOM TOKEN FROM THE SERVER, UPDATE THE SCREEN
-		
+
+	}
+
+
+
+	public void setFinalToken(int tokenColour) {
+		// TODO Auto-generated method stub
+		finalToken.setIcon(tokens[tokenColour]);
 	}
 }
 
