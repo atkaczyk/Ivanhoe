@@ -21,7 +21,7 @@ public class GUIController {
 		GameReadyWindow startWindow = new GameReadyWindow();
 		startWindow.setVisible(true);
 		//do {			
-		//} while(tokenRequest == false);
+		//} while(tokenRequest == false);g
 		//tokenRequest = gameReadyWindow.getTokenRequest();
 	}
 
@@ -32,6 +32,12 @@ public class GUIController {
 		gamePlayWindow.setVisible(true);
 	}
 	
+	public void update(){
+		gamePlayWindow.setPlayerCardStats();
+		gamePlayWindow.setPlayerCardDisplay();
+		gamePlayWindow.updateCardHand();
+		
+	}
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
 	}
