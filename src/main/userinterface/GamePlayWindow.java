@@ -10,9 +10,9 @@ import javax.swing.JFrame;
 
 public class GamePlayWindow extends JFrame{
 
-	JFrame frame ;
+	JFrame frame;
 	static PlayerCard playerCard0;
-	PlayerCard playerCard1;
+	static PlayerCard playerCard1;
 	PlayerCard playerCard2;
 	PlayerCard playerCard3;
 	PlayerCard playerCard4;
@@ -105,10 +105,24 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 4;
 		add(hand, c);
 
-
 		// Set program to stop when window closed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1500, 1000); // manually computed sizes
 		setResizable(true);
+	}
+
+	public void setPlayerCardStats() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPlayerCardDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateCardHand() {
+		// TODO Auto-generated method stub
+		
 	}
 }

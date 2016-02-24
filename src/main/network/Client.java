@@ -9,7 +9,9 @@ import utils.Trace;
 
 public class Client implements Runnable {
 	
-	private GUIController gui = new GUIController();
+	//private GUIController gui = new GUIController();
+	private GUIController gui;
+	
 	
 	private int ID = 0;
 	private Socket socket            = null;
@@ -24,6 +26,7 @@ public class Client implements Runnable {
 	private Boolean updateAllPlayersInfo = false;
 	private Boolean updateShowPlayerHand = false;
 	private Boolean cardPlayed = false;
+	private Boolean gameReady = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -42,6 +45,8 @@ public class Client implements Runnable {
 			Trace.getInstance().exception(this,ioe);
 	   }
 	}
+	
+
 
 	public int getID () {
 		return this.ID;
@@ -96,19 +101,19 @@ public class Client implements Runnable {
 		//running all the time
 		//was looking at the console
 		//take a msg
-		while (thread != null) {
-			try {  
-				if (streamOut != null) {
-					streamOut.flush();
-					streamOut.write(msg + "\n");
-				} else {
-					System.out.println(ID + ": Stream Closed");
-				}
+		System.out.println("sending a message to the server");
+		try {  
+			if (streamOut != null) {
+				streamOut.flush();
+				streamOut.write(msg + "\n");
+			} else {
+				System.out.println(ID + ": Stream Closed");
 			}
+		}
          catch(IOException e) {  
          	Trace.getInstance().exception(this,e);
          	stop();
-         }}
+         }
    }
 	
 
@@ -128,6 +133,12 @@ public class Client implements Runnable {
    				
    			
    		}
+   		
+   		else if (msg.contains("tokenRequest")){
+   			System.out.println("tokenRequest");
+   			sendMessageToServer("drawToken");
+   		}
+   		
    		else if (msg.contains("drawToken")){
    			System.out.println("drawToken");
    			String[] tokenNumber = msg.split(" ");
@@ -137,6 +148,9 @@ public class Client implements Runnable {
    				//String message = gui.getPlayerInformation();
    				//send the message to the server handle???? using message "gameReady"  			
    			
+   		}
+   		else if (msg.contains("gameReady")){
+   			gameReady = true;
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
@@ -204,5 +218,9 @@ public class Client implements Runnable {
 	
 	public Object getCardPlayed() {
 		return cardPlayed;
+	}
+	
+	public Object getGameReady(){
+		return gameReady;
 	}
 }
