@@ -18,10 +18,9 @@
 
 package network;
 
-import logic.Game;
-import logic.Player;
-
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +29,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import java.io.*;
-
-import utils.Config;
+import logic.Game;
+import logic.Player;
 import utils.Trace;
 
 public class Server implements Runnable {
