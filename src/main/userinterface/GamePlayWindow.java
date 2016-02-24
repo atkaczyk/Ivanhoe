@@ -10,9 +10,9 @@ import javax.swing.JFrame;
 
 public class GamePlayWindow extends JFrame{
 
-	JFrame frame ;
+	JFrame frame;
 	static PlayerCard playerCard0;
-	PlayerCard playerCard1;
+	static PlayerCard playerCard1;
 	PlayerCard playerCard2;
 	PlayerCard playerCard3;
 	PlayerCard playerCard4;
@@ -104,7 +104,6 @@ public class GamePlayWindow extends JFrame{
 		c.gridx = 0;
 		c.gridy = 4;
 		add(hand, c);
-
 
 		// Set program to stop when window closed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
