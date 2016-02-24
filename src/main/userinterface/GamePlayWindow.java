@@ -110,4 +110,19 @@ public class GamePlayWindow extends JFrame{
 		setSize(1500, 1000); // manually computed sizes
 		setResizable(true);
 	}
+
+	public void setPlayerCardStats() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPlayerCardDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateCardHand() {
+		// TODO Auto-generated method stub
+		
+	}
 }
