@@ -9,8 +9,8 @@ import utils.Trace;
 
 public class Client implements Runnable {
 	
-	//private GUIController gui = new GUIController();
-	private GUIController gui;
+	private GUIController gui = new GUIController();
+	//private GUIController gui;
 	
 	
 	private int ID = 0;
