@@ -128,6 +128,7 @@ public class TestPlayer {
 		player.addCardToDisplay(GREEN_CARD, Config.GREEN);
 		
 		assertEquals(1, player.getDisplayTotal());
+		assertEquals(1, player.getDisplayCards().size());
 	}
 	
 	@After
