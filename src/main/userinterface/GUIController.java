@@ -13,16 +13,11 @@ public class GUIController {
 
 		client = c;
 		boolean tokenRequest;		
-		//gameReadyWindow = new GameReadyWindow(c);
-		//gamePlayWindow = new GamePlayWindow(c);
 	}
 
 	public void launchGameReadyWindow(){
 		GameReadyWindow startWindow = new GameReadyWindow(client);
 		startWindow.setVisible(true);
-		//do {			
-		//} while(tokenRequest == false);g
-		//tokenRequest = gameReadyWindow.getTokenRequest();
 	}
 
 	public void launchGamePlayWindow(){
