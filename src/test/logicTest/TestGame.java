@@ -218,6 +218,18 @@ public class TestGame {
 		
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
+	
+	@Test
+	public void twoPlayersStartTournament() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		// player one goes first
+		int before = game.getDrawPile().getNumCards();
+		game.drawCard(game.getPlayer(0));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(before+1, game.getDrawPile().getNumCards());
+	}
 
 	@After
 	public void tearDown() {

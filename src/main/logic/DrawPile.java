@@ -154,8 +154,7 @@ public class DrawPile {
 	}
 
 	public void addCard(Card card) {
-		// TODO Auto-generated method stub
-		
+		cards.add(card);
 	}
 
 }

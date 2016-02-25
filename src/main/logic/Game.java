@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import utils.Config;
@@ -177,19 +178,45 @@ public class Game {
 		// Move all cards from player display to to the discard pile
 		for (int i = 0; i < numOfPlayers; i++) {
 			ArrayDeque<Card> display = players[i].getDisplayCards();
-			for (Card c: display) {
+			for (Card c : display) {
 				discardPile.add(display.pop());
 			}
-			
+
 			// Set all players as active for this tournament
 			players[i].setWithdrawn(false);
 		}
-		
+
 		tournamentNumber++;
 	}
 
+	/**
+	 * Gets the first card from the draw pile and moves it into the players hand
+	 **/
 	public void drawCard(Player player) {
-		// TODO Auto-generated method stub
+		Card c = drawPile.getCard();
+		player.addCardToHand(c);
 		
+		// Check to see is the draw pile is empty
+		if (drawPile.getNumCards() == 0) {
+			// Shuffle the discard pile and add it to the drawPile
+			List<Card> tempList = new ArrayList<Card>();
+			
+			while (!discardPile.isEmpty()) {
+				tempList.add(discardPile.pop());
+			}
+			
+			// Shuffle the list
+			Collections.shuffle(tempList);
+			
+			// Copy back into the deque
+			for (Card card: tempList) {
+				drawPile.addCard(card);
+			}
+		}
+	}
+
+	public DrawPile getDrawPile() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
