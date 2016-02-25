@@ -19,6 +19,7 @@ public class TestPlayer {
 	private static final Card MAIDEN_CARD = new SupporterCard("Maiden", 6);
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	private static final Card GREEN_CARD = new ColourCard("Green (No Weapon) 1", 1, Config.GREEN);
+	private static final Card BLUE_CARD = new ColourCard("Blue (Axe) 2", 2, Config.BLUE);
 	
 	Player player;
 	
@@ -137,6 +138,14 @@ public class TestPlayer {
 		
 		assertEquals(0, player.getDisplayTotal());
 		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addBlueCardOnBlueTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
+		
+		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(1, player.getDisplayCards().size());
 	}
 	
 	@After
