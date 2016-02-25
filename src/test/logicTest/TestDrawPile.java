@@ -29,4 +29,12 @@ public class TestDrawPile {
 		assertEquals(before+1, cards.getNumCards());
 	}
 	
+	@Test
+	public void clear() {
+		DrawPile cards = new DrawPile();
+		cards.clearCards();
+		
+		assertEquals(0, cards.getNumCards());
+	}
+	
 }

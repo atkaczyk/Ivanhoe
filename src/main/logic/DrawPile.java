@@ -157,4 +157,9 @@ public class DrawPile {
 		cards.add(card);
 	}
 
+	public void clearCards() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
