@@ -205,6 +205,8 @@ public class TestGame {
 		game.startTournament();
 		
 		assertEquals(1, game.getTournamentNumber());
+		assertEquals(false, game.getPlayer(0).isWithdrawn());
+		assertEquals(false, game.getPlayer(1).isWithdrawn());
 	}
 
 	@After
