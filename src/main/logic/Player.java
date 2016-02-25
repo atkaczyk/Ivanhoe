@@ -112,5 +112,30 @@ public class Player {
 	public void withdraw() {
 		withdrawn = true;
 	}
+	
+	public String getHandAsString() {
+		String result = "";
+		for (Card c: hand) {
+			result += c.getName() + ",";
+		}
+		result = result.substring(0, result.length()-1);
+		System.out.println(result);
+		return result;
+	}
+	
+	public String getDisplayAsString() {
+		String result = "";
+		for (Card c: display) {
+			result += c.getName() + ",";
+		}
+		result = result.substring(0, result.length()-1);
+		System.out.println(result);
+		return result;
+	}
+
+	public void clearDisplay() {
+		displayTotal = 0;
+		display.clear();
+	}
 
 }
