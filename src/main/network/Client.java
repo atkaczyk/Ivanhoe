@@ -9,9 +9,12 @@ import utils.Trace;
 
 public class Client implements Runnable {
 	
-	private GUIController gui = new GUIController();
-	//private GUIController gui;
+	//private GUIController gui = new GUIController();
+	private userinterface.GUIController gui;
 	
+	//Okay so here's what you gotta do. Add a parameter to the current client constructor so it will now take (string ip, int port, Gui controller view)
+	//Then in your constructor instead of creating a new Gui controller, you just say: gui = view
+	//And then what I do in my constructor when I call it is I create a new client. So it only happens once. My it will be client = new Client("127.0.0.1", 5050, this)
 	
 	private int ID = 0;
 	private Socket socket            = null;
@@ -44,8 +47,15 @@ public class Client implements Runnable {
 			System.out.println(ID + ": Unexpected exception");
 			Trace.getInstance().exception(this,ioe);
 	   }
+		
+		gui = new GUIController(this);
+		
 	}
 	
+	
+	//public Client(GUIController gui){
+	//	this.gui = gui;
+	//}
 
 
 	public int getID () {
