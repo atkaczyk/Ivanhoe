@@ -5,7 +5,6 @@ import network.Client;
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
-
 	Client client;
 	
 	private boolean tokenRequest;
@@ -14,8 +13,8 @@ public class GUIController {
 
 		client = c;
 		boolean tokenRequest;		
-		gameReadyWindow = new GameReadyWindow(c);
-		gamePlayWindow = new GamePlayWindow(c);
+		//gameReadyWindow = new GameReadyWindow(c);
+		//gamePlayWindow = new GamePlayWindow(c);
 	}
 
 	public void launchGameReadyWindow(){
