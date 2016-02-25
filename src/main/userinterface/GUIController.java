@@ -5,13 +5,14 @@ import network.Client;
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
-	Client client;
 
+	Client client;
+	
 	private boolean tokenRequest;
 
-	public GUIController(){
+	public GUIController(Client c){
 
-		client = new Client("127.0.0.1", 5050);
+		client = c;
 		boolean tokenRequest;		
 		gameReadyWindow = new GameReadyWindow();
 		gamePlayWindow = new GamePlayWindow();

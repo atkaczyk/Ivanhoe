@@ -195,6 +195,41 @@ public class TestGame {
 		
 		assertEquals(PLAYER_ONE_NAME, game.getPlayer(0).getName());
 	}
+	
+	@Test
+	public void tournamentStart() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.startGame();
+		game.startTournament();
+		
+		assertEquals(1, game.getTournamentNumber());
+		assertEquals(false, game.getPlayer(0).isWithdrawn());
+		assertEquals(false, game.getPlayer(1).isWithdrawn());
+	}
+	
+	@Test
+	public void playerDrawsCard() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.drawCard(game.getPlayer(0));
+		
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void twoPlayersStartTournament() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		// player one goes first
+		int before = game.getDrawPile().getNumCards();
+		game.drawCard(game.getPlayer(0));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(before-1, game.getDrawPile().getNumCards());
+	}
 
 	@After
 	public void tearDown() {

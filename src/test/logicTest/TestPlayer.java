@@ -112,6 +112,15 @@ public class TestPlayer {
 		assertEquals(true, player.isWithdrawn());
 	}
 	
+	@Test
+	public void clearDisplay() {
+		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		player.clearDisplay();
+		
+		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
