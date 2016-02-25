@@ -170,4 +170,11 @@ public class Game {
 		}
 		return players[i];
 	}
+
+	public void startTournament() {
+		// Move all cards from player display to to the discard pile
+		
+		// Set all players as active for this tournament
+		
+	}
 }

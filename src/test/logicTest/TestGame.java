@@ -195,6 +195,17 @@ public class TestGame {
 		
 		assertEquals(PLAYER_ONE_NAME, game.getPlayer(0).getName());
 	}
+	
+	@Test
+	public void tournamentStart() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.startGame();
+		game.startTournament();
+		
+		assertEquals(1, game.getTournamentNumber());
+	}
 
 	@After
 	public void tearDown() {
