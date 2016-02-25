@@ -216,7 +216,6 @@ public class Game {
 	}
 
 	public DrawPile getDrawPile() {
-		// TODO Auto-generated method stub
-		return null;
+		return drawPile;
 	}
 }

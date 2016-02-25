@@ -228,7 +228,7 @@ public class TestGame {
 		int before = game.getDrawPile().getNumCards();
 		game.drawCard(game.getPlayer(0));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(before+1, game.getDrawPile().getNumCards());
+		assertEquals(before-1, game.getDrawPile().getNumCards());
 	}
 
 	@After
