@@ -5,7 +5,6 @@ import network.Client;
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
-
 	Client client;
 	
 	private boolean tokenRequest;
@@ -14,21 +13,16 @@ public class GUIController {
 
 		client = c;
 		boolean tokenRequest;		
-		gameReadyWindow = new GameReadyWindow();
-		gamePlayWindow = new GamePlayWindow();
 	}
 
 	public void launchGameReadyWindow(){
-		GameReadyWindow startWindow = new GameReadyWindow();
+		GameReadyWindow startWindow = new GameReadyWindow(client);
 		startWindow.setVisible(true);
-		//do {			
-		//} while(tokenRequest == false);g
-		//tokenRequest = gameReadyWindow.getTokenRequest();
 	}
 
 	public void launchGamePlayWindow(){
 		gameReadyWindow.setVisible(false);
-		GamePlayWindow startWindow = new GamePlayWindow();
+		GamePlayWindow startWindow = new GamePlayWindow(client);
 		startWindow.setVisible(true);
 		gamePlayWindow.setVisible(true);
 	}
