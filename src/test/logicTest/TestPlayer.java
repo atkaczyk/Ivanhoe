@@ -112,6 +112,11 @@ public class TestPlayer {
 		assertEquals(true, player.isWithdrawn());
 	}
 	
+	@Test
+	public void clearDisplay() {
+		
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;

@@ -133,4 +133,9 @@ public class Player {
 		return result;
 	}
 
+	public void clearDisplay() {
+		displayTotal = 0;
+		display.clear();
+	}
+
 }
