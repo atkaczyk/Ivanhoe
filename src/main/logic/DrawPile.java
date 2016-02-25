@@ -108,7 +108,7 @@ public class DrawPile {
 
 		// Add all the green cards
 		for (int i = 1; i <= 14; i++) {
-			cards.addFirst(new ColourCard("Green (No Weapon) "+i, 1, Config.GREEN));
+			cards.addFirst(new ColourCard("Green (No Weapon) 1", 1, Config.GREEN));
 		}
 	}
 
