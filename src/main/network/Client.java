@@ -152,7 +152,7 @@ public class Client implements Runnable {
    		else if (msg.contains("drawToken")){
    			System.out.println("drawToken");
    			String[] tokenNumber = msg.split(" ");
-   			//gui.displayTokenColour(tokenNumber[1]);
+   			gui.displayTokenColour(Integer.parseInt(tokenNumber[1]));
    			
    			//when UI status is Config.PLAYER_READY == true){
    				//String message = gui.getPlayerInformation();
