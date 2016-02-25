@@ -186,7 +186,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		}
 		else if (action.equals("Press to Retrieve a Token")){
-			System.out.println("tokenRequest");
+			//System.out.println("tokenRequest");
 			Step3.setVisible(true);
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
@@ -194,7 +194,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			guiController.sendTokenRequest();
 		}
 		else if(action.equals("Game Ready")){
-			System.out.println("Game Ready");
+			//System.out.println("Game Ready");
 			guiController.sendGameReady();		
 		}
 
