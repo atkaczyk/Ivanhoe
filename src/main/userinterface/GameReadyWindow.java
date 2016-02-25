@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import network.Client;
+
 public class GameReadyWindow extends JFrame implements ActionListener{
 	//private Client client = new Client();
 
@@ -43,10 +45,10 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	JLabel avatar;
 	javax.swing.JFrame frame ;
 
-	public GameReadyWindow(){
+	public GameReadyWindow(Client client){
 		super(); // Set the title of the window
 		//frame = new javax.swing.JFrame("This appears at the top of the window");
-		guiController = new GUIController();
+		guiController = new GUIController(client);
 		blueToken= new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
 		whiteToken =new ImageIcon(this.getClass().getResource("Images/Tokens/greyToken.png"));
 		redToken= new ImageIcon(this.getClass().getResource("Images/Tokens/redToken.png"));

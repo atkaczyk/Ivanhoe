@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import network.Client;
+
 
 public class GamePlayWindow extends JFrame{
 
@@ -22,7 +24,7 @@ public class GamePlayWindow extends JFrame{
 	//will hold the player cards
 	//will hold the cardLayout discard pile: still to be made
 
-	public GamePlayWindow(){
+	public GamePlayWindow(Client client){
 		super(); 
 
 		getContentPane().setLayout(new GridBagLayout());

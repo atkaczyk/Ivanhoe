@@ -14,12 +14,12 @@ public class GUIController {
 
 		client = c;
 		boolean tokenRequest;		
-		gameReadyWindow = new GameReadyWindow();
-		gamePlayWindow = new GamePlayWindow();
+		gameReadyWindow = new GameReadyWindow(c);
+		gamePlayWindow = new GamePlayWindow(c);
 	}
 
 	public void launchGameReadyWindow(){
-		GameReadyWindow startWindow = new GameReadyWindow();
+		GameReadyWindow startWindow = new GameReadyWindow(client);
 		startWindow.setVisible(true);
 		//do {			
 		//} while(tokenRequest == false);g
@@ -28,7 +28,7 @@ public class GUIController {
 
 	public void launchGamePlayWindow(){
 		gameReadyWindow.setVisible(false);
-		GamePlayWindow startWindow = new GamePlayWindow();
+		GamePlayWindow startWindow = new GamePlayWindow(client);
 		startWindow.setVisible(true);
 		gamePlayWindow.setVisible(true);
 	}
