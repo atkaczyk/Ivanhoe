@@ -208,6 +208,16 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
 	}
+	
+	@Test
+	public void playerDrawsCard() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.drawCard(game.getPlayer(0));
+		
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
 
 	@After
 	public void tearDown() {

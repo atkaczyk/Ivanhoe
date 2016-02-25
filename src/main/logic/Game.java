@@ -187,4 +187,9 @@ public class Game {
 		
 		tournamentNumber++;
 	}
+
+	public void drawCard(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
 }
