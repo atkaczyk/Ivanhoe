@@ -148,6 +148,14 @@ public class TestPlayer {
 		assertEquals(1, player.getDisplayCards().size());
 	}
 	
+	@Test
+	public void addBlueCardOnGreenTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.GREEN);
+		
+		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
