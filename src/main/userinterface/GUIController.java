@@ -6,29 +6,24 @@ public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
 	Client client;
-	
-	private boolean tokenRequest;
 
 	public GUIController(Client c){
-
-		client = c;
-		boolean tokenRequest;		
+		client = c;	
 	}
 
 	public void launchGameReadyWindow(){
-		GameReadyWindow startWindow = new GameReadyWindow(client);
-		startWindow.setVisible(true);
+		gameReadyWindow = new GameReadyWindow(client);
+		gameReadyWindow.setVisible(true);
 	}
 
 	public void launchGamePlayWindow(){
 		gameReadyWindow.setVisible(false);
-		GamePlayWindow startWindow = new GamePlayWindow(client);
-		startWindow.setVisible(true);
+		gamePlayWindow = new GamePlayWindow(client);
 		gamePlayWindow.setVisible(true);
 	}
 	
 	public void update(){
-		gamePlayWindow.setPlayerCardStats();
+		gamePlayWindow.setPlayerCardStats(); //Should take in name, playerName, numToken, score, turn
 		gamePlayWindow.setPlayerCardDisplay();
 		gamePlayWindow.updateCardHand();
 		
@@ -54,6 +49,7 @@ public class GUIController {
 		client.handle("gameReady");
 	}
 	public void displayTokenColour(int tokenColour){
+		System.out.println("The Token Colour is: " + tokenColour);
 		gameReadyWindow.setFinalToken(tokenColour);
 	}
 }
