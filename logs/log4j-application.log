@@ -1,196 +1,74 @@
-2016-Feb-21 14:15:51 INFO  Server:61 - Binding to port 5050
-@2016-Feb-21 14:15:51 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-21 14:15:51 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-21 14:16:14 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=52688,localport=5050]
-@2016-Feb-21 14:16:14 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-21 14:17:08 INFO  Server:394 - RECEIVED Received Message from 127.0.0.1:52688 to 127.0.0.1:52688: 
-@2016-Feb-21 21:33:51 INFO  Server:61 - Binding to port 5050
-@2016-Feb-21 21:33:51 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-21 21:33:51 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=55611,localport=5050]
-@2016-Feb-21 21:33:51 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-21 21:33:51 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=55612,localport=5050]
-@2016-Feb-21 21:38:00 INFO  Server:61 - Binding to port 5050
-@2016-Feb-21 21:38:00 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-21 21:42:44 INFO  Server:61 - Binding to port 5050
-@2016-Feb-21 21:42:44 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-21 23:50:34 INFO  Server:61 - Binding to port 5050
-@2016-Feb-21 23:50:34 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 21:39:00 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:39:00 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 21:39:57 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:39:57 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 21:40:53 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:40:53 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:40:53 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-22 21:46:33 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:46:33 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-22 21:46:33 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:50:39 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:50:39 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:50:39 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-22 21:50:39 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59759,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59759,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:50:39 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:50:39 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59760,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59760,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:50:39 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:50:39 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59761,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59761,localport=5050]
-@2016-Feb-22 21:50:39 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:50:39 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:18 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:52:18 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 21:52:18 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59770,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59770,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:18 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:18 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59771,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59771,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:18 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:18 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59772,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59772,localport=5050]
-@2016-Feb-22 21:52:18 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:18 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:58 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 21:52:58 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 21:52:58 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59775,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59775,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:58 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:58 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59776,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59776,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:58 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 21:52:58 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59777,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59777,localport=5050]
-@2016-Feb-22 21:52:58 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 21:52:58 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:12:40 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 22:12:40 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 22:12:40 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59917,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59917,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:12:40 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:12:40 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59918,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59918,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:12:40 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:12:40 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59919,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59919,localport=5050]
-@2016-Feb-22 22:12:40 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:12:40 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:14:31 INFO  Server:61 - Binding to port 5050
-@2016-Feb-22 22:14:31 FATAL Server:78 - java.net.BindException: Address already in use: JVM_Bind
-@2016-Feb-22 22:14:31 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59925,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59925,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:14:31 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:14:31 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59926,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59926,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:14:31 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-22 22:14:31 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=59927,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:131 - Client Tried to connect: Socket[addr=/127.0.0.1,port=59927,localport=5050]
-@2016-Feb-22 22:14:31 INFO  Server:132 - Client refused: maximum number of clients reached: d
-@2016-Feb-22 22:14:31 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-23 23:13:48 INFO  Server:61 - Binding to port 5050
-@2016-Feb-23 23:13:48 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-23 23:13:48 INFO  Server:89 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-23 23:15:42 INFO  Server:113 - Client connected: Socket[addr=/127.0.0.1,port=51560,localport=5050]
-@2016-Feb-23 23:15:42 INFO  Server:99 - Waiting for a client ...
-@2016-Feb-23 23:16:00 INFO  Server:418 - RECEIVED Received Message from 127.0.0.1:51560 to 127.0.0.1:51560: 
-@2016-Feb-23 23:16:57 INFO  Server:372 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 51560: drawToken 0
-@2016-Feb-23 23:16:57 INFO  Server:418 - RECEIVED Received Message from 127.0.0.1:51560 to 127.0.0.1:51560: drawToken
-@2016-Feb-24 12:25:55 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:25:55 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:25:55 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:28:46 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:28:46 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:28:46 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:32:07 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:32:07 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:32:07 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:36:55 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:36:55 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:36:55 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:38:20 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:38:20 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:38:20 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:43:51 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:43:51 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:43:51 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:47:06 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:47:06 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:47:06 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:48:00 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:48:00 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:48:00 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:48:26 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 12:48:26 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 12:48:26 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
-@2016-Feb-24 12:48:38 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=51954,localport=5050]
-@2016-Feb-24 12:48:38 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:29:16 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 16:29:16 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:29:16 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-24 16:29:16 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52881,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52881,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:29:16 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:29:16 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52882,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52882,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:29:16 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:29:16 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52883,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52883,localport=5050]
-@2016-Feb-24 16:29:16 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:29:16 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:32:02 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 16:32:02 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:32:02 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-24 16:32:02 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52887,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52887,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:32:02 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:32:02 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52888,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52888,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:32:02 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:32:02 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52889,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52889,localport=5050]
-@2016-Feb-24 16:32:02 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:32:02 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:21 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:21 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52943,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52943,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52944,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52944,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:21 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52945,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52945,localport=5050]
-@2016-Feb-24 16:46:21 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:21 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:47 INFO  Server:59 - Binding to port 5050
-@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:47 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 11
-@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52948,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52948,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52949,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52949,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
-@2016-Feb-24 16:46:47 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=52950,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:129 - Client Tried to connect: Socket[addr=/127.0.0.1,port=52950,localport=5050]
-@2016-Feb-24 16:46:47 INFO  Server:130 - Client refused: maximum number of clients reached: d
-@2016-Feb-24 16:46:47 INFO  Server:97 - Waiting for a client ...
+2016-Feb-25 12:09:18 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:09:18 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:09:18 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:09:44 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:09:44 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:09:44 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:11:13 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:11:13 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:11:13 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:13:06 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:13:06 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:13:06 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:13:15 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=39585,localport=5050]
+@2016-Feb-25 12:13:15 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:18:16 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:18:16 FATAL Server:76 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-25 12:18:26 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=39595,localport=5050]
+@2016-Feb-25 12:18:26 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:22:53 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:22:53 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:22:53 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:23:01 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=39608,localport=5050]
+@2016-Feb-25 12:23:01 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:28:20 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:28:20 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:28:20 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:28:28 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=39635,localport=5050]
+@2016-Feb-25 12:28:28 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:29:17 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:29:17 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:29:17 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:29:23 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=39638,localport=5050]
+@2016-Feb-25 12:29:23 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:30:12 INFO  Server:370 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 39638: drawToken 0
+@2016-Feb-25 12:30:12 INFO  Server:416 - RECEIVED Received Message from 127.0.0.1:39638 to 127.0.0.1:39638: drawToken
+@2016-Feb-25 12:30:30 INFO  Server:370 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 39638: drawToken 1
+@2016-Feb-25 12:30:30 INFO  Server:416 - RECEIVED Received Message from 127.0.0.1:39638 to 127.0.0.1:39638: drawToken
+@2016-Feb-25 12:45:53 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 12:45:53 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 12:45:53 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 12:46:29 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=60079,localport=5050]
+@2016-Feb-25 12:46:29 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:00:05 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 22:00:05 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:00:05 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 22:00:14 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=49340,localport=5050]
+@2016-Feb-25 22:00:14 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:09:19 INFO  Server:372 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 49340: drawToken 0
+@2016-Feb-25 22:09:19 INFO  Server:418 - RECEIVED Received Message from 127.0.0.1:49340 to 127.0.0.1:49340: drawToken
+@2016-Feb-25 22:10:21 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 22:10:21 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:10:21 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 22:10:41 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=49351,localport=5050]
+@2016-Feb-25 22:10:41 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:45:13 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 22:45:13 FATAL Server:76 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Feb-25 22:45:25 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=49487,localport=5050]
+@2016-Feb-25 22:45:25 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:45:33 INFO  Server:372 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 49487: drawToken 0
+@2016-Feb-25 22:52:35 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 22:52:35 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:52:35 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 22:52:45 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=49514,localport=5050]
+@2016-Feb-25 22:52:45 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 22:52:52 INFO  Server:370 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 49514: drawToken 0
+@2016-Feb-25 22:52:52 INFO  Server:416 - RECEIVED Received Message from 127.0.0.1:49514 to 127.0.0.1:49514: drawToken
+@2016-Feb-25 23:14:17 INFO  Server:59 - Binding to port 5050
+@2016-Feb-25 23:14:17 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 23:14:17 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Feb-25 23:14:34 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=49600,localport=5050]
+@2016-Feb-25 23:14:34 INFO  Server:97 - Waiting for a client ...
+@2016-Feb-25 23:14:58 INFO  Server:370 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 49600: drawToken 0
+@2016-Feb-25 23:14:58 INFO  Server:416 - RECEIVED Received Message from 127.0.0.1:49600 to 127.0.0.1:49600: drawToken
 @
