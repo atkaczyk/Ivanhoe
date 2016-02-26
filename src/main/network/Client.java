@@ -125,8 +125,10 @@ public class Client {
    			System.out.println("Client: drawToken, token number: "+tn);
    			gui.displayTokenColour(tn);
    		}
+   		//from gui
    		else if (msg.contains("joinGame")){
-   			
+   			joinGame = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;

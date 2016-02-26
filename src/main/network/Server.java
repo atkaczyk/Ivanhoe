@@ -166,7 +166,8 @@ public class Server implements Runnable {
 					broadcastMessageToPlayer(msg, ID, 0);
 				}
 				if (input.contains("joinGame")){
-					String[] a = input.split(" ");
+					String[] a = input.split(",");
+					System.out.println("Server: joinGame...adding a player");
 					game.addPlayer(a[1], Integer.parseInt(a[2]));
 					playerNumbers.put(ID, game.getPlayersRegistered()-1);
 					
@@ -184,8 +185,8 @@ public class Server implements Runnable {
 							if(playerNumbers.get(id).equals(currentPlayerNum)){
 								currentID = id;
 							}
-							broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
-							
+							//broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
+							broadcastMessageToPlayer("launchMainGameScreen", id, 1);
 						}
 					}					
 				}
@@ -381,6 +382,7 @@ public class Server implements Runnable {
 				}
 				
 				Trace.getInstance().logchat(this, serverThreads.get(senderID), current, message);
+				current.send(String.format("%5d: %s\n", senderID, message));
 			}
 		}
 	}
@@ -519,6 +521,7 @@ public class Server implements Runnable {
 		
 		for (int i=0; i<game.getNumPlayers(); i++) {
 			result+="@"+getPlayerInfo(game.getPlayer(i));
+			result+="#"+getPlayerDisplayCards(game.getPlayer(i));
 		}
 		return result;
 	}
@@ -548,11 +551,14 @@ public class Server implements Runnable {
 		return result;
 	}
 	
+	public String getPlayerDisplayCards(Player p){
+		String result = "";
+		result += p.getDisplayAsString();
+		return result;
+	}
+	
 	
 	//put in client to parse all GAMEINFORMATION
-	
-	
-	
 	
 	public List<String[]> parseAllInfo(String s) {
 		List<String[]> result = new ArrayList<String[]>();
