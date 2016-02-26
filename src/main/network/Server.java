@@ -159,6 +159,7 @@ public class Server implements Runnable {
 			} else if (input.equals("shutdown!")) {
 				shutdown();
 			} else {
+				//from client, get logic, send back to clients
 				if (input.contains("drawToken")){
 					int tokenColour = game.getNextToken();
 					String msg = "drawToken " + tokenColour;

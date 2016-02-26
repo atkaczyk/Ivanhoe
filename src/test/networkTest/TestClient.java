@@ -83,6 +83,12 @@ public class TestClient {
 	}
 	
 	@Test
+	public void joinGameButtonPressed(){
+		clientOne.handle("joinGame");
+		assertEquals(true, clientOne.getJoinGame());
+	}
+	
+	@Test
 	public void gameReadyButtonPressed(){
 		clientOne.handle("gameReady");
 		assertEquals(true, clientOne.getGameReady());
