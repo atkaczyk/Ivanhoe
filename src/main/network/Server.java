@@ -473,7 +473,10 @@ public class Server implements Runnable {
 		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
 		//String msg = "GAMEINFORMATION~" + gameInfo;
-		//broadcastMessageToAllPlayers(msg);
+		
+		System.out.println("Server: Update players game info");
+		String gameInfo = getAllGameInfo();
+		broadcastToAllPlayers(gameInfo);
 		
 		//update the card hand for the specific client
 		//loop through all server threads, pass only to the one current client:
@@ -543,6 +546,12 @@ public class Server implements Runnable {
 		
 		return result;
 	}
+	
+	
+	//put in client to parse all GAMEINFORMATION
+	
+	
+	
 	
 	public List<String[]> parseAllInfo(String s) {
 		List<String[]> result = new ArrayList<String[]>();
