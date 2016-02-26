@@ -116,7 +116,6 @@ public class Server implements Runnable {
 				/** Open and start the thread */
 				serverThread.open();
 				serverThread.start();
-				serverThread.send("launch game ready screen\n");
 				
 				synchronized (serverThreadsLock) {
 					serverThreads.put(serverThread.getID(), serverThread);
@@ -366,6 +365,7 @@ public class Server implements Runnable {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
 				ServerThread current = serverThreads.get(senderID);
+				current.send(String.format("%s\n", message));
 				if (direction == 0){
 					logger.info(String
 							.format("SERVER RECIEVED MESSAGE FROM %s %d: %s",
