@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.sun.prism.paint.Color;
+//import com.sun.prism.paint.Color;
 
 public class CardHand extends JPanel implements ActionListener {
 	JButton [] cards;
