@@ -51,6 +51,12 @@ public class Player {
 				}
 			}
 		}
+		else if (card instanceof ColourCard) {
+			if (((ColourCard) card).getColour() != tournamentColour) {
+				return false;
+			}
+			displayTotal += ((ColourCard) card).getNumber();
+		}
 		
 		display.addLast(card);
 		return true;

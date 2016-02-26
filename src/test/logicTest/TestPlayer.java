@@ -3,6 +3,7 @@ package logicTest;
 import static org.junit.Assert.*;
 import logic.ActionCard;
 import logic.Card;
+import logic.ColourCard;
 import logic.Player;
 import logic.SupporterCard;
 
@@ -17,6 +18,8 @@ public class TestPlayer {
 	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
 	private static final Card MAIDEN_CARD = new SupporterCard("Maiden", 6);
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
+	private static final Card GREEN_CARD = new ColourCard("Green (No Weapon) 1", 1, Config.GREEN);
+	private static final Card BLUE_CARD = new ColourCard("Blue (Axe) 2", 2, Config.BLUE);
 	
 	Player player;
 	
@@ -116,6 +119,38 @@ public class TestPlayer {
 	public void clearDisplay() {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		player.clearDisplay();
+		
+		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addGreenCardOnGreenTournament() {
+		player.addCardToDisplay(GREEN_CARD, Config.GREEN);
+		
+		assertEquals(1, player.getDisplayTotal());
+		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addGreenCardOnBlueTournament() {
+		player.addCardToDisplay(GREEN_CARD, Config.BLUE);
+		
+		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addBlueCardOnBlueTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
+		
+		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addBlueCardOnGreenTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.GREEN);
 		
 		assertEquals(0, player.getDisplayTotal());
 		assertEquals(0, player.getDisplayCards().size());

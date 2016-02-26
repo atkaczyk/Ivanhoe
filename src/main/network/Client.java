@@ -7,7 +7,7 @@ import logic.Game;
 import userinterface.GUIController;
 import utils.Trace;
 
-public class Client implements Runnable {
+public class Client {
 	
 	//private GUIController gui = new GUIController();
 	private userinterface.GUIController gui;
@@ -30,6 +30,7 @@ public class Client implements Runnable {
 	private Boolean updateShowPlayerHand = false;
 	private Boolean cardPlayed = false;
 	private Boolean gameReady = false;
+	private Boolean joinGame = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -48,7 +49,7 @@ public class Client implements Runnable {
 			Trace.getInstance().exception(this,ioe);
 	   }
 		
-		gui = new GUIController(this);
+//		gui = new GUIController(this);
 		
 	}
 	
@@ -70,9 +71,8 @@ public class Client implements Runnable {
 		   streamOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 		   if (thread == null) {  
-		   	client = new ClientThread(this, socket);
-		      thread = new Thread(this);                   
-		      thread.start();
+		   	  client = new ClientThread(this, socket);
+		   	  
 		      connected = true;
 		   }
 	   } catch (IOException ioe) {
@@ -81,41 +81,15 @@ public class Client implements Runnable {
 	   }
    }
 
-	public void run() { 
-		
-		//running all the time
-		//was looking at the console
-		//take a msg
-		
-		
-		System.out.println(ID + ": Client Started...");
-		while (thread != null) {  
-			try {  
-				if (streamOut != null) {
-					streamOut.flush();
-					streamOut.write(console.readLine() + "\n");
-				} else {
-					System.out.println(ID + ": Stream Closed");
-				}
-         }
-         catch(IOException e) {  
-         	Trace.getInstance().exception(this,e);
-         	stop();
-         }}
-		System.out.println(ID + ": Client Stopped...");
-   }
-	
-
 	public void sendMessageToServer(String msg) { 
 		
 		//running all the time
 		//was looking at the console
 		//take a msg
-		System.out.println("sending a message to the server");
 		try {  
 			if (streamOut != null) {
-				streamOut.flush();
 				streamOut.write(msg + "\n");
+				streamOut.flush();
 			} else {
 				System.out.println(ID + ": Stream Closed");
 			}
@@ -132,52 +106,51 @@ public class Client implements Runnable {
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");
 			stop();
 		} 
+   		//from server
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
    			gameScreenLaunched = true;
-   			gui.launchGameReadyWindow();
-   			// wait for an action change
-   			// recieve getToken
-   			//if (gui.tokenRequest == true){
-   			//	client.send();
-   			//}
-   				
-   			
+   			gui = new GUIController(this);
+   			gui.launchGameReadyWindow();   			
    		}
-   		
+   		//from gui
    		else if (msg.contains("tokenRequest")){
    			System.out.println("tokenRequest");
+   			
    			sendMessageToServer("drawToken");
    		}
-   		
+   		//from server   		
    		else if (msg.contains("drawToken")){
-   			System.out.println("drawToken");
    			String[] tokenNumber = msg.split(" ");
-   			gui.displayTokenColour(Integer.parseInt(tokenNumber[1]));
-   			
-   			//when UI status is Config.PLAYER_READY == true){
-   				//String message = gui.getPlayerInformation();
-   				//send the message to the server handle???? using message "gameReady"  			
-   			
+   			int tn = Integer.parseInt(tokenNumber[1]);
+   			System.out.println("Client: drawToken, token number: "+tn);
+   			gui.displayTokenColour(tn);
+   		}
+   		//from gui
+   		else if (msg.contains("joinGame")){
+   			joinGame = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
-   			//gui.launchGamePlayWindow();
+   			gui.launchGamePlayWindow();
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
    			System.out.println("launchMainGameScreen currentPlayer");
    		}
+   		//from server
    		else if (msg.contains("GAMEINFORMATION~")){
    			System.out.println("message to client containing GAMEINFORMATION~");
    			updateAllPlayersInfo = true;
-   			//gui.setAllPlayersInfo(msg);
+   			gui.setAllPlayersInfo(msg);
    		}
+   		//from server
    		else if (msg.contains("PLAYERHAND~")){
    			System.out.println("message to specific player containing PLAYERHAND~");
    			updateShowPlayerHand = true;
-   			//gui.showPlayerHand(msg);
+   			gui.showPlayerHand(msg);
    		}
    		else {
 			System.out.println(msg);
@@ -232,5 +205,9 @@ public class Client implements Runnable {
 	
 	public Object getGameReady(){
 		return gameReady;
+	}
+	
+	public Object getJoinGame(){
+		return joinGame;
 	}
 }
