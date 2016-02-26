@@ -4,4 +4,4 @@
 .DS_Store
 src/.DS_Store
 .settings
-/logs
+logs/
