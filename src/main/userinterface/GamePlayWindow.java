@@ -115,16 +115,26 @@ public class GamePlayWindow extends JFrame{
 
 	public void setPlayerCardStats() {
 		// TODO Auto-generated method stub
+		playerCard0.setPlayerCard("NAME", 5, 10, false);
+		playerCard1.setPlayerCard("NAME", 5, 10, false);
+		playerCard2.setPlayerCard("NAME", 5, 10, false);
+		playerCard3.setPlayerCard("NAME", 5, 10, false);
+		playerCard4.setPlayerCard("NAME", 5, 10, false);
 		
 	}
 
 	public void setPlayerCardDisplay() {
 		// TODO Auto-generated method stub
-		
+		playerCard0.setPlayerDisplay(); //"NAME", 5, 10, false);
+		playerCard1.setPlayerDisplay();
+		playerCard2.setPlayerDisplay();
+		playerCard3.setPlayerDisplay();
+		playerCard4.setPlayerDisplay();
 	}
 
 	public void updateCardHand() {
 		// TODO Auto-generated method stub
+		hand.playCardsInHand();
 		
 	}
 }

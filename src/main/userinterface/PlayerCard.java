@@ -24,7 +24,7 @@ public class PlayerCard extends JPanel{
 		setLayout(null); //new FlowLayout()); 
 		setBorder(BorderFactory.createTitledBorder("Player Card")); 
 		
-		playerStats = new PlayerCardStats(name);
+		playerStats = new PlayerCardStats(name, 0, 0, false);
 		playerStats.setLocation(20,20);
 		
 		ImageIcon a = new ImageIcon("Z:\\Ivanhoe\\3004_Iteration1\\src\\Images\\Avatar.jpg");
@@ -48,6 +48,19 @@ public class PlayerCard extends JPanel{
 
 		setSize(600, 500); 
 
+	}
+	
+	public void setPlayerCard(String playerName, int numToken, int score, boolean turn){
+		setBorder(BorderFactory.createTitledBorder("playerName")); 
+		playerStats = new PlayerCardStats(playerName, numToken, score, turn);
+		add(playerStats);
+		
+	}
+	
+	public void setPlayerDisplay(){
+		//for(all of the strings in the array, for each image add a new button)
+		display.add(new JButton(), Color.white);
+		add(display);
 	}
 
 
