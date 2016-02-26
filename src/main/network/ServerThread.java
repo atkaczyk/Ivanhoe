@@ -47,21 +47,27 @@ public class ServerThread extends Thread {
 	 * on the assigned port 
 	 * */
 	public void run() {
-		Trace.getInstance().write(this, "Server Thread Running", ID);
+		//Trace.getInstance().write(this, "Server Thread Running", ID);
 		while (!done) {
 			try {
-				/** Received a message and pass to the server to handle */
-				server.handle(ID, streamIn.readLine());
+				
+				String s = streamIn.readLine();
+				if (s != null) {
+					/** Received a message and pass to the server to handle */
+					server.handle(ID, s);
+				}
 			} catch (IOException ioe) {
 				Trace.getInstance().exception(this,ioe);
 				server.remove(ID);
 				break;
-			}}
+			}
+		}
 	}
 
 	public void open() throws IOException {
 		streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		streamOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+		send("launch game ready screen\n");
 	}
 
 	public void close() {

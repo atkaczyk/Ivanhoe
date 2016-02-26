@@ -7,7 +7,7 @@ import logic.Game;
 import userinterface.GUIController;
 import utils.Trace;
 
-public class Client implements Runnable {
+public class Client {
 	
 	//private GUIController gui = new GUIController();
 	private userinterface.GUIController gui;
@@ -48,7 +48,7 @@ public class Client implements Runnable {
 			Trace.getInstance().exception(this,ioe);
 	   }
 		
-		gui = new GUIController(this);
+//		gui = new GUIController(this);
 		
 	}
 	
@@ -70,9 +70,8 @@ public class Client implements Runnable {
 		   streamOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 		   if (thread == null) {  
-		   	client = new ClientThread(this, socket);
-		      thread = new Thread(this);                   
-		      thread.start();
+		   	  client = new ClientThread(this, socket);
+		   	  
 		      connected = true;
 		   }
 	   } catch (IOException ioe) {
@@ -81,41 +80,15 @@ public class Client implements Runnable {
 	   }
    }
 
-	public void run() { 
-		
-		//running all the time
-		//was looking at the console
-		//take a msg
-		
-		
-		System.out.println(ID + ": Client Started...");
-		while (thread != null) {  
-			try {  
-				if (streamOut != null) {
-					streamOut.flush();
-					streamOut.write(console.readLine() + "\n");
-				} else {
-					System.out.println(ID + ": Stream Closed");
-				}
-         }
-         catch(IOException e) {  
-         	Trace.getInstance().exception(this,e);
-         	stop();
-         }}
-		System.out.println(ID + ": Client Stopped...");
-   }
-	
-
 	public void sendMessageToServer(String msg) { 
 		
 		//running all the time
 		//was looking at the console
 		//take a msg
-		System.out.println("sending a message to the server");
 		try {  
 			if (streamOut != null) {
-				streamOut.flush();
 				streamOut.write(msg + "\n");
+				streamOut.flush();
 			} else {
 				System.out.println(ID + ": Stream Closed");
 			}
@@ -134,6 +107,7 @@ public class Client implements Runnable {
 		} 
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
    			gameScreenLaunched = true;
+   			gui = new GUIController(this);
    			gui.launchGameReadyWindow();
    			// wait for an action change
    			// recieve getToken
@@ -146,6 +120,7 @@ public class Client implements Runnable {
    		
    		else if (msg.contains("tokenRequest")){
    			System.out.println("tokenRequest");
+   			
    			sendMessageToServer("drawToken");
    		}
    		
