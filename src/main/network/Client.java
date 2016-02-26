@@ -30,6 +30,7 @@ public class Client {
 	private Boolean updateShowPlayerHand = false;
 	private Boolean cardPlayed = false;
 	private Boolean gameReady = false;
+	private Boolean joinGame = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -105,55 +106,51 @@ public class Client {
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");
 			stop();
 		} 
+   		//from server
    		else if (msg.equalsIgnoreCase("launch game ready screen")){
    			gameScreenLaunched = true;
    			gui = new GUIController(this);
-   			gui.launchGameReadyWindow();
-   			// wait for an action change
-   			// recieve getToken
-   			//if (gui.tokenRequest == true){
-   			//	client.send();
-   			//}
-   				
-   			
+   			gui.launchGameReadyWindow();   			
    		}
-   		
+   		//from gui
    		else if (msg.contains("tokenRequest")){
    			System.out.println("tokenRequest");
    			
    			sendMessageToServer("drawToken");
    		}
-   		
+   		//from server   		
    		else if (msg.contains("drawToken")){
    			String[] tokenNumber = msg.split(" ");
    			int tn = Integer.parseInt(tokenNumber[1]);
    			System.out.println("Client: drawToken, token number: "+tn);
    			gui.displayTokenColour(tn);
-   			
-   			//when UI status is Config.PLAYER_READY == true){
-   				//String message = gui.getPlayerInformation();
-   				//send the message to the server handle???? using message "gameReady"  			
-   			
+   		}
+   		//from gui
+   		else if (msg.contains("joinGame")){
+   			joinGame = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
    			System.out.println("launchMainGameScreen");
-   			//gui.launchGamePlayWindow();
+   			gui.launchGamePlayWindow();
    		}
    		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
    			System.out.println("launchMainGameScreen currentPlayer");
    		}
+   		//from server
    		else if (msg.contains("GAMEINFORMATION~")){
    			System.out.println("message to client containing GAMEINFORMATION~");
    			updateAllPlayersInfo = true;
-   			//gui.setAllPlayersInfo(msg);
+   			gui.setAllPlayersInfo(msg);
    		}
+   		//from server
    		else if (msg.contains("PLAYERHAND~")){
    			System.out.println("message to specific player containing PLAYERHAND~");
    			updateShowPlayerHand = true;
-   			//gui.showPlayerHand(msg);
+   			gui.showPlayerHand(msg);
    		}
    		else {
 			System.out.println(msg);
@@ -208,5 +205,9 @@ public class Client {
 	
 	public Object getGameReady(){
 		return gameReady;
+	}
+	
+	public Object getJoinGame(){
+		return joinGame;
 	}
 }
