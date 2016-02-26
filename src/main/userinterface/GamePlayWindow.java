@@ -134,7 +134,7 @@ public class GamePlayWindow extends JFrame{
 
 	public void updateCardHand() {
 		// TODO Auto-generated method stub
-		hand.playCardsInHand();
+		hand.showCardsInHand();
 		
 	}
 }

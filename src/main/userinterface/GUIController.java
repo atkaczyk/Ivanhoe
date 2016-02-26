@@ -1,5 +1,7 @@
 package userinterface;
 
+import javax.swing.JTextField;
+
 import network.Client;
 
 public class GUIController {
@@ -7,7 +9,7 @@ public class GUIController {
 	GamePlayWindow gamePlayWindow;
 	Client client;
 
-	public GUIController(Client c){
+	public GUIController(Client c){ 
 		client = c;	
 	}
 
@@ -24,8 +26,8 @@ public class GUIController {
 	
 	public void update(){
 		gamePlayWindow.setPlayerCardStats(); //Should take in name, playerName, numToken, score, turn
-		gamePlayWindow.setPlayerCardDisplay();
-		gamePlayWindow.updateCardHand();
+		gamePlayWindow.setPlayerCardDisplay(); //this needs each players 
+		gamePlayWindow.updateCardHand(); //should take in hand info
 		
 	}
 	public void sendTokenRequest(){
@@ -44,12 +46,14 @@ public class GUIController {
 	public void sendClient(){
 		//client.send(gameReadyWindow.getTokenRequest());
 	}
+	public void sendJoinGame(String playerName, int tokenColour) {
+		client.handle("joinGame," + playerName + "," + tokenColour);
 
-	public void sendGameReady() {
-		client.handle("gameReady");
+		System.out.println("This player just joined the game: " + playerName);
 	}
 	public void displayTokenColour(int tokenColour){
 		System.out.println("The Token Colour is: " + tokenColour);
 		gameReadyWindow.setFinalToken(tokenColour);
 	}
+	
 }

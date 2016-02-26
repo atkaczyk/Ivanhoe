@@ -38,7 +38,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 	JButton tokenRequest;
 
-
+	int tokenNum;
 	GUIController guiController;
 	JLabel Step2;
 	JLabel Step3 ;
@@ -149,7 +149,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		finalToken.setVisible(false);
 		add(finalToken, c);
 
-		gameReady = new JButton("Game Ready");
+		gameReady = new JButton("Join Game");
 		//gameReady.setIcon(new ImageIcon(this.getClass().getResource("Images/GameReady.jpg")));
 		c.weightx = 0.8;
 		c.gridx = 3;
@@ -181,21 +181,18 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 			Step3.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
 			Step2.setText("Step 2: " + playerName.getText() + " Press to Retrieve a Token");
-			//SEND THE PLAYERS NAME TO BE STORED.
-			playerName.setText(" ");
+			//	playerName.setText(" ");
 
 		}
 		else if (action.equals("Press to Retrieve a Token")){
-			//System.out.println("tokenRequest");
 			Step3.setVisible(true);
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
 
 			guiController.sendTokenRequest();
 		}
-		else if(action.equals("Game Ready")){
-			//System.out.println("Game Ready");
-			guiController.sendGameReady();		
+		else if(action.equals("Join Game")){
+			guiController.sendJoinGame(playerName.getText(), tokenNum );		
 		}
 
 	}
@@ -209,6 +206,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 	public void setFinalToken(int tokenColour) {
 		// TODO Auto-generated method stub
+		tokenNum = tokenColour;
 		System.out.println(tokens[tokenColour]);
 		finalToken.setIcon(tokens[tokenColour]);
 	}
