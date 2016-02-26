@@ -125,9 +125,10 @@ public class Client {
    		}
    		
    		else if (msg.contains("drawToken")){
-   			System.out.println("drawToken");
    			String[] tokenNumber = msg.split(" ");
-   			gui.displayTokenColour(Integer.parseInt(tokenNumber[1]));
+   			int tn = Integer.parseInt(tokenNumber[1]);
+   			System.out.println("Client: drawToken, token number: "+tn);
+   			gui.displayTokenColour(tn);
    			
    			//when UI status is Config.PLAYER_READY == true){
    				//String message = gui.getPlayerInformation();
