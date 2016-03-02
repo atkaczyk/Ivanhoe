@@ -61,7 +61,9 @@ public class GUIController {
 		return result;
 	}
 
-	public void setAllPlayersInfo(String str){
+	public void setAllPlayersInfo(String str){ //everything is good here, just have to parse the msg string
+		
+		
 		gamePlayWindow.setPlayerCardStats("player TEST", 000, 111, true); //Should take in name, playerName, numToken, score, turn
 
 		// NOTE I GET: Charge,Blue (Axe) 2,Red (Sword) 3, I NEED: charge.jpg,blue2.jpg,red3.jpg
