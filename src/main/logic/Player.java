@@ -120,6 +120,9 @@ public class Player {
 	}
 	
 	public String getHandAsString() {
+		if (hand.size() == 0) {
+			return "";
+		}
 		String result = "";
 		for (Card c: hand) {
 			result += c.getName() + ",";
@@ -130,6 +133,9 @@ public class Player {
 	}
 	
 	public String getDisplayAsString() {
+		if (display.size() == 0) {
+			return "";
+		}
 		String result = "";
 		for (Card c: display) {
 			result += c.getName() + ",";
