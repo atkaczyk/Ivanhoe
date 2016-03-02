@@ -30,7 +30,7 @@ public class GUIController {
 	public void launchGamePlayWindow(){
 		gameReadyWindow.setVisible(false);
 		gamePlayWindow = new GamePlayWindow(client);
-		setAllPlayersInfo("lol");
+		//setAllPlayersInfo("lol");
 		System.out.println("You set the players info");
 		gamePlayWindow.setVisible(true);
 	}
