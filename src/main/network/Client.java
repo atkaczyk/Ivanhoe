@@ -120,26 +120,31 @@ public class Client {
    		}
    		//from server   		
    		else if (msg.contains("drawToken")){
-   			String[] tokenNumber = msg.split(" ");
+   			String[] tokenNumber = msg.split(",");
    			int tn = Integer.parseInt(tokenNumber[1]);
    			System.out.println("Client: drawToken, token number: "+tn);
    			gui.displayTokenColour(tn);
    		}
    		//from gui
    		else if (msg.contains("joinGame")){
+   			System.out.println("Client:joinGame:"+msg);
    			joinGame = true;
    			sendMessageToServer(msg);
    		}
+
+   		//from server to gui
+   		else if (msg.equals("openMainGameScreen")){
+   			System.out.println("~~~~~~~Client: launchMainGameScreen");
+   			gui.launchGamePlayWindow();
+   		}
+   		
    		else if (msg.contains("gameReady")){
    			gameReady = true;
    		}
-   		else if (msg.equalsIgnoreCase("launchMainGameScreen")){
-   			System.out.println("launchMainGameScreen");
-   			gui.launchGamePlayWindow();
-   		}
-   		else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
-   			System.out.println("launchMainGameScreen currentPlayer");
-   		}
+   		
+   		//else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
+   		//	System.out.println("launchMainGameScreen currentPlayer");
+   		//}
    		//from server
    		else if (msg.contains("GAMEINFORMATION~")){
    			System.out.println("message to client containing GAMEINFORMATION~");
