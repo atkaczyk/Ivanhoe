@@ -31,7 +31,7 @@ public class GUIController {
 		gameReadyWindow.setVisible(false);
 		gamePlayWindow = new GamePlayWindow(client);
 
-		client.handle("updateGameScreen");		//setAllPlayersInfo("lol");
+		client.handle("updateGameInformation");		//setAllPlayersInfo("lol");
 		gamePlayWindow.setVisible(true);
 		
 	}
@@ -90,5 +90,10 @@ public class GUIController {
 		client.handle("joinGame," + playerName + "," + tokenColour);
 
 		System.out.println("This player just joined the game: " + playerName);
+	}
+
+	public void sendCardToPlay(String cardToSend) { //cardToSend is filename, "charge.jpg" 
+		client.handle("requestToPlayThisCard," + cardToSend);
+		
 	}
 }

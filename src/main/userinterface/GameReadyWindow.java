@@ -204,7 +204,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	public void setFinalToken(int tokenColour) {
 		// TODO Auto-generated method stub
 		tokenNum = tokenColour;
-		System.out.println(tokens[tokenColour]);
 		finalToken.setIcon(tokens[tokenColour]);
 	}
 
