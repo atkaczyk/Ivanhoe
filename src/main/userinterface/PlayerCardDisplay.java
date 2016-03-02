@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,8 +34,12 @@ public class PlayerCardDisplay extends JPanel {
 		numCardsInDisplay ++;
 //		card.setBackground(colour);
 		//card.setIcon(new ImageIcon);
-
-		card.setIcon(new ImageIcon(this.getClass().getResource("Cards/"+str)));
+		ImageIcon icon =new ImageIcon(this.getClass().getResource("Cards/"+str));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(80, 130,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		
+		card.setIcon(icon);
 		card.setSize(80, 130);
 		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());
 		lp.add(card,  new Integer(numCardsInDisplay));
