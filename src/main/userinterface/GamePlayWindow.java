@@ -37,13 +37,14 @@ public class GamePlayWindow extends JFrame{
 		
 		c.weightx =1;
 		c.weighty =1;
-		c.ipadx = 100;
+		c.ipadx = 10;
+		c.ipady= 0;
 		c.gridx = 0;
 		c.gridy = 0;
 		add(button, c);
 
 		button = new JButton("Game States");
-		c.weighty =0.0;
+		c.weighty =1;
 		c.gridx = 2;
 		c.gridy = 0;
 		add(button, c);
@@ -92,15 +93,16 @@ public class GamePlayWindow extends JFrame{
 		
 		buttonPanel = new GamePlayButtonPanel();
 		c.ipadx = 100;
-		c.ipady = 100;
+		c.ipady = 80;
 		c.weightx = 0.0;
+		c.weighty =1;
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 3;
 		add(buttonPanel, c);
 		
 		hand = new CardHand(); //"MY CARD HAND DISPLAY SCROLLER");
-		c.ipady = 200;     
+		c.ipady = 300;      //change back to 200?
 		c.weightx = 0.0;
 		c.gridwidth = 3;
 		c.gridx = 0;
@@ -113,28 +115,28 @@ public class GamePlayWindow extends JFrame{
 		setResizable(true);
 	}
 
-	public void setPlayerCardStats() {
-		// TODO Auto-generated method stub
-		playerCard0.setPlayerCard("NAME", 5, 10, false);
-		playerCard1.setPlayerCard("NAME", 5, 10, false);
-		playerCard2.setPlayerCard("NAME", 5, 10, false);
-		playerCard3.setPlayerCard("NAME", 5, 10, false);
-		playerCard4.setPlayerCard("NAME", 5, 10, false);
+	//can now take in a string and parse to all players.
+	public void setPlayerCardStats(String playerName, int numToken, int score, boolean turn) {
+		playerCard0.setPlayerStats(playerName, numToken, score, turn);
+		playerCard1.setPlayerStats("NAME", 5, 10, false);
+		playerCard2.setPlayerStats("NAME", 5, 10, false);
+		playerCard3.setPlayerStats("NAME", 5, 10, false);
+		playerCard4.setPlayerStats("NAME", 5, 10, false);
 		
 	}
 
-	public void setPlayerCardDisplay() {
-		// TODO Auto-generated method stub
-		playerCard0.setPlayerDisplay(); //"NAME", 5, 10, false);
-		playerCard1.setPlayerDisplay();
-		playerCard2.setPlayerDisplay();
-		playerCard3.setPlayerDisplay();
-		playerCard4.setPlayerDisplay();
+	public void setPlayerCardDisplay(String str) {
+		System.out.println("trying to set the player card display");
+		playerCard0.setPlayerDisplay(str); //"NAME", 5, 10, false);
+		playerCard1.setPlayerDisplay("green1.jpg");
+		playerCard2.setPlayerDisplay("purple3.jpg");
+		playerCard3.setPlayerDisplay("purple3.jpg");
+		playerCard4.setPlayerDisplay("purple3.jpg");
 	}
 
-	public void updateCardHand() {
+	public void updateCardHand(String cardsInHand){
 		// TODO Auto-generated method stub
-		hand.showCardsInHand();
+		hand.showCardsInHand( cardsInHand);
 		
 	}
 }
