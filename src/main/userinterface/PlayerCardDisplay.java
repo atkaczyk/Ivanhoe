@@ -1,8 +1,8 @@
 package userinterface;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -29,14 +29,17 @@ public class PlayerCardDisplay extends JPanel {
 		setSize(300, 150); 
 	}
 
-	public void add(JButton card, Color colour){
+	public void add(JButton card,String str){
 		numCardsInDisplay ++;
-		card.setBackground(colour);
+//		card.setBackground(colour);
+		//card.setIcon(new ImageIcon);
+
+		card.setIcon(new ImageIcon(this.getClass().getResource("Cards/"+str)));
 		card.setSize(80, 130);
 		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());
 		lp.add(card,  new Integer(numCardsInDisplay));
 
-		System.out.println(numCardsInDisplay);
+		//System.out.println(numCardsInDisplay);
 		this.add(lp);
 	}
 

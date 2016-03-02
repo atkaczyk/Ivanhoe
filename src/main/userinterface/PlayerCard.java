@@ -25,6 +25,7 @@ public class PlayerCard extends JPanel{
 		setBorder(BorderFactory.createTitledBorder("Player Card")); 
 		
 		playerStats = new PlayerCardStats(name, 0, 0, false);
+		//setPlayerStats("Shit", 1, 2, true);
 		playerStats.setLocation(20,20);
 		
 		ImageIcon a = new ImageIcon("Z:\\Ivanhoe\\3004_Iteration1\\src\\Images\\Avatar.jpg");
@@ -36,9 +37,6 @@ public class PlayerCard extends JPanel{
 
 		display = new PlayerCardDisplay();
 
-		display.add(new JButton(), Color.white);
-		display.add(new JButton(), Color.gray);
-		display.add(new JButton(), Color.black);
 		display.setLocation(350,20);
 		
 		
@@ -50,17 +48,24 @@ public class PlayerCard extends JPanel{
 
 	}
 	
-	public void setPlayerCard(String playerName, int numToken, int score, boolean turn){
-		setBorder(BorderFactory.createTitledBorder("playerName")); 
-		playerStats = new PlayerCardStats(playerName, numToken, score, turn);
+	public void setPlayerStats(String playerName, int numToken, int score, boolean turn){
+		//setBorder(BorderFactory.createTitledBorder("shittyier")); 
+		playerStats.setPlayerName(playerName);
+		playerStats.setPlayerTokens(numToken);
+		playerStats.setPlayerScore(score);
+		playerStats.setPlayerTurn(turn);
+		
+		
+		//playerStats = new PlayerCardStats(playerName, numToken, score, turn);
 		add(playerStats);
 		
 	}
 	
-	public void setPlayerDisplay(){
-		//for(all of the strings in the array, for each image add a new button)
-		display.add(new JButton(), Color.white);
-		add(display);
+	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
+		String[] cards = str.split(",");
+		for(int i =0; i<cards.length; i++){
+			display.add(new JButton(), cards[i]);
+		}
 	}
 
 
