@@ -192,7 +192,8 @@ public class Game {
 	/**
 	 * Gets the first card from the draw pile and moves it into the players hand
 	 **/
-	public void drawCard(Player player) {
+	public void drawCard(int playerNum) {
+		Player player = players[playerNum];
 		Card c = drawPile.getCard();
 		player.addCardToHand(c);
 		
