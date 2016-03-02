@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 public class CardHand extends JPanel implements ActionListener {
 	JButton [] cards;
 
+	GUIController guiController;
 	JScrollPane scrollPane;
 	JButton playCards;
 	JButton donePlayingCards;
@@ -103,6 +104,7 @@ public void actionPerformed(ActionEvent e) {
 	}
 	else if (action.equals("Play Cards")) {
 		System.out.println("YOU JUST PLAYED " + cardToSend);
+		guiController.sendCardToPlay(cardToSend);
 	//	showCardsInHand(); //has to take in the information of the selected cards
 		//getSelectedCards(); //and send them to the client.
 	
