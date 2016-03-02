@@ -104,7 +104,7 @@ public void actionPerformed(ActionEvent e) {
 	}
 	else if (action.equals("Play Cards")) {
 		System.out.println("YOU JUST PLAYED " + cardToSend);
-		guiController.sendCardToPlay(cardToSend);
+		guiController.sendCardToPlay(cardToSend);  //send the file name to the client
 	//	showCardsInHand(); //has to take in the information of the selected cards
 		//getSelectedCards(); //and send them to the client.
 	
