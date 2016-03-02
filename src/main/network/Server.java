@@ -159,34 +159,46 @@ public class Server implements Runnable {
 			} else if (input.equals("shutdown!")) {
 				shutdown();
 			} else {
+				//from client, get logic, send back to clients
 				if (input.contains("drawToken")){
 					int tokenColour = game.getNextToken();
-					String msg = "drawToken " + tokenColour;
+					String msg = "drawToken," + tokenColour;
+					System.out.println("SERVER: drawToken" + msg + " "+ ID);
 					broadcastMessageToPlayer(msg, ID, 0);
 				}
+				
 				if (input.contains("joinGame")){
-					String[] a = input.split(" ");
+					String[] a = input.split(",");
+					System.out.println("Server: joinGame...adding a player");
 					game.addPlayer(a[1], Integer.parseInt(a[2]));
 					playerNumbers.put(ID, game.getPlayersRegistered()-1);
 					
 					// after adding a player, then game.isReadyToStart() then when all players have been added to the game
 					if (game.isReadyToStart()){
+						System.out.println("SERVER: joinGame if READY to START");
 						// call game.start() to initialize the deck and everything 
 						game.startGame();
 						// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
-						int currentPlayerNum = game.getCurrentPlayerNumber();
+						//int currentPlayerNum = game.getCurrentPlayerNumber();
 						// look in your map playerNumbers and see which server thread needs to get the special message
-						
-						int currentID = -1;
+												
+						//int currentID = -1;
 						for (int id: playerNumbers.keySet()){
 							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
-							if(playerNumbers.get(id).equals(currentPlayerNum)){
-								currentID = id;
-							}
-							broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
-							
+							//if(playerNumbers.get(id).equals(currentPlayerNum)){
+							//	currentID = id;
+							//}
+							System.out.println("SERVER: in loop joinGame "+id);
+							broadcastMessageToPlayer("openMainGameScreen", id, 1);
+
 						}
 					}					
+				}
+				if (input.contains("updateGameInformation")){
+					System.out.println("~~~~SERVER: handle updateGameInformation from client");
+					//call update function
+					update(ID);
+					//broadcastMessageToPlayer(update);
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
@@ -195,10 +207,13 @@ public class Server implements Runnable {
 	   				//game.addPlayer(name, tokenNumber);
 	   				//check to see if game is ready using game.isReadyToStart()
 				}
-				if (input.contains("cardPlayed")){
+				if (input.contains("cardSelected")){
 					String[] cardInfo = input.split(" ");
 					//gather card info to pass to:
-					//game.cardPlayed();
+					//game.playCard();
+					//true
+					//false
+					//actioncard
 					
 				}
 				if (input.contains("join")) {
@@ -222,7 +237,7 @@ public class Server implements Runnable {
 				} else if (input.contains("roll")) {
 					rolls.add(input);
 				}
-				broadcastToOtherPlayers(input, ID);
+				//broadcastToOtherPlayers(input, ID);
 
 				if (rolls.size() == game.getNumPlayers()) {
 					// All rolls and commands have been entered, ready for
@@ -380,6 +395,7 @@ public class Server implements Runnable {
 				}
 				
 				Trace.getInstance().logchat(this, serverThreads.get(senderID), current, message);
+				//current.send(String.format("%5d: %s\n", senderID, message));
 			}
 		}
 	}
@@ -389,6 +405,7 @@ public class Server implements Runnable {
 	public synchronized void broadcastToAllPlayers(String message){
 		synchronized (serverThreadsLock) {
 			for (ServerThread to : serverThreads.values()) {
+				System.out.println("~~~~~~Server: broadcastToAllPlayers~~~~~~~~");
 				to.send(String.format("%s\n", message));
 				logger.info(String.format("SERVER BROADCASTING MESSAGE TO ALL PLAYERS: %s", message));
 				Trace.getInstance().logchatToAll(this, message);
@@ -473,7 +490,11 @@ public class Server implements Runnable {
 		//update the game info for all players
 		//String gameInfo = game.getAllPlayersInfo();
 		//String msg = "GAMEINFORMATION~" + gameInfo;
-		//broadcastMessageToAllPlayers(msg);
+		
+		System.out.println("Server: Update players game info");
+		String gameInfo = getAllGameInfo();
+		System.out.println("~~~~Server: update info: " + gameInfo);
+		broadcastToAllPlayers(gameInfo);
 		
 		//update the card hand for the specific client
 		//loop through all server threads, pass only to the one current client:
@@ -481,32 +502,34 @@ public class Server implements Runnable {
 		int currentPlayerNum = game.getCurrentPlayerNumber();
 		// look in your map playerNumbers and see which server thread matches the player
 		
-		int currentID = -1;
+		//int currentID = -1;
 		String message = "PLAYERHAND~";
+		//message += getPlayerHandCards(game.getPlayer);
+		//broadcastMessageToPlayer(String message, int senderID, int direction)
 				
-		for (int id: playerNumbers.keySet()){
-			// if they are the current player then they get a message like "launchMainGameScreen currentPlayer"
-			if(playerNumbers.get(id).equals(currentPlayerNum)){
-				currentID = id;
-			}
-			//send the message to the one player
-			synchronized (serverThreadsLock) {
-				if (serverThreads.containsKey(currentID)) {
-					ServerThread current = serverThreads.get(currentID);
-					
-					//UNCOMMENT*************
-					//String handAsString = current.getHandAsString();
-					//message = "PLAYERHAND~" + handAsString;
-					
-					logger.info(String.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
-									current.getSocketAddress(), current.getID(), message));
-				
-					
-					Trace.getInstance().logchat(this, serverThreads.get(currentID), current, message);
-				}
-			}
-			
-		}
+//		for (int id: playerNumbers.keySet()){
+//			// if they are the current player then they get a message like "launchMainGameScreen currentPlayer"
+//			if(playerNumbers.get(id).equals(currentPlayerNum)){
+//				currentID = id;
+//			}
+//			//send the message to the one player
+//			synchronized (serverThreadsLock) {
+//				if (serverThreads.containsKey(currentID)) {
+//					ServerThread current = serverThreads.get(currentID);
+//					
+//					//UNCOMMENT*************
+//					//String handAsString = current.getHandAsString();
+//					//message = "PLAYERHAND~" + handAsString;
+//					
+//					logger.info(String.format("SERVER SENDING MESSAGE TO CLIENT %s %d: %s",
+//									current.getSocketAddress(), current.getID(), message));
+//				
+//					
+//					Trace.getInstance().logchat(this, serverThreads.get(currentID), current, message);
+//				}
+//			}
+//			
+//		}
 	}
 	
 	// | will be before each player's information
@@ -515,6 +538,7 @@ public class Server implements Runnable {
 		
 		for (int i=0; i<game.getNumPlayers(); i++) {
 			result+="@"+getPlayerInfo(game.getPlayer(i));
+			result+="#"+getPlayerDisplayCards(game.getPlayer(i));
 		}
 		return result;
 	}
@@ -543,6 +567,21 @@ public class Server implements Runnable {
 		
 		return result;
 	}
+	
+	public String getPlayerDisplayCards(Player p){
+		String result = "";
+		result += p.getDisplayAsString();
+		return result;
+	}
+	
+	public String getPlayerHandCards(Player p){
+		String result = "";
+		result += p.getHandAsString();
+		return result;
+	}
+	
+	
+	//put in client to parse all GAMEINFORMATION
 	
 	public List<String[]> parseAllInfo(String s) {
 		List<String[]> result = new ArrayList<String[]>();

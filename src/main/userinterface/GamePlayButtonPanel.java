@@ -71,7 +71,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		}
 		else if (action.equals("Draw a Card")) {
 			System.out.println("DrawCard");
-			GamePlayWindow.playerCard1.display.add(new JButton(), Color.red);
+			GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
 
 		}
 		else if (action.equals("Announce End of Turn")) {
