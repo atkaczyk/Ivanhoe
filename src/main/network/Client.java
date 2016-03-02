@@ -115,7 +115,6 @@ public class Client {
    		//from gui
    		else if (msg.contains("tokenRequest")){
    			System.out.println("tokenRequest");
-   			
    			sendMessageToServer("drawToken");
    		}
    		//from server   		
@@ -136,13 +135,20 @@ public class Client {
    		else if (msg.contains("openMainGameScreen")){
    			System.out.println("~~~~~~~Client: launchMainGameScreen");
    			gui.launchGamePlayWindow();
-   			//gui.setAllPlayersInfo("");
    		}
-   		
-   		else if (msg.contains("updateGameScreen")){
-   			gui.setAllPlayersInfo("lol");
-   			System.out.println("~~~~~~~~Client: updateGameScreen");
+   		//from gui
+   		else if (msg.contains("updateGameInformation")){
+   			System.out.println("~~~~~~~~Client: updateGameInformation");
+   			sendMessageToServer(msg);
+   			//call server and get information
    		}
+   		//from server to gui
+   		else if (msg.contains("GAMEINFORMATION~")){
+   			System.out.println("message to client containing GAMEINFORMATION~");
+   			updateAllPlayersInfo = true;
+   			gui.setAllPlayersInfo(msg);
+   		}
+
    		
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -151,12 +157,7 @@ public class Client {
    		//else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
    		//	System.out.println("launchMainGameScreen currentPlayer");
    		//}
-   		//from server
-   		else if (msg.contains("GAMEINFORMATION~")){
-   			System.out.println("message to client containing GAMEINFORMATION~");
-   			updateAllPlayersInfo = true;
-   			gui.setAllPlayersInfo(msg);
-   		}
+
    		//from server
    		else if (msg.contains("PLAYERHAND~")){
    			System.out.println("message to specific player containing PLAYERHAND~");
