@@ -182,24 +182,24 @@ public class Server implements Runnable {
 						//int currentPlayerNum = game.getCurrentPlayerNumber();
 						// look in your map playerNumbers and see which server thread needs to get the special message
 						
-						String temp = "openMainGameScreen";
-						System.out.println("SERVER: joinGame if READY to START 1"  + temp + ID);
-						broadcastMessageToPlayer(temp, ID, 1);
-						System.out.println("SERVER: joinGame if READY to START 2" + temp + ID);
-						broadcastToAllPlayers(temp);
-						System.out.println("SERVER: joinGame ALL PLAYERS!");
+						//String temp = "openMainGameScreen";
+						//System.out.println("SERVER: joinGame if READY to START 1"  + temp + ID);
+						//broadcastMessageToPlayer(temp, ID, 1);
+						//System.out.println("SERVER: joinGame if READY to START 2" + temp + ID);
+						//broadcastToAllPlayers(temp);
+						//System.out.println("SERVER: joinGame ALL PLAYERS!");
 						
 						//int currentID = -1;
-						//for (int id: playerNumbers.keySet()){
+						for (int id: playerNumbers.keySet()){
 							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
 							//if(playerNumbers.get(id).equals(currentPlayerNum)){
 							//	currentID = id;
 							//}
 							//broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
-							//System.out.println("SERVER: in loop joinGame "+id);
-							//broadcastMessageToPlayer("launchMainGameScreen", id, 1);
+							System.out.println("SERVER: in loop joinGame "+id);
+							broadcastMessageToPlayer("openMainGameScreen", id, 1);
 
-						//}
+						}
 					}					
 				}
 				if (input.contains("gameReady")){
@@ -209,10 +209,13 @@ public class Server implements Runnable {
 	   				//game.addPlayer(name, tokenNumber);
 	   				//check to see if game is ready using game.isReadyToStart()
 				}
-				if (input.contains("cardPlayed")){
+				if (input.contains("cardSelected")){
 					String[] cardInfo = input.split(" ");
 					//gather card info to pass to:
-					//game.cardPlayed();
+					//game.playCard();
+					//true
+					//false
+					//actioncard
 					
 				}
 				if (input.contains("join")) {
@@ -236,7 +239,7 @@ public class Server implements Runnable {
 				} else if (input.contains("roll")) {
 					rolls.add(input);
 				}
-				broadcastToOtherPlayers(input, ID);
+				//broadcastToOtherPlayers(input, ID);
 
 				if (rolls.size() == game.getNumPlayers()) {
 					// All rolls and commands have been entered, ready for

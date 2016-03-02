@@ -133,7 +133,7 @@ public class Client {
    		}
 
    		//from server to gui
-   		else if (msg.equals("openMainGameScreen")){
+   		else if (msg.contains("openMainGameScreen")){
    			System.out.println("~~~~~~~Client: launchMainGameScreen");
    			gui.launchGamePlayWindow();
    		}
