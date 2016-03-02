@@ -136,6 +136,12 @@ public class Client {
    		else if (msg.contains("openMainGameScreen")){
    			System.out.println("~~~~~~~Client: launchMainGameScreen");
    			gui.launchGamePlayWindow();
+   			//gui.setAllPlayersInfo("");
+   		}
+   		
+   		else if (msg.contains("updateGameScreen")){
+   			gui.setAllPlayersInfo("lol");
+   			System.out.println("~~~~~~~~Client: updateGameScreen");
    		}
    		
    		else if (msg.contains("gameReady")){
