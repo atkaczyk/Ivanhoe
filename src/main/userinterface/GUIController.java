@@ -15,12 +15,12 @@ public class GUIController {
 	public GUIController(Client c){ 
 		client = c;	
 	}
-//	public static void main(String[] args){
-//		//JFrame frame = new GameReadyWindow();//client);
-//		//frame.setVisible(true);
-//		GUIController gui = new GUIController();
-//		gui.launchGamePlayWindow();
-//	}
+	//	public static void main(String[] args){
+	//		//JFrame frame = new GameReadyWindow();//client);
+	//		//frame.setVisible(true);
+	//		GUIController gui = new GUIController();
+	//		gui.launchGamePlayWindow();
+	//	}
 
 	public void launchGameReadyWindow(){
 		gameReadyWindow = new GameReadyWindow(client);
@@ -37,9 +37,6 @@ public class GUIController {
 
 	public void update(){
 
-	}
-	public void sendTokenRequest(){
-		//	client.handle("tokenRequest");
 	}
 
 	/*
@@ -65,7 +62,7 @@ public class GUIController {
 
 	public void setAllPlayersInfo(String str){
 		gamePlayWindow.setPlayerCardStats("player TEST", 000, 111, true); //Should take in name, playerName, numToken, score, turn
-		
+
 		// NOTE I GET: Charge,Blue (Axe) 2,Red (Sword) 3, I NEED: charge.jpg,blue2.jpg,red3.jpg
 		gamePlayWindow.setPlayerCardDisplay("charge.jpg,blue2.jpg,red3.jpg"); //this needs each players 
 		gamePlayWindow.updateCardHand("charge.jpg,blue2.jpg,blue3.jpg,blue4.jpg,blue5.jpg"); //should take in hand info
@@ -76,17 +73,21 @@ public class GUIController {
 
 	}
 
-	public void sendClient(){
-		//client.send(gameReadyWindow.getTokenRequest());
-	}
-	public void sendJoinGame(String playerName, int tokenColour) {
-		//client.handle("joinGame," + playerName + "," + tokenColour);
+	//	public void sendClient(){
+	//		client.send(gameReadyWindow.getTokenRequest());
+	//	}
 
-		System.out.println("This player just joined the game: " + playerName);
+
+	public void sendTokenRequest(){
+		client.handle("tokenRequest");
 	}
 	public void displayTokenColour(int tokenColour){
 		System.out.println("The Token Colour is: " + tokenColour);
 		gameReadyWindow.setFinalToken(tokenColour);
 	}
+	public void sendJoinGame(String playerName, int tokenColour) {
+		client.handle("joinGame," + playerName + "," + tokenColour);
 
+		System.out.println("This player just joined the game: " + playerName);
+	}
 }
