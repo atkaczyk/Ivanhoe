@@ -35,6 +35,7 @@ public class ServerThread extends Thread {
 	/** The server processes the messages and passes it to the client to send it */
 	public void send(String msg) {
 		try {
+			streamOut.flush();
 			streamOut.write(msg);
 			streamOut.flush();
 		} catch (IOException ioe) {
