@@ -149,6 +149,9 @@ public class Client {
    			gui.setAllPlayersInfo(msg);
    		}
 
+   		else if(msg.contains("requestToPlayThisCard")){
+   			//sends me card to send to game...the file name
+   		}
    		
    		else if (msg.contains("gameReady")){
    			gameReady = true;
