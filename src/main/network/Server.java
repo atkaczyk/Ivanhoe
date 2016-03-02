@@ -491,7 +491,7 @@ public class Server implements Runnable {
 		//String gameInfo = game.getAllPlayersInfo();
 		//String msg = "GAMEINFORMATION~" + gameInfo;
 		
-		System.out.println("Server: Update players game info");
+		System.out.println("Server: Update: players game info");
 		String gameInfo = getAllGameInfo();
 		System.out.println("~~~~Server: update info: " + gameInfo);
 		broadcastToAllPlayers(gameInfo);
@@ -571,6 +571,7 @@ public class Server implements Runnable {
 	public String getPlayerDisplayCards(Player p){
 		String result = "";
 		result += p.getDisplayAsString();
+		System.out.println("SERVER: getPlayerDisplayCards result: "+ result);
 		return result;
 	}
 	
