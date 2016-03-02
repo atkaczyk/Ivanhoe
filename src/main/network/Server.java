@@ -181,21 +181,13 @@ public class Server implements Runnable {
 						// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
 						//int currentPlayerNum = game.getCurrentPlayerNumber();
 						// look in your map playerNumbers and see which server thread needs to get the special message
-						
-						//String temp = "openMainGameScreen";
-						//System.out.println("SERVER: joinGame if READY to START 1"  + temp + ID);
-						//broadcastMessageToPlayer(temp, ID, 1);
-						//System.out.println("SERVER: joinGame if READY to START 2" + temp + ID);
-						//broadcastToAllPlayers(temp);
-						//System.out.println("SERVER: joinGame ALL PLAYERS!");
-						
+												
 						//int currentID = -1;
 						for (int id: playerNumbers.keySet()){
 							// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
 							//if(playerNumbers.get(id).equals(currentPlayerNum)){
 							//	currentID = id;
 							//}
-							//broadcastMessageToClients("launchMainGameScreen", "launchMainGameCurrentPlayer", currentID);
 							System.out.println("SERVER: in loop joinGame "+id);
 							broadcastMessageToPlayer("openMainGameScreen", id, 1);
 
