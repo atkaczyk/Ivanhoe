@@ -123,7 +123,7 @@ public class DrawPile {
 
 		// Add the maiden cards
 		for (int i = 1; i <= 4; i++) {
-			cards.addFirst(new SupporterCard("Maiden "+i, 6));
+			cards.addFirst(new SupporterCard("Maiden 6", 6));
 		}
 	}
 
