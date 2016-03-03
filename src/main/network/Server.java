@@ -204,7 +204,9 @@ public class Server implements Runnable {
 					String[] cardInfo = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
-					//if(result.contains("true"))
+					if(result.contains("true")){
+						System.out.println("SERVER: requestToPlayThisCard: TRUE");
+					}
 					//if(result.contains("false"))
 					//if(result.contains("actionCard"))
 					
