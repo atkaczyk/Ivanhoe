@@ -274,7 +274,6 @@ public class Server implements Runnable {
 						rollCommands[i] = rolls.get(i);
 					}
 //					game.resolveRound(rollCommands);
-					printOutcome();
 					boolean endOfRound = false;
 					String message = "";
 					boolean gameOver = false;
