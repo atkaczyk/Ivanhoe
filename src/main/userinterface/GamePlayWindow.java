@@ -49,7 +49,8 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 0;
 		add(button, c);
 
-		tournamentColour = new JLabel("Tournament Colour");
+		tournamentColour = new JLabel("********** Tournament Colour **********");
+		tournamentColour.setBackground(Color.white);
 		c.weighty =1;
 		c.gridx = 2;
 		c.gridy = 0;
@@ -139,12 +140,21 @@ public class GamePlayWindow extends JFrame{
 		}
 	}
 
-	public void setPlayerCardDisplay(String str) {
-		playerCard0.setPlayerDisplay(str); //"NAME", 5, 10, false);
-		playerCard1.setPlayerDisplay("green1.jpg");
-		playerCard2.setPlayerDisplay("purple3.jpg");
-		playerCard3.setPlayerDisplay("purple3.jpg");
-		playerCard4.setPlayerDisplay("purple3.jpg");
+	public void setPlayerCardDisplay(int i, String str) {
+		if(i == 0) {
+			playerCard0.setPlayerDisplay(str);
+		}else if( i == 1) {
+			playerCard1.setPlayerDisplay(str);
+		}
+		else if (i ==2){
+			playerCard2.setPlayerDisplay(str);
+		}
+		else if (i ==3){
+			playerCard3.setPlayerDisplay(str);
+		}
+		else if (i ==4){
+			playerCard4.setPlayerDisplay(str);
+		}
 	}
 
 	public void updateCardHand(String cardsInHand){
@@ -164,8 +174,10 @@ public class GamePlayWindow extends JFrame{
 		} else if(s.equals("4")){
 			tColour = Color.BLUE;
 		}
-		tournamentColour.setBackground(tColour);
 		
+		//System.out.println("I TRIED TO SET THE TOURNAMENT COLOUR TO: >>" + tColour );
+		tournamentColour.setForeground(tColour);
+		tournamentColour.setForeground(Color.black);
 	}
 
 }

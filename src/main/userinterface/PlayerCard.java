@@ -68,16 +68,15 @@ public class PlayerCard extends JPanel{
 	}
 
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
-
-		System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);
+		display.emptyDisplay();
+		//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);
 		if(str.isEmpty()){}
 		else {
 			String[] cards = str.split(",");
 
 			if(cards.length < 1){
 				display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[0]));
-
-				System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY: CARDS[0]  >> " + cards[0]);
+				//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY: CARDS[0]  >> " + cards[0]);
 			}
 			else{
 				for(int i =0; i<cards.length; i++){
