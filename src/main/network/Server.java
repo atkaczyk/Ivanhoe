@@ -543,6 +543,15 @@ public class Server implements Runnable {
 		return result;
 	}
 	
+	//for every player brodcast message to just that one player with hand info
+	public String getHandInfo(){
+		String result = "HANDINFORMATION~";
+		
+		
+		
+		return result;
+	}
+	
 	// , will separate information
 	public String getPlayerInfo(Player p){
 		String result = "";
@@ -578,6 +587,7 @@ public class Server implements Runnable {
 	public String getPlayerHandCards(Player p){
 		String result = "";
 		result += p.getHandAsString();
+		System.out.println("SERVER: getPlayerHandCards result: "+result);
 		return result;
 	}
 	
@@ -590,6 +600,8 @@ public class Server implements Runnable {
 		s = s.split("~")[1];
 		
 		String[] parsed = s.split("@");
+		
+		String[] parsed2 = s.split("#");
 		
 		for (int i=1;i<parsed.length;i++) {
 			// this now contains all the player information

@@ -62,20 +62,20 @@ public class TestClient {
 		//assertEquals(true, clientOne.getGameScreenLaunched());
 	}
 	
-	@Test
-	public void personAddedAsPlayer(){
-		server.handle(clientOne.getID(), "joinGame name 1");
-		
-		assertEquals(1, server.getGame().getPlayersRegistered());
-	}
+//	@Test
+//	public void personAddedAsPlayer(){
+//		server.handle(clientOne.getID(), "joinGame name 1");
+//		
+//		assertEquals(1, server.getGame().getPlayersRegistered());
+//	}
 	
-	@Test
-	public void manyPeopleAddedAsPlayer(){
-		server.handle(clientOne.getID(), "joinGame vici 1");
-		server.handle(clientTwo.getID(), "joinGame sophia 2");
-		server.handle(clientThree.getID(), "joinGame alisa 2");
-		assertEquals(3, server.getGame().getPlayersRegistered());
-	}
+//	@Test
+//	public void manyPeopleAddedAsPlayer(){
+//		server.handle(clientOne.getID(), "joinGame vici 1");
+//		server.handle(clientTwo.getID(), "joinGame sophia 2");
+//		server.handle(clientThree.getID(), "joinGame alisa 2");
+//		assertEquals(3, server.getGame().getPlayersRegistered());
+//	}
 
 	@Test
 	public void firstPlayer(){
