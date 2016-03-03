@@ -88,6 +88,7 @@ public class Client {
 		//take a msg
 		try {  
 			if (streamOut != null) {
+				streamOut.flush();
 				streamOut.write(msg + "\n");
 				streamOut.flush();
 			} else {

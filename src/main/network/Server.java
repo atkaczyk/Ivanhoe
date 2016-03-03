@@ -195,15 +195,15 @@ public class Server implements Runnable {
 					}					
 				}
 				if (input.contains("updateGameInformation")){
-					System.out.println("~~~~SERVER: handle updateGameInformation from client");
-					System.out.println("~~~~SERVER: updateGameInformation: ID: "+ID);
-					//call update function
-					update(ID);
+					System.out.println("~~~~SERVER: handle updateGameInformation: ID: "+ID);
+					update(ID); //call update function
 				}
-				if (input.contains("requestToPlayThisCard~")){
-					String[] cardInfo = input.split("~");
+				if (input.contains("requestToPlayThisCard,")){
+					
+					String[] cardInfo = input.split(",");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
+					System.out.println("~~~SERVER: requestToPlayThisCard: result: "+result);
 					if(result.contains("true")){
 						System.out.println("SERVER: requestToPlayThisCard: TRUE");
 					}
