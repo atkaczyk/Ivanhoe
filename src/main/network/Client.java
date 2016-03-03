@@ -178,9 +178,8 @@ public class Client {
    }
 
    public void cardPlayed(String msg){
-	   String message = "cardPlayed" + msg;
-	   sendMessageToServer(message);
 	   cardPlayed = true;
+	   sendMessageToServer(msg);
    }
    
    
