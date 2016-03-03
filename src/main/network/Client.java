@@ -173,7 +173,11 @@ public class Client {
    			System.out.println("CLIENT: setTournamentColour~");
    			String[] colour = msg.split("~");
    			gui.setTournamentColour(colour[1]);;
-   			
+   		}
+   		else if(msg.contains("requestToDrawCard")){
+   			System.out.println("I NEED TO DRAW CARD");
+   			//sends me card to send to game...the file name
+   			cardPlayed(msg);
    		}
    		
    		else if(msg.contains("requestToPlayThisCard")){
