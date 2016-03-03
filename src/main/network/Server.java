@@ -507,7 +507,7 @@ public class Server implements Runnable {
 		String handInfo = "PLAYERHAND~";
 		
 		for (int id: playerNumbers.keySet()){
-			handInfo += getPlayerHandCards(game.getPlayer(id));
+			handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
 			System.out.println("SERVER: Update: player hand" + handInfo);
 			broadcastMessageToPlayer(handInfo, id, 1);
 		}
