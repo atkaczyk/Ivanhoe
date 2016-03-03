@@ -13,12 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import utils.Config;
+
 //import com.sun.prism.paint.Color;
 
 public class CardHand extends JPanel implements ActionListener {
 	JButton [] cards;
 
-	GUIController guiController;
+	GUIController gui;
 	JScrollPane scrollPane;
 	JButton playCards;
 	JButton donePlayingCards;
@@ -27,8 +29,9 @@ public class CardHand extends JPanel implements ActionListener {
 	boolean maxCards = false;
 	int numCards =5;
 	String cardToSend;
-	public CardHand() { //should take in the number of cards
+	public CardHand(GUIController control) { //should take in the number of cards
 		super();
+		gui = control;
 		cardToSend = "";
 		scrollPane = new JScrollPane();
 
@@ -50,26 +53,28 @@ public class CardHand extends JPanel implements ActionListener {
 		setSize(150, 300); 
 		setVisible(true);
 	}
-	public void showCardsInHand(String cardsInHand){ //has to take in the arguments of the cards played
-		
+	public void showCardsInHand(String cardsInHand){ 
 		String[] str = cardsInHand.split(",");
-		cards = new JButton[str.length];//"This is the token you retrieved");
+		cards = new JButton[str.length]; 
 		
-		for(int i = 0; i < str.length; i++) {
-			cards[i] = new JButton();//"This is the token you retrieved");
+		//System.out.println("IN SHOW CARDS IN HAND IN CARD HAND: RETRIEVING THIS IMAGE  >> " + Config.CARD_NAME_TO_PICTURES.get(str[0]));
+		System.out.println("IN CARD HAND >>" + cardsInHand);
+		for(int i = 0; i < cards.length-1; i++) {
+			cards[i] = new JButton(); 
 			cards[i].setName(str[i]);
-			ImageIcon icon = new ImageIcon(this.getClass().getResource("Cards/"+str[i]));
+			
+			/* GETTING NULL EXCEPTIONS BECAUSE MY HASHMAP DOES NOT HAVE SOME CARDS INCLUDING ... Maiden 1.. .etc */
+			System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
+			
+			ImageIcon icon = new ImageIcon(this.getClass().getResource("Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i])));
 			Image img = icon.getImage() ;  
 			Image newimg = img.getScaledInstance(150, 250,  java.awt.Image.SCALE_SMOOTH ) ; 
-			
 			icon = new ImageIcon( newimg );
 			   
 			cards[i].setIcon(icon);
-			//cards[i].
 			cards[i].addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e){
-					//String cardName = ((JButton) e.getSource()).getName();
 					if(maxCards == false){
 						maxCards = true;
 						((JButton) e.getSource()).setBackground(Color.BLACK);
@@ -87,8 +92,6 @@ public class CardHand extends JPanel implements ActionListener {
 					}
 				;}}); 
 
-	//		cards[i].setIcon(new ImageIcon(this.getClass().getResource("Images/card.png")));
-			//return cards to send.
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
 			scrollPane.setViewportView(panel);
@@ -100,14 +103,10 @@ public void actionPerformed(ActionEvent e) {
 	String action = e.getActionCommand();
 	if (action.equals("Done Drawing Cards")) {
 		System.out.println("Done Drawing Cards");
-		//return the something? 
 	}
 	else if (action.equals("Play Cards")) {
 		System.out.println("YOU JUST PLAYED " + cardToSend);
-		guiController.sendCardToPlay(cardToSend);  //send the file name to the client
-	//	showCardsInHand(); //has to take in the information of the selected cards
-		//getSelectedCards(); //and send them to the client.
-	
+		gui.sendCardToPlay(cardToSend); 
 	}
 	else if (action.equals("Name")) {
 		System.out.println("Name");
