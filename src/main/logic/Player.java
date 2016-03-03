@@ -86,7 +86,7 @@ public class Player {
 		hand.clear();
 	}
 
-	public int getDisplayTotal() {
+	public int getDisplayTotal(int tournColour) {
 		return displayTotal;
 	}
 

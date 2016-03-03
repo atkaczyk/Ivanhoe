@@ -54,21 +54,21 @@ public class TestPlayer {
 	public void addSquireCardToDisplayNormalTournamentColour() {
 		player.addCardToDisplay(SQUIRE_CARD, Config.YELLOW);
 		
-		assertEquals(((SupporterCard) SQUIRE_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(((SupporterCard) SQUIRE_CARD).getNumber(), player.getDisplayTotal(Config.YELLOW));
 	}
 	
 	@Test
 	public void addSquireCardToDisplayGreenTournamentColour() {
 		player.addCardToDisplay(SQUIRE_CARD, Config.GREEN);
 		
-		assertEquals(1, player.getDisplayTotal());
+		assertEquals(1, player.getDisplayTotal(Config.GREEN));
 	}
 	
 	@Test
 	public void addFirstMaidenCardToDisplay() {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		
-		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
 	}
 	
 	@Test
@@ -76,14 +76,14 @@ public class TestPlayer {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		
-		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
 	}
 	
 	@Test
 	public void addOneMaidenCardGreenTournament() {
 		player.addCardToDisplay(MAIDEN_CARD, Config.GREEN);
 		
-		assertEquals(1, player.getDisplayTotal());
+		assertEquals(1, player.getDisplayTotal(Config.GREEN));
 	}
 	
 	@Test
@@ -120,7 +120,7 @@ public class TestPlayer {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		player.clearDisplay();
 		
-		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayTotal(Config.BLUE));
 		assertEquals(0, player.getDisplayCards().size());
 	}
 	
@@ -128,7 +128,7 @@ public class TestPlayer {
 	public void addGreenCardOnGreenTournament() {
 		player.addCardToDisplay(GREEN_CARD, Config.GREEN);
 		
-		assertEquals(1, player.getDisplayTotal());
+		assertEquals(1, player.getDisplayTotal(Config.GREEN));
 		assertEquals(1, player.getDisplayCards().size());
 	}
 	
@@ -136,7 +136,7 @@ public class TestPlayer {
 	public void addGreenCardOnBlueTournament() {
 		player.addCardToDisplay(GREEN_CARD, Config.BLUE);
 		
-		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayTotal(Config.BLUE));
 		assertEquals(0, player.getDisplayCards().size());
 	}
 	
@@ -144,7 +144,7 @@ public class TestPlayer {
 	public void addBlueCardOnBlueTournament() {
 		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
 		
-		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal());
+		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
 		assertEquals(1, player.getDisplayCards().size());
 	}
 	
@@ -152,8 +152,18 @@ public class TestPlayer {
 	public void addBlueCardOnGreenTournament() {
 		player.addCardToDisplay(BLUE_CARD, Config.GREEN);
 		
-		assertEquals(0, player.getDisplayTotal());
+		assertEquals(0, player.getDisplayTotal(Config.GREEN));
 		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void changingFromGreenToBlue() {
+		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
+		
+		assertEquals(1, player.getDisplayTotal(Config.GREEN));
+		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
+		
+		
 	}
 	
 	@After
