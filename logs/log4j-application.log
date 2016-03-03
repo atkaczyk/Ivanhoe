@@ -59,4 +59,51 @@
 @2016-Feb-26 10:37:03 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
 @2016-Feb-26 10:43:11 INFO  Server:59 - Binding to port 5050
 @2016-Feb-26 10:43:11 FATAL Server:76 - java.net.BindException: Address already in use: JVM_Bind
+@2016-Mar-02 15:07:13 INFO  Server:59 - Binding to port 5050
+@2016-Mar-02 15:07:13 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Mar-02 15:07:13 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:20:32 INFO  Server:59 - Binding to port 5050
+@2016-Mar-02 15:20:32 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:20:32 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Mar-02 15:20:40 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62275,localport=5050]
+@2016-Mar-02 15:20:40 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:20:47 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62275: drawToken,0
+@2016-Mar-02 15:20:55 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62277,localport=5050]
+@2016-Mar-02 15:20:55 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:21:02 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62277: drawToken,1
+@2016-Mar-02 15:21:05 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62275: openMainGameScreen
+@2016-Mar-02 15:21:05 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62277: openMainGameScreen
+@2016-Mar-02 15:22:42 INFO  Server:59 - Binding to port 5050
+@2016-Mar-02 15:22:42 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:22:42 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Mar-02 15:22:49 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62289,localport=5050]
+@2016-Mar-02 15:22:49 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:22:53 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62289: drawToken,0
+@2016-Mar-02 15:23:00 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62290,localport=5050]
+@2016-Mar-02 15:23:00 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:23:04 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62290: drawToken,1
+@2016-Mar-02 15:23:05 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62289: openMainGameScreen
+@2016-Mar-02 15:23:05 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62290: openMainGameScreen
+@2016-Mar-02 15:25:32 INFO  Server:59 - Binding to port 5050
+@2016-Mar-02 15:25:32 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:25:32 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Mar-02 15:25:52 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62296,localport=5050]
+@2016-Mar-02 15:25:52 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:25:55 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62296: drawToken,0
+@2016-Mar-02 15:26:02 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62297,localport=5050]
+@2016-Mar-02 15:26:02 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:26:07 INFO  Server:387 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62297: drawToken,1
+@2016-Mar-02 15:26:07 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62296: openMainGameScreen
+@2016-Mar-02 15:26:07 INFO  Server:393 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62297: openMainGameScreen
+@2016-Mar-02 15:37:04 INFO  Server:59 - Binding to port 5050
+@2016-Mar-02 15:37:04 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:37:04 INFO  Server:87 - Server started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=5050] 10
+@2016-Mar-02 15:37:11 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62346,localport=5050]
+@2016-Mar-02 15:37:11 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:37:13 INFO  Server:379 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62346: drawToken,0
+@2016-Mar-02 15:37:24 INFO  Server:111 - Client connected: Socket[addr=/127.0.0.1,port=62347,localport=5050]
+@2016-Mar-02 15:37:24 INFO  Server:97 - Waiting for a client ...
+@2016-Mar-02 15:37:27 INFO  Server:379 - SERVER RECIEVED MESSAGE FROM 127.0.0.1 62347: drawToken,1
+@2016-Mar-02 15:37:28 INFO  Server:385 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62346: openMainGameScreen
+@2016-Mar-02 15:37:28 INFO  Server:385 - SERVER SENDING MESSAGE TO CLIENT 127.0.0.1 62347: openMainGameScreen
 @

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import network.Client;
+import utils.Config;
 
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
@@ -15,12 +16,6 @@ public class GUIController {
 	public GUIController(Client c){ 
 		client = c;	
 	}
-	//	public static void main(String[] args){
-	//		//JFrame frame = new GameReadyWindow();//client);
-	//		//frame.setVisible(true);
-	//		GUIController gui = new GUIController();
-	//		gui.launchGamePlayWindow();
-	//	}
 
 	public void launchGameReadyWindow(){
 		gameReadyWindow = new GameReadyWindow(client);
@@ -31,21 +26,16 @@ public class GUIController {
 		gameReadyWindow.setVisible(false);
 		gamePlayWindow = new GamePlayWindow(client);
 
-		client.handle("updateGameInformation");		//setAllPlayersInfo("lol");
+		client.handle("updateGameInformation");
 		gamePlayWindow.setVisible(true);
-		
+
 	}
 
 	public void update(){
 
 	}
 
-	/*
-	 * in public String getDisplayAsString() { in the player class, I need more than just the name of the card,
-	 I need the value as well possibly something else about it.. idk yet 
-	 */
 	//updating all the players information - including cardStats, Display, and Card Hand
-	String tempPlayersInfo = "GAMEINFORMATION~@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public ArrayList<String[]> parseInfo(String str){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 
@@ -57,29 +47,26 @@ public class GUIController {
 			String[] playerInfo = parsed[i].split(",");
 			result.add(playerInfo);
 		}
-
 		return result;
 	}
 
+	String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public void setAllPlayersInfo(String str){ //everything is good here, just have to parse the msg string
-		
-		
-		gamePlayWindow.setPlayerCardStats("player TEST", 000, 111, true); //Should take in name, playerName, numToken, score, turn
+		String[] player = str.split("@");
 
-		// NOTE I GET: Charge,Blue (Axe) 2,Red (Sword) 3, I NEED: charge.jpg,blue2.jpg,red3.jpg
-		gamePlayWindow.setPlayerCardDisplay("charge.jpg,blue2.jpg,red3.jpg"); //this needs each players 
-		gamePlayWindow.updateCardHand("charge.jpg,blue2.jpg,blue3.jpg,blue4.jpg,blue5.jpg"); //should take in hand info
+		for (int i = 0; i < player.length; i++){
+			String[] playerInfo = player[i].split("#");
+
+			gamePlayWindow.setPlayerCardStats(playerInfo[0]);
+			gamePlayWindow.setPlayerCardDisplay(playerInfo[1]);
+
+		}
 	}
-
-	//retrieves all cards in the players hand
+	//retrieves all cards in the players hand // Charge,Blue (Axe) 2,Red (Sword) 3
 	public void showPlayerHand(String str){
+		gamePlayWindow.updateCardHand("charge.jpg,blue2.jpg,blue3.jpg,blue4.jpg,blue5.jpg"); //should take in hand info
 
 	}
-
-	//	public void sendClient(){
-	//		client.send(gameReadyWindow.getTokenRequest());
-	//	}
-
 
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
@@ -96,6 +83,6 @@ public class GUIController {
 
 	public void sendCardToPlay(String cardToSend) { //cardToSend is filename, "charge.jpg" 
 		client.handle("requestToPlayThisCard," + cardToSend);
-		
+
 	}
 }

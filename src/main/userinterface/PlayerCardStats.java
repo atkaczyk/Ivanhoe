@@ -80,4 +80,7 @@ public class PlayerCardStats extends JPanel{
 		turn.setText("UPDATED: " + turn2);
 		
 	}
+	public void setSpecialCards(String str){
+		specialCard.setText("Special Cards: " + str);
+	}
 }

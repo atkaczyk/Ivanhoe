@@ -116,13 +116,12 @@ public class GamePlayWindow extends JFrame{
 	}
 
 	//can now take in a string and parse to all players.
-	public void setPlayerCardStats(String playerName, int numToken, int score, boolean turn) {
-		playerCard0.setPlayerStats(playerName, numToken, score, turn);
-		playerCard1.setPlayerStats("NAME", 5, 10, false);
-		playerCard2.setPlayerStats("NAME", 5, 10, false);
-		playerCard3.setPlayerStats("NAME", 5, 10, false);
-		playerCard4.setPlayerStats("NAME", 5, 10, false);
-		
+	public void setPlayerCardStats(String playerInfo) { //String playerName, String numToken, String score, String turn) {
+		playerCard0.setPlayerStats(playerInfo);
+		playerCard1.setPlayerStats(playerInfo);
+		playerCard2.setPlayerStats(playerInfo);
+		playerCard3.setPlayerStats(playerInfo);
+		playerCard4.setPlayerStats(playerInfo);
 	}
 
 	public void setPlayerCardDisplay(String str) {

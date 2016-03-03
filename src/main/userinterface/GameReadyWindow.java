@@ -185,18 +185,20 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			Step3.setVisible(true);
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
-
-			guiController.sendTokenRequest();
-		}
-		else if(action.equals("Join Game")){
-			Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
+			
 			playerName.setVisible(false);
 			playerNameSubmit.setVisible(false);
 			Step2.setVisible(false);
 			token.setVisible(false);
 			tokenRequest.setVisible(false);
+
+			guiController.sendTokenRequest();
+		}
+		else if(action.equals("Join Game")){
+			Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
+
 			Step3.setVisible(false);
-		gameReady.setVisible(false);
+			gameReady.setVisible(false);
 			guiController.sendJoinGame(playerName.getText(), tokenNum);		
 		}
 	}
