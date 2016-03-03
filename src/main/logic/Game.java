@@ -222,18 +222,11 @@ public class Game {
 		return drawPile;
 	}
 	
-	public String playCard(int playerNum, String fileName) {
+	public String playCard(int playerNum, String name) {
 		System.out.println("\n\nBEFORE:");
 		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
 		System.out.println("HAND: "+players[playerNum].getHandAsString());
 		// Get the card name from the file name
-		String name = "";
-		for (String cardName : Config.CARD_NAME_TO_PICTURES.keySet()) {
-			if (Config.CARD_NAME_TO_PICTURES.get(cardName).equals(fileName)) {
-				name = cardName;
-				break;
-			}
-		}
 
 		Card c = players[playerNum].getCardFromHand(name);
 		
