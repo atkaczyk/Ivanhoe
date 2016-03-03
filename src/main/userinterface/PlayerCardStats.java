@@ -59,9 +59,7 @@ public class PlayerCardStats extends JPanel{
 		 changeDisplay.setBackground(Color.blue);
 		 changeDisplay.setForeground(Color.yellow);
 		 add(changeDisplay);
-		 setSize(100, 100); 
-
-		 
+		 setSize(100, 100);	 
 	}
 
 	public void setPlayerName(String playerName2) {
