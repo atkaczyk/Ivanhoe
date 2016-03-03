@@ -144,13 +144,21 @@ public class Client {
    		}
    		//from server to gui
    		else if (msg.contains("GAMEINFORMATION~")){
-   			System.out.println("message to client containing GAMEINFORMATION~");
+   			System.out.println("~~~CLIENT: message to client containing GAMEINFORMATION~");
    			updateAllPlayersInfo = true;
    			gui.setAllPlayersInfo(msg);
    		}
-
+   		//from server to gui
+   		else if (msg.contains("PLAYERHAND~")){
+   			System.out.println("~~~CLIENT: message to specific player containing PLAYERHAND~");
+   			String[] playerHand = msg.split("~");
+   			updateShowPlayerHand = true;
+   			gui.showPlayerHand(playerHand[1]);
+   		}
+   		
    		else if(msg.contains("requestToPlayThisCard")){
    			//sends me card to send to game...the file name
+   			cardPlayed(msg);
    		}
    		
    		else if (msg.contains("gameReady")){
@@ -161,12 +169,7 @@ public class Client {
    		//	System.out.println("launchMainGameScreen currentPlayer");
    		//}
 
-   		//from server
-   		else if (msg.contains("PLAYERHAND~")){
-   			System.out.println("message to specific player containing PLAYERHAND~");
-   			updateShowPlayerHand = true;
-   			gui.showPlayerHand(msg);
-   		}
+   		
    		else {
 			System.out.println(msg);
 		}
@@ -174,7 +177,7 @@ public class Client {
 
    public void cardPlayed(String msg){
 	   String message = "cardPlayed" + msg;
-	   //sendMessageToServer(message);
+	   sendMessageToServer(message);
 	   cardPlayed = true;
    }
    
