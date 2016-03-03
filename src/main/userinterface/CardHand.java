@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -54,6 +55,9 @@ public class CardHand extends JPanel implements ActionListener {
 		setVisible(true);
 	}
 	public void showCardsInHand(String cardsInHand){ 
+		/* clear the hands before adding more */
+		panel.removeAll();
+		
 		String[] str = cardsInHand.split(",");
 		cards = new JButton[str.length]; 
 
@@ -62,7 +66,6 @@ public class CardHand extends JPanel implements ActionListener {
 		for(int i = 0; i < cards.length; i++) {
 			cards[i] = new JButton(); 
 			cards[i].setName(str[i]);
-
 			/* GETTING NULL EXCEPTIONS BECAUSE MY HASHMAP DOES NOT HAVE SOME CARDS INCLUDING ... Maiden 1.. .etc */
 			//System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
 
@@ -87,15 +90,17 @@ public class CardHand extends JPanel implements ActionListener {
 							((JButton) e.getSource()).setBackground(Color.WHITE);
 							System.out.println("Play these cards: " + cardToSend);
 						} else {
-							System.out.println("Play this card before selecting another");
+						    System.out.println("Play this card before selecting another");
+							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
 						}
 					}
 					;}}); 
 
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
-			scrollPane.setViewportView(panel);
+			//scrollPane.setViewportView(panel);
 		}
+		scrollPane.setViewportView(panel);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -105,6 +110,7 @@ public class CardHand extends JPanel implements ActionListener {
 		}
 		else if (action.equals("Play Card")) {
 			System.out.println("YOU JUST PLAYED " + cardToSend);
+			maxCards = false;
 			gui.sendCardToPlay(cardToSend); 
 		}
 		else if (action.equals("Name")) {
