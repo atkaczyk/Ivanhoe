@@ -14,7 +14,7 @@ public class Game {
 	private int tournamentNumber = 0;
 	private DrawPile drawPile = new DrawPile();
 	private List<Integer> tokens = new ArrayList<Integer>();
-	private int tournamentColour;
+	private int tournamentColour = -1;
 	private ArrayDeque<Card> discardPile;
 
 	// To keep track of whose turn it is
