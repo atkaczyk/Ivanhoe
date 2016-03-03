@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import utils.Config;
+
 public class PlayerCard extends JPanel{
 
 	// The player card will hold 3 panels
@@ -47,14 +49,19 @@ public class PlayerCard extends JPanel{
 		setSize(600, 500); 
 
 	}
-	
-	public void setPlayerStats(String playerName, int numToken, int score, boolean turn){
+	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
+	public void setPlayerStats(String playerInfo) { //{String playerName, String numToken, String score, String turn){
 		//setBorder(BorderFactory.createTitledBorder("shittyier")); 
-		playerStats.setPlayerName(playerName);
-		playerStats.setPlayerTokens(numToken);
-		playerStats.setPlayerScore(score);
-		playerStats.setPlayerTurn(turn);
-		
+		String[] stats = playerInfo.split(",");
+		playerStats.setPlayerName(stats[1]);
+		playerStats.setPlayerTokens(Integer.parseInt(stats[1]));
+		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
+		if (stats[7].equals("true")) {
+		playerStats.setPlayerTurn(true);
+		} else {
+			playerStats.setPlayerTurn(false);	
+		}
+			
 		
 		//playerStats = new PlayerCardStats(playerName, numToken, score, turn);
 		add(playerStats);
@@ -64,7 +71,7 @@ public class PlayerCard extends JPanel{
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
 		String[] cards = str.split(",");
 		for(int i =0; i<cards.length; i++){
-			display.add(new JButton(), cards[i]);
+			display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[i]));
 		}
 	}
 
