@@ -43,7 +43,7 @@ public class CardHand extends JPanel implements ActionListener {
 		scrollPane.setPreferredSize(new Dimension(500, 300));
 		this.add(scrollPane, BorderLayout.CENTER);
 
-		playCards = new JButton("Play Cards");
+		playCards = new JButton("Play Card");
 		playCards.addActionListener(this);
 		this.add(playCards);
 		
@@ -59,7 +59,7 @@ public class CardHand extends JPanel implements ActionListener {
 		
 		//System.out.println("IN SHOW CARDS IN HAND IN CARD HAND: RETRIEVING THIS IMAGE  >> " + Config.CARD_NAME_TO_PICTURES.get(str[0]));
 		System.out.println("IN CARD HAND >>" + cardsInHand);
-		for(int i = 0; i < cards.length-1; i++) {
+		for(int i = 0; i < cards.length; i++) {
 			cards[i] = new JButton(); 
 			cards[i].setName(str[i]);
 			
@@ -104,7 +104,7 @@ public void actionPerformed(ActionEvent e) {
 	if (action.equals("Done Drawing Cards")) {
 		System.out.println("Done Drawing Cards");
 	}
-	else if (action.equals("Play Cards")) {
+	else if (action.equals("Play Card")) {
 		System.out.println("YOU JUST PLAYED " + cardToSend);
 		gui.sendCardToPlay(cardToSend); 
 	}
