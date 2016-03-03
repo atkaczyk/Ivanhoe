@@ -76,6 +76,7 @@ public class Game {
 	}
 
 	public void startGame() {
+		discardPile = new ArrayDeque<Card>();
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -265,8 +266,7 @@ public class Game {
 		tournamentColour = colour;
 	}
 
-	public Object getDiscardPileSize() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getDiscardPileSize() {
+		return discardPile.size();
 	}
 }

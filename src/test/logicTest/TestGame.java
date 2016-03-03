@@ -297,7 +297,7 @@ public class TestGame {
 		// and move the cards to the discard pile
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(8, game.getDrawPileSize());
+		assertEquals(8, game.getDiscardPileSize());
 		
 	}
 
