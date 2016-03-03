@@ -46,7 +46,7 @@ public class CardHand extends JPanel implements ActionListener {
 		playCards = new JButton("Play Card");
 		playCards.addActionListener(this);
 		this.add(playCards);
-		
+
 		donePlayingCards = new JButton("Done Drawing Cards");
 		donePlayingCards.addActionListener(this);
 		this.add(donePlayingCards);
@@ -56,24 +56,24 @@ public class CardHand extends JPanel implements ActionListener {
 	public void showCardsInHand(String cardsInHand){ 
 		String[] str = cardsInHand.split(",");
 		cards = new JButton[str.length]; 
-		
+
 		//System.out.println("IN SHOW CARDS IN HAND IN CARD HAND: RETRIEVING THIS IMAGE  >> " + Config.CARD_NAME_TO_PICTURES.get(str[0]));
-		System.out.println("IN CARD HAND >>" + cardsInHand);
+		//System.out.println("IN CARD HAND >>" + cardsInHand);
 		for(int i = 0; i < cards.length; i++) {
 			cards[i] = new JButton(); 
 			cards[i].setName(str[i]);
-			
+
 			/* GETTING NULL EXCEPTIONS BECAUSE MY HASHMAP DOES NOT HAVE SOME CARDS INCLUDING ... Maiden 1.. .etc */
-			System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
-			
+			//System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
+
 			ImageIcon icon = new ImageIcon(this.getClass().getResource("Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i])));
 			Image img = icon.getImage() ;  
 			Image newimg = img.getScaledInstance(150, 250,  java.awt.Image.SCALE_SMOOTH ) ; 
 			icon = new ImageIcon( newimg );
-			   
+
 			cards[i].setIcon(icon);
 			cards[i].addActionListener(new ActionListener() {
-				
+
 				public void actionPerformed(ActionEvent e){
 					if(maxCards == false){
 						maxCards = true;
@@ -90,29 +90,28 @@ public class CardHand extends JPanel implements ActionListener {
 							System.out.println("Play this card before selecting another");
 						}
 					}
-				;}}); 
+					;}}); 
 
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
 			scrollPane.setViewportView(panel);
-			
+		}
 	}
-}
-@Override
-public void actionPerformed(ActionEvent e) {
-	String action = e.getActionCommand();
-	if (action.equals("Done Drawing Cards")) {
-		System.out.println("Done Drawing Cards");
-	}
-	else if (action.equals("Play Card")) {
-		System.out.println("YOU JUST PLAYED " + cardToSend);
-		gui.sendCardToPlay(cardToSend); 
-	}
-	else if (action.equals("Name")) {
-		System.out.println("Name");
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String action = e.getActionCommand();
+		if (action.equals("Done Drawing Cards")) {
+			System.out.println("Done Drawing Cards");
+		}
+		else if (action.equals("Play Card")) {
+			System.out.println("YOU JUST PLAYED " + cardToSend);
+			gui.sendCardToPlay(cardToSend); 
+		}
+		else if (action.equals("Name")) {
+			System.out.println("Name");
+
+		}
 
 	}
-	
-}
 
 }

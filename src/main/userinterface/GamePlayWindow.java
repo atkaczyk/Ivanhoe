@@ -6,7 +6,9 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
+import java.awt.Color;
 import network.Client;
 
 
@@ -22,6 +24,8 @@ public class GamePlayWindow extends JFrame{
 
 	PlayerCardDisplay	playerDisplay;
 	GUIController gui;
+	JLabel tournamentColour;
+	Color tColour;
 	//will hold the player cards
 	//will hold the cardLayout discard pile: still to be made
 
@@ -45,11 +49,11 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 0;
 		add(button, c);
 
-		button = new JButton("Game States");
+		tournamentColour = new JLabel("Tournament Colour");
 		c.weighty =1;
 		c.gridx = 2;
 		c.gridy = 0;
-		add(button, c);
+		add(tournamentColour, c);
 
 		playerCard0 = new PlayerCard("INACTIVE");
 
@@ -146,6 +150,22 @@ public class GamePlayWindow extends JFrame{
 	public void updateCardHand(String cardsInHand){
 		hand.showCardsInHand(cardsInHand);
 
+	}
+
+	public void setTournamentColour(String s) {
+		if(s.equals("0")){
+			tColour = Color.MAGENTA;
+		} else if(s.equals("1")){
+			tColour = Color.RED;
+		} else if(s.equals("2")){
+			tColour = Color.YELLOW;
+		} else if(s.equals("3")){
+			tColour = Color.GREEN;
+		} else if(s.equals("4")){
+			tColour = Color.BLUE;
+		}
+		tournamentColour.setBackground(tColour);
+		
 	}
 
 }
