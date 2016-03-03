@@ -202,14 +202,7 @@ public class Server implements Runnable {
 				}
 				if (input.contains("requestToPlayThisCard~")){
 					String[] cardInfo = input.split("~");
-					//gather card info to pass to:
-					//String result = game.playCard(int player num, string blue 2);
-					
-					int playerNum = 0;
-					for (int i=0; i<game.getNumPlayers(); i++) {
-						
-					}
-					
+					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
 					//if(result.contains("true"))
 					//if(result.contains("false"))
@@ -514,10 +507,12 @@ public class Server implements Runnable {
 		String handInfo = "";
 		
 		for (int id: playerNumbers.keySet()){
-			handInfo = "PLAYERHAND~";
-			handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
-			System.out.println("SERVER: Update: player hand" + handInfo);
-			broadcastMessageToPlayer(handInfo, id, 1);
+			if (id == ID){
+				handInfo = "PLAYERHAND~";
+				handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
+				System.out.println("SERVER: Update: player hand" + handInfo);
+				broadcastMessageToPlayer(handInfo, id, 1);
+			}
 		}
 		//message += getPlayerHandCards(game.getPlayer);
 		//broadcastMessageToPlayer(String message, int senderID, int direction)
@@ -557,18 +552,7 @@ public class Server implements Runnable {
 		}
 		return result;
 	}
-	
-	//for every player broadcast message to just that one player with hand info
-	public String getHandInfo(){
-		String result = "PLAYERHAND~";
 		
-		for (int i=0; i<game.getNumPlayers(); i++) {
-			//broadcastMessageToPlayer(result, ID, 1);
-		}
-		
-		return result;
-	}
-	
 	// , will separate information
 	public String getPlayerInfo(Player p){
 		String result = "";
