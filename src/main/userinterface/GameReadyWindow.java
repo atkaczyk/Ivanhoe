@@ -165,9 +165,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		setSize(500, 500); // Set the size of the window
 
 	}
-
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
@@ -192,25 +189,18 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			guiController.sendTokenRequest();
 		}
 		else if(action.equals("Join Game")){
-			
+			Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
+			playerName.setVisible(false);
+			playerNameSubmit.setVisible(false);
+			Step2.setVisible(false);
+			token.setVisible(false);
+			tokenRequest.setVisible(false);
+			Step3.setVisible(false);
+		gameReady.setVisible(false);
 			guiController.sendJoinGame(playerName.getText(), tokenNum);		
 		}
-
-	}
-
-	public void getFinalToken(){
-		//RECIEVE RANDOM TOKEN FROM THE SERVER, UPDATE THE SCREEN
-
 	}
 	public void setFinalToken(int tokenColour) {
-		// TODO Auto-generated method stub
-		Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
-		playerName.setVisible(false);
-		playerNameSubmit.setVisible(false);
-		Step2.setVisible(false);
-		token.setVisible(false);
-		tokenRequest.setVisible(false);
-		Step3.setVisible(false);
 		tokenNum = tokenColour;
 		finalToken.setIcon(tokens[tokenColour]);
 	}
