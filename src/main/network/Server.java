@@ -196,9 +196,9 @@ public class Server implements Runnable {
 				}
 				if (input.contains("updateGameInformation")){
 					System.out.println("~~~~SERVER: handle updateGameInformation from client");
+					System.out.println("~~~~SERVER: updateGameInformation: ID: "+ID);
 					//call update function
 					update(ID);
-					//broadcastMessageToPlayer(update);
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
@@ -499,11 +499,18 @@ public class Server implements Runnable {
 		//update the card hand for the specific client
 		//loop through all server threads, pass only to the one current client:
 		
-		int currentPlayerNum = game.getCurrentPlayerNumber();
+		//int currentPlayerNum = game.getCurrentPlayerNumber();
 		// look in your map playerNumbers and see which server thread matches the player
 		
 		//int currentID = -1;
-		String message = "PLAYERHAND~";
+		
+		String handInfo = "PLAYERHAND~";
+		
+		for (int id: playerNumbers.keySet()){
+			handInfo += getPlayerHandCards(game.getPlayer(id));
+			System.out.println("SERVER: Update: player hand" + handInfo);
+			broadcastMessageToPlayer(handInfo, id, 1);
+		}
 		//message += getPlayerHandCards(game.getPlayer);
 		//broadcastMessageToPlayer(String message, int senderID, int direction)
 				
@@ -543,11 +550,13 @@ public class Server implements Runnable {
 		return result;
 	}
 	
-	//for every player brodcast message to just that one player with hand info
+	//for every player broadcast message to just that one player with hand info
 	public String getHandInfo(){
-		String result = "HANDINFORMATION~";
+		String result = "PLAYERHAND~";
 		
-		
+		for (int i=0; i<game.getNumPlayers(); i++) {
+			//broadcastMessageToPlayer(result, ID, 1);
+		}
 		
 		return result;
 	}
