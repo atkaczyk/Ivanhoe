@@ -23,7 +23,6 @@ public class GUIController {
 		client.handle("updateGameInformation");
 		gamePlayWindow.setVisible(true);
 	}
-	
 	public void launchTournamentColour(){
 		Object[] possibilities = {"Purple", "Red", "Yellow", "Green", "Blue"};
 		String s = (String)JOptionPane.showInputDialog(
@@ -34,7 +33,6 @@ public class GUIController {
 		                    null,
 		                    possibilities,
 		                    "colour");
-		
 		if(s.equals("Purple")){
 			s = "0";
 		} else if(s.equals("Red")){
@@ -58,8 +56,6 @@ public class GUIController {
 	}	
 	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public void setAllPlayersInfo(String str){ 
-		
-		
 		String[] player = str.split("@");
 		for (int i = 0; i < player.length; i++){
 			String[] playerInfo = player[i].split("#");
@@ -67,7 +63,7 @@ public class GUIController {
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
 			if(playerInfo.length == 1){}
 			else {
-				gamePlayWindow.setPlayerCardDisplay(playerInfo[1]);
+				gamePlayWindow.setPlayerCardDisplay(i, playerInfo[1]);
 			}
 		}
 	}

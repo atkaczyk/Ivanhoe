@@ -32,11 +32,12 @@ public class PlayerCardDisplay extends JPanel {
 
 	public void add(JButton card,String str){
 		numCardsInDisplay ++;
+		//	System.out.print
 		ImageIcon icon =new ImageIcon(this.getClass().getResource("Cards/"+str));
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance(80, 130,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
-		
+
 		card.setIcon(icon);
 		card.setSize(80, 130);
 		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());
@@ -44,6 +45,14 @@ public class PlayerCardDisplay extends JPanel {
 
 		//System.out.println(numCardsInDisplay);
 		this.add(lp);
+	}
+
+	public void emptyDisplay() {
+		numCardsInDisplay =0;
+		lp.removeAll();		
+		System.out.println("IN THE DISPLAY: JUST EMPTIED LP THERE ARE THIS MANY PANEL COMPONENTS >> " + lp.getComponentCount());
+
+
 	}
 
 }
