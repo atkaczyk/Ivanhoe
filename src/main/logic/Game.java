@@ -76,6 +76,7 @@ public class Game {
 	}
 
 	public void startGame() {
+		discardPile = new ArrayDeque<Card>();
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -94,6 +95,7 @@ public class Game {
 
 		// Figure out which player is first
 		goToNextPlayer();
+		startTournament();
 	}
 
 	// Change the current player to be the next player
@@ -219,7 +221,7 @@ public class Game {
 	public DrawPile getDrawPile() {
 		return drawPile;
 	}
-
+	
 	public String playCard(int playerNum, String fileName) {
 		System.out.println("\n\nBEFORE:");
 		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
@@ -263,5 +265,9 @@ public class Game {
 
 	public void overrideTourColour(int colour) {
 		tournamentColour = colour;
+	}
+
+	public int getDiscardPileSize() {
+		return discardPile.size();
 	}
 }
