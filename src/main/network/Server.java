@@ -197,7 +197,10 @@ public class Server implements Runnable {
 				if (input.contains("updateGameInformation")){
 					System.out.println("~~~~SERVER: handle updateGameInformation: ID: "+ID);
 					update(ID); //call update function
-					broadcastMessageToPlayer("launchTournamentColour", ID, 0);
+					
+					if (game.getCurrentPlayerNumber() == playerNumbers.get(ID)) {
+						broadcastMessageToPlayer("launchTournamentColour", ID, 0);
+					}
 				}
 				if (input.contains("TournamentColourRequest")){
 					System.out.println("SERVER: TournamentColourRequest");
