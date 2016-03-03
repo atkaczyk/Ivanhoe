@@ -115,37 +115,30 @@ public class Client {
    		}
    		//from gui
    		else if (msg.contains("tokenRequest")){
-   			System.out.println("tokenRequest");
    			sendMessageToServer("drawToken");
    		}
    		//from server   		
    		else if (msg.contains("drawToken")){
    			String[] tokenNumber = msg.split(",");
    			int tn = Integer.parseInt(tokenNumber[1]);
-   			System.out.println("Client: drawToken, token number: "+tn);
    			gui.displayTokenColour(tn);
    		}
    		//from gui
    		else if (msg.contains("joinGame")){
-   			System.out.println("Client:joinGame:"+msg);
    			joinGame = true;
    			sendMessageToServer(msg);
    		}
 
    		//from server to gui
    		else if (msg.contains("openMainGameScreen")){
-   			System.out.println("~~~~~~~Client: launchMainGameScreen");
    			gui.launchGamePlayWindow();
    		}
    		//from gui
    		else if (msg.contains("updateGameInformation")){
-   			System.out.println("~~~~~~~~Client: updateGameInformation");
    			sendMessageToServer(msg);
-   			//call server and get information
    		}
    		//from server to gui
    		else if (msg.contains("GAMEINFORMATION~")){
-   			System.out.println("~~~CLIENT: message to client containing GAMEINFORMATION~");
    			String[] gameInfo = msg.split("~");
    			String gi = gameInfo[1].substring(1);
    			updateAllPlayersInfo = true;
@@ -153,7 +146,6 @@ public class Client {
    		}
    		//from server to gui
    		else if (msg.contains("PLAYERHAND~")){
-   			System.out.println("~~~CLIENT: message to specific player containing PLAYERHAND~");
    			String[] playerHand = msg.split("~");
    			updateShowPlayerHand = true;
    			gui.showPlayerHand(playerHand[1]);
