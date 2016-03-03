@@ -28,7 +28,10 @@ public class TestGame {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.PURPLE));
 	}
 	private static Card SUPPORTER_CARD = new SupporterCard("", 6);
-
+	
+	private static Card SUPPORTER_CARD_2 = new SupporterCard("Squire 2", 2);
+	private static String SUPPORTER_CARD_FILE = "squire2.jpg";
+	
 	Game game;
 
 	@Before
@@ -229,6 +232,17 @@ public class TestGame {
 		game.drawCard(0);
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(before-1, game.getDrawPile().getNumCards());
+	}
+	
+	@Test
+	public void playingSupporterCard() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		// player one goes first
+		game.getPlayer(0).addCardToHand(SUPPORTER_CARD_2);
+		assertEquals("true", game.playCard(0, SUPPORTER_CARD_FILE));
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 	}
 
 	@After

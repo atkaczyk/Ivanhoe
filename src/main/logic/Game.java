@@ -219,4 +219,9 @@ public class Game {
 	public DrawPile getDrawPile() {
 		return drawPile;
 	}
+
+	public String playCard(int playerNum, String fileName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
