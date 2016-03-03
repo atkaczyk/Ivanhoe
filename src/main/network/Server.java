@@ -581,7 +581,13 @@ public class Server implements Runnable {
 		
 		result += p.getDisplayTotal() + ",";
 		
-		result += p.isWithdrawn();
+		result += p.isWithdrawn() + ",";
+		
+		if(game.getCurrentPlayer().getName().equals(p.getName())){
+			result += true;
+		}else{
+			result += false;
+		}
 		
 		return result;
 	}
