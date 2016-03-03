@@ -145,8 +145,10 @@ public class Client {
    		//from server to gui
    		else if (msg.contains("GAMEINFORMATION~")){
    			System.out.println("~~~CLIENT: message to client containing GAMEINFORMATION~");
+   			String[] gameInfo = msg.split("~");
+   			String gi = gameInfo[1].substring(1);
    			updateAllPlayersInfo = true;
-   			gui.setAllPlayersInfo(msg);
+   			gui.setAllPlayersInfo(gi);
    		}
    		//from server to gui
    		else if (msg.contains("PLAYERHAND~")){
