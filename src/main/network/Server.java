@@ -211,7 +211,7 @@ public class Server implements Runnable {
 						broadcastMessageToPlayer("launchTournamentColour",ID,0);
 					}
 					if (result == true){
-						broadcastToAllPlayers("setTournamentColour~"+colour);  
+						broadcastToAllPlayers("setTournamentColour~"+colour); 
 					}
 				}
 				if (input.contains("requestToPlayThisCard,")){
@@ -223,6 +223,7 @@ public class Server implements Runnable {
 					if(result.contains("true")){
 						System.out.println("SERVER: requestToPlayThisCard: TRUE");
 						getPlayerHand(ID);
+						updateAll();
 					}
 					//if(result.contains("false"))
 					//if(result.contains("actionCard"))
@@ -480,22 +481,6 @@ public class Server implements Runnable {
 		return rolls;
 	}
 
-	private void printOutcome() {
-//		String message = "OUTCOME OF ROUND " + (game.getCurrentRound() - 1)
-//				+ ":\n";
-
-//		for (Player player : game.getPlayers().values()) {
-//			message += String.format("%8s - %2d wound(s)\n", player.getName(),
-//					player.getWounds());
-//		}
-//		logOutput(message);
-//		synchronized (serverThreadsLock) {
-//			for (ServerThread to : serverThreads.values()) {
-//				to.send(String.format(message));
-//			}
-//		}
-	}
-
 	public void displayGameStart(int numOfPlayers) {
 		System.out.println("in display game start server");
 		synchronized (serverThreadsLock) {
@@ -627,6 +612,12 @@ public class Server implements Runnable {
 		result += p.getHandAsString();
 		System.out.println("SERVER: getPlayerHandCards result: "+result);
 		return result;
+	}
+	
+	public void updateAll() {
+		for (int id: playerNumbers.keySet()) {
+			update(id);
+		}
 	}
 	
 	
