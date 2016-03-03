@@ -45,9 +45,11 @@ public class Player {
 			else {
 				if (tournamentColour != Config.GREEN) {
 					displayTotal += ((SupporterCard) card).getNumber();
+					hand.remove(card);
 				}
 				else {
 					displayTotal += 1;
+					hand.remove(card);
 				}
 			}
 		}
@@ -56,6 +58,7 @@ public class Player {
 				return false;
 			}
 			displayTotal += ((ColourCard) card).getNumber();
+			hand.remove(card);
 		}
 		
 		display.addLast(card);
@@ -128,7 +131,6 @@ public class Player {
 			result += c.getName() + ",";
 		}
 		result = result.substring(0, result.length()-1);
-		System.out.println(result);
 		return result;
 	}
 	
@@ -141,13 +143,21 @@ public class Player {
 			result += c.getName() + ",";
 		}
 		result = result.substring(0, result.length()-1);
-		System.out.println(result);
 		return result;
 	}
 
 	public void clearDisplay() {
 		displayTotal = 0;
 		display.clear();
+	}
+
+	public Card getCardFromHand(String name) {
+		for (Card c: hand) {
+			if (c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 }
