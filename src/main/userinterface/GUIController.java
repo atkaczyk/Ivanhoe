@@ -1,12 +1,8 @@
 package userinterface;
 
-import java.awt.List;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import network.Client;
-import utils.Config;
 
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
@@ -26,12 +22,45 @@ public class GUIController {
 
 		client.handle("updateGameInformation");
 		gamePlayWindow.setVisible(true);
-
 	}
+	
+	public void launchTournamentColour(){
+		Object[] possibilities = {"Purple", "Red", "Yellow", "Green", "Blue"};
+		String s = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+		                    "Select your tournament colour\n If it is invalid, you will be asked to select it again",
+		                    "Customized Dialog",
+		                    JOptionPane.PLAIN_MESSAGE,
+		                    null,
+		                    possibilities,
+		                    "colour");
+		
+		if(s.equals("Purple")){
+			s = "0";
+		} else if(s.equals("Red")){
+			s = "1";
+		} else if(s.equals("Yellow")){
+			s = "2";
+		} else if(s.equals("Green")){
+			s = "3";
+		} else if(s.equals("Blue")){
+			s = "4";
+		} 
+		client.handle("TournamentColourRequest:" + s);
+	}
+	
+	public void setTournamentColour(String s){ 
+		gamePlayWindow.setTournamentColour(s);
+	}
+	
+	public void displayTokenColour(int tokenColour){
+		gameReadyWindow.setFinalToken(tokenColour);
+	}	
 	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public void setAllPlayersInfo(String str){ 
+		
+		
 		String[] player = str.split("@");
-
 		for (int i = 0; i < player.length; i++){
 			String[] playerInfo = player[i].split("#");
 
@@ -49,9 +78,7 @@ public class GUIController {
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
 	}
-	public void displayTokenColour(int tokenColour){
-		gameReadyWindow.setFinalToken(tokenColour);
-	}
+
 	public void sendJoinGame(String playerName, int tokenColour) {
 		client.handle("joinGame," + playerName + "," + tokenColour);
 	}
