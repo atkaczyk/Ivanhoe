@@ -110,6 +110,7 @@ public class CardHand extends JPanel implements ActionListener {
 		}
 		else if (action.equals("Play Card")) {
 			System.out.println("YOU JUST PLAYED " + cardToSend);
+			cardToSend = "";
 			maxCards = false;
 			gui.sendCardToPlay(cardToSend); 
 		}
