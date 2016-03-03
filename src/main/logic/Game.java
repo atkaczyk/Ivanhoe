@@ -221,6 +221,7 @@ public class Game {
 	}
 
 	public String playCard(int playerNum, String fileName) {
+		System.out.println("\n\nBEFORE:");
 		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
 		System.out.println("HAND: "+players[playerNum].getHandAsString());
 		// Get the card name from the file name
@@ -242,10 +243,16 @@ public class Game {
 			System.out.println("IT WAS "+result);
 			// If it succeeded, remove that card from their hand
 			if (result == true) {
+				System.out.println("AFTER:");
 				System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
 				System.out.println("HAND: "+players[playerNum].getHandAsString());
+				
 				return "true";
 			}
+			System.out.println("AFTER:");
+			System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
+			System.out.println("HAND: "+players[playerNum].getHandAsString());
+			
 			return "false";
 			// If it failed, do nothing
 		}

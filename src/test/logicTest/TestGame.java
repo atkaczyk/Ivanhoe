@@ -260,6 +260,19 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
+	
+	@Test
+	public void playingInvalidColourCard() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
+		game.overrideTourColour(Config.RED);
+		
+		assertEquals("false", game.playCard(0, PURPLE_CARD_FILE));
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
 
 	@After
 	public void tearDown() {
