@@ -58,13 +58,13 @@ public class CardHand extends JPanel implements ActionListener {
 		cards = new JButton[str.length]; 
 
 		//System.out.println("IN SHOW CARDS IN HAND IN CARD HAND: RETRIEVING THIS IMAGE  >> " + Config.CARD_NAME_TO_PICTURES.get(str[0]));
-		System.out.println("IN CARD HAND >>" + cardsInHand);
+		//System.out.println("IN CARD HAND >>" + cardsInHand);
 		for(int i = 0; i < cards.length; i++) {
 			cards[i] = new JButton(); 
 			cards[i].setName(str[i]);
 
 			/* GETTING NULL EXCEPTIONS BECAUSE MY HASHMAP DOES NOT HAVE SOME CARDS INCLUDING ... Maiden 1.. .etc */
-			System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
+			//System.out.println("IN CARD HAND >> TRYING TO SHOW THIS CARD >>Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i]));
 
 			ImageIcon icon = new ImageIcon(this.getClass().getResource("Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i])));
 			Image img = icon.getImage() ;  
