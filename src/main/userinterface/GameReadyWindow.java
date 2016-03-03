@@ -192,6 +192,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			guiController.sendTokenRequest();
 		}
 		else if(action.equals("Join Game")){
+			
 			guiController.sendJoinGame(playerName.getText(), tokenNum);		
 		}
 
@@ -203,6 +204,13 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	}
 	public void setFinalToken(int tokenColour) {
 		// TODO Auto-generated method stub
+		Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
+		playerName.setVisible(false);
+		playerNameSubmit.setVisible(false);
+		Step2.setVisible(false);
+		token.setVisible(false);
+		tokenRequest.setVisible(false);
+		Step3.setVisible(false);
 		tokenNum = tokenColour;
 		finalToken.setIcon(tokens[tokenColour]);
 	}
