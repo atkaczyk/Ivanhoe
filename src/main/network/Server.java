@@ -200,21 +200,28 @@ public class Server implements Runnable {
 					//call update function
 					update(ID);
 				}
+				if (input.contains("requestToPlayThisCard~")){
+					String[] cardInfo = input.split("~");
+					//gather card info to pass to:
+					//String result = game.playCard(int player num, string blue 2);
+					
+					int playerNum = 0;
+					for (int i=0; i<game.getNumPlayers(); i++) {
+						
+					}
+					
+					String result = game.playCard(playerNum, cardInfo[1]);
+					//if(result.contains("true"))
+					//if(result.contains("false"))
+					//if(result.contains("actionCard"))
+					
+				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
 	   				//String name = playerInfo[1];
 	   				//String tokenNumber = playerInfo[2];
 	   				//game.addPlayer(name, tokenNumber);
 	   				//check to see if game is ready using game.isReadyToStart()
-				}
-				if (input.contains("cardSelected")){
-					String[] cardInfo = input.split(" ");
-					//gather card info to pass to:
-					//game.playCard();
-					//true
-					//false
-					//actioncard
-					
 				}
 				if (input.contains("join")) {
 					String[] separated = input.split(" ");
@@ -504,9 +511,10 @@ public class Server implements Runnable {
 		
 		//int currentID = -1;
 		
-		String handInfo = "PLAYERHAND~";
+		String handInfo = "";
 		
 		for (int id: playerNumbers.keySet()){
+			handInfo = "PLAYERHAND~";
 			handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
 			System.out.println("SERVER: Update: player hand" + handInfo);
 			broadcastMessageToPlayer(handInfo, id, 1);
