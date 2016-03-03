@@ -128,7 +128,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		tokenRequest.addActionListener(this);
 
-
 		Step3 = new JLabel("Step 3: PREPARE TO BATTLE");
 		c.fill = GridBagConstraints.CENTER;
 		c.ipady = 10;   
@@ -138,8 +137,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		Step3.setVisible(false);
 		add(Step3, c);
 
-		//THE FINAL TOKEN IS THE VALUE RECIEVED FROM THE SERVER AND UPDATES THE ICON ACCORDINGLY. MUST BE DONE SEPARATELY.
-		finalToken = new JLabel();//"This is the token you retrieved");
+		finalToken = new JLabel();//"This is the token you retrieved";
 		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = finalToken.getHeight();   
 		c.weightx = 0.5;
@@ -150,7 +148,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		add(finalToken, c);
 
 		gameReady = new JButton("Join Game");
-		//gameReady.setIcon(new ImageIcon(this.getClass().getResource("Images/GameReady.jpg")));
 		c.weightx = 0.8;
 		c.gridx = 3;
 		c.gridy = 3;
@@ -169,22 +166,20 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 		if (action.equals("Submit")) {
-
-			System.out.println(playerName.getText());
 			Step2.setVisible(true);
-
 			token.setVisible(true);
 			tokenRequest.setVisible(true);
-
-			Step3.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
+			
 			Step2.setText("Step 2: " + playerName.getText() + " Press to Retrieve a Token");
-			//	playerName.setText(" ");
+			Step3.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
 
 		}
 		else if (action.equals("Press to Retrieve a Token")){
 			Step3.setVisible(true);
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
+
+			Step1.setVisible(false);
 			
 			playerName.setVisible(false);
 			playerNameSubmit.setVisible(false);
@@ -195,10 +190,12 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			guiController.sendTokenRequest();
 		}
 		else if(action.equals("Join Game")){
-			Step1.setText("WELCOME" + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");
-
+			Step1.setVisible(true);
+			Step1.setText(" WELCOME " + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");	
 			Step3.setVisible(false);
 			gameReady.setVisible(false);
+			
+			
 			guiController.sendJoinGame(playerName.getText(), tokenNum);		
 		}
 	}

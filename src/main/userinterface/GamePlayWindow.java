@@ -19,22 +19,24 @@ public class GamePlayWindow extends JFrame{
 	PlayerCard playerCard3;
 	PlayerCard playerCard4;
 	CardHand hand;
-	
+
 	PlayerCardDisplay	playerDisplay;
+	GUIController gui;
 	//will hold the player cards
 	//will hold the cardLayout discard pile: still to be made
 
 	public GamePlayWindow(Client client){
 		super(); 
-
+		gui = new GUIController(client);
+		
 		getContentPane().setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		JButton button;
 		GamePlayButtonPanel buttonPanel;
-		
+
 		button = new JButton("Ivanhoe");
-		
+
 		c.weightx =1;
 		c.weighty =1;
 		c.ipadx = 10;
@@ -48,8 +50,8 @@ public class GamePlayWindow extends JFrame{
 		c.gridx = 2;
 		c.gridy = 0;
 		add(button, c);
-		
-		playerCard0 = new PlayerCard("Still the Greatest");
+
+		playerCard0 = new PlayerCard("INACTIVE");
 
 		c.ipadx = 500;
 		c.ipady = 200;
@@ -59,7 +61,7 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 1;
 		add(playerCard0, c);
 
-		playerCard1 = new PlayerCard("Alisa the Great")	;
+		playerCard1 = new PlayerCard("INACTIVE");
 		//c.ipadx = 300;
 		c.weightx = 0.0;
 		c.gridwidth = 2;
@@ -67,8 +69,7 @@ public class GamePlayWindow extends JFrame{
 		c.gridy = 1;
 		add(playerCard1, c);
 
-		playerCard2 = new PlayerCard("Alisa")	;
-		button = new JButton("Player Card 3");
+		playerCard2 = new PlayerCard("INACTIVE");
 		c.weightx = 0.0;
 		c.gridwidth = 2;
 		c.gridx = 0;
@@ -76,7 +77,7 @@ public class GamePlayWindow extends JFrame{
 		add(playerCard2, c);
 
 
-		playerCard3 = new PlayerCard("Great")	;
+		playerCard3 = new PlayerCard("INACTIVE");
 		c.weightx = 0.0;
 		c.gridwidth = 2;
 		c.gridx = 2;
@@ -84,14 +85,14 @@ public class GamePlayWindow extends JFrame{
 		add(playerCard3, c);
 
 
-		playerCard4 = new PlayerCard("MY Player Card");
+		playerCard4 = new PlayerCard("INACTIVE");
 		c.weightx = 0.0;
 		c.gridwidth = 2;
 		c.gridx = 1;
 		c.gridy = 3;
 		add(playerCard4, c);
-		
-		buttonPanel = new GamePlayButtonPanel();
+
+		buttonPanel = new GamePlayButtonPanel(gui);
 		c.ipadx = 100;
 		c.ipady = 80;
 		c.weightx = 0.0;
@@ -100,9 +101,9 @@ public class GamePlayWindow extends JFrame{
 		c.gridx = 0;
 		c.gridy = 3;
 		add(buttonPanel, c);
-		
-		hand = new CardHand(); //"MY CARD HAND DISPLAY SCROLLER");
-		c.ipady = 300;      //change back to 200?
+
+		hand = new CardHand(gui); //"MY CARD HAND DISPLAY SCROLLER");
+		c.ipady = 300;     
 		c.weightx = 0.0;
 		c.gridwidth = 3;
 		c.gridx = 0;
@@ -116,16 +117,25 @@ public class GamePlayWindow extends JFrame{
 	}
 
 	//can now take in a string and parse to all players.
-	public void setPlayerCardStats(String playerInfo) { //String playerName, String numToken, String score, String turn) {
-		playerCard0.setPlayerStats(playerInfo);
-		playerCard1.setPlayerStats(playerInfo);
-		playerCard2.setPlayerStats(playerInfo);
-		playerCard3.setPlayerStats(playerInfo);
-		playerCard4.setPlayerStats(playerInfo);
+	public void setPlayerCardStats(int i, String playerInfo) { //String playerName, String numToken, String score, String turn) {
+		if(i == 0) {
+			playerCard0.setPlayerStats(playerInfo);
+		}else if( i == 1) {
+			playerCard1.setPlayerStats(playerInfo);
+		}
+		else if (i ==2){
+			playerCard2.setPlayerStats(playerInfo);
+		}
+		else if (i ==3){
+			playerCard3.setPlayerStats(playerInfo);
+		}
+		else if (i ==4){
+			playerCard4.setPlayerStats(playerInfo);
+
+		}
 	}
 
 	public void setPlayerCardDisplay(String str) {
-		System.out.println("trying to set the player card display");
 		playerCard0.setPlayerDisplay(str); //"NAME", 5, 10, false);
 		playerCard1.setPlayerDisplay("green1.jpg");
 		playerCard2.setPlayerDisplay("purple3.jpg");
@@ -134,8 +144,8 @@ public class GamePlayWindow extends JFrame{
 	}
 
 	public void updateCardHand(String cardsInHand){
-		// TODO Auto-generated method stub
-		hand.showCardsInHand( cardsInHand);
-		
+		hand.showCardsInHand(cardsInHand);
+
 	}
+
 }

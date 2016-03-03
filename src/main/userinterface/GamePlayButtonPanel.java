@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
-	GamePlayButtonPanel() {
+	GUIController gui;
+	GamePlayButtonPanel(GUIController gui1) {
+		gui = gui1;
 		JButton button;
 		JButton withdrawButton;
 		JButton endTurnButton;
@@ -67,16 +69,14 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 		if (action.equals("Withdraw")) {
-			System.out.println("Withdraw");
+			gui.requestToWithdraw();
 		}
 		else if (action.equals("Draw a Card")) {
-			System.out.println("DrawCard");
-			GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
-
+			gui.requestToDrawCard(); //this should add a card to the hand.
+			//GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
 		}
 		else if (action.equals("Announce End of Turn")) {
-			System.out.println("End of Turn");
-
+			gui.requestToEndTurn();
 		}
 
 

@@ -19,6 +19,7 @@ public class PlayerCardStats extends JPanel{
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		 setLayout(null); 
 		 int top = 10;
+		 
 		 playerName = new JLabel(" " + pName);
 		 playerName.setLocation(0, top);
 		 playerName.setSize(100,30);
@@ -45,10 +46,12 @@ public class PlayerCardStats extends JPanel{
 		 } else {
 			 turn = new JLabel("< NOT YOUR TURN > ");
 		 }
+		 
 		 turn.setLocation(0, top + 60);
 		 turn.setSize(100,30);
 		 turn.setForeground(Color.red);
 		 add(turn);
+		 
 		 changeDisplay = new JButton("Steal Card");
 		 changeDisplay.setLocation(0, top + 90);
 		 changeDisplay.setSize(100, 20);
@@ -63,22 +66,18 @@ public class PlayerCardStats extends JPanel{
 
 	public void setPlayerName(String playerName2) {
 		playerName.setText(playerName2);
-		
 	}
 
 	public void setPlayerTokens(int numToken) {
-		numTokens.setText("UPDATED: " + numToken);
-		
+		numTokens.setText("UPDATED: " + numToken);	
 	}
 
 	public void setPlayerScore(int score2) {
-		score.setText("UPDATED: " + score2);
-		
+		score.setText("UPDATED: " + score2);	
 	}
 
 	public void setPlayerTurn(boolean turn2) {
-		turn.setText("UPDATED: " + turn2);
-		
+		turn.setText("UPDATED: " + turn2);	
 	}
 	public void setSpecialCards(String str){
 		specialCard.setText("Special Cards: " + str);
