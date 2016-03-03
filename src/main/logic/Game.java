@@ -219,7 +219,7 @@ public class Game {
 	public DrawPile getDrawPile() {
 		return drawPile;
 	}
-
+	
 	public String playCard(int playerNum, String fileName) {
 		System.out.println("\n\nBEFORE:");
 		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
@@ -263,5 +263,10 @@ public class Game {
 
 	public void overrideTourColour(int colour) {
 		tournamentColour = colour;
+	}
+
+	public Object getDiscardPileSize() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

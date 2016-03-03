@@ -19,7 +19,8 @@ public class TestGame {
 	private static final int NUM_OF_PLAYERS = 2;
 	private static final String PLAYER_ONE_NAME = "Jack";
 	private static final String PLAYER_TWO_NAME = "Chloe";
-	private static final Card PURPLE_CARD_3 = new ColourCard("Purple (Jousting) 3", 3 , Config.PURPLE);
+	private static final Card PURPLE_CARD_3 = new ColourCard(
+			"Purple (Jousting) 3", 3, Config.PURPLE);
 	private static final ArrayDeque<Card> HAND_WITH_ALL_COLOURS = new ArrayDeque<Card>();
 	static {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.RED));
@@ -29,12 +30,12 @@ public class TestGame {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.PURPLE));
 	}
 	private static Card SUPPORTER_CARD = new SupporterCard("", 6);
-	
+
 	private static Card SUPPORTER_CARD_2 = new SupporterCard("Squire 2", 2);
 	private static String SUPPORTER_CARD_FILE = "squire2.jpg";
-	
+
 	private static String PURPLE_CARD_FILE = "purple3.jpg";
-	
+
 	Game game;
 
 	@Before
@@ -111,7 +112,7 @@ public class TestGame {
 
 		assertEquals(PLAYER_ONE_NAME, game.getCurrentPlayer().getName());
 	}
-	
+
 	@Test
 	public void getCurrentPlayerNumber() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -169,7 +170,7 @@ public class TestGame {
 		game.setTournamentColour(Config.BLUE);
 		assertEquals(Config.BLUE, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void pickTournColourInvalidHand() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -177,10 +178,10 @@ public class TestGame {
 
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
-		
+
 		assertEquals(false, game.setTournamentColour(Config.BLUE));
 	}
-	
+
 	@Test
 	public void invalidPurpleTokenPreviousPurpleTournament() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -194,73 +195,73 @@ public class TestGame {
 		game.setTournamentColour(Config.PURPLE);
 		assertEquals(false, game.setTournamentColour(Config.PURPLE));
 	}
-	
+
 	@Test
 	public void getPlayerNumber() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		
+
 		assertEquals(PLAYER_ONE_NAME, game.getPlayer(0).getName());
 	}
-	
+
 	@Test
 	public void tournamentStart() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
 		game.startTournament();
-		
+
 		assertEquals(1, game.getTournamentNumber());
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
 	}
-	
+
 	@Test
 	public void playerDrawsCard() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.drawCard(0);
-		
+
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void twoPlayersStartTournament() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		// player one goes first
 		int before = game.getDrawPile().getNumCards();
 		game.drawCard(0);
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(before-1, game.getDrawPile().getNumCards());
+		assertEquals(before - 1, game.getDrawPile().getNumCards());
 	}
-	
+
 	@Test
 	public void playingSupporterCard() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(SUPPORTER_CARD_2);
-		
+
 		assertEquals("true", game.playCard(0, SUPPORTER_CARD_FILE));
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void playingValidColourCard() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
-		
+
 		assertEquals("true", game.playCard(0, PURPLE_CARD_FILE));
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void playingInvalidColourCard() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -268,10 +269,36 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 		game.overrideTourColour(Config.RED);
-		
+
 		assertEquals("false", game.playCard(0, PURPLE_CARD_FILE));
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+
+	@Test
+	public void startingTournamentClearsDisplay() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.getPlayer(0).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
+
+		game.startTournament();
+		
+		// When a tournament is started it should clear all the player displays
+		// and move the cards to the discard pile
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(8, game.getDrawPileSize());
+		
 	}
 
 	@After
