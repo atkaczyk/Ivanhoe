@@ -225,6 +225,12 @@ public class Server implements Runnable {
 					//if(result.contains("actionCard"))
 					
 				}
+				else if (input.contains("requestToDrawCard")){
+					System.out.println("--------SOPHIA: I am drawing a card");
+					int playerNum = playerNumbers.get(ID);
+					game.drawCard(playerNum);
+					update(ID); //call update function
+				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
 	   				//String name = playerInfo[1];
