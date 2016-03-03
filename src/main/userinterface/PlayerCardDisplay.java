@@ -32,8 +32,6 @@ public class PlayerCardDisplay extends JPanel {
 
 	public void add(JButton card,String str){
 		numCardsInDisplay ++;
-//		card.setBackground(colour);
-		//card.setIcon(new ImageIcon);
 		ImageIcon icon =new ImageIcon(this.getClass().getResource("Cards/"+str));
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance(80, 130,  java.awt.Image.SCALE_SMOOTH ) ; 

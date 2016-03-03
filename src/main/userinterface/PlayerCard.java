@@ -25,23 +25,22 @@ public class PlayerCard extends JPanel{
 	public PlayerCard(String name){
 		setLayout(null); //new FlowLayout()); 
 		setBorder(BorderFactory.createTitledBorder("Player Card")); 
-		
+
 		playerStats = new PlayerCardStats(name, 0, 0, false);
 		//setPlayerStats("Shit", 1, 2, true);
 		playerStats.setLocation(20,20);
-		
+
 		ImageIcon a = new ImageIcon("Z:\\Ivanhoe\\3004_Iteration1\\src\\Images\\Avatar.jpg");
 		JLabel avatar = new JLabel();
 		avatar.setIcon(a);
 		avatar.setSize(a.getIconWidth(),a.getIconHeight());
 		avatar.setLocation(200, 20);
-		
+
 
 		display = new PlayerCardDisplay();
 
 		display.setLocation(350,20);
-		
-		
+
 		add(playerStats);
 		add(avatar);
 		add(display);
@@ -50,31 +49,43 @@ public class PlayerCard extends JPanel{
 
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
-	public void setPlayerStats(String playerInfo) { //{String playerName, String numToken, String score, String turn){
+	public void setPlayerStats(String playerInfo) {
 		//setBorder(BorderFactory.createTitledBorder("shittyier")); 
+		//		System.out.println("IN THE PLAYER CARD -> SETTING THE PLAYER STATS:     >> " + playerInfo);
 		String[] stats = playerInfo.split(",");
-		playerStats.setPlayerName(stats[1]);
+		playerStats.setPlayerName(stats[0]);
+		if(stats[1].equals("")){
+			stats[1] = "0";
+		}
 		playerStats.setPlayerTokens(Integer.parseInt(stats[1]));
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
 		if (stats[7].equals("true")) {
-		playerStats.setPlayerTurn(true);
+			playerStats.setPlayerTurn(true);
 		} else {
 			playerStats.setPlayerTurn(false);	
 		}
-			
-		
-		//playerStats = new PlayerCardStats(playerName, numToken, score, turn);
 		add(playerStats);
-		
 	}
-	
+
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
-		String[] cards = str.split(",");
-		for(int i =0; i<cards.length; i++){
-			display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[i]));
+
+		System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);
+		if(str.isEmpty()){}
+		else {
+			String[] cards = str.split(",");
+
+			if(cards.length < 1){
+				display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[0]));
+
+				System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY: CARDS[0]  >> " + cards[0]);
+			}
+			else{
+				for(int i =0; i<cards.length; i++){
+					display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[i]));
+				}
+				add(display);
+			}
 		}
 	}
-
-
 }
 
