@@ -197,6 +197,19 @@ public class Server implements Runnable {
 				if (input.contains("updateGameInformation")){
 					System.out.println("~~~~SERVER: handle updateGameInformation: ID: "+ID);
 					update(ID); //call update function
+					broadcastMessageToPlayer("launchTournamentColour", ID, 0);
+				}
+				if (input.contains("TournamentColourRequest")){
+					System.out.println("SERVER: TournamentColourRequest");
+					String[] tournamentC = input.split(":");
+					int colour = Integer.parseInt(tournamentC[1]);
+					boolean result = game.setTournamentColour(colour);
+					if (result == false){
+						broadcastMessageToPlayer("launchTournamentColour",ID,0);
+					}
+					if (result == true){
+						broadcastToAllPlayers("setTournamentColour~"+colour);  
+					}
 				}
 				if (input.contains("requestToPlayThisCard,")){
 					
@@ -206,6 +219,7 @@ public class Server implements Runnable {
 					System.out.println("~~~SERVER: requestToPlayThisCard: result: "+result);
 					if(result.contains("true")){
 						System.out.println("SERVER: requestToPlayThisCard: TRUE");
+						getPlayerHand(ID);
 					}
 					//if(result.contains("false"))
 					//if(result.contains("actionCard"))
@@ -498,6 +512,8 @@ public class Server implements Runnable {
 		System.out.println("~~~~Server: update info: " + gameInfo);
 		broadcastToAllPlayers(gameInfo);
 		
+		getPlayerHand(ID);
+		
 		//update the card hand for the specific client
 		//loop through all server threads, pass only to the one current client:
 		
@@ -506,16 +522,7 @@ public class Server implements Runnable {
 		
 		//int currentID = -1;
 		
-		String handInfo = "";
-		
-		for (int id: playerNumbers.keySet()){
-			if (id == ID){
-				handInfo = "PLAYERHAND~";
-				handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
-				System.out.println("SERVER: Update: player hand" + handInfo);
-				broadcastMessageToPlayer(handInfo, id, 1);
-			}
-		}
+
 		//message += getPlayerHandCards(game.getPlayer);
 		//broadcastMessageToPlayer(String message, int senderID, int direction)
 				
@@ -584,6 +591,19 @@ public class Server implements Runnable {
 		}
 		
 		return result;
+	}
+	
+	public void getPlayerHand(int ID){
+		String handInfo = "";
+		
+		for (int id: playerNumbers.keySet()){
+			if (id == ID){
+				handInfo = "PLAYERHAND~";
+				handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
+				System.out.println("SERVER: Update: player hand" + handInfo);
+				broadcastMessageToPlayer(handInfo, id, 1);
+			}
+		}
 	}
 	
 	public String getPlayerDisplayCards(Player p){
