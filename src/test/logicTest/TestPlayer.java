@@ -162,8 +162,6 @@ public class TestPlayer {
 		
 		assertEquals(1, player.getDisplayTotal(Config.GREEN));
 		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
-		
-		
 	}
 	
 	@After

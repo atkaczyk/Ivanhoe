@@ -11,7 +11,6 @@ public class Player {
 	private String name = "";
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
-	private int displayTotal = 0;
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private String specialCard = "";
 	
@@ -44,11 +43,9 @@ public class Player {
 			}
 			else {
 				if (tournamentColour != Config.GREEN) {
-					displayTotal += ((SupporterCard) card).getNumber();
 					hand.remove(card);
 				}
 				else {
-					displayTotal += 1;
 					hand.remove(card);
 				}
 			}
@@ -57,7 +54,6 @@ public class Player {
 			if (((ColourCard) card).getColour() != tournamentColour) {
 				return false;
 			}
-			displayTotal += ((ColourCard) card).getNumber();
 			hand.remove(card);
 		}
 		
@@ -87,7 +83,26 @@ public class Player {
 	}
 
 	public int getDisplayTotal(int tournColour) {
-		return displayTotal;
+		int total = 0;
+		for (Card c: display) {
+			if (c instanceof SupporterCard) {
+				if (tournColour == Config.GREEN) {
+					total += 1;
+				}
+				else {
+					total += ((SupporterCard) c).getNumber();
+				}
+			}
+			else if (c instanceof ColourCard) {
+				if (tournColour == Config.GREEN) {
+					total += 1;
+				}
+				else {
+					total += ((ColourCard) c).getNumber();
+				}
+			}
+		}
+		return total;
 	}
 
 	public Boolean addToken(int colour) {
@@ -147,7 +162,6 @@ public class Player {
 	}
 
 	public void clearDisplay() {
-		displayTotal = 0;
 		display.clear();
 	}
 
