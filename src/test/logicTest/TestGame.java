@@ -238,11 +238,12 @@ public class TestGame {
 	public void playingSupporterCard() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
-		// player one goes first
+
 		game.getPlayer(0).addCardToHand(SUPPORTER_CARD_2);
+		
 		assertEquals("true", game.playCard(0, SUPPORTER_CARD_FILE));
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After

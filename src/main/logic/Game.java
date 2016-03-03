@@ -196,21 +196,21 @@ public class Game {
 		Player player = players[playerNum];
 		Card c = drawPile.getCard();
 		player.addCardToHand(c);
-		
+
 		// Check to see is the draw pile is empty
 		if (drawPile.getNumCards() == 0) {
 			// Shuffle the discard pile and add it to the drawPile
 			List<Card> tempList = new ArrayList<Card>();
-			
+
 			while (!discardPile.isEmpty()) {
 				tempList.add(discardPile.pop());
 			}
-			
+
 			// Shuffle the list
 			Collections.shuffle(tempList);
-			
+
 			// Copy back into the deque
-			for (Card card: tempList) {
+			for (Card card : tempList) {
 				drawPile.addCard(card);
 			}
 		}
@@ -221,7 +221,41 @@ public class Game {
 	}
 
 	public String playCard(int playerNum, String fileName) {
-		// TODO Auto-generated method stub
+		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
+		System.out.println("HAND: "+players[playerNum].getHandAsString());
+		// Get the card name from the file name
+		String name = "";
+		for (String cardName : Config.CARD_NAME_TO_PICTURES.keySet()) {
+			if (Config.CARD_NAME_TO_PICTURES.get(cardName).equals(fileName)) {
+				name = cardName;
+				break;
+			}
+		}
+
+		// Supporter card being played
+		if (name.contains("Squire") || name.contains("Maiden")) {
+			// Find the card in their hand
+			Card c = players[playerNum].getCardFromHand(name);
+			
+			// Try adding the card to the display
+			Boolean result = players[playerNum].addCardToDisplay(c, tournamentColour);
+			
+			System.out.println("IT WAS "+result);
+			// If it succeeded, remove that card from their hand
+			if (result == true) {
+				System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
+				System.out.println("HAND: "+players[playerNum].getHandAsString());
+				return "true";
+			}
+			return "false";
+			// If it failed, do nothing
+		}
+		// players[playerNum].addCardToDisplay(card, playerNum)
+		
 		return null;
+	}
+
+	public void overrideTourColour(int red) {
+		tournamentColour = red;
 	}
 }
