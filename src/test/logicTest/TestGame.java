@@ -244,7 +244,7 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(SUPPORTER_CARD_2);
 
-		assertEquals("true", game.playCard(0, SUPPORTER_CARD_FILE));
+		assertEquals("true", game.playCard(0, SUPPORTER_CARD_2.getName()));
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
@@ -254,9 +254,10 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
+		game.overrideTourColour(Config.PURPLE);
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 
-		assertEquals("true", game.playCard(0, PURPLE_CARD_FILE));
+		assertEquals("true", game.playCard(0, PURPLE_CARD_3.getName()));
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
@@ -269,7 +270,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 		game.overrideTourColour(Config.RED);
 
-		assertEquals("false", game.playCard(0, PURPLE_CARD_FILE));
+		assertEquals("false", game.playCard(0, PURPLE_CARD_3.getName()));
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
