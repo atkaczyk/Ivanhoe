@@ -232,11 +232,10 @@ public class Game {
 			}
 		}
 
-		// Supporter card being played
-		if (name.contains("Squire") || name.contains("Maiden")) {
-			// Find the card in their hand
-			Card c = players[playerNum].getCardFromHand(name);
-			
+		Card c = players[playerNum].getCardFromHand(name);
+		
+		// Supporter or card being played
+		if (c instanceof SupporterCard || c instanceof ColourCard) {
 			// Try adding the card to the display
 			Boolean result = players[playerNum].addCardToDisplay(c, tournamentColour);
 			
@@ -255,7 +254,7 @@ public class Game {
 		return null;
 	}
 
-	public void overrideTourColour(int red) {
-		tournamentColour = red;
+	public void overrideTourColour(int colour) {
+		tournamentColour = colour;
 	}
 }
