@@ -158,6 +158,23 @@ public class Client {
    			updateShowPlayerHand = true;
    			gui.showPlayerHand(playerHand[1]);
    		}
+   		//from server to gui
+   		else if(msg.contains("launchTournamentColour")){
+   			System.out.println("CLIENT: launchTournamentColour");
+   			gui.launchTournamentColour();
+   		}
+   		//from gui to server
+   		else if(msg.contains("TournamentColourRequest")){
+   			System.out.println("CLIENT: TournamentColourRequest");
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
+   		else if(msg.contains("setTournamentColour~")){
+   			System.out.println("CLIENT: setTournamentColour~");
+   			String[] colour = msg.split("~");
+   			gui.setTournamentColour(colour[1]);;
+   			
+   		}
    		
    		else if(msg.contains("requestToPlayThisCard")){
    			//sends me card to send to game...the file name
