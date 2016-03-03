@@ -57,6 +57,7 @@ public class CardHand extends JPanel implements ActionListener {
 	public void showCardsInHand(String cardsInHand){ 
 		/* clear the hands before adding more */
 		panel.removeAll();
+		System.out.println("IN THE CARD HAND: THERE ARE THIS MANY PANEL COMPONENTS >> " + panel.getComponentCount());
 		
 		String[] str = cardsInHand.split(",");
 		cards = new JButton[str.length]; 
@@ -98,9 +99,9 @@ public class CardHand extends JPanel implements ActionListener {
 
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
-			//scrollPane.setViewportView(panel);
+			scrollPane.setViewportView(panel);
 		}
-		scrollPane.setViewportView(panel);
+		//scrollPane.setViewportView(panel);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
