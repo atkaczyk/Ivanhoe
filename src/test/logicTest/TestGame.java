@@ -209,7 +209,6 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
-		game.startTournament();
 
 		assertEquals(1, game.getTournamentNumber());
 		assertEquals(false, game.getPlayer(0).isWithdrawn());

@@ -95,6 +95,7 @@ public class Game {
 
 		// Figure out which player is first
 		goToNextPlayer();
+		startTournament();
 	}
 
 	// Change the current player to be the next player
