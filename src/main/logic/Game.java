@@ -223,22 +223,26 @@ public class Game {
 	public String playCard(int playerNum, String name) {
 		// Get the card name from the file name
 		Card c = players[playerNum].getCardFromHand(name);
-
-		// Supporter or card being played
-		if (c instanceof SupporterCard || c instanceof ColourCard) {
-			// Try adding the card to the display
+		
+		if (c instanceof SupporterCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
 
-			// If it succeeded, remove that card from their hand
 			if (result == true) {
-
 				return "true";
 			}
+			return "false:You cannot add a second maiden card to your display";
+		} 
+		else if (c instanceof ColourCard) {
+			Boolean result = players[playerNum].addCardToDisplay(c,
+					tournamentColour);
 
-			return "false";
-			// If it failed, do nothing
-		} else {
+			if (result == true) {
+				return "true";
+			}
+			return "false:When playing a colour card, the colour must match the current tournament colour!";
+		}
+		else {
 			if (name.equals("Drop Weapon")) {
 				// The tournament color changes from red, blue or yellow to
 				// green.

@@ -43,11 +43,7 @@ public class Player {
 			if (card.getName().equals("Maiden 6") && maidenInDisplay()) {
 				return false;
 			} else {
-				if (tournamentColour != Config.GREEN) {
-					hand.remove(card);
-				} else {
-					hand.remove(card);
-				}
+				hand.remove(card);
 			}
 		} else if (card instanceof ColourCard) {
 			if (((ColourCard) card).getColour() != tournamentColour) {

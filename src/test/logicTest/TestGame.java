@@ -280,8 +280,9 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 		game.overrideTourColour(Config.RED);
-
-		assertEquals("false", game.playCard(0, PURPLE_CARD_3.getName()));
+		
+		String result = game.playCard(0, PURPLE_CARD_3.getName());
+		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
