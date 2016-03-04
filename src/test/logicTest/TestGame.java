@@ -295,49 +295,61 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
 
 		game.startTournament();
-		
+
 		// When a tournament is started it should clear all the player displays
 		// and move the cards to the discard pile
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(8, game.getDiscardPileSize());
-		
+
 	}
-	
+
 	@Test
 	public void twoPlayersWithdrawOne() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
-		
-		assertEquals(PLAYER_TWO_NAME, game.withdrawPlayer(0));
+		game.overrideTourColour(Config.BLUE);
+
+		String expected = PLAYER_TWO_NAME + "," + game.getTournamentNumber()
+				+ "," + game.getTournamentColour();
+
+		assertEquals(expected, game.withdrawPlayer(0));
 	}
-	
+
 	@Test
 	public void threePlayersWithdrawTwo() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		
+
 		game.startGame();
-		
+
 		game.withdrawPlayer(0);
-		assertEquals(PLAYER_THREE_NAME, game.withdrawPlayer(1));
+
+		game.overrideTourColour(Config.BLUE);
+
+		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
+				+ "," + game.getTournamentColour();
+
+		assertEquals(expected, game.withdrawPlayer(1));
 	}
-	
+
 	@Test
 	public void threePlayersWithdrawOne() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		
+
 		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+		
 		assertEquals("", game.withdrawPlayer(1));
 	}
-	
+
 	@Test
 	public void fivePlayersWithdrawFour() {
 		game.setNumPlayers(5);
@@ -346,14 +358,18 @@ public class TestGame {
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
 		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
 		game.addPlayer(PLAYER_FIVE_NAME, Config.GREEN);
-		
+
 		game.startGame();
-		
+
 		game.withdrawPlayer(0);
 		game.withdrawPlayer(1);
 		game.withdrawPlayer(4);
 		
-		assertEquals(PLAYER_THREE_NAME, game.withdrawPlayer(3));
+		game.overrideTourColour(Config.BLUE);
+		
+		String expected = PLAYER_THREE_NAME+","+game.getTournamentNumber()+","+game.getTournamentColour();
+			
+		assertEquals(expected, game.withdrawPlayer(3));
 	}
 
 	@After
