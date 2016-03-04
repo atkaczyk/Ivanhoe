@@ -171,7 +171,7 @@ public class TestPlayer {
 		player.addToken(Config.GREEN);
 		player.addToken(Config.YELLOW);
 		
-		assertEquals(true, player.isWinner(4));
+		assertEquals(true, player.isWinnerOfGame(4));
 	}
 	
 	@After

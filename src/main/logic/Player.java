@@ -13,11 +13,11 @@ public class Player {
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private String specialCard = "";
-	
+
 	public void setWithdrawn(Boolean status) {
 		withdrawn = status;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -37,32 +37,30 @@ public class Player {
 	public Boolean addCardToDisplay(Card card, int tournamentColour) {
 		// If card is a supporter card, increase by number
 		if (card instanceof SupporterCard) {
-			// If the card is a maiden, we must check that there isn't already a maiden
+			// If the card is a maiden, we must check that there isn't already a
+			// maiden
 			if (card.getName().equals("Maiden") && maidenInDisplay()) {
 				return false;
-			}
-			else {
+			} else {
 				if (tournamentColour != Config.GREEN) {
 					hand.remove(card);
-				}
-				else {
+				} else {
 					hand.remove(card);
 				}
 			}
-		}
-		else if (card instanceof ColourCard) {
+		} else if (card instanceof ColourCard) {
 			if (((ColourCard) card).getColour() != tournamentColour) {
 				return false;
 			}
 			hand.remove(card);
 		}
-		
+
 		display.addLast(card);
 		return true;
 	}
 
 	private boolean maidenInDisplay() {
-		for (Card c: display) {
+		for (Card c : display) {
 			if (c.getName().equals("Maiden")) {
 				return true;
 			}
@@ -84,20 +82,17 @@ public class Player {
 
 	public int getDisplayTotal(int tournColour) {
 		int total = 0;
-		for (Card c: display) {
+		for (Card c : display) {
 			if (c instanceof SupporterCard) {
 				if (tournColour == Config.GREEN) {
 					total += 1;
-				}
-				else {
+				} else {
 					total += ((SupporterCard) c).getNumber();
 				}
-			}
-			else if (c instanceof ColourCard) {
+			} else if (c instanceof ColourCard) {
 				if (tournColour == Config.GREEN) {
 					total += 1;
-				}
-				else {
+				} else {
 					total += ((ColourCard) c).getNumber();
 				}
 			}
@@ -119,7 +114,7 @@ public class Player {
 
 	public Boolean removeToken(int colour) {
 		if (tokens.contains(colour)) {
-			tokens.remove((Object)colour);
+			tokens.remove((Object) colour);
 			return true;
 		}
 		return false;
@@ -136,28 +131,28 @@ public class Player {
 	public void withdraw() {
 		withdrawn = true;
 	}
-	
+
 	public String getHandAsString() {
 		if (hand.size() == 0) {
 			return "";
 		}
 		String result = "";
-		for (Card c: hand) {
+		for (Card c : hand) {
 			result += c.getName() + ",";
 		}
-		result = result.substring(0, result.length()-1);
+		result = result.substring(0, result.length() - 1);
 		return result;
 	}
-	
+
 	public String getDisplayAsString() {
 		if (display.size() == 0) {
 			return "";
 		}
 		String result = "";
-		for (Card c: display) {
+		for (Card c : display) {
 			result += c.getName() + ",";
 		}
-		result = result.substring(0, result.length()-1);
+		result = result.substring(0, result.length() - 1);
 		return result;
 	}
 
@@ -166,7 +161,7 @@ public class Player {
 	}
 
 	public Card getCardFromHand(String name) {
-		for (Card c: hand) {
+		for (Card c : hand) {
 			if (c.getName().equals(name)) {
 				return c;
 			}
@@ -174,9 +169,15 @@ public class Player {
 		return null;
 	}
 
-	public Object isWinner(int requiredTokens) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Check to see if the play has the required number of tokens (has won)
+	 * 
+	 * @param requiredTokens
+	 *            The number of different tokens they need to win the game
+	 * @return if they are a winner or not
+	 */
+	public Boolean isWinnerOfGame(int requiredTokens) {
+		return requiredTokens == tokens.size();
 	}
 
 }
