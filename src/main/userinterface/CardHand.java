@@ -57,7 +57,7 @@ public class CardHand extends JPanel implements ActionListener {
 	public void showCardsInHand(String cardsInHand){ 
 		/* clear the hands before adding more */
 		panel.removeAll();
-		System.out.println("IN THE CARD HAND: THERE ARE THIS MANY PANEL COMPONENTS >> " + panel.getComponentCount());
+	//	System.out.println("IN THE CARD HAND: THERE ARE THIS MANY PANEL COMPONENTS >> " + panel.getComponentCount());
 
 		String[] str = cardsInHand.split(",");
 		cards = new JButton[str.length]; 
@@ -85,17 +85,21 @@ public class CardHand extends JPanel implements ActionListener {
 					if(maxCards == false){
 						maxCards = true;
 						cardToSend += ((JButton) e.getSource()).getName();
-						((JButton) e.getSource()).setEnabled(false); //setBackground(Color.BLACK);
+						((JButton) e.getSource()).setBorderPainted(true);//setBackground(Color.BLACK);
 						System.out.println("Play these cards: " + cardToSend);
 					} else {
 						if(((JButton) e.getSource()).getName().equals(cardToSend)) { //.getBackground() == Color.BLACK) {
-							((JButton) e.getSource()).setEnabled(true);
+						//	System.out.println("WHY AM I NOT HERE?? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
+							
+							((JButton) e.getSource()).setBorderPainted(false);
 							System.out.println("HELOOO I SHOULD BE ENABLED");
 							maxCards = false;
 							cardToSend = cardToSend.replace(((JButton) e.getSource()).getName(), "");
 							 //setBackground(Color.WHITE);
-							System.out.println("Play these cards: " + cardToSend);
+							//System.out.println("Play these cards: " + cardToSend);
 						} else {
+							//System.out.println("THEY DON'T MATCH? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
+							
 							System.out.println("Play this card before selecting another");
 							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
 						}
