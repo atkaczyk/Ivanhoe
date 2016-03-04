@@ -176,6 +176,9 @@ public class Client {
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
    		}
+   		else if(msg.contains("requestToEndTurn")){
+   			
+   		}
    		
    		else if (msg.contains("gameReady")){
    			gameReady = true;

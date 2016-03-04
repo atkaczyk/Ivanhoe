@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import network.Server;
 import network.Client;
+import logic.Game;
 
 import org.junit.After;
 import org.junit.Test;
@@ -17,6 +18,8 @@ public class TestClient {
 	private static final String ROLL_COMMAND_ONE = "roll sophia 1";
 	private static final String PLAYER_NAME_ONE = "sophia";
 	private static final int ONE_PLAYER = 1;
+	
+	private Game game = new Game();
 
 	private static Server server = new Server(Config.DEFAULT_PORT);
 	private static Client clientOne = new Client(Config.DEFAULT_HOST,
@@ -94,17 +97,17 @@ public class TestClient {
 		assertEquals(true, clientOne.getGameReady());
 	}
 	
-	@Test
-	public void updateAllPlayersInfo(){
-		clientOne.handle("GAMEINFORMATION~");
-		assertEquals(true, clientOne.getUpdateAllPlayersInfo());
-	}
+//	@Test
+//	public void updateAllPlayersInfo(){
+//		clientOne.handle("GAMEINFORMATION~");
+//		assertEquals(true, clientOne.getUpdateAllPlayersInfo());
+//	}
 	
-	@Test
-	public void updateShowPlayerHand(){
-		clientOne.handle("PLAYERHAND~");
-		assertEquals(true, clientOne.getUpdateShowPlayerHand());
-	}
+//	@Test
+//	public void updateShowPlayerHand(){
+//		clientOne.handle("PLAYERHAND~");
+//		assertEquals(true, clientOne.getUpdateShowPlayerHand());
+//	}
 	
 	@Test
 	public void playerPlaysCardFromGui(){
@@ -113,14 +116,12 @@ public class TestClient {
 		assertEquals(true, clientOne.getCardPlayed());
 	}
 	
-	// THE CODE
-	// after adding a player, then game.isReadyToStart() then when all players have been added to the game
-	// call game.start() to initialize the deck and everything 
-	// figure out which player is going first by using game.getCurrentPlayerNumbr() NOT WRITTEN YET
-	// look in your map playerNumbers and see which server thread needs to get the special message
-	// send message to all clients that are not starting the tournament saying message: "launchMainGameScreen"
-	// if they are the current player then they get a message like "launchMainGameScree currentPlayer"
-	
+
+	@Test
+	public void requestToEndTurn(){
+		clientOne.handle("requestToEndTurn");
+		assertEquals(1, game.getCurrentPlayerNumber());
+	}
 	
 	//@Test
 	//public void oneClientSelectCommand() {
