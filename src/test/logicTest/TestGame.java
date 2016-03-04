@@ -470,7 +470,7 @@ public class TestGame {
 
 		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		
 		// It should still contain this card

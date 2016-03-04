@@ -221,12 +221,7 @@ public class Game {
 	}
 
 	public String playCard(int playerNum, String name) {
-		System.out.println("\n\nBEFORE:");
-		System.out.println("DISPLAY: "
-				+ players[playerNum].getDisplayAsString());
-		System.out.println("HAND: " + players[playerNum].getHandAsString());
 		// Get the card name from the file name
-
 		Card c = players[playerNum].getCardFromHand(name);
 
 		// Supporter or card being played
@@ -234,12 +229,7 @@ public class Game {
 			// Try adding the card to the display
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
-
-			System.out.println("IT WAS " + result);
-			System.out.println("AFTER:");
-			System.out.println("DISPLAY: "
-					+ players[playerNum].getDisplayAsString());
-			System.out.println("HAND: " + players[playerNum].getHandAsString());
+			
 			// If it succeeded, remove that card from their hand
 			if (result == true) {
 
@@ -256,17 +246,37 @@ public class Game {
 						|| tournamentColour == Config.BLUE
 						|| tournamentColour == Config.YELLOW) {
 					tournamentColour = Config.GREEN;
-					moveCardToDiscardPile(playerNum, name);
-					
-					System.out.println("AFTER:");
-					System.out.println("DISPLAY: "
-							+ players[playerNum].getDisplayAsString());
-					System.out.println("HAND: " + players[playerNum].getHandAsString());
+					moveCardFromHandToDiscardPile(playerNum, name);
+
 					return "true";
 				}
+			} else if (name.equals("Outmaneuver")) {
+				// All opponents must remove the last card played on their
+				// displays.
+				moveCardFromHandToDiscardPile(playerNum, name);
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						Card cardFromDisplay = players[i].getDisplayCards().removeLast();
+						discardPile.add(cardFromDisplay);
+					}
+				}
+				return "true";
 			}
-
 			
+			
+			System.out.println("\n\nBEFORE:");
+			System.out.println("DISPLAY: "
+					+ players[playerNum].getDisplayAsString());
+			System.out.println("HAND: " + players[playerNum].getHandAsString());
+			
+			
+			System.out.println("AFTER:");
+			System.out.println("DISPLAY: "
+					+ players[playerNum].getDisplayAsString());
+			System.out.println("HAND: "
+					+ players[playerNum].getHandAsString());
+			System.out.println(discardPile);
+
 		}
 
 		return null;
@@ -280,7 +290,7 @@ public class Game {
 	 * @param name
 	 *            The name of the card we are moving
 	 */
-	private void moveCardToDiscardPile(int playerNum, String name) {
+	private void moveCardFromHandToDiscardPile(int playerNum, String name) {
 		Card c = players[playerNum].getCardFromHand(name);
 		discardPile.add(c);
 		players[playerNum].getHandCards().remove(c);
