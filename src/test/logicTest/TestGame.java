@@ -300,6 +300,16 @@ public class TestGame {
 		assertEquals(8, game.getDiscardPileSize());
 		
 	}
+	
+	@Test
+	public void twoPlayersWithdrawOne() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+		assertEquals("1", game.withdrawPlayer(0));
+	}
 
 	@After
 	public void tearDown() {

@@ -263,4 +263,15 @@ public class Game {
 	public int getDiscardPileSize() {
 		return discardPile.size();
 	}
+
+	/** 
+	 * Withdraw the given player and check for a win
+	 * @param playerNum
+	 * 			the player we want to withdraw
+	 * @return a string containing the winning player number
+	 * 			if there is no winner, it returns empty
+	 */
+	public Object withdrawPlayer(int playerNum) {
+		return null;
+	}
 }
