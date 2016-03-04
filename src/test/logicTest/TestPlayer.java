@@ -174,6 +174,15 @@ public class TestPlayer {
 		assertEquals(true, player.isWinnerOfGame(4));
 	}
 	
+	@Test
+	public void notWinnerWithFourColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		
+		assertEquals(false, player.isWinnerOfGame(4));
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
