@@ -206,6 +206,7 @@ public class Server implements Runnable {
 					}
 					if(result.contains("false")){
 						System.out.println("SERVER: requestToPlayThisCard: FALSE");
+						broadcastMessageToPlayer("ERROR~", ID, 0);
 					}
 					if(result.contains("actionCard")){
 						System.out.println("SERVER: requestToPlayThisCard: ACTION CARD");
@@ -237,7 +238,7 @@ public class Server implements Runnable {
 					if(result.equals("")){
 					}
 					else{
-						broadcastToAllPlayers("gameWinner"+result);
+						broadcastToAllPlayers("gameWinner~"+result);
 					}
 				}
 				if (input.contains("gameReady")){
