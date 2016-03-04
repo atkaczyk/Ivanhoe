@@ -32,6 +32,7 @@ public class Client {
 	private Boolean gameReady = false;
 	private Boolean joinGame = false;
 	private Boolean withdraw = false;
+	private Boolean winner = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -184,7 +185,11 @@ public class Client {
    		//from gui to server
    		else if(msg.contains("requestToWithdraw")){
    			System.out.println("CLIENT: requestToWithdraw");
- 
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
+   		else if(msg.contains("winner")){
+   			System.out.println("CLIENT: winner");
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -254,5 +259,8 @@ public class Client {
 	
 	public Object getWithdraw(){
 		return withdraw;
+	}
+	public Object getWinner(){
+		return winner;
 	}
 }

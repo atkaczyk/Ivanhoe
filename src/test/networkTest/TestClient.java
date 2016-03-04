@@ -117,17 +117,23 @@ public class TestClient {
 		clientOne.cardPlayed(msg);
 		assertEquals(true, clientOne.getCardPlayed());
 	}
+
+	@Test
+	public void requestToEndTurn(){
+		clientOne.handle("requestToEndTurn");
+		assertEquals(1, game.getCurrentPlayerNumber());
+	}
 	
 	@Test
 	public void requestToWithdraw(){
 		clientOne.handle("requestToWithdraw");
 		assertEquals(true, clientOne.getWithdraw());
 	}
-
+	
 	@Test
-	public void requestToEndTurn(){
-		clientOne.handle("requestToEndTurn");
-		assertEquals(1, game.getCurrentPlayerNumber());
+	public void winnerFound(){
+		clientTwo.handle("winner");
+		assertEquals(true, clientOne.getWinner());
 	}
 	
 	//@Test
