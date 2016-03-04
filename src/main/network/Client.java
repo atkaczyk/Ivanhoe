@@ -163,9 +163,10 @@ public class Client {
    		}
    		//from server to gui
    		else if(msg.contains("TOURNAMENTINFO~")){
-   			
+   			tournamentInfo = true;
+   			String[] result = msg.split("~");
    			System.out.println("CLIENT: TOURNAMENTINFO: ");
-   			
+   			gui.setTournamentInfo(result[1]);   			
    		}
    		//from server to gui
    		else if(msg.contains("launchTournamentColour")){
@@ -193,10 +194,11 @@ public class Client {
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
    		}
+   		//from server to gui
    		else if(msg.contains("actionCardPlayedMessage:")){
    			String[] message = msg.split(":");
-   			System.out.println("CLIENT: actionCardPlayedMessage");
-   			gui.actionCardPlayedMessage();
+   			System.out.println("CLIENT: actionCardPlayedMessage: "+message[1]);
+   			gui.actionCardPlayedMessage(message[1]);
    		}
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
@@ -230,9 +232,11 @@ public class Client {
    		}
    		//setGameStats
    		
-   		//gui.displayErrorMessage(msg);
+   		
    		else if(msg.contains("ERROR~")){
-   			System.out.println("CLIENT: ERROR");
+   			String[] errMessage = msg.split("~");
+   			System.out.println("CLIENT: ERROR message: "+errMessage[1]);
+   			gui.displayErrorMessage(errMessage[1]);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
