@@ -20,6 +20,8 @@ public class TestGame {
 	private static final String PLAYER_ONE_NAME = "Jack";
 	private static final String PLAYER_TWO_NAME = "Chloe";
 	private static final String PLAYER_THREE_NAME = "Chase";
+	private static final String PLAYER_FOUR_NAME = "Tony";
+	private static final String PLAYER_FIVE_NAME = "Edward";
 	private static final Card PURPLE_CARD_3 = new ColourCard(
 			"Purple (Jousting) 3", 3, Config.PURPLE);
 	private static final ArrayDeque<Card> HAND_WITH_ALL_COLOURS = new ArrayDeque<Card>();
@@ -334,6 +336,24 @@ public class TestGame {
 		
 		game.startGame();
 		assertEquals("", game.withdrawPlayer(1));
+	}
+	
+	@Test
+	public void fivePlayersWithdrawFour() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.GREEN);
+		
+		game.startGame();
+		
+		game.withdrawPlayer(0);
+		game.withdrawPlayer(1);
+		game.withdrawPlayer(4);
+		
+		assertEquals(PLAYER_THREE_NAME, game.withdrawPlayer(3));
 	}
 
 	@After
