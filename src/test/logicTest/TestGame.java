@@ -19,6 +19,9 @@ public class TestGame {
 	private static final int NUM_OF_PLAYERS = 2;
 	private static final String PLAYER_ONE_NAME = "Jack";
 	private static final String PLAYER_TWO_NAME = "Chloe";
+	private static final String PLAYER_THREE_NAME = "Chase";
+	private static final String PLAYER_FOUR_NAME = "Tony";
+	private static final String PLAYER_FIVE_NAME = "Edward";
 	private static final Card PURPLE_CARD_3 = new ColourCard(
 			"Purple (Jousting) 3", 3, Config.PURPLE);
 	private static final ArrayDeque<Card> HAND_WITH_ALL_COLOURS = new ArrayDeque<Card>();
@@ -292,13 +295,152 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.PURPLE);
 
 		game.startTournament();
-		
+
 		// When a tournament is started it should clear all the player displays
 		// and move the cards to the discard pile
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(8, game.getDiscardPileSize());
+
+	}
+
+	@Test
+	public void twoPlayersWithdrawOne() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+
+		String expected = PLAYER_TWO_NAME + "," + game.getTournamentNumber()
+				+ "," + game.getTournamentColour();
+
+		assertEquals(expected, game.withdrawPlayer(0));
+	}
+
+	@Test
+	public void threePlayersWithdrawTwo() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+
+		game.startGame();
+
+		game.withdrawPlayer(0);
+
+		game.overrideTourColour(Config.BLUE);
+
+		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
+				+ "," + game.getTournamentColour();
+
+		assertEquals(expected, game.withdrawPlayer(1));
+	}
+
+	@Test
+	public void threePlayersWithdrawOne() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
 		
+		assertEquals("", game.withdrawPlayer(1));
+	}
+
+	@Test
+	public void fivePlayersWithdrawFour() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.GREEN);
+
+		game.startGame();
+
+		game.withdrawPlayer(0);
+		game.withdrawPlayer(1);
+		game.withdrawPlayer(4);
+		
+		game.overrideTourColour(Config.BLUE);
+		
+		String expected = PLAYER_THREE_NAME+","+game.getTournamentNumber()+","+game.getTournamentColour();
+		
+		assertEquals(expected, game.withdrawPlayer(3));
+	}
+	
+	@Test
+	public void twoPlayersOneWins() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+
+		game.getPlayer(1).addToken(Config.BLUE);
+		game.getPlayer(1).addToken(Config.PURPLE);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.GREEN);
+		
+		assertEquals(PLAYER_TWO_NAME, game.checkForWinner());
+	}
+	
+	@Test
+	public void twoPlayersNoWinner() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+
+		game.getPlayer(1).addToken(Config.PURPLE);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.GREEN);
+		
+		assertEquals("", game.checkForWinner());
+	}
+	
+	@Test
+	public void fourPlayersOneWins() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+
+		game.startGame();
+		
+		// Player four will have the four tokens they need to win
+		game.getPlayer(3).addToken(Config.BLUE);
+		game.getPlayer(3).addToken(Config.PURPLE);
+		game.getPlayer(3).addToken(Config.YELLOW);
+		game.getPlayer(3).addToken(Config.RED);
+		
+		assertEquals(PLAYER_FOUR_NAME, game.checkForWinner());
+	}
+	
+	@Test
+	public void fourPlayersNoWinner() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+
+		game.startGame();
+		
+		// Player four will have the four tokens they need to win
+		game.getPlayer(3).addToken(Config.BLUE);
+		game.getPlayer(3).addToken(Config.PURPLE);
+		game.getPlayer(3).addToken(Config.YELLOW);
+		
+		assertEquals("", game.checkForWinner());
 	}
 
 	@After
