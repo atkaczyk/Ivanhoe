@@ -11,12 +11,13 @@ import javax.swing.JPanel;
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
 	GUIController gui;
+
+	JButton button;
+	JButton withdrawButton;
+	JButton endTurnButton;
+	JButton drawCardButton;
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
-		JButton button;
-		JButton withdrawButton;
-		JButton endTurnButton;
-		JButton drawCardButton;
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

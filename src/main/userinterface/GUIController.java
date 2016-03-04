@@ -69,7 +69,7 @@ public class GUIController {
 	}
 	public void showPlayerHand(String hand){
 	//	System.out.println("RECIEVING THE CARD HAND >> " + hand);
-		gamePlayWindow.updateCardHand(hand); 
+		gamePlayWindow.hand.showCardsInHand(hand); //updateCardHand(hand);
 	}
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
@@ -89,6 +89,9 @@ public class GUIController {
 	}
 	public void requestToWithdraw() {
 		client.handle("requestToWithdraw:");	
-		
 	}
+//	public void disablePlayButtons(String string) {
+//		gamePlayWindow.buttonPanel.drawCardButton.setEnabled(false);
+//		
+//	}
 }
