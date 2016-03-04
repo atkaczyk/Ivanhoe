@@ -39,7 +39,7 @@ public class Player {
 		if (card instanceof SupporterCard) {
 			// If the card is a maiden, we must check that there isn't already a
 			// maiden
-			if (card.getName().equals("Maiden") && maidenInDisplay()) {
+			if (card.getName().equals("Maiden 6") && maidenInDisplay()) {
 				return false;
 			} else {
 				if (tournamentColour != Config.GREEN) {
@@ -61,7 +61,7 @@ public class Player {
 
 	private boolean maidenInDisplay() {
 		for (Card c : display) {
-			if (c.getName().equals("Maiden")) {
+			if (c.getName().equals("Maiden 6")) {
 				return true;
 			}
 		}

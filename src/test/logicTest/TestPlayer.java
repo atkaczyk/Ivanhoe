@@ -16,7 +16,7 @@ import utils.Config;
 public class TestPlayer {
 	private static final String NAME = "Sam";
 	private static final Card SQUIRE_CARD = new SupporterCard("Squire", 3);
-	private static final Card MAIDEN_CARD = new SupporterCard("Maiden", 6);
+	private static final Card MAIDEN_CARD = new SupporterCard("Maiden 6", 6);
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	private static final Card GREEN_CARD = new ColourCard("Green (No Weapon) 1", 1, Config.GREEN);
 	private static final Card BLUE_CARD = new ColourCard("Blue (Axe) 2", 2, Config.BLUE);
@@ -76,7 +76,7 @@ public class TestPlayer {
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		player.addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		
-		assertEquals(((SupporterCard) MAIDEN_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
+		assertEquals(6, player.getDisplayTotal(Config.BLUE));
 	}
 	
 	@Test
