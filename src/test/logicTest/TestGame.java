@@ -424,6 +424,24 @@ public class TestGame {
 		
 		assertEquals(PLAYER_FOUR_NAME, game.checkForWinner());
 	}
+	
+	@Test
+	public void fourPlayersNoWinner() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+
+		game.startGame();
+		
+		// Player four will have the four tokens they need to win
+		game.getPlayer(3).addToken(Config.BLUE);
+		game.getPlayer(3).addToken(Config.PURPLE);
+		game.getPlayer(3).addToken(Config.YELLOW);
+		
+		assertEquals("", game.checkForWinner());
+	}
 
 	@After
 	public void tearDown() {
