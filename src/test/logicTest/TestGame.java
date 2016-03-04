@@ -544,9 +544,10 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
 
-		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
-		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(1, game.getDiscardPileSize());
+		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 
 		// It should still contain this card
@@ -654,12 +655,12 @@ public class TestGame {
 		String result = game.playCard(2, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPileSize());
 
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
-		assertEquals(1, game.getPlayer(3).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(3).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(4).getDisplayCards().size());
 	}
 

@@ -223,7 +223,7 @@ public class Game {
 	public String playCard(int playerNum, String name) {
 		// Get the card name from the file name
 		Card c = players[playerNum].getCardFromHand(name);
-		
+
 		if (c instanceof SupporterCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
@@ -232,8 +232,7 @@ public class Game {
 				return "true";
 			}
 			return "false:You cannot add a second maiden card to your display";
-		} 
-		else if (c instanceof ColourCard) {
+		} else if (c instanceof ColourCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
 
@@ -241,8 +240,7 @@ public class Game {
 				return "true";
 			}
 			return "false:When playing a colour card, the colour must match the current tournament colour!";
-		}
-		else {
+		} else {
 			if (name.equals("Drop Weapon")) {
 				// The tournament color changes from red, blue or yellow to
 				// green.
@@ -253,13 +251,28 @@ public class Game {
 					moveCardFromHandToDiscardPile(playerNum, name);
 
 					return "true";
-				}
-				else {
+				} else {
 					return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
 				}
 			} else if (name.equals("Outmaneuver")) {
 				// All opponents must remove the last card played on their
 				// displays.
+
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false";
+				}
+
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
@@ -279,13 +292,15 @@ public class Game {
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
 						int lowestValue = players[i].getLowestDisplayValue();
-						List<Card> cardsRemoved = players[i].removeAllCardsWithValue(lowestValue);
-						for (Card toDiscard: cardsRemoved) {
+						List<Card> cardsRemoved = players[i]
+								.removeAllCardsWithValue(lowestValue);
+						for (Card toDiscard : cardsRemoved) {
 							discardPile.add(toDiscard);
 						}
 					}
 				}
-				return "actionCardPlayedMessage:"+name+","+getPlayer(playerNum).getName();
+				return "actionCardPlayedMessage:" + name + ","
+						+ getPlayer(playerNum).getName();
 			}
 
 			System.out.println("\n\nBEFORE:");
