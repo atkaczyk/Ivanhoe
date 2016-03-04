@@ -193,7 +193,7 @@ public class Client {
    			winner = true;
    			String[] winningT = msg.split("~");
    			System.out.println("CLIENT: winner: "+winningT[1]);
-   			gui.displayWinner(winningT[1]);
+   			gui.displayTournamentWinner(winningT[1]);
    		}
    		//from gui to server
    		else if(msg.contains("finalWinnerCheck")){
@@ -202,8 +202,10 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
-   		else if(msg.contains("")){
-   			
+   		else if(msg.contains("gameWinner~")){
+   			String[] gWinner = msg.split("~");
+   			System.out.println("CLIENT: gameWinner: "+gWinner[1]);
+   			gui.displayFinalWinner(gWinner[1]);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
