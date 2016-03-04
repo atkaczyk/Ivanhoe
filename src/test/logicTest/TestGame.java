@@ -368,8 +368,79 @@ public class TestGame {
 		game.overrideTourColour(Config.BLUE);
 		
 		String expected = PLAYER_THREE_NAME+","+game.getTournamentNumber()+","+game.getTournamentColour();
-			
+		
 		assertEquals(expected, game.withdrawPlayer(3));
+	}
+	
+	@Test
+	public void twoPlayersOneWins() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+
+		game.getPlayer(1).addToken(Config.BLUE);
+		game.getPlayer(1).addToken(Config.PURPLE);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.GREEN);
+		
+		assertEquals(PLAYER_TWO_NAME, game.checkForWinner());
+	}
+	
+	@Test
+	public void twoPlayersNoWinner() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+
+		game.getPlayer(1).addToken(Config.PURPLE);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.GREEN);
+		
+		assertEquals("", game.checkForWinner());
+	}
+	
+	@Test
+	public void fourPlayersOneWins() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+
+		game.startGame();
+		
+		// Player four will have the four tokens they need to win
+		game.getPlayer(3).addToken(Config.BLUE);
+		game.getPlayer(3).addToken(Config.PURPLE);
+		game.getPlayer(3).addToken(Config.YELLOW);
+		game.getPlayer(3).addToken(Config.RED);
+		
+		assertEquals(PLAYER_FOUR_NAME, game.checkForWinner());
+	}
+	
+	@Test
+	public void fourPlayersNoWinner() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+
+		game.startGame();
+		
+		// Player four will have the four tokens they need to win
+		game.getPlayer(3).addToken(Config.BLUE);
+		game.getPlayer(3).addToken(Config.PURPLE);
+		game.getPlayer(3).addToken(Config.YELLOW);
+		
+		assertEquals("", game.checkForWinner());
 	}
 
 	@After

@@ -81,7 +81,7 @@ public class Game {
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
 				players[i].addCardToHand(drawPile.getCard());
-				
+
 			}
 		}
 
@@ -273,7 +273,7 @@ public class Game {
 	 * 
 	 * @param playerNum
 	 *            the player we want to withdraw
-	 * @return 
+	 * @return
 	 */
 	public String withdrawPlayer(int playerNum) {
 		// Withdraw the given player
@@ -291,10 +291,30 @@ public class Game {
 		}
 
 		if (playersStillActive == 1) {
-			// winnerplayername,tournamentnumber,tournamentcolour
-			return winningPlayer+","+tournamentNumber+","+tournamentColour;
+			return winningPlayer + "," + tournamentNumber + ","
+					+ tournamentColour;
 		}
 
+		return "";
+	}
+
+	/**
+	 * See if any player has won the game
+	 * 
+	 * @return Name of the winning player (returns empty if no winner
+	 */
+	public String checkForWinner() {
+		int tokensRequiredToWin = 5;
+		
+		if (numOfPlayers == 4 || numOfPlayers == 5) {
+			tokensRequiredToWin = 4;
+		}
+		
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (players[i].isWinnerOfGame(tokensRequiredToWin)) {
+				return players[i].getName();
+			}
+		}
 		return "";
 	}
 }

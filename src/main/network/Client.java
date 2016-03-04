@@ -33,6 +33,7 @@ public class Client {
 	private Boolean joinGame = false;
 	private Boolean withdraw = false;
 	private Boolean winner = false;
+	private Boolean finalWinner = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -130,7 +131,6 @@ public class Client {
    			joinGame = true;
    			sendMessageToServer(msg);
    		}
-
    		//from server to gui
    		else if (msg.contains("openMainGameScreen")){
    			gui.launchGamePlayWindow();
@@ -189,11 +189,17 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
-   		else if(msg.contains("winner")){
+   		else if(msg.contains("tournamentWinner")){
    			winner = true;
-   			String[] winnerNum = msg.split(":");
-   			System.out.println("CLIENT: winner: "+winnerNum[1]);
-   			gui.winnerFound(winnerNum[1]);
+   			String[] winningT = msg.split("~");
+   			System.out.println("CLIENT: winner: "+winningT);
+   			gui.displayWinner(winningT);
+   		}
+   		//from gui to server
+   		else if(msg.contains("finalWinnerCheck")){
+   			System.out.println("CLIENT: finalWInnerCheck");
+   			finalWinner = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -266,5 +272,8 @@ public class Client {
 	}
 	public Object getWinner(){
 		return winner;
+	}
+	public Object getFinalWinner(){
+		return finalWinner;
 	}
 }
