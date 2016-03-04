@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayDeque;
 
+import logic.ActionCard;
 import logic.Card;
 import logic.ColourCard;
 import logic.Game;
@@ -33,12 +34,10 @@ public class TestGame {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.PURPLE));
 	}
 	private static Card SUPPORTER_CARD = new SupporterCard("", 6);
-
 	private static Card SUPPORTER_CARD_2 = new SupporterCard("Squire 2", 2);
-	private static String SUPPORTER_CARD_FILE = "squire2.jpg";
-
-	private static String PURPLE_CARD_FILE = "purple3.jpg";
-
+	private static Card DROP_WEAPON_CARD = new ActionCard("Drop Weapon");
+	private static Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
+	
 	Game game;
 
 	@Before
@@ -441,6 +440,44 @@ public class TestGame {
 		game.getPlayer(3).addToken(Config.YELLOW);
 		
 		assertEquals("", game.checkForWinner());
+	}
+	
+	@Test
+	public void playDropWeaponCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+
+		assertEquals("true", game.playCard(0, DROP_WEAPON_CARD.getName()));
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(Config.GREEN, game.getTournamentColour());
+		assertEquals(1, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void playOutmaneuverTwoPlayersTwoCardsInDisplay() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD_2, Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+
+		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		
+		// It should still contain this card
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SUPPORTER_CARD));
+		// This card should have gotten removed by the outmaneuver
+		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(SUPPORTER_CARD_2));
+
 	}
 
 	@After
