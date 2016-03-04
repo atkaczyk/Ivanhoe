@@ -477,7 +477,25 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SUPPORTER_CARD));
 		// This card should have gotten removed by the outmaneuver
 		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(SUPPORTER_CARD_2));
+	}
+	
+	@Test
+	public void playOutmaneuverTwoPlayersOneCardInDisplay() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+
+		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		
+		// It should still contain this card
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SUPPORTER_CARD));
 	}
 
 	@After
