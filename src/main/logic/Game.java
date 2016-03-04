@@ -98,7 +98,7 @@ public class Game {
 	}
 
 	// Change the current player to be the next player
-	private void goToNextPlayer() {
+	public void goToNextPlayer() {
 		// If the current player is the last one in the deque set to first
 		// player
 		if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
