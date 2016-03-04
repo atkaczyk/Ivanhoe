@@ -174,4 +174,9 @@ public class Player {
 		return null;
 	}
 
+	public Object isWinner(int requiredTokens) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

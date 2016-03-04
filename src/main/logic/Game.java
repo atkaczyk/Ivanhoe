@@ -291,7 +291,6 @@ public class Game {
 		}
 
 		if (playersStillActive == 1) {
-			// winnerplayername,tournamentnumber,tournamentcolour
 			return winningPlayer+","+tournamentNumber+","+tournamentColour;
 		}
 

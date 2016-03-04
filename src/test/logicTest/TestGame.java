@@ -368,7 +368,7 @@ public class TestGame {
 		game.overrideTourColour(Config.BLUE);
 		
 		String expected = PLAYER_THREE_NAME+","+game.getTournamentNumber()+","+game.getTournamentColour();
-			
+		
 		assertEquals(expected, game.withdrawPlayer(3));
 	}
 

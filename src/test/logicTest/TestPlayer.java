@@ -164,6 +164,16 @@ public class TestPlayer {
 		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
 	}
 	
+	@Test
+	public void isWinnerWithFourColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		player.addToken(Config.YELLOW);
+		
+		assertEquals(true, player.isWinner(4));
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
