@@ -90,6 +90,11 @@ public class GUIController {
 	public void requestToWithdraw() {
 		client.handle("requestToWithdraw:");	
 	}
+	public void displayWinner(String s) {
+		String[] player = s.split(",");
+		
+		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
+	}
 //	public void disablePlayButtons(String string) {
 //		gamePlayWindow.buttonPanel.drawCardButton.setEnabled(false);
 //		
