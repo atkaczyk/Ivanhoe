@@ -97,6 +97,8 @@ public class TestClient {
 		assertEquals(true, clientOne.getGameReady());
 	}
 	
+
+	
 //	@Test
 //	public void updateAllPlayersInfo(){
 //		clientOne.handle("GAMEINFORMATION~");
@@ -116,6 +118,11 @@ public class TestClient {
 		assertEquals(true, clientOne.getCardPlayed());
 	}
 	
+	@Test
+	public void requestToWithdraw(){
+		clientOne.handle("requestToWithdraw");
+		assertEquals(true, clientOne.getWithdraw());
+	}
 
 	@Test
 	public void requestToEndTurn(){

@@ -31,6 +31,7 @@ public class Client {
 	private Boolean cardPlayed = false;
 	private Boolean gameReady = false;
 	private Boolean joinGame = false;
+	private Boolean withdraw = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -171,15 +172,20 @@ public class Client {
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
    		}
-   		
    		else if(msg.contains("requestToPlayThisCard")){
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
    		}
+   		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
-   			
+   			System.out.println("CLIENT: requestToEndTurn");
+   			sendMessageToServer(msg);
    		}
-   		
+   		//from gui to server
+   		else if(msg.contains("requestToWithdraw")){
+   			System.out.println("CLIENT: requestToWithdraw");
+ 
+   		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
    		}
@@ -188,7 +194,6 @@ public class Client {
    		//	System.out.println("launchMainGameScreen currentPlayer");
    		//}
 
-   		
    		else {
 			System.out.println(msg);
 		}
@@ -245,5 +250,9 @@ public class Client {
 	
 	public Object getJoinGame(){
 		return joinGame;
+	}
+	
+	public Object getWithdraw(){
+		return withdraw;
 	}
 }

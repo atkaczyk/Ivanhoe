@@ -217,6 +217,10 @@ public class Server implements Runnable {
 					game.drawCard(playerNum);
 					update(ID); //call update function
 				}
+				else if (input.contains("requestToEndTurn")){
+					//game.goToNextPlayer();
+					updateAll();
+				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
 	   				//String name = playerInfo[1];
