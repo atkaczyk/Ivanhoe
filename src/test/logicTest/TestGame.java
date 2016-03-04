@@ -627,7 +627,8 @@ public class TestGame {
 		game.overrideTourColour(Config.PURPLE);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
 
-		assertEquals("false", game.playCard(0, DROP_WEAPON_CARD.getName()));
+		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
+		assertEquals(true, result.contains(result));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 		assertEquals(0, game.getDiscardPileSize());

@@ -250,6 +250,9 @@ public class Game {
 
 					return "true";
 				}
+				else {
+					return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
+				}
 			} else if (name.equals("Outmaneuver")) {
 				// All opponents must remove the last card played on their
 				// displays.
