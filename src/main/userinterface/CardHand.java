@@ -48,9 +48,9 @@ public class CardHand extends JPanel implements ActionListener {
 		playCards.addActionListener(this);
 		this.add(playCards);
 
-//		donePlayingCards = new JButton("Done Drawing Cards");
-//		donePlayingCards.addActionListener(this);
-//		this.add(donePlayingCards);
+		//		donePlayingCards = new JButton("Done Drawing Cards");
+		//		donePlayingCards.addActionListener(this);
+		//		this.add(donePlayingCards);
 		setSize(150, 300); 
 		setVisible(true);
 	}
@@ -58,7 +58,7 @@ public class CardHand extends JPanel implements ActionListener {
 		/* clear the hands before adding more */
 		panel.removeAll();
 		System.out.println("IN THE CARD HAND: THERE ARE THIS MANY PANEL COMPONENTS >> " + panel.getComponentCount());
-		
+
 		String[] str = cardsInHand.split(",");
 		cards = new JButton[str.length]; 
 
@@ -74,24 +74,29 @@ public class CardHand extends JPanel implements ActionListener {
 			Image img = icon.getImage() ;  
 			Image newimg = img.getScaledInstance(150, 250,  java.awt.Image.SCALE_SMOOTH ) ; 
 			icon = new ImageIcon( newimg );
-
+			cards[i].setEnabled(true);
 			cards[i].setIcon(icon);
+			cards[i].setContentAreaFilled(false);
+			cards[i].setBorderPainted(false);
+			cards[i].setOpaque(false);
 			cards[i].addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e){
 					if(maxCards == false){
 						maxCards = true;
-						((JButton) e.getSource()).setBackground(Color.BLACK);
 						cardToSend += ((JButton) e.getSource()).getName();
+						((JButton) e.getSource()).setEnabled(false); //setBackground(Color.BLACK);
 						System.out.println("Play these cards: " + cardToSend);
 					} else {
-						if(((JButton) e.getSource()).getBackground() == Color.BLACK) {
+						if(((JButton) e.getSource()).getName().equals(cardToSend)) { //.getBackground() == Color.BLACK) {
+							((JButton) e.getSource()).setEnabled(true);
+							System.out.println("HELOOO I SHOULD BE ENABLED");
 							maxCards = false;
 							cardToSend = cardToSend.replace(((JButton) e.getSource()).getName(), "");
-							((JButton) e.getSource()).setBackground(Color.WHITE);
+							 //setBackground(Color.WHITE);
 							System.out.println("Play these cards: " + cardToSend);
 						} else {
-						    System.out.println("Play this card before selecting another");
+							System.out.println("Play this card before selecting another");
 							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
 						}
 					}
@@ -113,7 +118,7 @@ public class CardHand extends JPanel implements ActionListener {
 			System.out.println("YOU JUST PLAYED " + cardToSend);
 			maxCards = false;
 			gui.sendCardToPlay(cardToSend); 
-		//	gui.disablePlayButtons("Draw a Card");
+			//	gui.disablePlayButtons("Draw a Card");
 			cardToSend = "";
 		}
 		else if (action.equals("Name")) {
