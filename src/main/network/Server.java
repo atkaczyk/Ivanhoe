@@ -225,8 +225,10 @@ public class Server implements Runnable {
 					System.out.println("SERVER: requestToWithdraw");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
-					if(result.contains("winner")){
-						broadcastToAllPlayers(result);
+					if(result.contains("")){
+					}
+					else{
+						broadcastToAllPlayers("winner~"+result);
 					}
 				}
 				if (input.contains("gameReady")){

@@ -33,6 +33,7 @@ public class Client {
 	private Boolean joinGame = false;
 	private Boolean withdraw = false;
 	private Boolean winner = false;
+	private Boolean finalWinner = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -191,9 +192,12 @@ public class Client {
    		//from server to gui
    		else if(msg.contains("winner")){
    			winner = true;
-   			String[] winnerNum = msg.split(":");
-   			System.out.println("CLIENT: winner: "+winnerNum[1]);
-   			gui.winnerFound(winnerNum[1]);
+   			String[] winningT = msg.split("~");
+   			System.out.println("CLIENT: winner: "+winningT);
+   			gui.displayWinner(winningT);
+   		}
+   		else if(msg.contains("finalWinnerCheck")){
+   			
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -266,5 +270,8 @@ public class Client {
 	}
 	public Object getWinner(){
 		return winner;
+	}
+	public Object getFinalWinner(){
+		return finalWinner;
 	}
 }
