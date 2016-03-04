@@ -388,6 +388,17 @@ public class TestGame {
 		
 		assertEquals(PLAYER_TWO_NAME, game.checkForWinner());
 	}
+	
+	@Test
+	public void twoPlayersNoWinner() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+		assertEquals("", game.checkForWinner());
+	}
 
 	@After
 	public void tearDown() {
