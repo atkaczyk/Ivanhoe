@@ -211,6 +211,9 @@ public class Server implements Runnable {
 					if(result.contains("actionCard")){
 						System.out.println("SERVER: requestToPlayThisCard: ACTION CARD");
 					}
+					if(result.contains("actionCardPlayedMessage:")){
+						broadcastToOtherPlayers(result, ID);
+					}
 					
 				}
 				else if (input.contains("requestToDrawCard")){
@@ -400,16 +403,7 @@ public class Server implements Runnable {
 								to.getSocketAddress(), to.getID(), message));
 						Trace.getInstance().logchat(this,
 								serverThreads.get(senderID), to, message);
-					} else {
-						to.send(String.format("%5d: %s\n", senderID, message));
-						logger.info(String
-								.format("RECEIVED Received Message from %s:%d to %s:%d: %s",
-										to.getSocketAddress(), to.getID(),
-										from.getSocketAddress(), from.getID(),
-										message));
-						Trace.getInstance().logchat(this,
-								serverThreads.get(senderID), from, message);
-					}
+					} 
 				}
 			}
 		}
@@ -451,6 +445,7 @@ public class Server implements Runnable {
 		//update the player hand for the specific player
 		getPlayerHand(ID);
 		getPlayerActive(ID);
+		getTournamentInfo(ID);
 	}
 	
 	// | will be before each player's information
@@ -516,6 +511,13 @@ public class Server implements Runnable {
 			System.out.println("SERVER: Update: player hand" + playerActive);
 			broadcastMessageToPlayer(playerActive, id, 1);	
 		}
+	}
+	
+	public void getTournamentInfo(int ID){
+		String tournamentInfo = "TOURNAMENTINFO~";
+		tournamentInfo += game.getTournamentColour()+","; //tournament colour
+		tournamentInfo += game.getTournamentNumber(); //tournament number
+		broadcastToAllPlayers(tournamentInfo);
 	}
 	
 	public String getPlayerDisplayCards(Player p){

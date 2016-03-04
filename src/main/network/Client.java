@@ -35,6 +35,7 @@ public class Client {
 	private Boolean winner = false;
 	private Boolean finalWinner = false;
 	private Boolean playerActive = false;
+	private Boolean tournamentInfo = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -155,7 +156,16 @@ public class Client {
    		}
    		//from server to gui
    		else if(msg.contains("PLAYERACTIVE~")){
-   			System.out.println("CLIENT: PLAYERACTIVE");
+   			playerActive = true;
+   			String[] result = msg.split("~");
+   			System.out.println("CLIENT: PLAYERACTIVE: "+result[1]);
+   			gui.setEnableMainScreen(result[1]);
+   		}
+   		//from server to gui
+   		else if(msg.contains("TOURNAMENTINFO~")){
+   			
+   			System.out.println("CLIENT: TOURNAMENTINFO: ");
+   			
    		}
    		//from server to gui
    		else if(msg.contains("launchTournamentColour")){
@@ -182,6 +192,11 @@ public class Client {
    		else if(msg.contains("requestToPlayThisCard")){
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
+   		}
+   		else if(msg.contains("actionCardPlayedMessage:")){
+   			String[] message = msg.split(":");
+   			System.out.println("CLIENT: actionCardPlayedMessage");
+   			gui.actionCardPlayedMessage();
    		}
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
@@ -296,5 +311,8 @@ public class Client {
 	}
 	public Object getPlayerActive(){
 		return playerActive;
+	}
+	public Object getTournamentInfo(){
+		return tournamentInfo;
 	}
 }
