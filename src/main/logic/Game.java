@@ -15,7 +15,7 @@ public class Game {
 	private DrawPile drawPile = new DrawPile();
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private int tournamentColour = -1;
-	private ArrayDeque<Card> discardPile;
+	private ArrayDeque<Card> discardPile = new ArrayDeque<Card>();;
 
 	// To keep track of whose turn it is
 	private Player currentPlayer;
@@ -76,7 +76,6 @@ public class Game {
 	}
 
 	public void startGame() {
-		discardPile = new ArrayDeque<Card>();
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -237,27 +236,54 @@ public class Game {
 					tournamentColour);
 
 			System.out.println("IT WAS " + result);
-			// If it succeeded, remove that card from their hand
-			if (result == true) {
-				System.out.println("AFTER:");
-				System.out.println("DISPLAY: "
-						+ players[playerNum].getDisplayAsString());
-				System.out.println("HAND: "
-						+ players[playerNum].getHandAsString());
-
-				return "true";
-			}
 			System.out.println("AFTER:");
 			System.out.println("DISPLAY: "
 					+ players[playerNum].getDisplayAsString());
 			System.out.println("HAND: " + players[playerNum].getHandAsString());
+			// If it succeeded, remove that card from their hand
+			if (result == true) {
+
+				return "true";
+			}
 
 			return "false";
 			// If it failed, do nothing
+		} else {
+			if (name.equals("Drop Weapon")) {
+				// The tournament color changes from red, blue or yellow to
+				// green.
+				if (tournamentColour == Config.RED
+						|| tournamentColour == Config.BLUE
+						|| tournamentColour == Config.YELLOW) {
+					tournamentColour = Config.GREEN;
+					moveCardToDiscardPile(playerNum, name);
+					
+					System.out.println("AFTER:");
+					System.out.println("DISPLAY: "
+							+ players[playerNum].getDisplayAsString());
+					System.out.println("HAND: " + players[playerNum].getHandAsString());
+					return "true";
+				}
+			}
+
+			
 		}
-		// players[playerNum].addCardToDisplay(card, playerNum)
 
 		return null;
+	}
+
+	/**
+	 * Take the card out of the players hand and move to the discard pile
+	 * 
+	 * @param playerNum
+	 *            The player that is having the card moved
+	 * @param name
+	 *            The name of the card we are moving
+	 */
+	private void moveCardToDiscardPile(int playerNum, String name) {
+		Card c = players[playerNum].getCardFromHand(name);
+		discardPile.add(c);
+		players[playerNum].getHandCards().remove(c);
 	}
 
 	public void overrideTourColour(int colour) {
@@ -305,11 +331,11 @@ public class Game {
 	 */
 	public String checkForWinner() {
 		int tokensRequiredToWin = 5;
-		
+
 		if (numOfPlayers == 4 || numOfPlayers == 5) {
 			tokensRequiredToWin = 4;
 		}
-		
+
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (players[i].isWinnerOfGame(tokensRequiredToWin)) {
 				return players[i].getName();
