@@ -109,6 +109,11 @@ public class GUIController {
 		String[] player = s.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
 	}
+	
+	public void displayErrorMsg(String msg) {
+		JOptionPane.showMessageDialog(gamePlayWindow, msg);
+
+	}
 	//	public void disablePlayButtons(String string) {
 	//		gamePlayWindow.buttonPanel.drawCardButton.setEnabled(false);
 	//		

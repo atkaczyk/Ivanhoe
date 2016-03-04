@@ -30,7 +30,7 @@ public class PlayerCard extends JPanel{
 		//setPlayerStats("Shit", 1, 2, true);
 		playerStats.setLocation(20,20);
 
-		ImageIcon a = new ImageIcon("Z:\\Ivanhoe\\3004_Iteration1\\src\\Images\\Avatar.jpg");
+		ImageIcon a = new ImageIcon(this.getClass().getResource("Images/Avatar.jpg"));
 		JLabel avatar = new JLabel();
 		avatar.setIcon(a);
 		avatar.setSize(a.getIconWidth(),a.getIconHeight());
@@ -46,7 +46,6 @@ public class PlayerCard extends JPanel{
 		add(display);
 
 		setSize(600, 500); 
-
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
 	public void setPlayerStats(String playerInfo) {
