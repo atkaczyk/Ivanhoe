@@ -34,15 +34,19 @@ public class TestGame {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.PURPLE));
 	}
 	// Supporter Cards
-	private static Card MAIDEN_CARD = new SupporterCard("Maiden 6", 6);
-	private static Card SQUIRE_CARD_2 = new SupporterCard("Squire 2", 2);
-	private static Card SQUIRE_CARD_3 = new SupporterCard("Squire 3", 3);
-	
+	private static final Card MAIDEN_CARD = new SupporterCard("Maiden 6", 6);
+	private static final Card SQUIRE_CARD_2 = new SupporterCard("Squire 2", 2);
+	private static final Card SQUIRE_CARD_3 = new SupporterCard("Squire 3", 3);
+
+	// Colour Card
+	private static final Card BLUE_CARD_3 = new ColourCard("Blue (Axe) 3", 3,
+			Config.BLUE);
+
 	// Action Cards
-	private static Card DROP_WEAPON_CARD = new ActionCard("Drop Weapon");
-	private static Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
-	private static Card CHARGE_CARD = new ActionCard("Charge");
-	
+	private static final Card DROP_WEAPON_CARD = new ActionCard("Drop Weapon");
+	private static final Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
+	private static final Card CHARGE_CARD = new ActionCard("Charge");
+
 	Game game;
 
 	@Before
@@ -350,7 +354,7 @@ public class TestGame {
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
-		
+
 		assertEquals("", game.withdrawPlayer(1));
 	}
 
@@ -368,14 +372,15 @@ public class TestGame {
 		game.withdrawPlayer(0);
 		game.withdrawPlayer(1);
 		game.withdrawPlayer(4);
-		
+
 		game.overrideTourColour(Config.BLUE);
-		
-		String expected = PLAYER_THREE_NAME+","+game.getTournamentNumber()+","+game.getTournamentColour();
-		
+
+		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
+				+ "," + game.getTournamentColour();
+
 		assertEquals(expected, game.withdrawPlayer(3));
 	}
-	
+
 	@Test
 	public void twoPlayersOneWins() {
 		game.setNumPlayers(2);
@@ -389,10 +394,10 @@ public class TestGame {
 		game.getPlayer(1).addToken(Config.YELLOW);
 		game.getPlayer(1).addToken(Config.RED);
 		game.getPlayer(1).addToken(Config.GREEN);
-		
+
 		assertEquals(PLAYER_TWO_NAME, game.checkForWinner());
 	}
-	
+
 	@Test
 	public void twoPlayersNoWinner() {
 		game.setNumPlayers(2);
@@ -400,16 +405,15 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
-		
 
 		game.getPlayer(1).addToken(Config.PURPLE);
 		game.getPlayer(1).addToken(Config.YELLOW);
 		game.getPlayer(1).addToken(Config.RED);
 		game.getPlayer(1).addToken(Config.GREEN);
-		
+
 		assertEquals("", game.checkForWinner());
 	}
-	
+
 	@Test
 	public void fourPlayersOneWins() {
 		game.setNumPlayers(4);
@@ -419,16 +423,16 @@ public class TestGame {
 		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
 
 		game.startGame();
-		
+
 		// Player four will have the four tokens they need to win
 		game.getPlayer(3).addToken(Config.BLUE);
 		game.getPlayer(3).addToken(Config.PURPLE);
 		game.getPlayer(3).addToken(Config.YELLOW);
 		game.getPlayer(3).addToken(Config.RED);
-		
+
 		assertEquals(PLAYER_FOUR_NAME, game.checkForWinner());
 	}
-	
+
 	@Test
 	public void fourPlayersNoWinner() {
 		game.setNumPlayers(4);
@@ -438,15 +442,15 @@ public class TestGame {
 		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
 
 		game.startGame();
-		
+
 		// Player four will have the four tokens they need to win
 		game.getPlayer(3).addToken(Config.BLUE);
 		game.getPlayer(3).addToken(Config.PURPLE);
 		game.getPlayer(3).addToken(Config.YELLOW);
-		
+
 		assertEquals("", game.checkForWinner());
 	}
-	
+
 	@Test
 	public void playDropWeaponCard() {
 		game.setNumPlayers(2);
@@ -461,7 +465,7 @@ public class TestGame {
 		assertEquals(Config.GREEN, game.getTournamentColour());
 		assertEquals(1, game.getDiscardPileSize());
 	}
-	
+
 	@Test
 	public void playOutmaneuverTwoPlayersTwoCardsInDisplay() {
 		game.setNumPlayers(2);
@@ -470,20 +474,22 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
 
 		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
-		
+
 		// It should still contain this card
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
 		// This card should have gotten removed by the outmaneuver
-		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(false,
+				game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
 	}
-	
+
 	@Test
 	public void playOutmaneuverFivePlayersManyCardsInDisplay() {
 		game.setNumPlayers(5);
@@ -492,12 +498,12 @@ public class TestGame {
 		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
 		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
 		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
-		
+
 		game.getPlayer(2).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(3).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
@@ -506,25 +512,27 @@ public class TestGame {
 		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(4).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
-		
+
 		game.getPlayer(2).addCardToHand(OUTMANEUVER_CARD);
 
 		assertEquals("true", game.playCard(2, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getDiscardPileSize());
-		
+
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(3).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(4).getDisplayCards().size());
-		
+
 		// It should still contain this card
-		assertEquals(true, game.getPlayer(3).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(true,
+				game.getPlayer(3).getDisplayCards().contains(SQUIRE_CARD_2));
 		// This card should have gotten removed by the outmaneuver
-		assertEquals(false, game.getPlayer(3).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(false,
+				game.getPlayer(3).getDisplayCards().contains(MAIDEN_CARD));
 	}
-	
+
 	@Test
 	public void playOutmaneuverTwoPlayersOneCardInDisplay() {
 		game.setNumPlayers(2);
@@ -532,18 +540,19 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
 
 		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
-		
+
 		// It should still contain this card
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
 	}
-	
+
 	@Test
 	public void playChargeCardTwoPlayersTwoOfLowestValueToRemove() {
 		game.setNumPlayers(2);
@@ -554,27 +563,60 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(1).addCardToHand(CHARGE_CARD);
 		String result = game.playCard(1, CHARGE_CARD.getName());
-		
+
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(3, game.getDiscardPileSize());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
-		
-		// It should still contain this card
-		assertEquals(true, game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
-		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
-	}
-	
 
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
+	}
+
+	@Test
+	public void playChargeCardTwoPlayersOnlyOneCardNumber() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		String result = game.playCard(1, CHARGE_CARD.getName());
+
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
+
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(BLUE_CARD_3));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
+	}
 
 	@After
 	public void tearDown() {

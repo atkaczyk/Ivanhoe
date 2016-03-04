@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import utils.Config;
@@ -187,30 +188,38 @@ public class Player {
 	 */
 	public int getLowestDisplayValue() {
 		int min = 1000;
-		for (Card c: display) {
+		for (Card c : display) {
 			if (c instanceof SupporterCard) {
 				if (((SupporterCard) c).getNumber() < min) {
 					min = ((SupporterCard) c).getNumber();
 				}
-			}
-			else if (c instanceof ColourCard) {
+			} else if (c instanceof ColourCard) {
 				if (((ColourCard) c).getNumber() < min) {
 					min = ((ColourCard) c).getNumber();
 				}
 			}
 		}
-		
+
 		return min;
 	}
 
 	public List<Card> removeAllCardsWithValue(int value) {
 		List<Card> result = new ArrayList<Card>();
-		
-		for (Card c: display) {
-			if (c instanceof SupporterCard) {
-				if (((SupporterCard) c).getNumber() == value) {
-					result.add(c);
-					display.remove(c);
+
+		ArrayDeque<Card> displayCopy = display.clone();
+		for (Iterator<Card> itr = displayCopy.descendingIterator();itr.hasNext();) {
+			Card c = itr.next();
+			if (display.size() > 1) {
+				if (c instanceof SupporterCard) {
+					if (((SupporterCard) c).getNumber() == value) {
+						result.add(c);
+						display.removeLastOccurrence(c);
+					}
+				} else if (c instanceof ColourCard) {
+					if (((ColourCard) c).getNumber() == value) {
+						result.add(c);
+						display.removeLastOccurrence(c);
+					}
 				}
 			}
 		}

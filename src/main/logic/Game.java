@@ -368,4 +368,8 @@ public class Game {
 		}
 		return "";
 	}
+
+	public ArrayDeque<Card> getDiscardPile() {
+		return discardPile;
+	}
 }
