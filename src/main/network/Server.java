@@ -218,16 +218,16 @@ public class Server implements Runnable {
 					update(ID); //call update function
 				}
 				else if (input.contains("requestToEndTurn")){
-					//game.goToNextPlayer();
+					game.goToNextPlayer();
 					updateAll();
 				}
 				else if (input.contains("requestToWithdraw")){
 					System.out.println("SERVER: requestToWithdraw");
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					//String result = game.withdrawPlayer(playerNum);
-					//if(result.contains("winner")){
-					//	broadcastToAllPlayers(result);
-					//}
+					String result = game.withdrawPlayer(playerNum);
+					if(result.contains("winner")){
+						broadcastToAllPlayers(result);
+					}
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");

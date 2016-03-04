@@ -185,11 +185,15 @@ public class Client {
    		//from gui to server
    		else if(msg.contains("requestToWithdraw")){
    			System.out.println("CLIENT: requestToWithdraw");
+   			withdraw = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("winner")){
-   			System.out.println("CLIENT: winner");
+   			winner = true;
+   			String[] winnerNum = msg.split(":");
+   			System.out.println("CLIENT: winner: "+winnerNum[1]);
+   			gui.winnerFound(winnerNum[1]);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
