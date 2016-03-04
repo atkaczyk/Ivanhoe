@@ -112,6 +112,12 @@ public class TestClient {
 //	}
 	
 	@Test
+	public void getPlayerActive(){
+		clientOne.handle("PLAYERACTIVE~");
+		assertEquals(true, clientOne.getPlayerActive());
+	}
+	
+	@Test
 	public void playerPlaysCardFromGui(){
 		String msg = " ";
 		clientOne.cardPlayed(msg);

@@ -34,6 +34,7 @@ public class Client {
 	private Boolean withdraw = false;
 	private Boolean winner = false;
 	private Boolean finalWinner = false;
+	private Boolean playerActive = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -140,7 +141,7 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
-   		else if (msg.contains("GAMEINFORMATION~")){
+   		else if (msg.contains("PLAYERINFORMATION~")){
    			String[] gameInfo = msg.split("~");
    			String gi = gameInfo[1].substring(1);
    			updateAllPlayersInfo = true;
@@ -151,6 +152,10 @@ public class Client {
    			String[] playerHand = msg.split("~");
    			updateShowPlayerHand = true;
    			gui.showPlayerHand(playerHand[1]);
+   		}
+   		//from server to gui
+   		else if(msg.contains("PLAYERACTIVE~")){
+   			System.out.println("CLIENT: PLAYERACTIVE");
    		}
    		//from server to gui
    		else if(msg.contains("launchTournamentColour")){
@@ -168,6 +173,7 @@ public class Client {
    			String[] colour = msg.split("~");
    			gui.setTournamentColour(colour[1]);;
    		}
+   		//from gui to server
    		else if(msg.contains("requestToDrawCard")){
    			System.out.println("I NEED TO DRAW CARD");
    			//sends me card to send to game...the file name
@@ -206,6 +212,12 @@ public class Client {
    			String[] gWinner = msg.split("~");
    			System.out.println("CLIENT: gameWinner: "+gWinner[1]);
    			gui.displayFinalWinner(gWinner[1]);
+   		}
+   		//setGameStats
+   		
+   		//gui.displayErrorMessage(msg);
+   		else if(msg.contains("ERROR~")){
+   			System.out.println("CLIENT: ERROR");
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -281,5 +293,8 @@ public class Client {
 	}
 	public Object getFinalWinner(){
 		return finalWinner;
+	}
+	public Object getPlayerActive(){
+		return playerActive;
 	}
 }

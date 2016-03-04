@@ -444,17 +444,18 @@ public class Server implements Runnable {
 	public void update(int ID){
 		//update the game info for all players
 		System.out.println("Server: Update: players game info");
-		String gameInfo = getAllGameInfo();
+		String gameInfo = getAllPlayerInfo();
 		System.out.println("~~~~Server: update info: " + gameInfo);
 		broadcastToAllPlayers(gameInfo);
 		
 		//update the player hand for the specific player
 		getPlayerHand(ID);
+		getPlayerActive(ID);
 	}
 	
 	// | will be before each player's information
-	public String getAllGameInfo() {
-		String result = "GAMEINFORMATION~";
+	public String getAllPlayerInfo() {
+		String result = "PLAYERINFORMATION~";
 		
 		for (int i=0; i<game.getNumPlayers(); i++) {
 			result+="@"+getPlayerInfo(game.getPlayer(i));
@@ -504,6 +505,16 @@ public class Server implements Runnable {
 				System.out.println("SERVER: Update: player hand" + handInfo);
 				broadcastMessageToPlayer(handInfo, id, 1);
 			}
+		}
+	}
+	
+	public void getPlayerActive(int ID){	
+		for (int id: playerNumbers.keySet()){
+			int playerNumber = playerNumbers.get(id);
+			String playerActive = "PLAYERACTIVE~";
+			playerActive += (game.getCurrentPlayerNumber() == playerNumber);
+			System.out.println("SERVER: Update: player hand" + playerActive);
+			broadcastMessageToPlayer(playerActive, id, 1);	
 		}
 	}
 	
