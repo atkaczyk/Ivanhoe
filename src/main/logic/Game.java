@@ -273,8 +273,7 @@ public class Game {
 	 * 
 	 * @param playerNum
 	 *            the player we want to withdraw
-	 * @return a string containing the winning player number if there is no
-	 *         winner, it returns empty
+	 * @return 
 	 */
 	public String withdrawPlayer(int playerNum) {
 		// Withdraw the given player
@@ -292,7 +291,8 @@ public class Game {
 		}
 
 		if (playersStillActive == 1) {
-			return winningPlayer;
+			// winnerplayername,tournamentnumber,tournamentcolour
+			return winningPlayer+","+tournamentNumber+","+tournamentColour;
 		}
 
 		return "";
