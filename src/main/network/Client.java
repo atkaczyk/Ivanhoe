@@ -189,17 +189,21 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
-   		else if(msg.contains("tournamentWinner")){
+   		else if(msg.contains("tournamentWinner~")){
    			winner = true;
    			String[] winningT = msg.split("~");
-   			System.out.println("CLIENT: winner: "+winningT);
-   			gui.displayWinner(winningT);
+   			System.out.println("CLIENT: winner: "+winningT[1]);
+   			gui.displayWinner(winningT[1]);
    		}
    		//from gui to server
    		else if(msg.contains("finalWinnerCheck")){
    			System.out.println("CLIENT: finalWInnerCheck");
    			finalWinner = true;
    			sendMessageToServer(msg);
+   		}
+   		//from server to gui
+   		else if(msg.contains("")){
+   			
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
