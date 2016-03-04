@@ -314,7 +314,6 @@ public class TestGame {
 	
 	@Test
 	public void threePlayersWithdrawTwo() {
-		System.out.println("\n\n\nTEST IM WORRIED ABOUT");
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
@@ -324,6 +323,17 @@ public class TestGame {
 		
 		game.withdrawPlayer(0);
 		assertEquals(PLAYER_THREE_NAME, game.withdrawPlayer(1));
+	}
+	
+	@Test
+	public void threePlayersWithdrawOne() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.startGame();
+		assertEquals("", game.withdrawPlayer(1));
 	}
 
 	@After
