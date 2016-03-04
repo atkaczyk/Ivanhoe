@@ -229,7 +229,7 @@ public class Game {
 			// Try adding the card to the display
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
-			
+
 			// If it succeeded, remove that card from their hand
 			if (result == true) {
 
@@ -256,25 +256,25 @@ public class Game {
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
-						Card cardFromDisplay = players[i].getDisplayCards().removeLast();
-						discardPile.add(cardFromDisplay);
+						if (players[i].getDisplayCards().size() >= 2) {
+							Card cardFromDisplay = players[i].getDisplayCards()
+									.removeLast();
+							discardPile.add(cardFromDisplay);
+						}
 					}
 				}
 				return "true";
 			}
-			
-			
+
 			System.out.println("\n\nBEFORE:");
 			System.out.println("DISPLAY: "
 					+ players[playerNum].getDisplayAsString());
 			System.out.println("HAND: " + players[playerNum].getHandAsString());
-			
-			
+
 			System.out.println("AFTER:");
 			System.out.println("DISPLAY: "
 					+ players[playerNum].getDisplayAsString());
-			System.out.println("HAND: "
-					+ players[playerNum].getHandAsString());
+			System.out.println("HAND: " + players[playerNum].getHandAsString());
 			System.out.println(discardPile);
 
 		}
