@@ -175,10 +175,8 @@ public class GamePlayWindow extends JFrame{
 		} else if(s.equals("4")){
 			tColour = Color.BLUE;
 		}
-		
 		//System.out.println("I TRIED TO SET THE TOURNAMENT COLOUR TO: >>" + tColour );
 		tournamentColour.setForeground(tColour);
-		tournamentColour.setForeground(Color.black);
 	}
 
 }
