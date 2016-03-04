@@ -270,7 +270,7 @@ public class Game {
 					}
 				}
 				if (!playerFound) {
-					return "false";
+					return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
 				}
 
 				moveCardFromHandToDiscardPile(playerNum, name);
@@ -288,6 +288,22 @@ public class Game {
 				// Identify the lowest value card throughout all displays. All
 				// players must discard all cards of this value from their
 				// displays.
+				
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false:You cannot play an charge card when there are no cards you can remove from other player displays!";
+				}
+				
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
