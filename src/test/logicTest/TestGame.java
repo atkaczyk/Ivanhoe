@@ -634,6 +634,34 @@ public class TestGame {
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 		assertEquals(0, game.getDiscardPileSize());
 	}
+	
+	@Test
+	public void notAllowedToPlayOutmaneuver() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(2).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(2).addCardToHand(OUTMANEUVER_CARD);
+
+		String result = game.playCard(2, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(3, game.getDiscardPileSize());
+
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(3).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(4).getDisplayCards().size());
+	}
 
 	@After
 	public void tearDown() {
