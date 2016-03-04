@@ -58,9 +58,9 @@ public class GamePlayWindow extends JFrame{
 		add(tournamentColour, c);
 
 		playerCard0 = new PlayerCard("INACTIVE");
-
-		c.ipadx = 500;
-		c.ipady = 200;
+		c.weighty =.1;
+		c.ipadx = 400;
+		c.ipady = 165;
 		c.weightx = 0.0;
 		c.gridwidth = 2;
 		c.gridx = 0;
