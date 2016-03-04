@@ -280,7 +280,7 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 		game.overrideTourColour(Config.RED);
-		
+
 		String result = game.playCard(0, PURPLE_CARD_3.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
@@ -619,7 +619,7 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
 	}
-	
+
 	@Test
 	public void tryDropWeaponCardNotAllowed() {
 		game.setNumPlayers(2);
@@ -635,7 +635,7 @@ public class TestGame {
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 		assertEquals(0, game.getDiscardPileSize());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayOutmaneuver() {
 		game.setNumPlayers(5);
@@ -662,6 +662,25 @@ public class TestGame {
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(3).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(4).getDisplayCards().size());
+	}
+
+	@Test
+	public void notAllowedToPlayCharge() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		String result = game.playCard(1, CHARGE_CARD.getName());
+
+		assertEquals(true, result.contains("false"));
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
 
 	@After

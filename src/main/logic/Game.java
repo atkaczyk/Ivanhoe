@@ -231,7 +231,7 @@ public class Game {
 			if (result == true) {
 				return "true";
 			}
-			return "false:You cannot add a second maiden card to your display";
+			return "false:You cannot add a second maiden card to your display!";
 		} else if (c instanceof ColourCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
