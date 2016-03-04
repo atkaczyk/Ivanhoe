@@ -180,4 +180,41 @@ public class Player {
 		return requiredTokens == tokens.size();
 	}
 
+	/**
+	 * Find the smallest card value in the display
+	 * 
+	 * @return The smallest value found
+	 */
+	public int getLowestDisplayValue() {
+		int min = 1000;
+		for (Card c: display) {
+			if (c instanceof SupporterCard) {
+				if (((SupporterCard) c).getNumber() < min) {
+					min = ((SupporterCard) c).getNumber();
+				}
+			}
+			else if (c instanceof ColourCard) {
+				if (((ColourCard) c).getNumber() < min) {
+					min = ((ColourCard) c).getNumber();
+				}
+			}
+		}
+		
+		return min;
+	}
+
+	public List<Card> removeAllCardsWithValue(int value) {
+		List<Card> result = new ArrayList<Card>();
+		
+		for (Card c: display) {
+			if (c instanceof SupporterCard) {
+				if (((SupporterCard) c).getNumber() == value) {
+					result.add(c);
+					display.remove(c);
+				}
+			}
+		}
+		return result;
+	}
+
 }

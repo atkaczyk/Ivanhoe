@@ -264,6 +264,21 @@ public class Game {
 					}
 				}
 				return "true";
+			} else if (name.equals("Charge")) {
+				// Identify the lowest value card throughout all displays. All
+				// players must discard all cards of this value from their
+				// displays.
+				moveCardFromHandToDiscardPile(playerNum, name);
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						int lowestValue = players[i].getLowestDisplayValue();
+						List<Card> cardsRemoved = players[i].removeAllCardsWithValue(lowestValue);
+						for (Card toDiscard: cardsRemoved) {
+							discardPile.add(toDiscard);
+						}
+					}
+				}
+				return "actionCardPlayedMessage:"+name+","+getPlayer(playerNum).getName();
 			}
 
 			System.out.println("\n\nBEFORE:");

@@ -564,7 +564,7 @@ public class TestGame {
 		
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPileSize());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
 		
