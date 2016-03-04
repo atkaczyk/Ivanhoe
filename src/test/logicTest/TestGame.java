@@ -617,6 +617,21 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
 	}
+	
+	@Test
+	public void tryDropWeaponCardNotAllowed() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.overrideTourColour(Config.PURPLE);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+
+		assertEquals("false", game.playCard(0, DROP_WEAPON_CARD.getName()));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(Config.PURPLE, game.getTournamentColour());
+		assertEquals(0, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {
