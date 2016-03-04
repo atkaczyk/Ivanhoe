@@ -81,9 +81,8 @@ public class Game {
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
 				players[i].addCardToHand(drawPile.getCard());
+				
 			}
-			// System.out.println("\n\nPLAYER " + i);
-			// PrintHelper.printCards(players[i].getHandCards());
 		}
 
 		// Initialize the 25 tokens (5 of each colour)
@@ -281,19 +280,19 @@ public class Game {
 		// Withdraw the given player
 		getPlayer(playerNum).withdraw();
 
-		int winningPlayer = -1;
+		String winningPlayer = "";
 		int playersStillActive = 0;
 
 		// See if there is only one player left that isn't withdrawn
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
-				winningPlayer = i;
+				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
-			return "" + winningPlayer;
+			return winningPlayer;
 		}
 
 		return "";

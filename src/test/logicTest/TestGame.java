@@ -19,6 +19,7 @@ public class TestGame {
 	private static final int NUM_OF_PLAYERS = 2;
 	private static final String PLAYER_ONE_NAME = "Jack";
 	private static final String PLAYER_TWO_NAME = "Chloe";
+	private static final String PLAYER_THREE_NAME = "Chase";
 	private static final Card PURPLE_CARD_3 = new ColourCard(
 			"Purple (Jousting) 3", 3, Config.PURPLE);
 	private static final ArrayDeque<Card> HAND_WITH_ALL_COLOURS = new ArrayDeque<Card>();
@@ -308,7 +309,21 @@ public class TestGame {
 
 		game.startGame();
 		
-		assertEquals("1", game.withdrawPlayer(0));
+		assertEquals(PLAYER_TWO_NAME, game.withdrawPlayer(0));
+	}
+	
+	@Test
+	public void threePlayersWithdrawTwo() {
+		System.out.println("\n\n\nTEST IM WORRIED ABOUT");
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.startGame();
+		
+		game.withdrawPlayer(0);
+		assertEquals(PLAYER_THREE_NAME, game.withdrawPlayer(1));
 	}
 
 	@After
