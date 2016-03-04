@@ -133,7 +133,12 @@ public class TestClient {
 	@Test
 	public void winnerFound(){
 		clientTwo.handle("winner");
-		assertEquals(true, clientOne.getWinner());
+		assertEquals(true, clientTwo.getWinner());
+	}
+	@Test
+	public void finalWinnerCheckTest(){
+		clientOne.handle("finalWinnerCheck");
+		assertEquals(true, clientOne.getFinalWinner());
 	}
 	
 	//@Test
