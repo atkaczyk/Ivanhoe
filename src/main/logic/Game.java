@@ -81,9 +81,8 @@ public class Game {
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
 				players[i].addCardToHand(drawPile.getCard());
+				
 			}
-			// System.out.println("\n\nPLAYER " + i);
-			// PrintHelper.printCards(players[i].getHandCards());
 		}
 
 		// Initialize the 25 tokens (5 of each colour)
@@ -99,7 +98,7 @@ public class Game {
 	}
 
 	// Change the current player to be the next player
-	private void goToNextPlayer() {
+	public void goToNextPlayer() {
 		// If the current player is the last one in the deque set to first
 		// player
 		if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
@@ -221,38 +220,43 @@ public class Game {
 	public DrawPile getDrawPile() {
 		return drawPile;
 	}
-	
+
 	public String playCard(int playerNum, String name) {
 		System.out.println("\n\nBEFORE:");
-		System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
-		System.out.println("HAND: "+players[playerNum].getHandAsString());
+		System.out.println("DISPLAY: "
+				+ players[playerNum].getDisplayAsString());
+		System.out.println("HAND: " + players[playerNum].getHandAsString());
 		// Get the card name from the file name
 
 		Card c = players[playerNum].getCardFromHand(name);
-		
+
 		// Supporter or card being played
 		if (c instanceof SupporterCard || c instanceof ColourCard) {
 			// Try adding the card to the display
-			Boolean result = players[playerNum].addCardToDisplay(c, tournamentColour);
-			
-			System.out.println("IT WAS "+result);
+			Boolean result = players[playerNum].addCardToDisplay(c,
+					tournamentColour);
+
+			System.out.println("IT WAS " + result);
 			// If it succeeded, remove that card from their hand
 			if (result == true) {
 				System.out.println("AFTER:");
-				System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
-				System.out.println("HAND: "+players[playerNum].getHandAsString());
-				
+				System.out.println("DISPLAY: "
+						+ players[playerNum].getDisplayAsString());
+				System.out.println("HAND: "
+						+ players[playerNum].getHandAsString());
+
 				return "true";
 			}
 			System.out.println("AFTER:");
-			System.out.println("DISPLAY: "+players[playerNum].getDisplayAsString());
-			System.out.println("HAND: "+players[playerNum].getHandAsString());
-			
+			System.out.println("DISPLAY: "
+					+ players[playerNum].getDisplayAsString());
+			System.out.println("HAND: " + players[playerNum].getHandAsString());
+
 			return "false";
 			// If it failed, do nothing
 		}
 		// players[playerNum].addCardToDisplay(card, playerNum)
-		
+
 		return null;
 	}
 
@@ -262,5 +266,35 @@ public class Game {
 
 	public int getDiscardPileSize() {
 		return discardPile.size();
+	}
+
+	/**
+	 * Withdraw the given player and check for a win
+	 * 
+	 * @param playerNum
+	 *            the player we want to withdraw
+	 * @return 
+	 */
+	public String withdrawPlayer(int playerNum) {
+		// Withdraw the given player
+		getPlayer(playerNum).withdraw();
+
+		String winningPlayer = "";
+		int playersStillActive = 0;
+
+		// See if there is only one player left that isn't withdrawn
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (!players[i].isWithdrawn()) {
+				playersStillActive++;
+				winningPlayer = players[i].getName();
+			}
+		}
+
+		if (playersStillActive == 1) {
+			// winnerplayername,tournamentnumber,tournamentcolour
+			return winningPlayer+","+tournamentNumber+","+tournamentColour;
+		}
+
+		return "";
 	}
 }
