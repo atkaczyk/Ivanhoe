@@ -164,6 +164,45 @@ public class TestPlayer {
 		assertEquals(((ColourCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
 	}
 	
+	@Test
+	public void isWinnerWithFourColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		player.addToken(Config.YELLOW);
+		
+		assertEquals(true, player.isWinnerOfGame(4));
+	}
+	
+	@Test
+	public void notWinnerWithFourColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		
+		assertEquals(false, player.isWinnerOfGame(4));
+	}
+	
+	@Test
+	public void isWinnerWithFiveColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		player.addToken(Config.YELLOW);
+		player.addToken(Config.RED);
+		
+		assertEquals(true, player.isWinnerOfGame(5));
+	}
+	
+	@Test
+	public void notWinnerWithFiveColours() {
+		player.addToken(Config.PURPLE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.GREEN);
+		
+		assertEquals(false, player.isWinnerOfGame(5));
+	}
+	
 	@After
 	public void tearDown() {
 		player = null;
