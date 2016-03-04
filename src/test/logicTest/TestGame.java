@@ -480,6 +480,47 @@ public class TestGame {
 	}
 	
 	@Test
+	public void playOutmaneuverFivePlayersManyCardsInDisplay() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		
+		game.getPlayer(1).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		
+		game.getPlayer(2).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(2).addCardToDisplay(SUPPORTER_CARD_2, Config.BLUE);
+		
+		game.getPlayer(3).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(3).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(3).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+
+		game.getPlayer(4).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(4).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(4).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		game.getPlayer(4).addCardToDisplay(SUPPORTER_CARD, Config.BLUE);
+		
+		game.getPlayer(2).addCardToHand(OUTMANEUVER_CARD);
+
+		assertEquals("true", game.playCard(2, OUTMANEUVER_CARD.getName()));
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(3, game.getDiscardPileSize());
+		
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(3).getDisplayCards().size());
+		assertEquals(3, game.getPlayer(4).getDisplayCards().size());
+		
+		// It should still contain this card
+		assertEquals(true, game.getPlayer(3).getDisplayCards().contains(SUPPORTER_CARD));
+		// This card should have gotten removed by the outmaneuver
+		assertEquals(false, game.getPlayer(3).getDisplayCards().contains(SUPPORTER_CARD_2));
+	}
+	
+	@Test
 	public void playOutmaneuverTwoPlayersOneCardInDisplay() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
