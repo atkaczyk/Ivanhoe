@@ -26,6 +26,8 @@ public class GamePlayWindow extends JFrame{
 	GUIController gui;
 	JLabel tournamentColour;
 	Color tColour;
+
+	GamePlayButtonPanel buttonPanel;
 	//will hold the player cards
 	//will hold the cardLayout discard pile: still to be made
 
@@ -37,7 +39,6 @@ public class GamePlayWindow extends JFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		JButton button;
-		GamePlayButtonPanel buttonPanel;
 
 		button = new JButton("Ivanhoe");
 

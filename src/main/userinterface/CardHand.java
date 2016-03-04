@@ -48,9 +48,9 @@ public class CardHand extends JPanel implements ActionListener {
 		playCards.addActionListener(this);
 		this.add(playCards);
 
-		donePlayingCards = new JButton("Done Drawing Cards");
-		donePlayingCards.addActionListener(this);
-		this.add(donePlayingCards);
+//		donePlayingCards = new JButton("Done Drawing Cards");
+//		donePlayingCards.addActionListener(this);
+//		this.add(donePlayingCards);
 		setSize(150, 300); 
 		setVisible(true);
 	}
@@ -113,6 +113,7 @@ public class CardHand extends JPanel implements ActionListener {
 			System.out.println("YOU JUST PLAYED " + cardToSend);
 			maxCards = false;
 			gui.sendCardToPlay(cardToSend); 
+		//	gui.disablePlayButtons("Draw a Card");
 			cardToSend = "";
 		}
 		else if (action.equals("Name")) {
