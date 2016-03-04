@@ -371,6 +371,23 @@ public class TestGame {
 		
 		assertEquals(expected, game.withdrawPlayer(3));
 	}
+	
+	@Test
+	public void twoPlayersOneWins() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+
+		game.getPlayer(1).addToken(Config.BLUE);
+		game.getPlayer(1).addToken(Config.PURPLE);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.GREEN);
+		
+		assertEquals(PLAYER_TWO_NAME, game.checkForWinner());
+	}
 
 	@After
 	public void tearDown() {

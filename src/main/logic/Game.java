@@ -296,4 +296,9 @@ public class Game {
 
 		return "";
 	}
+
+	public Object checkForWinner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
