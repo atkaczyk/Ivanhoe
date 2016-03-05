@@ -88,6 +88,7 @@ public class GUIController {
 	}
 	public void requestToDrawCard() {
 		client.handle("requestToDrawCard:");	
+		//disableDrawCardButton
 	}
 	public void requestToEndTurn() {
 		client.handle("requestToEndTurn:");	
@@ -120,8 +121,9 @@ public class GUIController {
 		JOptionPane.showMessageDialog(gamePlayWindow, msg);
 
 	}
+	//This gets called when the player announces the end of their turn or disables the card button 
 	public void disableDrawCardButton() {
-		//gamePlayWindow.setDrawCardButton(false); WHY THE NULL POINTER EXCEPTION?
+		//gamePlayWindow.setDrawCardButton(false);// WHY THE NULL POINTER EXCEPTION?
 		System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
 	}
 }
