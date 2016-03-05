@@ -46,6 +46,11 @@ public class GUIController {
 		client.handle("TournamentColourRequest:" + s);
 	}
 
+	public void setTournamentInfo(String s) {
+	String[] player = s.split(","); //colour comma number
+		gamePlayWindow.setTournamentColour(player[0]);
+	
+	}
 	public void setTournamentColour(String s){ 
 		gamePlayWindow.setTournamentColour(s);
 	}
@@ -58,26 +63,26 @@ public class GUIController {
 		String[] player = str.split("@");
 		for (int i = 0; i < player.length; i++){	
 			String [] playerInfo = player[i].split("#");
-			
+
 			String turnCheck = playerInfo[0].split(",")[7];
-			
-//			//WHAT PART OF THE STRING GIVES ME THE CURRENT PLAYER???  THAT IS THE ONLY PLAYER THAT I CHECK
-//			System.out.println("THE TURRRRRRRRRRRRRRRN IS BEING CHECKED!!!!!" +turnCheck);
-//			if(turnCheck.equals("false")){
-//				gamePlayWindow.setEnabled(false);
-//				System.out.println("THIS PLAYERS SCREEN SHOULD BE DISABLED.. IT'S NOT HIS TURN!");
-//			} else if (turnCheck.equals("true")){ 
-//				System.out.println("THIS PLAYERS TURN... ENABLED!");
-//				gamePlayWindow.setEnabled(true);
-//			}
-			
+
+			//			//WHAT PART OF THE STRING GIVES ME THE CURRENT PLAYER???  THAT IS THE ONLY PLAYER THAT I CHECK
+			//			System.out.println("THE TURRRRRRRRRRRRRRRN IS BEING CHECKED!!!!!" +turnCheck);
+			//			if(turnCheck.equals("false")){
+			//				gamePlayWindow.setEnabled(false);
+			//				System.out.println("THIS PLAYERS SCREEN SHOULD BE DISABLED.. IT'S NOT HIS TURN!");
+			//			} else if (turnCheck.equals("true")){ 
+			//				System.out.println("THIS PLAYERS TURN... ENABLED!");
+			//				gamePlayWindow.setEnabled(true);
+			//			}
+
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
 			if(playerInfo.length == 1){}
 			else {
 				gamePlayWindow.setPlayerCardDisplay(i, playerInfo[1]);
 			}
 
-		
+
 		}
 	}
 	public void showPlayerHand(String hand){
@@ -108,21 +113,23 @@ public class GUIController {
 		
 		client.handle("finalWinnerCheck");	
 	}
-	
-	public void enableMainScreen(){
-		gamePlayWindow.setEnabled(true);
+	public void setEnableMainScreen(String boo){
+		if(boo.equals("true")){
+			gamePlayWindow.setEnabled(true);
+		}else {
+			gamePlayWindow.setEnabled(false);
+		}
 	}
-	public void disableMainScreen(){
-		gamePlayWindow.setEnabled(false);
+	public void actionCardPlayedMessage(String cardnamecommaplayer){
+		String[] player = cardnamecommaplayer.split(",");
+		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[2] + " WAS PLAYED BY " + player[1]);
 	}
-	
-	
 	public void displayFinalWinner(String s) {
 		String[] player = s.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
 	}
-	
-	public void displayErrorMsg(String msg) {
+
+	public void displayErrorMessage(String msg) {
 		JOptionPane.showMessageDialog(gamePlayWindow, msg);
 
 	}
