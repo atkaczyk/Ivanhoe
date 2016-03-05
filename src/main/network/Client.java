@@ -165,7 +165,7 @@ public class Client {
    		else if(msg.contains("TOURNAMENTINFO~")){
    			tournamentInfo = true;
    			String[] result = msg.split("~");
-   			System.out.println("CLIENT: TOURNAMENTINFO: ");
+   			System.out.println("CLIENT: TOURNAMENTINFO: "+result);
    			gui.setTournamentInfo(result[1]);   			
    		}
    		//from server to gui
