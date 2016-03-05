@@ -329,7 +329,7 @@ public class Game {
 
 		}
 
-		return null;
+		return "";
 	}
 
 	/**
