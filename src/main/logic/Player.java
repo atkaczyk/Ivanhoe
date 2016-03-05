@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import utils.Config;
@@ -39,14 +40,10 @@ public class Player {
 		if (card instanceof SupporterCard) {
 			// If the card is a maiden, we must check that there isn't already a
 			// maiden
-			if (card.getName().equals("Maiden") && maidenInDisplay()) {
+			if (card.getName().equals("Maiden 6") && maidenInDisplay()) {
 				return false;
 			} else {
-				if (tournamentColour != Config.GREEN) {
-					hand.remove(card);
-				} else {
-					hand.remove(card);
-				}
+				hand.remove(card);
 			}
 		} else if (card instanceof ColourCard) {
 			if (((ColourCard) card).getColour() != tournamentColour) {
@@ -61,7 +58,7 @@ public class Player {
 
 	private boolean maidenInDisplay() {
 		for (Card c : display) {
-			if (c.getName().equals("Maiden")) {
+			if (c.getName().equals("Maiden 6")) {
 				return true;
 			}
 		}
@@ -178,6 +175,51 @@ public class Player {
 	 */
 	public Boolean isWinnerOfGame(int requiredTokens) {
 		return requiredTokens == tokens.size();
+	}
+
+	/**
+	 * Find the smallest card value in the display
+	 * 
+	 * @return The smallest value found
+	 */
+	public int getLowestDisplayValue() {
+		int min = 1000;
+		for (Card c : display) {
+			if (c instanceof SupporterCard) {
+				if (((SupporterCard) c).getNumber() < min) {
+					min = ((SupporterCard) c).getNumber();
+				}
+			} else if (c instanceof ColourCard) {
+				if (((ColourCard) c).getNumber() < min) {
+					min = ((ColourCard) c).getNumber();
+				}
+			}
+		}
+
+		return min;
+	}
+
+	public List<Card> removeAllCardsWithValue(int value) {
+		List<Card> result = new ArrayList<Card>();
+
+		ArrayDeque<Card> displayCopy = display.clone();
+		for (Iterator<Card> itr = displayCopy.descendingIterator();itr.hasNext();) {
+			Card c = itr.next();
+			if (display.size() > 1) {
+				if (c instanceof SupporterCard) {
+					if (((SupporterCard) c).getNumber() == value) {
+						result.add(c);
+						display.removeLastOccurrence(c);
+					}
+				} else if (c instanceof ColourCard) {
+					if (((ColourCard) c).getNumber() == value) {
+						result.add(c);
+						display.removeLastOccurrence(c);
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 }

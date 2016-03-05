@@ -1,16 +1,10 @@
 package logic;
 
-public class SupporterCard extends Card {
-	
-	private int number;
+public class SupporterCard extends SimpleCard {
 	
 	public SupporterCard(String cardName, int cardNumber) {
 		name = cardName;
 		number = cardNumber;
-	}
-
-	public int getNumber() {
-		return number;
 	}
 	
 	public String toString() {
