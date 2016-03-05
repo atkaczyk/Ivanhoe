@@ -511,7 +511,7 @@ public class Server implements Runnable {
 		for (int id: playerNumbers.keySet()){
 			int playerNumber = playerNumbers.get(id);
 			String playerSI = "PLAYERSPECIFICINFO~";
-			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getCurrentPlayer().getName();
+			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getPlayer(playerNumber).getName();
 			System.out.println("SERVER: Update: player hand" + playerSI);
 			broadcastMessageToPlayer(playerSI, id, 1);	
 		}
