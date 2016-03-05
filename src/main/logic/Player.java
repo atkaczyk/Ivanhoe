@@ -125,8 +125,14 @@ public class Player {
 		return specialCard.contains(s);
 	}
 
-	public void withdraw() {
+	public List<Card> withdraw() {
 		withdrawn = true;
+		
+		List<Card> result = new ArrayList<Card>();
+		while (!display.isEmpty()) {
+			result.add(display.pop());
+		}
+		return result;
 	}
 
 	public String getHandAsString() {

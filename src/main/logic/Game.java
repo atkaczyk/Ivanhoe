@@ -329,7 +329,7 @@ public class Game {
 
 		}
 
-		return null;
+		return "";
 	}
 
 	/**
@@ -363,8 +363,12 @@ public class Game {
 	 */
 	public String withdrawPlayer(int playerNum) {
 		// Withdraw the given player
-		getPlayer(playerNum).withdraw();
+		List<Card> cardsToDiscard = getPlayer(playerNum).withdraw();
 
+		for (Card c: cardsToDiscard) {
+			discardPile.add(c);
+		}
+		
 		String winningPlayer = "";
 		int playersStillActive = 0;
 
