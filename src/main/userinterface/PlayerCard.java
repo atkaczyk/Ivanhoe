@@ -63,6 +63,8 @@ public class PlayerCard extends JPanel{
 		} else {
 			playerStats.setPlayerTurn(false);	
 		}
+			playerStats.setWithdrawn(stats[6]);
+
 		add(playerStats);
 	}
 
