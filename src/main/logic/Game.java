@@ -329,7 +329,7 @@ public class Game {
 
 		}
 
-		return "";
+		return "false:This action card has not been implemented yet!";
 	}
 
 	/**

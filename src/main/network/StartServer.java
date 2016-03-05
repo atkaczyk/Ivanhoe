@@ -3,6 +3,8 @@ package network;
 import java.io.Console;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import network.Server;
 import utils.Config;
 import utils.Level;
@@ -31,9 +33,16 @@ public class StartServer {
 
 		System.out.println("Type the number of players participating in the game.");
 
+		String[] choices = { "2", "3", "4", "5" };
+	    String numPlayers = "";
+	    numPlayers = (String) JOptionPane.showInputDialog(null, "How many players will be in the game?",
+	        "", JOptionPane.QUESTION_MESSAGE, null,
+	        choices, // Array of choices
+	        choices[0]); // Initial choice
+		
+	    String input = numPlayers;
+	    
 		do {
-			String input = sc.nextLine();
-			
 			if (input.equalsIgnoreCase("SHUTDOWN") && started) {
 				System.out.println("Shutting server down ...");
 				Trace.getInstance().close();
@@ -41,21 +50,14 @@ public class StartServer {
 				started = Boolean.FALSE;
 				done = Boolean.TRUE;
 			}
-			
-			//while((Integer.parseInt(input)<2) || (Integer.parseInt(input)>5)){
-			//	System.out.println("Type the number of players participating in the game.");
-			//	input = sc.nextInt();
-			//}
 
-			if ((Integer.parseInt(input) >= 2) && (Integer.parseInt(input) <= 5)) {
+			else if (!numPlayers.equals("")) {
+				System.out.println(numPlayers);
 				int numOfPlayers = Integer.parseInt(input);
-				//server.getGame().start(numOfPlayers);
 				server.displayGameStart(numOfPlayers);
 				server.getGame().setNumPlayers(numOfPlayers);
-			} else {
-				System.out.println("invalid input");
 			}
-
+			input = sc.nextLine();
 			
 		} while (!done);
 
