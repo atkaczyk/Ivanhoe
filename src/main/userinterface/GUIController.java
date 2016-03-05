@@ -110,7 +110,7 @@ public class GUIController {
 	}
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[2] + " WAS PLAYED BY " + player[1]);
+		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
 	}
 	public void displayFinalWinner(String s) {
 		String[] player = s.split(",");
