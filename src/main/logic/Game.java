@@ -90,7 +90,6 @@ public class Game {
 				tokens.add(colour);
 			}
 		}
-		
 
 		// Figure out which player is first
 		goToNextPlayer();
@@ -312,19 +311,20 @@ public class Game {
 						}
 					}
 				}
-				return "actionCardPlayedMessage:" + name + ","
+				
+				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			}
 
-			System.out.println("\n\nBEFORE:");
-			System.out.println("DISPLAY: "
-					+ players[playerNum].getDisplayAsString());
-			System.out.println("HAND: " + players[playerNum].getHandAsString());
-
-			System.out.println("AFTER:");
-			System.out.println("DISPLAY: "
-					+ players[playerNum].getDisplayAsString());
-			System.out.println("HAND: " + players[playerNum].getHandAsString());
+//			System.out.println("\n\nBEFORE:");
+//			System.out.println("DISPLAY: "
+//					+ players[playerNum].getDisplayAsString());
+//			System.out.println("HAND: " + players[playerNum].getHandAsString());
+//
+//			System.out.println("AFTER:");
+//			System.out.println("DISPLAY: "
+//					+ players[playerNum].getDisplayAsString());
+//			System.out.println("HAND: " + players[playerNum].getHandAsString());
 			System.out.println(discardPile);
 
 		}

@@ -203,10 +203,10 @@ public class Client {
    			cardPlayed(msg);
    		}
    		//from server to gui
-   		else if(msg.contains("actionCardPlayedMessage:")){
-   			String[] message = msg.split(":");
-   			System.out.println("CLIENT: actionCardPlayedMessage: "+message[1]);
-   			gui.actionCardPlayedMessage(message[1]);
+   		else if(msg.contains("actionCardPlayedMessage")){
+   			String messageToDisplay = msg.split("~")[1];
+   			System.out.println("CLIENT: actionCardPlayedMessage: "+messageToDisplay);
+   			gui.actionCardPlayedMessage(messageToDisplay);
    		}
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
