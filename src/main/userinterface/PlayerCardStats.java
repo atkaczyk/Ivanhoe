@@ -40,12 +40,8 @@ public class PlayerCardStats extends JPanel{
 		 specialCard.setSize(100,30);
 		 add(specialCard);  
 		 
-		 if (turn1 == true){
-			 turn = new JLabel("< YOUR TURN >");
+	     turn = new JLabel("< INACTIVE >");
 	
-		 } else {
-			 turn = new JLabel("< NOT YOUR TURN > ");
-		 }
 		 
 		 turn.setLocation(0, top + 60);
 		 turn.setSize(100,30);
@@ -67,15 +63,19 @@ public class PlayerCardStats extends JPanel{
 	}
 
 	public void setPlayerTokens(int numToken) {
-		numTokens.setText("UPDATED: " + numToken);	
+		numTokens.setText("TOKENS: " + numToken);	
 	}
 
 	public void setPlayerScore(int score2) {
-		score.setText("UPDATED: " + score2);	
+		score.setText("SCORE: " + score2);	
 	}
 
 	public void setPlayerTurn(boolean turn2) {
-		turn.setText("UPDATED: " + turn2);	
+		if(turn2 == true){
+			turn.setText(" < THIS PLAYERS TURN >");	
+		} else {
+			turn.setText(" ");	
+		}
 	}
 	public void setSpecialCards(String str){
 		specialCard.setText("Special Cards: " + str);

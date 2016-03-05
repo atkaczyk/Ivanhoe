@@ -1,14 +1,14 @@
 package userinterface;
 
-//import javax.swing.JComboBox;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import java.awt.Color;
 import network.Client;
 
 
@@ -35,87 +35,46 @@ public class GamePlayWindow extends JFrame{
 		super(); 
 		gui = new GUIController(client);
 		
-		getContentPane().setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		JButton button;
+		setLayout(new GridLayout(2,1)); 
 
-		button = new JButton("Ivanhoe");
-
-		c.weightx =1;
-		c.weighty =1;
-		c.ipadx = 10;
-		c.ipady= 0;
-		c.gridx = 0;
-		c.gridy = 0;
-		add(button, c);
-
-		tournamentColour = new JLabel("********** Tournament Colour **********");
+		JPanel upperPanel = new JPanel(new GridLayout(3,2));
+		tournamentColour = new JLabel("Ivanhoe ********** Tournament Colour **********");
 		tournamentColour.setBackground(Color.white);
-		c.weighty =1;
-		c.gridx = 2;
-		c.gridy = 0;
-		add(tournamentColour, c);
-
+		upperPanel.add(tournamentColour);
+	
 		playerCard0 = new PlayerCard("INACTIVE");
-
-		c.ipadx = 500;
-		c.ipady = 200;
-		c.weightx = 0.0;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 1;
-		add(playerCard0, c);
+		upperPanel.add(playerCard0);
 
 		playerCard1 = new PlayerCard("INACTIVE");
-		//c.ipadx = 300;
-		c.weightx = 0.0;
-		c.gridwidth = 2;
-		c.gridx = 2;
-		c.gridy = 1;
-		add(playerCard1, c);
+		upperPanel.add(playerCard1);
 
 		playerCard2 = new PlayerCard("INACTIVE");
-		c.weightx = 0.0;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 2;
-		add(playerCard2, c);
-
+		upperPanel.add(playerCard2);
 
 		playerCard3 = new PlayerCard("INACTIVE");
-		c.weightx = 0.0;
-		c.gridwidth = 2;
-		c.gridx = 2;
-		c.gridy = 2;
-		add(playerCard3, c);
-
+		upperPanel.add(playerCard3);
 
 		playerCard4 = new PlayerCard("INACTIVE");
-		c.weightx = 0.0;
-		c.gridwidth = 2;
-		c.gridx = 1;
-		c.gridy = 3;
-		add(playerCard4, c);
-
+		upperPanel.add(playerCard4);
+		add(upperPanel);
+		
+		JPanel lowerPanel = new JPanel();
+		lowerPanel.setLayout(new FlowLayout());
+		
 		buttonPanel = new GamePlayButtonPanel(gui);
-		c.ipadx = 100;
-		c.ipady = 80;
-		c.weightx = 0.0;
-		c.weighty =1;
-		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 3;
-		add(buttonPanel, c);
-
 		hand = new CardHand(gui); //"MY CARD HAND DISPLAY SCROLLER");
-		c.ipady = 300;     
-		c.weightx = 0.0;
-		c.gridwidth = 3;
-		c.gridx = 0;
-		c.gridy = 4;
-		add(hand, c);
-
+		lowerPanel.add(hand);
+		lowerPanel.add(buttonPanel);
+		lowerPanel.setBackground(Color.green);
+		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
+		System.out.println(lowerPanel.getHeight() + ", " + lowerPanel.getWidth());
+		System.out.println(hand.getHeight() + ", " + hand.getWidth()+buttonPanel.getWidth());
+		add(lowerPanel);
+		
+		// Set program to stop when window closed
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1400, 1000); // manually computed sizes
+		setResizable(true);
 		// Set program to stop when window closed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1500, 1000); // manually computed sizes
@@ -175,6 +134,7 @@ public class GamePlayWindow extends JFrame{
 		} else if(s.equals("4")){
 			tColour = Color.BLUE;
 		}
+		
 		//System.out.println("I TRIED TO SET THE TOURNAMENT COLOUR TO: >>" + tColour );
 		tournamentColour.setForeground(tColour);
 	}
