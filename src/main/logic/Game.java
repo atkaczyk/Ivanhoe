@@ -90,6 +90,7 @@ public class Game {
 				tokens.add(colour);
 			}
 		}
+		
 
 		// Figure out which player is first
 		goToNextPlayer();
