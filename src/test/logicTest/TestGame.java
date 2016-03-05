@@ -682,6 +682,19 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
+	
+	@Test
+	public void withdrawAPlayerClearsTheirDisplay() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+
+		assertEquals("", game.withdrawPlayer(0));
+		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
+	}
 
 	@After
 	public void tearDown() {
