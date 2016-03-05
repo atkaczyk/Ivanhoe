@@ -685,15 +685,21 @@ public class TestGame {
 	
 	@Test
 	public void withdrawAPlayerClearsTheirDisplay() {
+		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
+		
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 
 		assertEquals("", game.withdrawPlayer(0));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
+		assertEquals(3, game.getDiscardPileSize());
 	}
 
 	@After
