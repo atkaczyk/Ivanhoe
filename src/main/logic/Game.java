@@ -225,20 +225,18 @@ public class Game {
 		// Get the card name from the file name
 		Card c = players[playerNum].getCardFromHand(name);
 
-		// Supporter or card being played
-		if (c instanceof SupporterCard || c instanceof ColourCard) {
-			// Try adding the card to the display
+		if (c instanceof SimpleCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
-			
-			// If it succeeded, remove that card from their hand
-			if (result == true) {
 
+			if (result == true) {
 				return "true";
 			}
 
-			return "false";
-			// If it failed, do nothing
+			if (c instanceof SupporterCard) {
+				return "false:You cannot add a second maiden card to your display!";
+			}
+			return "false:When playing a colour card, the colour must match the current tournament colour!";
 		} else {
 			if (name.equals("Drop Weapon")) {
 				// The tournament color changes from red, blue or yellow to
@@ -250,32 +248,83 @@ public class Game {
 					moveCardFromHandToDiscardPile(playerNum, name);
 
 					return "true";
+				} else {
+					return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
 				}
 			} else if (name.equals("Outmaneuver")) {
 				// All opponents must remove the last card played on their
 				// displays.
+
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
+				}
+
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
-						Card cardFromDisplay = players[i].getDisplayCards().removeLast();
-						discardPile.add(cardFromDisplay);
+						if (players[i].getDisplayCards().size() >= 2) {
+							Card cardFromDisplay = players[i].getDisplayCards()
+									.removeLast();
+							discardPile.add(cardFromDisplay);
+						}
 					}
 				}
 				return "true";
+			} else if (name.equals("Charge")) {
+				// Identify the lowest value card throughout all displays. All
+				// players must discard all cards of this value from their
+				// displays.
+
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false:You cannot play an charge card when there are no cards you can remove from other player displays!";
+				}
+
+				moveCardFromHandToDiscardPile(playerNum, name);
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						int lowestValue = players[i].getLowestDisplayValue();
+						List<Card> cardsRemoved = players[i]
+								.removeAllCardsWithValue(lowestValue);
+						for (Card toDiscard : cardsRemoved) {
+							discardPile.add(toDiscard);
+						}
+					}
+				}
+				return "actionCardPlayedMessage:" + name + ","
+						+ getPlayer(playerNum).getName();
 			}
-			
-			
+
 			System.out.println("\n\nBEFORE:");
 			System.out.println("DISPLAY: "
 					+ players[playerNum].getDisplayAsString());
 			System.out.println("HAND: " + players[playerNum].getHandAsString());
-			
-			
+
 			System.out.println("AFTER:");
 			System.out.println("DISPLAY: "
 					+ players[playerNum].getDisplayAsString());
-			System.out.println("HAND: "
-					+ players[playerNum].getHandAsString());
+			System.out.println("HAND: " + players[playerNum].getHandAsString());
 			System.out.println(discardPile);
 
 		}
@@ -353,5 +402,9 @@ public class Game {
 			}
 		}
 		return "";
+	}
+
+	public ArrayDeque<Card> getDiscardPile() {
+		return discardPile;
 	}
 }

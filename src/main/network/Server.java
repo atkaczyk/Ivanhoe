@@ -206,10 +206,14 @@ public class Server implements Runnable {
 					}
 					if(result.contains("false")){
 						System.out.println("SERVER: requestToPlayThisCard: FALSE");
-						broadcastMessageToPlayer("ERROR~", ID, 0);
+						String[] msg = result.split(":");
+						broadcastMessageToPlayer("ERROR~"+msg[1], ID, 0);
 					}
 					if(result.contains("actionCard")){
 						System.out.println("SERVER: requestToPlayThisCard: ACTION CARD");
+					}
+					if(result.contains("actionCardPlayedMessage:")){
+						broadcastToOtherPlayers(result, ID);
 					}
 					
 				}
@@ -400,16 +404,7 @@ public class Server implements Runnable {
 								to.getSocketAddress(), to.getID(), message));
 						Trace.getInstance().logchat(this,
 								serverThreads.get(senderID), to, message);
-					} else {
-						to.send(String.format("%5d: %s\n", senderID, message));
-						logger.info(String
-								.format("RECEIVED Received Message from %s:%d to %s:%d: %s",
-										to.getSocketAddress(), to.getID(),
-										from.getSocketAddress(), from.getID(),
-										message));
-						Trace.getInstance().logchat(this,
-								serverThreads.get(senderID), from, message);
-					}
+					} 
 				}
 			}
 		}
@@ -444,17 +439,19 @@ public class Server implements Runnable {
 	public void update(int ID){
 		//update the game info for all players
 		System.out.println("Server: Update: players game info");
-		String gameInfo = getAllGameInfo();
+		String gameInfo = getAllPlayerInfo();
 		System.out.println("~~~~Server: update info: " + gameInfo);
 		broadcastToAllPlayers(gameInfo);
 		
 		//update the player hand for the specific player
 		getPlayerHand(ID);
+		getPlayerActive(ID);
+		getTournamentInfo(ID);
 	}
 	
 	// | will be before each player's information
-	public String getAllGameInfo() {
-		String result = "GAMEINFORMATION~";
+	public String getAllPlayerInfo() {
+		String result = "PLAYERINFORMATION~";
 		
 		for (int i=0; i<game.getNumPlayers(); i++) {
 			result+="@"+getPlayerInfo(game.getPlayer(i));
@@ -505,6 +502,23 @@ public class Server implements Runnable {
 				broadcastMessageToPlayer(handInfo, id, 1);
 			}
 		}
+	}
+	
+	public void getPlayerActive(int ID){	
+		for (int id: playerNumbers.keySet()){
+			int playerNumber = playerNumbers.get(id);
+			String playerActive = "PLAYERACTIVE~";
+			playerActive += (game.getCurrentPlayerNumber() == playerNumber);
+			System.out.println("SERVER: Update: player hand" + playerActive);
+			broadcastMessageToPlayer(playerActive, id, 1);	
+		}
+	}
+	
+	public void getTournamentInfo(int ID){
+		String tournamentInfo = "TOURNAMENTINFO~";
+		tournamentInfo += game.getTournamentColour()+","; //tournament colour
+		tournamentInfo += game.getTournamentNumber(); //tournament number
+		broadcastToAllPlayers(tournamentInfo);
 	}
 	
 	public String getPlayerDisplayCards(Player p){
