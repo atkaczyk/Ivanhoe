@@ -27,7 +27,7 @@ public class PlayerCardDisplay extends JPanel {
 
 		this.add(lp);
 
-		setSize(300, 150); 
+		setSize(300, 140); 
 	}
 
 	public void add(JButton card,String str){

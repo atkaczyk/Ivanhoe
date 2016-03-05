@@ -41,7 +41,7 @@ public class CardHand extends JPanel implements ActionListener {
 
 		scrollPane.setViewportView(panel);
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setPreferredSize(new Dimension(500, 300));
+		scrollPane.setPreferredSize(new Dimension(800, 200));
 		this.add(scrollPane, BorderLayout.CENTER);
 
 		playCards = new JButton("Play Card");
@@ -51,7 +51,7 @@ public class CardHand extends JPanel implements ActionListener {
 		//		donePlayingCards = new JButton("Done Drawing Cards");
 		//		donePlayingCards.addActionListener(this);
 		//		this.add(donePlayingCards);
-		setSize(150, 300); 
+		setSize(150, 200); 
 		setVisible(true);
 	}
 	public void showCardsInHand(String cardsInHand){ 

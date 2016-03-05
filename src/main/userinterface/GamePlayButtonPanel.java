@@ -1,12 +1,14 @@
 package userinterface;
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import javafx.scene.shape.Box;
 
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
@@ -18,52 +20,37 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	JButton drawCardButton;
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
+		JButton button;
+		JButton withdrawButton;
+		JButton endTurnButton;
+		JButton drawCardButton;
 
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-
-
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
+		
+		
 		button = new JButton("Discard Pile");
-		c.fill = GridBagConstraints.HORIZONTAL;
-
-		c.ipady = 120;      //make this component tall
-		c.weightx = 0.5;
-		c.gridheight = 3;
-		c.gridx = 0;
-		c.gridy = 0;
-		add(button, c);
+		add(button);
+		//add(Box.createRigidArea(new Dimension(5,10)));
 
 		withdrawButton = new JButton("Withdraw");
 		withdrawButton.addActionListener(this);
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 20;
-		c.weightx = 0.5;
-		c.gridheight = 1;
-		c.gridx = 1;
-		c.gridy = 0;
-		add(withdrawButton, c);
-
+		add(withdrawButton);
+		//add(Box.createRigidArea(new Dimension(5,10)));
+		
 		endTurnButton = new JButton("Announce End of Turn");
 		endTurnButton.addActionListener(this);
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 20;      //make this component tall
-		c.weightx = 0.0;
-		c.gridx = 1;
-		c.gridy = 1;
-		add(endTurnButton, c);
+		//endTurnButton.setPreferredSize(new Dimension(10,10));
+		add(endTurnButton);
+		//add(Box.createRigidArea(new Dimension(5,10)));
 
 		drawCardButton = new JButton("Draw a Card");
 		drawCardButton.addActionListener(this);
+		add(drawCardButton);
+		//add(Box.createRigidArea(new Dimension(5,10)));
 
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.0;
-		c.gridx = 1;
-		c.gridy = 2;
-		add(drawCardButton, c);
+this.setBackground(Color.blue);
+		setPreferredSize(new Dimension(200, 150)); 
 
-		setSize(200, 100); 
 	}
 
 	@Override
