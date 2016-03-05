@@ -3,6 +3,7 @@ package userinterface;
 import javax.swing.JOptionPane;
 
 import network.Client;
+import utils.Config;
 
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
@@ -64,7 +65,7 @@ public class GUIController {
 		for (int i = 0; i < player.length; i++){	
 			String [] playerInfo = player[i].split("#");
 
-			String turnCheck = playerInfo[0].split(",")[7];
+			//String turnCheck = playerInfo[0].split(",")[7];
 
 			//			//WHAT PART OF THE STRING GIVES ME THE CURRENT PLAYER???  THAT IS THE ONLY PLAYER THAT I CHECK
 			//			System.out.println("THE TURRRRRRRRRRRRRRRN IS BEING CHECKED!!!!!" +turnCheck);
@@ -109,15 +110,18 @@ public class GUIController {
 	}
 	public void displayTournamentWinner(String s) {
 		String[] player = s.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
+		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + Config.ALL_TOKEN_COLOURS[Integer.parseInt(player[2])] + " TOURNAMENT #" + player[1]);
 		
 		client.handle("finalWinnerCheck");	
 	}
-	public void setEnableMainScreen(String boo){
-		if(boo.equals("true")){
+	public void setEnableMainScreen(String str){
+		System.out.println("THIS IS THE STRING FROM ENABLE MAIN SCREEN >>>" + str);
+		if(str.equals("true")){
 			gamePlayWindow.setEnabled(true);
-		}else {
+			
+		}else if(str.equals("false")){
 			gamePlayWindow.setEnabled(false);
+			System.out.println("its NOT THIS PLAYERS TURN");
 		}
 	}
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
@@ -133,8 +137,8 @@ public class GUIController {
 		JOptionPane.showMessageDialog(gamePlayWindow, msg);
 
 	}
-	//	public void disablePlayButtons(String string) {
-	//		gamePlayWindow.buttonPanel.drawCardButton.setEnabled(false);
-	//		
-	//	}
+	public void disableDrawCardButton() {
+		gamePlayWindow.setDrawCardButton(false);
+			System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
+	}
 }

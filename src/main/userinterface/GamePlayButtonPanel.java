@@ -1,14 +1,13 @@
 package userinterface;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import javafx.scene.shape.Box;
 
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
@@ -25,32 +24,32 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		JButton endTurnButton;
 		JButton drawCardButton;
 
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
-		
-		
+		setLayout(new FlowLayout());//new BoxLayout(this, BoxLayout.Y_AXIS)); 
+		JLabel empty = new JLabel();
+		empty.setSize(10, 10);
+
 		button = new JButton("Discard Pile");
 		add(button);
-		//add(Box.createRigidArea(new Dimension(5,10)));
+		add(empty);
 
 		withdrawButton = new JButton("Withdraw");
 		withdrawButton.addActionListener(this);
 		add(withdrawButton);
-		//add(Box.createRigidArea(new Dimension(5,10)));
-		
+		add(empty);
+
 		endTurnButton = new JButton("Announce End of Turn");
 		endTurnButton.addActionListener(this);
 		//endTurnButton.setPreferredSize(new Dimension(10,10));
 		add(endTurnButton);
-		//add(Box.createRigidArea(new Dimension(5,10)));
+		add(empty);
 
 		drawCardButton = new JButton("Draw a Card");
 		drawCardButton.addActionListener(this);
 		add(drawCardButton);
 		//add(Box.createRigidArea(new Dimension(5,10)));
 
-this.setBackground(Color.blue);
+		this.setBackground(Color.blue);
 		setPreferredSize(new Dimension(200, 150)); 
-
 	}
 
 	@Override
@@ -66,7 +65,10 @@ this.setBackground(Color.blue);
 		else if (action.equals("Announce End of Turn")) {
 			gui.requestToEndTurn();
 		}
+	}
 
+	public void setDrawCardButton(boolean b) {
+		drawCardButton.setEnabled(b);
 
 	}
 
