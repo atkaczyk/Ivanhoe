@@ -224,20 +224,16 @@ public class Game {
 		// Get the card name from the file name
 		Card c = players[playerNum].getCardFromHand(name);
 
-		if (c instanceof SupporterCard) {
+		if (c instanceof SimpleCard) {
 			Boolean result = players[playerNum].addCardToDisplay(c,
 					tournamentColour);
 
 			if (result == true) {
 				return "true";
 			}
-			return "false:You cannot add a second maiden card to your display!";
-		} else if (c instanceof ColourCard) {
-			Boolean result = players[playerNum].addCardToDisplay(c,
-					tournamentColour);
 
-			if (result == true) {
-				return "true";
+			if (c instanceof SupporterCard) {
+				return "false:You cannot add a second maiden card to your display!";
 			}
 			return "false:When playing a colour card, the colour must match the current tournament colour!";
 		} else {
@@ -288,7 +284,7 @@ public class Game {
 				// Identify the lowest value card throughout all displays. All
 				// players must discard all cards of this value from their
 				// displays.
-				
+
 				// First check to see there is at least one player where you can
 				// remove a card
 				Boolean playerFound = false;
@@ -303,7 +299,7 @@ public class Game {
 				if (!playerFound) {
 					return "false:You cannot play an charge card when there are no cards you can remove from other player displays!";
 				}
-				
+
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
