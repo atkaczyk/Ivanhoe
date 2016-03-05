@@ -46,18 +46,18 @@ public class PlayerCardStats extends JPanel{
 		 turn.setForeground(Color.red);
 		 add(turn);
 		 
-		 changeDisplay = new JButton("Steal Card");
-		 changeDisplay.setLocation(0, top + 90);
-		 changeDisplay.setSize(100, 20);
-		 changeDisplay.setEnabled(true);
-		 changeDisplay.setBackground(Color.blue);
-		 changeDisplay.setForeground(Color.yellow);
-		 add(changeDisplay);
+//		 changeDisplay = new JButton("Steal Card");
+//		 changeDisplay.setLocation(0, top + 90);
+//		 changeDisplay.setSize(100, 20);
+//		 changeDisplay.setEnabled(true);
+//		 changeDisplay.setBackground(Color.blue);
+//		 changeDisplay.setForeground(Color.yellow);
+//		 add(changeDisplay);
 		 
 		  isWithdrawn = new JLabel("WITHDRAWN");
 		  isWithdrawn.setLocation(0, top + 90);
-		  isWithdrawn.setSize(100, 20);
-		  isWithdrawn.setEnabled(true);
+		  isWithdrawn.setSize(100, 30);
+		//  isWithdrawn.setVisible(true);
 		 add(isWithdrawn);
 		 setSize(100, 100);	 
 	}
@@ -74,10 +74,10 @@ public class PlayerCardStats extends JPanel{
 		score.setText("SCORE: " + score2);	
 	}
 
-	public void setPlayerTurn(boolean turn2) {
-		if(turn2 == true){
+	public void setPlayerTurn(String turn2) {
+		if(turn2.equals("true")){
 			turn.setText(" < THIS PLAYERS TURN >");	
-		} else {
+		} else if (turn2.equals("false")){
 			turn.setText(" ");	
 		}
 	}
@@ -88,9 +88,12 @@ public class PlayerCardStats extends JPanel{
 	public void setWithdrawn(String str) {
 
 		if (str.equals("true")){
-			  isWithdrawn.setForeground(Color.red);
+
+			System.out.println("WITHDRAW IS TRUE!");
+			 isWithdrawn.setForeground(Color.red);
 			isWithdrawn.setText("WITHDRAWN");
-		} else {
+		} else if (str.equals("true")){
+
 			  isWithdrawn.setForeground(Color.black);
 			isWithdrawn.setText("IN PLAY");
 		}

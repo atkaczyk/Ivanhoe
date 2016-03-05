@@ -1,7 +1,6 @@
 package userinterface;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -10,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -25,6 +25,7 @@ public class CardHand extends JPanel implements ActionListener {
 	JButton playCards;
 	JButton donePlayingCards;
 	JPanel panel;
+	JLabel curPlayerName;
 	int counter;
 	boolean maxCards = false;
 	int numCards =5;
@@ -40,12 +41,15 @@ public class CardHand extends JPanel implements ActionListener {
 
 		scrollPane.setViewportView(panel);
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setPreferredSize(new Dimension(800, 200));
+		scrollPane.setPreferredSize(new Dimension(900, 220));
 		this.add(scrollPane, BorderLayout.CENTER);
 
-		playCards = new JButton("Play Card");
-		playCards.addActionListener(this);
-		this.add(playCards);
+//		playCards = new JButton("Play Card");
+//		playCards.addActionListener(this);
+//		this.add(playCards);
+		
+		curPlayerName = new JLabel("CurPlayerName");
+		this.add(curPlayerName);
 
 		//		donePlayingCards = new JButton("Done Drawing Cards");
 		//		donePlayingCards.addActionListener(this);
@@ -71,7 +75,7 @@ public class CardHand extends JPanel implements ActionListener {
 
 			ImageIcon icon = new ImageIcon(this.getClass().getResource("Cards/"+Config.CARD_NAME_TO_PICTURES.get(str[i])));
 			Image img = icon.getImage() ;  
-			Image newimg = img.getScaledInstance(150, 250,  java.awt.Image.SCALE_SMOOTH ) ; 
+			Image newimg = img.getScaledInstance(130, 180,  java.awt.Image.SCALE_SMOOTH ) ; 
 			icon = new ImageIcon( newimg );
 			cards[i].setEnabled(true);
 			cards[i].setIcon(icon);
@@ -81,27 +85,30 @@ public class CardHand extends JPanel implements ActionListener {
 			cards[i].addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e){
-					if(maxCards == false){
-						maxCards = true;
-						cardToSend += ((JButton) e.getSource()).getName();
-						((JButton) e.getSource()).setBorderPainted(true);//setBackground(Color.BLACK);
-						System.out.println("Play these cards: " + cardToSend);
-					} else {
-						if(((JButton) e.getSource()).getName().equals(cardToSend)) { //.getBackground() == Color.BLACK) {
-						//	System.out.println("WHY AM I NOT HERE?? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);		
-							((JButton) e.getSource()).setBorderPainted(false);
-							System.out.println("HELOOO I SHOULD BE ENABLED");
-							maxCards = false;
-							cardToSend = cardToSend.replace(((JButton) e.getSource()).getName(), "");
-							 //setBackground(Color.WHITE);
-							//System.out.println("Play these cards: " + cardToSend);
-						} else {
-							//System.out.println("THEY DON'T MATCH? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
-							System.out.println("Play this card before selecting another");
-							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
-						}
-					}
-					;}}); 
+					gui.sendCardToPlay( ((JButton) e.getSource()).getName()); 
+					//why dont we just send the card I press on??
+//					cardToSend = "";
+//					if(maxCards == false){
+//						maxCards = true;
+//						cardToSend += ((JButton) e.getSource()).getName();
+//						((JButton) e.getSource()).setBorderPainted(true);//setBackground(Color.BLACK);
+//						((JButton) e.getSource()).setContentAreaFilled(true);
+//						System.out.println("Play these cards: " + cardToSend);
+//					} else {
+//						if(((JButton) e.getSource()).getName().equals(cardToSend)) { //.getBackground() == Color.BLACK) {
+//						//	System.out.println("WHY AM I NOT HERE?? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);		
+//							((JButton) e.getSource()).setBorderPainted(false);
+//							((JButton) e.getSource()).setContentAreaFilled(false);
+//							System.out.println("HELOOO I SHOULD BE ENABLED");
+//							maxCards = false;
+//							cardToSend = cardToSend.replace(((JButton) e.getSource()).getName(), "");
+//							 //setBackground(Color.WHITE);
+//							//System.out.println("Play these cards: " + cardToSend);
+//						} else {
+//							//System.out.println("THEY DON'T MATCH? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
+//							System.out.println("Play this card before selecting another");
+//							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
+				}}); 
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
 			scrollPane.setViewportView(panel);
@@ -110,13 +117,16 @@ public class CardHand extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
-	if (action.equals("Play Card")) {
-			System.out.println("YOU JUST PLAYED " + cardToSend);
-			maxCards = false;
-			gui.sendCardToPlay(cardToSend); 
-			cardToSend = "";
-			gui.disableDrawCardButton();
-		}
+//	if (action.equals("Play Card")) {
+//			System.out.println("YOU JUST PLAYED " + cardToSend);
+//			gui.sendCardToPlay(cardToSend); 
+//			cardToSend = "";
+//			maxCards = false;
+//			gui.disableDrawCardButton();
+//		}
+	}
+	public void setName(String str){
+		curPlayerName.setText(str + " CLICK ON A CARD TO PLAY IT");
 	}
 
 }

@@ -58,12 +58,10 @@ public class PlayerCard extends JPanel{
 		}
 		playerStats.setPlayerTokens(Integer.parseInt(stats[1]));
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
-		if (stats[7].equals("true")) {
-			playerStats.setPlayerTurn(true);
-		} else {
-			playerStats.setPlayerTurn(false);	
-		}
-			playerStats.setWithdrawn(stats[6]);
+	
+		playerStats.setPlayerTurn(stats[7]);
+
+		playerStats.setWithdrawn(stats[6]);
 
 		add(playerStats);
 	}
