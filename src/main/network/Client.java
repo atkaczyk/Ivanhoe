@@ -155,11 +155,13 @@ public class Client {
    			gui.showPlayerHand(playerHand[1]);
    		}
    		//from server to gui
-   		else if(msg.contains("PLAYERACTIVE~")){
+   		else if(msg.contains("PLAYERSPECIFICINFO~")){
    			playerActive = true;
    			String[] result = msg.split("~");
+   			String[] playerInfo = result[1].split(",");
    			System.out.println("CLIENT: PLAYERACTIVE: "+result[1]);
-   			gui.setEnableMainScreen(result[1]);
+   			gui.setEnableMainScreen(playerInfo[0]);
+   			gui.setCurrentPlayerName(playerInfo[1]);
    		}
    		//from server to gui
    		else if(msg.contains("TOURNAMENTINFO~")){
@@ -167,6 +169,12 @@ public class Client {
    			String[] result = msg.split("~");
    			System.out.println("CLIENT: TOURNAMENTINFO: "+result);
    			gui.setTournamentInfo(result[1]);   			
+   		}
+   		//from server to gui
+   		else if(msg.contains("PLAYERSPECIFICINFO~")){
+   			String[] result = msg.split("~");
+   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
+   			
    		}
    		//from server to gui
    		else if(msg.contains("launchTournamentColour")){

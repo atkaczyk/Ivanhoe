@@ -448,7 +448,7 @@ public class Server implements Runnable {
 		
 		//update the player hand for the specific player
 		getPlayerHand(ID);
-		getPlayerActive(ID);
+		playerSpecificInfo(ID);
 		getTournamentInfo(ID);
 	}
 	
@@ -507,13 +507,13 @@ public class Server implements Runnable {
 		}
 	}
 	
-	public void getPlayerActive(int ID){	
+	public void playerSpecificInfo(int ID){	
 		for (int id: playerNumbers.keySet()){
 			int playerNumber = playerNumbers.get(id);
-			String playerActive = "PLAYERACTIVE~";
-			playerActive += (game.getCurrentPlayerNumber() == playerNumber);
-			System.out.println("SERVER: Update: player hand" + playerActive);
-			broadcastMessageToPlayer(playerActive, id, 1);	
+			String playerSI = "PLAYERSPECIFICINFO~";
+			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getCurrentPlayer().getName();
+			System.out.println("SERVER: Update: player hand" + playerSI);
+			broadcastMessageToPlayer(playerSI, id, 1);	
 		}
 	}
 	
