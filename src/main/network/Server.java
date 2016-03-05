@@ -231,6 +231,9 @@ public class Server implements Runnable {
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
 					if(result.equals("")){
+						//Ending turn
+						game.goToNextPlayer();
+						updateAll();
 					}
 					else{
 						broadcastToAllPlayers("tournamentWinner~"+result);
