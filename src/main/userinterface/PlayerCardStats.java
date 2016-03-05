@@ -15,7 +15,7 @@ public class PlayerCardStats extends JPanel{
 	 JLabel specialCard;
 	 JLabel turn;
 	 JButton changeDisplay;
-	 
+	 JLabel isWithdrawn;
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		 setLayout(null); 
 		 int top = 10;
@@ -41,8 +41,6 @@ public class PlayerCardStats extends JPanel{
 		 add(specialCard);  
 		 
 	     turn = new JLabel("< INACTIVE >");
-	
-		 
 		 turn.setLocation(0, top + 60);
 		 turn.setSize(100,30);
 		 turn.setForeground(Color.red);
@@ -55,6 +53,12 @@ public class PlayerCardStats extends JPanel{
 		 changeDisplay.setBackground(Color.blue);
 		 changeDisplay.setForeground(Color.yellow);
 		 add(changeDisplay);
+		 
+		  isWithdrawn = new JLabel("WITHDRAWN");
+		  isWithdrawn.setLocation(0, top + 90);
+		  isWithdrawn.setSize(100, 20);
+		  isWithdrawn.setEnabled(true);
+		 add(isWithdrawn);
 		 setSize(100, 100);	 
 	}
 
@@ -79,5 +83,17 @@ public class PlayerCardStats extends JPanel{
 	}
 	public void setSpecialCards(String str){
 		specialCard.setText("Special Cards: " + str);
+	}
+
+	public void setWithdrawn(String str) {
+
+		if (str.equals("true")){
+			  isWithdrawn.setForeground(Color.red);
+			isWithdrawn.setText("WITHDRAWN");
+		} else {
+			  isWithdrawn.setForeground(Color.black);
+			isWithdrawn.setText("IN PLAY");
+		}
+		
 	}
 }

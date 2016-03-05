@@ -96,7 +96,6 @@ public class GamePlayWindow extends JFrame{
 		}
 		else if (i ==4){
 			playerCard4.setPlayerStats(playerInfo);
-
 		}
 	}
 
@@ -119,7 +118,6 @@ public class GamePlayWindow extends JFrame{
 
 	public void updateCardHand(String cardsInHand){
 		hand.showCardsInHand(cardsInHand);
-
 	}
 
 	public void setTournamentColour(String s) {
@@ -134,9 +132,19 @@ public class GamePlayWindow extends JFrame{
 		} else if(s.equals("4")){
 			tColour = Color.BLUE;
 		}
-		
-		//System.out.println("I TRIED TO SET THE TOURNAMENT COLOUR TO: >>" + tColour );
 		tournamentColour.setForeground(tColour);
+	}
+
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+
+	public void setDrawCardButton(boolean b) {
+		System.out.println("YOU MADE IT TO THE GAME PLAY WINDOW");
+		buttonPanel.setDrawCardButton(b);
+
+		System.out.println("THERE WAS SOMETHING CALLED ON BUTTON!");
+		
 	}
 
 }

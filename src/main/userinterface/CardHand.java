@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -89,8 +88,7 @@ public class CardHand extends JPanel implements ActionListener {
 						System.out.println("Play these cards: " + cardToSend);
 					} else {
 						if(((JButton) e.getSource()).getName().equals(cardToSend)) { //.getBackground() == Color.BLACK) {
-						//	System.out.println("WHY AM I NOT HERE?? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
-							
+						//	System.out.println("WHY AM I NOT HERE?? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);		
 							((JButton) e.getSource()).setBorderPainted(false);
 							System.out.println("HELOOO I SHOULD BE ENABLED");
 							maxCards = false;
@@ -99,37 +97,26 @@ public class CardHand extends JPanel implements ActionListener {
 							//System.out.println("Play these cards: " + cardToSend);
 						} else {
 							//System.out.println("THEY DON'T MATCH? CARD SELECTED!!!!! MAX CARDS = TRUE: " + ((JButton) e.getSource()).getName() + "Where cards to send is " + cardToSend);
-							
 							System.out.println("Play this card before selecting another");
 							//JOptionPane.showMessageDialog(, "Play this card before selecting another");
 						}
 					}
 					;}}); 
-
 			panel.add(cards[i]);
 			panel.setSize(cards[i].getWidth(), cards[i].getHeight()*3);
 			scrollPane.setViewportView(panel);
 		}
-		//scrollPane.setViewportView(panel);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
-		if (action.equals("Done Drawing Cards")) {
-			System.out.println("Done Drawing Cards");
-		}
-		else if (action.equals("Play Card")) {
+	if (action.equals("Play Card")) {
 			System.out.println("YOU JUST PLAYED " + cardToSend);
 			maxCards = false;
 			gui.sendCardToPlay(cardToSend); 
-			//	gui.disablePlayButtons("Draw a Card");
 			cardToSend = "";
+			gui.disableDrawCardButton();
 		}
-		else if (action.equals("Name")) {
-			System.out.println("Name");
-
-		}
-
 	}
 
 }
