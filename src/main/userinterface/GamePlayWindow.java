@@ -119,7 +119,9 @@ public class GamePlayWindow extends JFrame{
 	public void updateCardHand(String cardsInHand){
 		hand.showCardsInHand(cardsInHand);
 	}
-
+public void setCurrentPlayerName(String str){
+	hand.setName(str);
+}
 	public void setTournamentColour(String s) {
 		if(s.equals("0")){
 			tColour = Color.MAGENTA;
@@ -133,10 +135,6 @@ public class GamePlayWindow extends JFrame{
 			tColour = Color.BLUE;
 		}
 		tournamentColour.setForeground(tColour);
-	}
-
-	public JPanel getButtonPanel() {
-		return buttonPanel;
 	}
 
 	public void setDrawCardButton(boolean b) {

@@ -46,11 +46,10 @@ public class GUIController {
 		} 
 		client.handle("TournamentColourRequest:" + s);
 	}
-
 	public void setTournamentInfo(String s) {
-	String[] player = s.split(","); //colour comma number
+		String[] player = s.split(","); //colour comma number
 		gamePlayWindow.setTournamentColour(player[0]);
-	
+
 	}
 	public void setTournamentColour(String s){ 
 		gamePlayWindow.setTournamentColour(s);
@@ -65,30 +64,18 @@ public class GUIController {
 		for (int i = 0; i < player.length; i++){	
 			String [] playerInfo = player[i].split("#");
 
-			//String turnCheck = playerInfo[0].split(",")[7];
-
-			//			//WHAT PART OF THE STRING GIVES ME THE CURRENT PLAYER???  THAT IS THE ONLY PLAYER THAT I CHECK
-			//			System.out.println("THE TURRRRRRRRRRRRRRRN IS BEING CHECKED!!!!!" +turnCheck);
-			//			if(turnCheck.equals("false")){
-			//				gamePlayWindow.setEnabled(false);
-			//				System.out.println("THIS PLAYERS SCREEN SHOULD BE DISABLED.. IT'S NOT HIS TURN!");
-			//			} else if (turnCheck.equals("true")){ 
-			//				System.out.println("THIS PLAYERS TURN... ENABLED!");
-			//				gamePlayWindow.setEnabled(true);
-			//			}
-
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
 			if(playerInfo.length == 1){}
 			else {
 				gamePlayWindow.setPlayerCardDisplay(i, playerInfo[1]);
 			}
-
-
 		}
 	}
+	public void setCurrentPlayerName(String str){
+		gamePlayWindow.setCurrentPlayerName(str);
+	}
 	public void showPlayerHand(String hand){
-		//	System.out.println("RECIEVING THE CARD HAND >> " + hand);
-		gamePlayWindow.hand.showCardsInHand(hand); //updateCardHand(hand);
+		gamePlayWindow.hand.showCardsInHand(hand); 
 	}
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
@@ -111,17 +98,13 @@ public class GUIController {
 	public void displayTournamentWinner(String s) {
 		String[] player = s.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + Config.ALL_TOKEN_COLOURS[Integer.parseInt(player[2])] + " TOURNAMENT #" + player[1]);
-		
 		client.handle("finalWinnerCheck");	
 	}
 	public void setEnableMainScreen(String str){
-		System.out.println("THIS IS THE STRING FROM ENABLE MAIN SCREEN >>>" + str);
 		if(str.equals("true")){
 			gamePlayWindow.setEnabled(true);
-			
 		}else if(str.equals("false")){
 			gamePlayWindow.setEnabled(false);
-			System.out.println("its NOT THIS PLAYERS TURN");
 		}
 	}
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
@@ -138,7 +121,7 @@ public class GUIController {
 
 	}
 	public void disableDrawCardButton() {
-		gamePlayWindow.setDrawCardButton(false);
-			System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
+		//gamePlayWindow.setDrawCardButton(false); WHY THE NULL POINTER EXCEPTION?
+		System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
 	}
 }
