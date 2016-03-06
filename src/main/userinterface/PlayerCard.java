@@ -52,9 +52,6 @@ public class PlayerCard extends JPanel{
 		//		System.out.println("IN THE PLAYER CARD -> SETTING THE PLAYER STATS:     >> " + playerInfo);
 		String[] stats = playerInfo.split(",");
 		playerStats.setPlayerName(stats[0]);
-		if(stats[1].equals("")){
-			stats[1] = "0";
-		}
 		playerStats.setPlayerTokens(stats[1]);
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
 	

@@ -287,6 +287,7 @@ public class Server implements Runnable {
 					else{
 						broadcastToAllPlayers("gameWinner~"+result);
 					}
+					updateAll();
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");

@@ -98,9 +98,8 @@ public class GUIController {
 		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + Config.TOKEN_COLOUR_NAMES[Integer.parseInt(player[2])] + " TOURNAMENT #" + player[1]);
 		client.handle("finalWinnerCheck");	
 	}
-	public void displayFinalWinner(String s) {
-		String[] player = s.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
+	public void displayFinalWinner(String name) {
+		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + name + " THEY WON THE ENTIRE GAME!!!");
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
