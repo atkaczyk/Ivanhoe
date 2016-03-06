@@ -944,10 +944,12 @@ public class TestGame {
 
 	@Test
 	public void playerUnableToStartTournament() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED); // jack
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(new ActionCard("Charge"));
 
-		game.startGame();
+		game.goToNextPlayer();
 		
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
