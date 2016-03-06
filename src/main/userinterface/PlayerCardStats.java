@@ -27,25 +27,25 @@ public class PlayerCardStats extends JPanel{
 		 playerName.setSize(100,30);
 		 add(playerName);
 		 
-		 numTokens = new JLabel("# Tokens: " + numToken1);
+		 numTokens = new JLabel(""); //"# Tokens: " + numToken1);
 		 numTokens.setLocation(0, top + 15);
 		 numTokens.setSize(100,30);
 		 numTokens.setFont(new Font("Century", Font.PLAIN, 14));
 		 add(numTokens);
 		 
-		 score = new JLabel("Score:");
+		 score = new JLabel(""); //Score:");
 		 score.setLocation(0, top + 30);
 		 score.setSize(100,30);
 		 score.setFont(new Font("Century", Font.PLAIN, 14));
 		 add(score);
 		 
-		 specialCard = new JLabel("Special Card " + score1 );
+		 specialCard = new JLabel(""); //("Special Card " + score1 );
 		 specialCard.setLocation(0, top + 45);
 		 specialCard.setFont(new Font("Century", Font.PLAIN, 14));
 		 specialCard.setSize(100,30);
 		 add(specialCard);  
 		 
-	     turn = new JLabel("< Inactive >");
+	     turn = new JLabel(""); //("< Inactive >");
 		 turn.setLocation(0, top + 60);
 		 turn.setSize(100,30);
 		 turn.setFont(new Font("Century", Font.PLAIN, 14));
