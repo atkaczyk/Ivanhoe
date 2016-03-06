@@ -163,9 +163,9 @@ public class GamePlayWindow extends JFrame{
 			} else if(s.equals("2")){
 				tColour = new Color(160, 145, 112);
 			} else if(s.equals("3")){
+				tColour = new Color(143, 184, 142);
+			} else if(s.equals("4")){ //, 62, 149);
 				tColour =new Color(85, 110, 188);
-			} else if(s.equals("4")){
-				tColour = new Color(68, 62, 149);
 			} 
 			tournamentColour.setText(Config.TOKEN_COLOUR_NAMES[Integer.parseInt(s)]);	
 		}
