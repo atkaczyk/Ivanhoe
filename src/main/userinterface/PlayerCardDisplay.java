@@ -27,7 +27,7 @@ public class PlayerCardDisplay extends JPanel {
 
 		this.add(lp);
 
-		setSize(300, 140); 
+		setSize(300, 125); 
 	}
 
 	public void add(JButton card,String str){
@@ -35,13 +35,13 @@ public class PlayerCardDisplay extends JPanel {
 		//	System.out.print
 		ImageIcon icon =new ImageIcon(this.getClass().getResource("Cards/"+str));
 		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance(80, 130,  java.awt.Image.SCALE_SMOOTH ) ; 
+		Image newimg = img.getScaledInstance(80, 125,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		card.setIcon(icon);
 		card.setContentAreaFilled(false);
 		card.setBorderPainted(false);
 		card.setOpaque(false);
-		card.setSize(80, 130);
+		card.setSize(80, 125);
 		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());
 		lp.add(card,  new Integer(numCardsInDisplay));
 

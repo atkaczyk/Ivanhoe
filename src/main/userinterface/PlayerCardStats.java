@@ -66,16 +66,25 @@ public class PlayerCardStats extends JPanel{
 		playerName.setText(playerName2);
 	}
 
-	public void setPlayerTokens(String str) {
+	public void setPlayerTokens(String s) {
 // TURN STR which is 012 into its proper colour..
 		String temp = "";
-		if (str.contains("0")){
-			temp += "p";
-		}else if (str.contains("1")){
-			temp += "y";
-		}else if (str.contains("2")){
-			temp += "z";
-		}
+		if(s.contains("0")){
+			temp += "P ";
+			//numTokens.setForeground(Color.MAGENTA);
+		} else if(s.contains("1")){
+			temp += "R ";
+			//tColour = Color.RED;
+		} else if(s.contains("2")){
+			temp += "Y ";
+			//tColour = Color.YELLOW;
+		} else if(s.contains("3")){
+			temp += "G ";
+			//tColour = Color.GREEN;
+		} else if(s.contains("4")){
+			temp += "B ";
+			//tColour = Color.BLUE;
+		} 
 		numTokens.setText("TOKENS: " +temp);	
 	}
 
@@ -85,9 +94,9 @@ public class PlayerCardStats extends JPanel{
 
 	public void setPlayerTurn(String turn2) {
 		if(turn2.equals("true")){
-			turn.setText(" < THIS PLAYERS TURN >");	
+			turn.setText(" < TURN >");	
 		} else if (turn2.equals("false")){
-			turn.setText(" ");	
+			turn.setText(" < WAITING > ");	
 		}
 	}
 	public void setSpecialCards(String str){

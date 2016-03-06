@@ -12,7 +12,8 @@ public class Config {
 	public static final int WHITE = 5;
 	
 	public static final int[] ALL_TOKEN_COLOURS = {PURPLE, RED, YELLOW, GREEN, BLUE};
-
+	public static final String [] TOKEN_COLOUR_NAMES = {"Purple", "Red", "Yellow", "Green", "Blue"};
+	
 	public static final int MAX_CLIENTS = 5;
 	public static final int DEFAULT_PORT = 5050;
 	public static final String DEFAULT_HOST = "127.0.0.1";
