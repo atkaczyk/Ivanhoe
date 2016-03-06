@@ -9,12 +9,7 @@ import utils.Trace;
 
 public class Client {
 	
-	//private GUIController gui = new GUIController();
 	private userinterface.GUIController gui;
-	
-	//Okay so here's what you gotta do. Add a parameter to the current client constructor so it will now take (string ip, int port, Gui controller view)
-	//Then in your constructor instead of creating a new Gui controller, you just say: gui = view
-	//And then what I do in my constructor when I call it is I create a new client. So it only happens once. My it will be client = new Client("127.0.0.1", 5050, this)
 	
 	private int ID = 0;
 	private Socket socket            = null;
@@ -24,7 +19,7 @@ public class Client {
 	private BufferedReader streamIn  = null;
 	private BufferedWriter streamOut = null;
 	
-	private Boolean connected		 = false;
+	private Boolean connected = false;
 	private Boolean gameScreenLaunched = false;
 	private Boolean updateAllPlayersInfo = false;
 	private Boolean updateShowPlayerHand = false;
@@ -36,6 +31,11 @@ public class Client {
 	private Boolean finalWinner = false;
 	private Boolean playerActive = false;
 	private Boolean tournamentInfo = false;
+	private Boolean tokenRequest = false;
+	private Boolean updateGameInfo = false;
+	private Boolean tournamentColourRequest = false;
+	private Boolean purpleTokenWin = false;
+	private Boolean endTurn = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -54,15 +54,8 @@ public class Client {
 			Trace.getInstance().exception(this,ioe);
 	   }
 		
-//		gui = new GUIController(this);
-		
 	}
 	
-	
-	//public Client(GUIController gui){
-	//	this.gui = gui;
-	//}
-
 
 	public int getID () {
 		return this.ID;
@@ -120,6 +113,7 @@ public class Client {
    		}
    		//from gui
    		else if (msg.contains("tokenRequest")){
+   			tokenRequest = true;
    			sendMessageToServer("drawToken");
    		}
    		//from server   		
@@ -139,6 +133,7 @@ public class Client {
    		}
    		//from gui
    		else if (msg.contains("updateGameInformation")){
+   			updateGameInfo = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
@@ -174,6 +169,7 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("TournamentColourRequest")){
+   			tournamentColourRequest = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
@@ -197,6 +193,7 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
+   			endTurn = true;
    			sendMessageToServer(msg);
    		}
    		//from gui to server
@@ -211,6 +208,7 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("PurpleWinTokenColourChoice~")){
+   			purpleTokenWin = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
@@ -312,5 +310,20 @@ public class Client {
 	}
 	public Object getTournamentInfo(){
 		return tournamentInfo;
+	}
+	public Object getTokenRequest(){
+		return tokenRequest;
+	}
+	public Object getUpdateGameInfo(){
+		return updateGameInfo;
+	}
+	public Object getTournamentColourRequest(){
+		return tournamentColourRequest;
+	}
+	public Object getPurpleTokenRequest(){
+		return purpleTokenWin;
+	}
+	public Object getEndTurn(){
+		return endTurn;
 	}
 }
