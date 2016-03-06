@@ -63,7 +63,7 @@ public class GamePlayWindow extends JFrame{
 		GameStats.add(tournamentColour);
 		GameStats.add(tournamentNumber);
 
-		GameStats.setBackground(Color.getHSBColor(24, 240, 196));
+		GameStats.setBackground(new Color(242, 202, 150));
 		upperPanel.add(GameStats);
 
 		playerCard0 = new PlayerCard("INACTIVE");
@@ -80,6 +80,8 @@ public class GamePlayWindow extends JFrame{
 
 		playerCard4 = new PlayerCard("INACTIVE");
 		upperPanel.add(playerCard4);
+
+		upperPanel.setBackground(new Color(242, 202, 150));
 		add(upperPanel);
 
 		JPanel lowerPanel = new JPanel();
@@ -91,8 +93,8 @@ public class GamePlayWindow extends JFrame{
 		lowerPanel.add(buttonPanel);
 		lowerPanel.setBackground(new Color(242, 202, 150));
 		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
-		System.out.println(lowerPanel.getHeight() + ", " + lowerPanel.getWidth());
-		System.out.println(hand.getHeight() + ", " + hand.getWidth()+buttonPanel.getWidth());
+	//	System.out.println(lowerPanel.getHeight() + ", " + lowerPanel.getWidth());
+	//	System.out.println(hand.getHeight() + ", " + hand.getWidth()+buttonPanel.getWidth());
 		add(lowerPanel);
 
 		// Set program to stop when window closed
