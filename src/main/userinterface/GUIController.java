@@ -101,6 +101,9 @@ public class GUIController {
 	}
 	public void displayFinalWinner(String name) {
 		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + name + " THEY WON THE ENTIRE GAME!!!");
+		gamePlayWindow.setVisible(false);
+		gamePlayWindow.dispose();
+		client.handle("quit!");
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){

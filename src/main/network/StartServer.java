@@ -31,8 +31,6 @@ public class StartServer {
 		server = new Server(Config.DEFAULT_PORT);
 		started = Boolean.TRUE;
 
-		System.out.println("Type the number of players participating in the game.");
-
 		String[] choices = { "2", "3", "4", "5" };
 	    String numPlayers = "";
 	    numPlayers = (String) JOptionPane.showInputDialog(null, "How many players will be in the game?",
@@ -52,7 +50,6 @@ public class StartServer {
 			}
 
 			else if (!numPlayers.equals("")) {
-				System.out.println(numPlayers);
 				int numOfPlayers = Integer.parseInt(input);
 				server.displayGameStart(numOfPlayers);
 				server.getGame().setNumPlayers(numOfPlayers);

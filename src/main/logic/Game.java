@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import utils.Config;
-import utils.PrintHelper;
 
 public class Game {
 	private int numOfPlayers;
@@ -92,8 +91,21 @@ public class Game {
 		}
 
 		// Figure out which player is first
-		goToNextPlayer();
+		do {
+			goToNextPlayer();
+		} while (!playerCanStart(currentPlayer));
+		
 		startTournament();
+	}
+	
+	public boolean playerCanStart(Player p) {
+		for (Card c: p.getHandCards()) {
+			if (c instanceof SimpleCard) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	// Change the current player to be the next player
@@ -376,20 +388,6 @@ public class Game {
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			}
-
-			// System.out.println("\n\nBEFORE:");
-			// System.out.println("DISPLAY: "
-			// + players[playerNum].getDisplayAsString());
-			// System.out.println("HAND: " +
-			// players[playerNum].getHandAsString());
-			//
-			// System.out.println("AFTER:");
-			// System.out.println("DISPLAY: "
-			// + players[playerNum].getDisplayAsString());
-			// System.out.println("HAND: " +
-			// players[playerNum].getHandAsString());
-			System.out.println(discardPile);
-
 		}
 
 		return "false:This action card has not been implemented yet!";
@@ -440,12 +438,18 @@ public class Game {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
 				currentPlayer = players[i];
+				
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
-			return winningPlayer + "," + tournamentNumber + ","
+			while (!playerCanStart(currentPlayer)) {
+				goToNextPlayer();
+			}
+			
+			startTournament();
+			return winningPlayer + "," + (tournamentNumber-1) + ","
 					+ tournamentColour;
 		}
 
