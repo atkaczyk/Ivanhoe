@@ -177,29 +177,29 @@ public class GamePlayWindow extends JFrame{
 		System.out.println("THERE WAS SOMETHING CALLED ON BUTTON!");
 
 	}
-
-	public void setPlayerScreenEnabled(boolean b) {
-		//	panel.setEnabled(isEnabled);
-		java.awt.Component[] components = buttonPanel.getComponents();
-		java.awt.Component[] handComponents = hand.getComponents();
-		java.awt.Component[] handPanel = null;
-		java.awt.Component[] cards = null;
-		
-		for(int i = 0; i < components.length; i++) {
-			components[i].setEnabled(b);
-		}
-//		for(int i = 0; i < handComponents.length; i++) {
-//			System.out.println(handComponents[i].getName() + " IS AT POSITION " + i);
-//			//if(handComponents[i] instanceof JScrollPane)
-//			handPanel = ((JScrollPane) handComponents[0]).getComponents(); //setEnabled(b);
-//			cards = ((java.awt.Container) handPanel[0]).getComponents();
-//
-//			System.out.println(" THIS MANY CARDS IT MUST BE SCROLL PANE " + cards.length);
-//			for(int j = 0; j< cards.length; j ++){
-//				cards[j].setEnabled(false);
-//			}
-		}
-	}
+}
+//	public void setPlayerScreenEnabled(boolean b) {
+//		//	panel.setEnabled(isEnabled);
+//		java.awt.Component[] components = buttonPanel.getComponents();
+//		java.awt.Component[] handComponents = hand.getComponents();
+//		java.awt.Component[] handPanel = null;
+//		java.awt.Component[] cards = null;
+//		
+//		for(int i = 0; i < components.length; i++) {
+//			components[i].setEnabled(b);
+//		}
+////		for(int i = 0; i < handComponents.length; i++) {
+////			System.out.println(handComponents[i].getName() + " IS AT POSITION " + i);
+////			//if(handComponents[i] instanceof JScrollPane)
+////			handPanel = ((JScrollPane) handComponents[0]).getComponents(); //setEnabled(b);
+////			cards = ((java.awt.Container) handPanel[0]).getComponents();
+////
+////			System.out.println(" THIS MANY CARDS IT MUST BE SCROLL PANE " + cards.length);
+////			for(int j = 0; j< cards.length; j ++){
+////				cards[j].setEnabled(false);
+////			}
+//		}
+//	}
 
 
 

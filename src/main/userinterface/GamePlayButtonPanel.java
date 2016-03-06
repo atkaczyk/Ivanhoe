@@ -60,7 +60,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		}
 		else if (action.equals("Draw a Card")) {
 			gui.requestToDrawCard();
-			setDrawCardButton(false);//this should add a card to the hand.
+		//	setDrawCardButton(false);//this should add a card to the hand.
 			//GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
 		}
 		else if (action.equals("Announce End of Turn")) {
@@ -69,8 +69,8 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	}
 
 	public void setDrawCardButton(boolean b) {
-		drawCardButton.setEnabled(b);
-		System.out.println("THE DRAW CARD BUTTON SHOULD BE >>" + b);
+		//drawCardButton.setEnabled(b);
+		//System.out.println("THE DRAW CARD BUTTON SHOULD BE >>" + b);
 
 	}
 
