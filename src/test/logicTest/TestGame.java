@@ -956,6 +956,30 @@ public class TestGame {
 
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
+	
+	@Test
+	public void drawPileRefillsWhenEmpty() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		
+		game.getDrawPile().clearCards();
+		
+		// Add cards to the draw pile
+		game.getDrawPile().addCard(new SupporterCard("", 0));
+		game.getDrawPile().addCard(new SupporterCard("", 0));
+		
+		// Empty the draw pile
+		// Draw pile should refill with the cards from the discard pile
+		game.drawCard(0);
+		game.drawCard(0);
+		
+		assertEquals(4, game.getDrawPile().getNumCards());
+	}
 
 	@After
 	public void tearDown() {
