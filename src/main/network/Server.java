@@ -284,8 +284,8 @@ public class Server implements Runnable {
 					String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
 					if(result.equals("")){
 						// If there is no winner yet, start a new tournament
-						game.startTournament();
-						updateAll();
+						//updateAll();
+						handle(ID, "updateGameInformation");
 					}
 					else{
 						broadcastToAllPlayers("gameWinner~"+result);
