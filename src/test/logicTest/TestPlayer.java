@@ -5,6 +5,7 @@ import logic.ActionCard;
 import logic.Card;
 import logic.ColourCard;
 import logic.Player;
+import logic.SimpleCard;
 import logic.SupporterCard;
 
 import org.junit.After;
@@ -20,6 +21,8 @@ public class TestPlayer {
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	private static final Card GREEN_CARD = new ColourCard("Green (No Weapon) 1", 1, Config.GREEN);
 	private static final Card BLUE_CARD = new ColourCard("Blue (Axe) 2", 2, Config.BLUE);
+	private static final Card YELLOW_CARD = new ColourCard("Yellow", 2, Config.YELLOW);
+	private static final Card RED_CARD = new ColourCard("Red", 2, Config.RED);
 	
 	Player player;
 	
@@ -201,6 +204,53 @@ public class TestPlayer {
 		player.addToken(Config.GREEN);
 		
 		assertEquals(false, player.isWinnerOfGame(5));
+	}
+	
+	@Test
+	public void addBlueCardToYellowTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.YELLOW);
+		
+		assertEquals(0, player.getDisplayTotal(Config.YELLOW));
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addYellowCardToYellowTournament() {
+		player.addCardToDisplay(YELLOW_CARD, Config.YELLOW);
+		
+		assertEquals(((SimpleCard) YELLOW_CARD).getNumber(), player.getDisplayTotal(Config.YELLOW));
+		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addBlueCardToRedTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.RED);
+		
+		assertEquals(0, player.getDisplayTotal(Config.RED));
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addRedCardToRedTournament() {
+		player.addCardToDisplay(RED_CARD, Config.RED);
+		
+		assertEquals(((SimpleCard) RED_CARD).getNumber(), player.getDisplayTotal(Config.RED));
+		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	public void addRedCardToBlueTournament() {
+		player.addCardToDisplay(RED_CARD, Config.BLUE);
+		
+		assertEquals(0, player.getDisplayTotal(Config.BLUE));
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addBlueCardToBlueTournament() {
+		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
+		
+		assertEquals(((SimpleCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
+		assertEquals(1, player.getDisplayCards().size());
 	}
 	
 	@After
