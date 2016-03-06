@@ -111,16 +111,16 @@ public class TestClient {
 //		assertEquals(true, clientOne.getUpdateShowPlayerHand());
 //	}
 	
-	@Test
-	public void getPlayerActive(){
-		clientOne.handle("PLAYERSPECIFICINFO~");
-		assertEquals(true, clientOne.getPlayerActive());
-	}
-	@Test
-	public void testSendingTournamentInfo(){
-		clientOne.handle("TOURNAMENTINFO~");
-		assertEquals(true, clientOne.getTournamentInfo());
-	}
+//	@Test
+//	public void getPlayerActive(){
+//		clientOne.handle("PLAYERSPECIFICINFO~");
+//		assertEquals(true, clientOne.getPlayerActive());
+//	}
+//	@Test
+//	public void testSendingTournamentInfo(){
+//		clientOne.handle("TOURNAMENTINFO~");
+//		assertEquals(true, clientOne.getTournamentInfo());
+//	}
 	
 	@Test
 	public void playerPlaysCardFromGui(){
@@ -141,11 +141,11 @@ public class TestClient {
 		assertEquals(true, clientOne.getWithdraw());
 	}
 	
-	@Test
-	public void winnerFound(){
-		clientTwo.handle("tournamentWinner~");
-		assertEquals(true, clientTwo.getWinner());
-	}
+//	@Test
+//	public void winnerFound(){
+//		clientTwo.handle("tournamentWinner~");
+//		assertEquals(true, clientTwo.getWinner());
+//	}
 	@Test
 	public void finalWinnerCheckTest(){
 		clientOne.handle("finalWinnerCheck");
