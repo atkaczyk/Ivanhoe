@@ -143,7 +143,7 @@ public class TestClient {
 	
 	@Test
 	public void winnerFound(){
-		clientTwo.handle("winner");
+		clientTwo.handle("tournamentWinner~");
 		assertEquals(true, clientTwo.getWinner());
 	}
 	@Test
