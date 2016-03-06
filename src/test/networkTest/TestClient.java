@@ -129,6 +129,12 @@ public class TestClient {
 		assertEquals(true, clientOne.getWithdraw());
 	}
 	
+	@Test
+	public void getPurpleTokenRequest(){
+		clientOne.handle("PurpleWinTokenColourChoice~");
+		assertEquals(true, clientOne.getPurpleTokenRequest());
+	}
+	
 //	@Test
 //	public void winnerFound(){
 //		clientTwo.handle("tournamentWinner~");

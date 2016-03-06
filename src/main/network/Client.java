@@ -34,6 +34,7 @@ public class Client {
 	private Boolean tokenRequest = false;
 	private Boolean updateGameInfo = false;
 	private Boolean tournamentColourRequest = false;
+	private Boolean purpleTokenWin = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -342,5 +343,8 @@ public class Client {
 	}
 	public Object getTournamentColourRequest(){
 		return tournamentColourRequest;
+	}
+	public Object getPurpleTokenRequest(){
+		return purpleTokenWin;
 	}
 }
