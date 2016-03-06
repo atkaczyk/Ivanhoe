@@ -720,8 +720,11 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
+		game.startGame();
+		
 		game.addTokenToPlayer(0, Config.BLUE);
 		assertEquals(true, game.getPlayer(0).getTokens().contains(Config.BLUE));
+		assertEquals(24, game.getTokenPool().size());
 	}
 	
 	@Test
@@ -730,9 +733,27 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		
+		game.startGame();
+		
 		game.addTokenToPlayer(0, Config.BLUE);
 		game.addTokenToPlayer(0, Config.BLUE);
 		assertEquals(1, game.getPlayer(0).getTokens().size());
+		assertEquals(24, game.getTokenPool().size());
+	}
+	
+	@Test
+	public void addThreeTokensToPlayer() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.startGame();
+		
+		game.addTokenToPlayer(0, Config.BLUE);
+		game.addTokenToPlayer(0, Config.YELLOW);
+		game.addTokenToPlayer(0, Config.GREEN);
+		assertEquals(3, game.getPlayer(0).getTokens().size());
+		assertEquals(22, game.getTokenPool().size());
 	}
 
 	@After
