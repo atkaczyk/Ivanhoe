@@ -113,7 +113,7 @@ public class TestClient {
 	
 	@Test
 	public void getPlayerActive(){
-		clientOne.handle("PLAYERACTIVE~");
+		clientOne.handle("PLAYERSPECIFICINFO~");
 		assertEquals(true, clientOne.getPlayerActive());
 	}
 	@Test

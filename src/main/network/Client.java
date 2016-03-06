@@ -159,7 +159,7 @@ public class Client {
    			playerActive = true;
    			String[] result = msg.split("~");
    			String[] playerInfo = result[1].split(",");
-   			System.out.println("CLIENT: PLAYERACTIVE: "+result[1]);
+   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
    			gui.setEnableMainScreen(playerInfo[0]);
    			gui.setCurrentPlayerName(playerInfo[1]);
    		}
@@ -167,15 +167,15 @@ public class Client {
    		else if(msg.contains("TOURNAMENTINFO~")){
    			tournamentInfo = true;
    			String[] result = msg.split("~");
-   			System.out.println("CLIENT: TOURNAMENTINFO: "+result);
+   			System.out.println("CLIENT: TOURNAMENTINFO: "+result[1]);
    			gui.setTournamentInfo(result[1]);   			
    		}
    		//from server to gui
-   		else if(msg.contains("PLAYERSPECIFICINFO~")){
-   			String[] result = msg.split("~");
-   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
-   			
-   		}
+//   		else if(msg.contains("PLAYERSPECIFICINFO~")){
+//   			String[] result = msg.split("~");
+//   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
+//   			
+//   		}
    		//from server to gui
    		else if(msg.contains("launchTournamentColour")){
    			System.out.println("CLIENT: launchTournamentColour");
@@ -220,6 +220,17 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
+   		else if(msg.contains("PurpleWinTokenChoice~")){
+   			String[] choices = msg.split("~");
+   			System.out.println("CLIENT: PurpleWinTokenChoice~: "+choices[1]);
+   			gui.launchPurpleWinTokenChoice(choices[1]);
+   		}
+   		//from gui to server
+   		else if(msg.contains("PurpleWinTokenColourChoice~")){
+   			System.out.println("CLIENT: PurpleWinTokenColourChoice~");
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
    		else if(msg.contains("tournamentWinner~")){
    			winner = true;
    			String[] winningT = msg.split("~");
@@ -228,7 +239,7 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("finalWinnerCheck")){
-   			System.out.println("CLIENT: finalWInnerCheck");
+   			System.out.println("CLIENT: finalWinnerCheck");
    			finalWinner = true;
    			sendMessageToServer(msg);
    		}
