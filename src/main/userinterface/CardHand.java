@@ -51,8 +51,8 @@ panel.setBackground(new Color(137, 78, 72));
 //		playCards.addActionListener(this);
 //		this.add(playCards);
 		
-		curPlayerName = new JLabel("CurPlayerName");
-		this.add(curPlayerName);
+//		curPlayerName = new JLabel("CurPlayerName");
+//		this.add(curPlayerName);
 
 		//		donePlayingCards = new JButton("Done Drawing Cards");
 		//		donePlayingCards.addActionListener(this);
@@ -121,6 +121,9 @@ panel.setBackground(new Color(137, 78, 72));
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
+	}
+	
+}
 //	if (action.equals("Play Card")) {
 //			System.out.println("YOU JUST PLAYED " + cardToSend);
 //			gui.sendCardToPlay(cardToSend); 
@@ -128,9 +131,7 @@ panel.setBackground(new Color(137, 78, 72));
 //			maxCards = false;
 //			gui.disableDrawCardButton();
 //		}
-	}
-	public void setName(String str){
-		curPlayerName.setText(str + " CLICK ON A CARD TO PLAY IT");
-	}
+//	public void setName(String str){
+//		curPlayerName.setText(str + " CLICK ON A CARD TO PLAY IT");
+//	}
 
-}

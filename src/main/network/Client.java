@@ -154,7 +154,6 @@ public class Client {
    			playerActive = true;
    			String[] result = msg.split("~");
    			String[] playerInfo = result[1].split(",");
-   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
    			gui.setEnableMainScreen(playerInfo[0]);
    			gui.setCurrentPlayerName(playerInfo[1]);
    		}
@@ -162,35 +161,24 @@ public class Client {
    		else if(msg.contains("TOURNAMENTINFO~")){
    			tournamentInfo = true;
    			String[] result = msg.split("~");
-   			System.out.println("CLIENT: TOURNAMENTINFO: "+result[1]);
    			gui.setTournamentInfo(result[1]);   			
    		}
    		//from server to gui
-//   		else if(msg.contains("PLAYERSPECIFICINFO~")){
-//   			String[] result = msg.split("~");
-//   			System.out.println("CLIENT: PLAYERSPECIFICINFO: "+result[1]);
-//   			
-//   		}
-   		//from server to gui
    		else if(msg.contains("launchTournamentColour")){
-   			System.out.println("CLIENT: launchTournamentColour");
    			gui.launchTournamentColour();
    		}
    		//from gui to server
    		else if(msg.contains("TournamentColourRequest")){
-   			System.out.println("CLIENT: TournamentColourRequest");
    			tournamentColourRequest = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("setTournamentColour~")){
-   			System.out.println("CLIENT: setTournamentColour~");
    			String[] colour = msg.split("~");
    			gui.setTournamentColour(colour[1]);;
    		}
    		//from gui to server
    		else if(msg.contains("requestToDrawCard")){
-   			System.out.println("I NEED TO DRAW CARD");
    			//sends me card to send to game...the file name
    			cardPlayed(msg);
    		}
@@ -201,52 +189,43 @@ public class Client {
    		//from server to gui
    		else if(msg.contains("actionCardPlayedMessage")){
    			String messageToDisplay = msg.split("~")[1];
-   			System.out.println("CLIENT: actionCardPlayedMessage: "+messageToDisplay);
    			gui.actionCardPlayedMessage(messageToDisplay);
    		}
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
-   			System.out.println("CLIENT: requestToEndTurn");
    			endTurn = true;
    			sendMessageToServer(msg);
    		}
    		//from gui to server
    		else if(msg.contains("requestToWithdraw")){
-   			System.out.println("CLIENT: requestToWithdraw");
    			withdraw = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("PurpleWinTokenChoice~")){
    			String[] choices = msg.split("~");
-   			System.out.println("CLIENT: PurpleWinTokenChoice~: "+choices[1]);
    			gui.launchPurpleWinTokenChoice(choices[1]);
    		}
    		//from gui to server
    		else if(msg.contains("PurpleWinTokenColourChoice~")){
-   			System.out.println("CLIENT: PurpleWinTokenColourChoice~"+msg);
    			purpleTokenWin = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("tournamentWinner~")){
-   			System.out.println("\n\nI RECEIVED:"+msg);
    			winner = true;
    			String[] winningT = msg.split("~");
-   			System.out.println("CLIENT: winner: "+winningT[1]);
    			gui.displayTournamentWinner(winningT[1]);
    		}
    		//from gui to server
    		else if(msg.contains("finalWinnerCheck")){
    			winner = true;
-   			System.out.println("CLIENT: finalWinnerCheck");
    			finalWinner = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("gameWinner~")){
    			String[] gWinner = msg.split("~");
-   			System.out.println("CLIENT: gameWinner: "+gWinner[1]);
    			gui.displayFinalWinner(gWinner[1]);
    		}
    		//setGameStats
@@ -254,17 +233,11 @@ public class Client {
    		
    		else if(msg.contains("ERROR~")){
    			String[] errMessage = msg.split("~");
-   			System.out.println("CLIENT: ERROR message: "+errMessage[1]);
    			gui.displayErrorMessage(errMessage[1]);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
    		}
-   		
-   		//else if (msg.equalsIgnoreCase("launchMainGameCurrentPlayer")){
-   		//	System.out.println("launchMainGameScreen currentPlayer");
-   		//}
-
    		else {
 			System.out.println(msg);
 		}

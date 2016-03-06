@@ -41,16 +41,17 @@ public class TestGame {
 	// Colour Card
 	private static final Card BLUE_CARD_3 = new ColourCard("Blue (Axe) 3", 3,
 			Config.BLUE);
-	private static final Card PURPLE_CARD_7 = new ColourCard("Purple (Jousting) 7", 7,
-			Config.PURPLE);
+	private static final Card PURPLE_CARD_7 = new ColourCard(
+			"Purple (Jousting) 7", 7, Config.PURPLE);
 
 	// Action Cards
 	private static final Card DROP_WEAPON_CARD = new ActionCard("Drop Weapon");
 	private static final Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
 	private static final Card CHARGE_CARD = new ActionCard("Charge");
-	private static final Card COUNTER_CHARGE_CARD = new ActionCard("Countercharge");
+	private static final Card COUNTER_CHARGE_CARD = new ActionCard(
+			"Countercharge");
 	private static final Card DISGRACE_CARD = new ActionCard("Disgrace");
-	
+
 	Game game;
 
 	@Before
@@ -686,7 +687,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void withdrawAPlayerClearsTheirDisplay() {
 		game.setNumPlayers(3);
@@ -696,7 +697,7 @@ public class TestGame {
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -705,7 +706,7 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(3, game.getDiscardPileSize());
 	}
-	
+
 	@Test
 	public void startGameWithFullTokenPool() {
 		game.setNumPlayers(3);
@@ -714,52 +715,52 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
-		
+
 		assertEquals(25, game.getTokenPool().size());
 	}
-	
+
 	@Test
 	public void addTokenToPlayer() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
-		
+
 		game.addTokenToPlayer(0, Config.BLUE);
 		assertEquals(true, game.getPlayer(0).getTokens().contains(Config.BLUE));
 		assertEquals(24, game.getTokenPool().size());
 	}
-	
+
 	@Test
 	public void addTwoOfSameColourTokensToPlayer() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
-		
+
 		game.addTokenToPlayer(0, Config.BLUE);
 		game.addTokenToPlayer(0, Config.BLUE);
 		assertEquals(1, game.getPlayer(0).getTokens().size());
 		assertEquals(24, game.getTokenPool().size());
 	}
-	
+
 	@Test
 	public void addThreeTokensToPlayer() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
-		
+
 		game.addTokenToPlayer(0, Config.BLUE);
 		game.addTokenToPlayer(0, Config.YELLOW);
 		game.addTokenToPlayer(0, Config.GREEN);
 		assertEquals(3, game.getPlayer(0).getTokens().size());
 		assertEquals(22, game.getTokenPool().size());
 	}
-	
+
 	@Test
 	public void playCounterChargeCardTwoPlayersTwoOfHighestValueToRemove() {
 		game.setNumPlayers(2);
@@ -789,7 +790,7 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
-	
+
 	@Test
 	public void playCounterchargeCardTwoPlayersOnlyOneCardNumber() {
 		game.setNumPlayers(2);
@@ -809,7 +810,7 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
 		String result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
-		
+
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(5, game.getDiscardPileSize());
@@ -820,7 +821,7 @@ public class TestGame {
 		assertEquals(true,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
-	
+
 	@Test
 	public void notAllowedToPlayCountercharge() {
 		game.setNumPlayers(3);
@@ -832,14 +833,14 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
 		String result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
-		
+
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void playDisgraceCard() {
 		game.setNumPlayers(2);
@@ -869,7 +870,7 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
 	}
-	
+
 	@Test
 	public void notAllowedToPlayDisgraceCardTheyHaveNoSupporters() {
 		game.setNumPlayers(2);
@@ -896,7 +897,7 @@ public class TestGame {
 		assertEquals(true,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
-	
+
 	@Test
 	public void playDisgraceCardAllSupporters() {
 		game.setNumPlayers(2);
@@ -926,19 +927,58 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
 	}
-	
+
 	@Test
 	public void twoTournaments() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.startGame();
-		
+
 		game.withdrawPlayer(0);
 
 		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
 		assertEquals(false, game.getTokenPool().isEmpty());
 		assertEquals(2, game.getTournamentNumber());
+	}
+
+	@Test
+	public void playerUnableToStartTournament() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED); // jack
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(new ActionCard("Charge"));
+		game.getPlayer(1).addCardToHand(new SupporterCard("", 0));
+
+		// This means that player 0 will win and is supposed to start the next
+		// tournament
+		game.withdrawPlayer(1);
+
+		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
+	}
+	
+	@Test
+	public void drawPileRefillsWhenEmpty() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		game.getDiscardPile().add(new ActionCard(""));
+		
+		game.getDrawPile().clearCards();
+		
+		// Add cards to the draw pile
+		game.getDrawPile().addCard(new SupporterCard("", 0));
+		game.getDrawPile().addCard(new SupporterCard("", 0));
+		
+		// Empty the draw pile
+		// Draw pile should refill with the cards from the discard pile
+		game.drawCard(0);
+		game.drawCard(0);
+		
+		assertEquals(4, game.getDrawPile().getNumCards());
 	}
 
 	@After

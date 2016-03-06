@@ -29,25 +29,26 @@ public class PlayerCard extends JPanel{
 
 		playerStats = new PlayerCardStats(name, 0, 0, false);
 		playerStats.setLocation(15,15);
-		playerStats.setPreferredSize(new  Dimension(100, 70));
-		playerStats.setBackground(new Color(242, 202, 150));
+		playerStats.setPreferredSize(new  Dimension(130, 70));
+		playerStats.setBackground(new Color(137, 78, 72));
 
 		ImageIcon a = new ImageIcon(this.getClass().getResource("Images/Avatar.jpg"));
 		JLabel avatar = new JLabel();
 		avatar.setIcon(a);
-		avatar.setSize(a.getIconWidth(),a.getIconHeight());
-		avatar.setLocation(playerStats.getWidth(), 15);
-		avatar.setBackground(new Color(242, 202, 150));
+		avatar.setSize(a.getIconWidth(),a.getIconHeight() + 5);
+		avatar.setLocation(135, 15);
+		avatar.setBackground(new Color(137, 78, 72));
 
 		display = new PlayerCardDisplay();
 
-		display.setLocation(playerStats.getWidth()+ 10 +a.getIconWidth(),15);
-		display.setBackground(new Color(242, 202, 150));
+		display.setLocation(185, 15 );//+ a.getIconWidth(),  15); //playerStats.getWidth()+ 10 +a.getIconWidth(),15);
+		display.setBackground(new Color(137, 78, 72));
 		add(playerStats);
 		add(avatar);
 		add(display);
-		this.setBackground(new Color(119, 105,78));
-		setSize(500, 150); 
+		
+		this.setBackground(new Color(137, 78, 72));
+		setSize(500, 160); 
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
 	public void setPlayerStats(String playerInfo) {
@@ -62,11 +63,11 @@ public class PlayerCard extends JPanel{
 		playerStats.setWithdrawn(stats[6]);
 
 		//Doesn't Work For All Players
-		if (stats[6].equals("true")){
-			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
-		} else if (stats[6].equals("false")){
-			setBorder(BorderFactory.createTitledBorder(" ")); 
-		}
+//		if (stats[6].equals("true")){
+//			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
+//		} else if (stats[6].equals("false")){
+//			setBorder(BorderFactory.createTitledBorder(" ")); 
+//		}
 
 		add(playerStats);
 	}
