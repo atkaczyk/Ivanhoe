@@ -485,7 +485,7 @@ public class Game {
 	}
 
 	public void addTokenToPlayer(int playerNum, int colour) {
-		if (players[0].addToken(colour)) {
+		if (players[playerNum].addToken(colour)) {
 			tokenPool.remove((Object) colour);
 		}
 	}

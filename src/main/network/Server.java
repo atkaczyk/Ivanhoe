@@ -236,7 +236,7 @@ public class Server implements Runnable {
 					
 					//someone has won the tournament
 					else{
-						String nameOfWinner = result.split(",")[1];
+						String nameOfWinner = result.split(",")[0];
 						int playerW = 0;
 						for (int num: playerNumbers.values()) {
 							if (game.getPlayer(num).getName().equals(nameOfWinner)) {
