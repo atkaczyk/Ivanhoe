@@ -411,4 +411,8 @@ public class Game {
 	public List<Integer> getTokenPool() {
 		return tokenPool;
 	}
+	
+	public void addTokenToPlayer(int playerNum, int colour) {
+		
+	}
 }

@@ -713,6 +713,16 @@ public class TestGame {
 		
 		assertEquals(25, game.getTokenPool().size());
 	}
+	
+	@Test
+	public void addTokenToPlayer() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.addTokenToPlayer(0, Config.BLUE);
+		assertEquals(true, game.getPlayer(0).getTokens().contains(Config.BLUE));
+	}
 
 	@After
 	public void tearDown() {
