@@ -23,6 +23,7 @@ public class TestPlayer {
 	private static final Card BLUE_CARD = new ColourCard("Blue (Axe) 2", 2, Config.BLUE);
 	private static final Card YELLOW_CARD = new ColourCard("Yellow", 2, Config.YELLOW);
 	private static final Card RED_CARD = new ColourCard("Red", 2, Config.RED);
+	private static final Card PURPLE_CARD = new ColourCard("Purple", 2, Config.PURPLE);
 	
 	Player player;
 	
@@ -250,6 +251,21 @@ public class TestPlayer {
 		player.addCardToDisplay(BLUE_CARD, Config.BLUE);
 		
 		assertEquals(((SimpleCard) BLUE_CARD).getNumber(), player.getDisplayTotal(Config.BLUE));
+		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	public void addRedCardToPurpleTournament() {
+		player.addCardToDisplay(RED_CARD, Config.PURPLE);
+		
+		assertEquals(0, player.getDisplayTotal(Config.PURPLE));
+		assertEquals(0, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addPurpleCardToPurpleTournament() {
+		player.addCardToDisplay(PURPLE_CARD, Config.PURPLE);
+		
+		assertEquals(((SimpleCard) PURPLE_CARD).getNumber(), player.getDisplayTotal(Config.PURPLE));
 		assertEquals(1, player.getDisplayCards().size());
 	}
 	
