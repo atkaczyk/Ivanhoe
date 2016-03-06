@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,27 +23,32 @@ public class PlayerCardStats extends JPanel{
 		 
 		 playerName = new JLabel(" " + pName);
 		 playerName.setLocation(0, top);
+		 playerName.setFont(new Font("Century", Font.BOLD, 14));
 		 playerName.setSize(100,30);
 		 add(playerName);
 		 
 		 numTokens = new JLabel("# Tokens: " + numToken1);
 		 numTokens.setLocation(0, top + 15);
 		 numTokens.setSize(100,30);
+		 numTokens.setFont(new Font("Century", Font.PLAIN, 14));
 		 add(numTokens);
 		 
 		 score = new JLabel("Score:");
 		 score.setLocation(0, top + 30);
 		 score.setSize(100,30);
+		 score.setFont(new Font("Century", Font.PLAIN, 14));
 		 add(score);
 		 
-		 specialCard = new JLabel("Special Cards: " + score1 );
+		 specialCard = new JLabel("Special Card " + score1 );
 		 specialCard.setLocation(0, top + 45);
+		 specialCard.setFont(new Font("Century", Font.PLAIN, 14));
 		 specialCard.setSize(100,30);
 		 add(specialCard);  
 		 
-	     turn = new JLabel("< INACTIVE >");
+	     turn = new JLabel("< Inactive >");
 		 turn.setLocation(0, top + 60);
 		 turn.setSize(100,30);
+		 turn.setFont(new Font("Century", Font.PLAIN, 14));
 		 turn.setForeground(Color.red);
 		 add(turn);
 		 
@@ -54,12 +60,13 @@ public class PlayerCardStats extends JPanel{
 //		 changeDisplay.setForeground(Color.yellow);
 //		 add(changeDisplay);
 		 
-		  isWithdrawn = new JLabel("WITHDRAWN");
-		  isWithdrawn.setLocation(0, top + 90);
+		  isWithdrawn = new JLabel("");
+		isWithdrawn.setFont(new Font("Century", Font.BOLD, 14));
+		  isWithdrawn.setLocation(0, top + 75);
 		  isWithdrawn.setSize(100, 30);
-		//  isWithdrawn.setVisible(true);
+		  isWithdrawn.setVisible(true);
 		 add(isWithdrawn);
-		 setSize(100, 100);	 
+		 setSize(130, 140);	 
 	}
 
 	public void setPlayerName(String playerName2) {
@@ -89,18 +96,18 @@ public class PlayerCardStats extends JPanel{
 			temp += "B";
 			//tColour = Color.BLUE;
 		} 
-		numTokens.setText("TOKENS: " +temp);	
+		numTokens.setText("Tokens: " +temp);	
 	}
 
 	public void setPlayerScore(int score2) {
-		score.setText("SCORE: " + score2);	
+		score.setText("Score: " + score2);	
 	}
 
 	public void setPlayerTurn(String turn2) {
 		if(turn2.equals("true")){
-			turn.setText(" < TURN >");	
+			turn.setText(" < Turn >");	
 		} else if (turn2.equals("false")){
-			turn.setText(" < WAITING > ");	
+			turn.setText(" < Waiting > ");	
 		}
 	}
 	public void setSpecialCards(String str){
@@ -108,15 +115,11 @@ public class PlayerCardStats extends JPanel{
 	}
 
 	public void setWithdrawn(String str) {
-
 		if (str.equals("true")){
-
-			System.out.println("WITHDRAW IS TRUE!");
-			 isWithdrawn.setForeground(Color.red);
+			isWithdrawn.setForeground(Color.red);
 			isWithdrawn.setText("WITHDRAWN");
-		} else if (str.equals("true")){
-
-			  isWithdrawn.setForeground(Color.black);
+		} else if (str.equals("false")){
+			isWithdrawn.setForeground(Color.black);
 			isWithdrawn.setText("IN PLAY");
 		}
 		
