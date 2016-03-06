@@ -98,6 +98,15 @@ public class TestPlayer {
 	}
 	
 	@Test
+	public void addTokenOfSameColour() {
+		player.addToken(Config.BLUE);
+		player.addToken(Config.BLUE);
+		player.addToken(Config.RED);
+		
+		assertEquals(2, player.getTokens().size());
+	}
+	
+	@Test
 	public void removeToken() {
 		player.addToken(Config.RED);
 		player.removeToken(Config.RED);
