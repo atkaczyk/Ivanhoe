@@ -242,7 +242,15 @@ public class Server implements Runnable {
 					
 					//someone has won the tournament
 					else{
-						int playerW = Integer.parseInt(result);
+						String nameOfWinner = result.split(",")[1];
+						int playerW = 0;
+						for (int num: playerNumbers.values()) {
+							if (game.getPlayer(num).getName().equals(nameOfWinner)) {
+								playerW = num;
+								break;
+							}
+						}
+						
 						//if it was a purple tournament
 						if(game.getTournamentColour() == Config.PURPLE){
 							//send to client and ask to pick colour
@@ -267,12 +275,16 @@ public class Server implements Runnable {
 					String[] choice = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					game.addTokenToPlayer(playerNum, Integer.parseInt(choice[1]));
-					broadcastToAllPlayers("tournamentWinner~"+choice);
+					
+					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
+							+ game.getTournamentColour());
 				}
 				else if (input.contains("finalWinnerCheck")){
 					System.out.println("SERVER: finalWinnerCheck");
 					String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
 					if(result.equals("")){
+						// If there is no winner yet, start a new tournament
+						updateAll();
 					}
 					else{
 						broadcastToAllPlayers("gameWinner~"+result);

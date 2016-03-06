@@ -422,7 +422,7 @@ public class Game {
 	 * 
 	 * @param playerNum
 	 *            the player we want to withdraw
-	 * @return
+	 * @return the <name of winner>,<tournament number>,<tournament colour>
 	 */
 	public String withdrawPlayer(int playerNum) {
 		// Withdraw the given player
@@ -431,7 +431,7 @@ public class Game {
 		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
-
+		
 		String winningPlayer = "";
 		int playersStillActive = 0;
 
@@ -439,6 +439,7 @@ public class Game {
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
+				currentPlayer = players[i];
 				winningPlayer = players[i].getName();
 			}
 		}
