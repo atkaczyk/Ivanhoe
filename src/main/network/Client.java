@@ -24,7 +24,7 @@ public class Client {
 	private BufferedReader streamIn  = null;
 	private BufferedWriter streamOut = null;
 	
-	private Boolean connected		 = false;
+	private Boolean connected = false;
 	private Boolean gameScreenLaunched = false;
 	private Boolean updateAllPlayersInfo = false;
 	private Boolean updateShowPlayerHand = false;
@@ -36,6 +36,7 @@ public class Client {
 	private Boolean finalWinner = false;
 	private Boolean playerActive = false;
 	private Boolean tournamentInfo = false;
+	private Boolean tokenRequest = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -339,5 +340,8 @@ public class Client {
 	}
 	public Object getTournamentInfo(){
 		return tournamentInfo;
+	}
+	public Object getTokenRequest(){
+		return tokenRequest;
 	}
 }

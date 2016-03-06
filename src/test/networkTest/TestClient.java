@@ -1,3 +1,9 @@
+/*
+ * The commented out tests are tests that were used and passing before the GUI was created.
+ * In these tests they now involve opening gui interfaces, which JUnit cannot do.
+ * Howard says it is acceptable to just show the client to server tests.
+ */
+
 package networkTest;
 
 import static org.junit.Assert.*;
@@ -13,11 +19,6 @@ import utils.Config;
 
 public class TestClient {
 	public static final Boolean CONNECTED = true;
-	private static final String JOIN_COMMAND_ONE = "join sophia 123.4.5.6";
-	private static final String SELECT_COMMAND_ONE = "select sophia joe swing 1 duck 1";
-	private static final String ROLL_COMMAND_ONE = "roll sophia 1";
-	private static final String PLAYER_NAME_ONE = "sophia";
-	private static final int ONE_PLAYER = 1;
 	
 	private Game game = new Game();
 
@@ -43,46 +44,22 @@ public class TestClient {
 		assertEquals(clientThree.isConnected(), CONNECTED);
 	}
 
-//	@Test
-//	public void oneClientJoinGame() {
-//		server.handle(clientOne.getID(), JOIN_COMMAND_ONE);
-//
-//		assertEquals(server.getGame().getPlayers().length, ONE_PLAYER);
-//	}
-	
 	@Test
 	public void drawTokenFromPool(){
 		server.handle(clientOne.getID(), "drawToken");
-		
 		assertEquals(1, server.getGame().getTokensPicked());
-		
-	}
-	
-	@Test
-	public void lauchGameReadyScreen(){
-		//clientOne.handle("launch game ready screen");
-		
-		//assertEquals(true, clientOne.getGameScreenLaunched());
 	}
 	
 //	@Test
-//	public void personAddedAsPlayer(){
-//		server.handle(clientOne.getID(), "joinGame name 1");
-//		
-//		assertEquals(1, server.getGame().getPlayersRegistered());
+//	public void lauchGameReadyScreen(){
+//		clientOne.handle("launch game ready screen");
+//		assertEquals(true, clientOne.getGameScreenLaunched());
 //	}
 	
-//	@Test
-//	public void manyPeopleAddedAsPlayer(){
-//		server.handle(clientOne.getID(), "joinGame vici 1");
-//		server.handle(clientTwo.getID(), "joinGame sophia 2");
-//		server.handle(clientThree.getID(), "joinGame alisa 2");
-//		assertEquals(3, server.getGame().getPlayersRegistered());
-//	}
-
 	@Test
-	public void firstPlayer(){
-		//clientOne.handle("launch game ready screen");
+	public void tokenRequestedByClientToServer(){
+		clientOne.handle("tokenRequest");
+		assertEquals(true, clientOne.getTokenRequest());
 	}
 	
 	@Test
@@ -96,8 +73,6 @@ public class TestClient {
 		clientOne.handle("gameReady");
 		assertEquals(true, clientOne.getGameReady());
 	}
-	
-
 	
 //	@Test
 //	public void updateAllPlayersInfo(){
@@ -116,6 +91,7 @@ public class TestClient {
 //		clientOne.handle("PLAYERSPECIFICINFO~");
 //		assertEquals(true, clientOne.getPlayerActive());
 //	}
+	
 //	@Test
 //	public void testSendingTournamentInfo(){
 //		clientOne.handle("TOURNAMENTINFO~");
@@ -146,32 +122,13 @@ public class TestClient {
 //		clientTwo.handle("tournamentWinner~");
 //		assertEquals(true, clientTwo.getWinner());
 //	}
+	
 	@Test
 	public void finalWinnerCheckTest(){
 		clientOne.handle("finalWinnerCheck");
 		assertEquals(true, clientOne.getFinalWinner());
 	}
-	
-	//@Test
-	//public void oneClientSelectCommand() {
-		//server.handle(clientTwo.getID(), JOIN_COMMAND_ONE);
-		//server.handle(clientTwo.getID(), SELECT_COMMAND_ONE);
-
-		//assertNotEquals(server.getGame().getPlayers().get(PLAYER_NAME_ONE)
-				//.getAttack(), null);
-	//}
-	
-	//@Test
-	//public void clientRoll() {
-	//	server.handle(clientTwo.getID(), JOIN_COMMAND_ONE);
-	//	server.handle(clientTwo.getID(), SELECT_COMMAND_ONE);
-//		server.handle(clientTwo.getID(), ROLL_COMMAND_ONE);
-//		
-//		assertNotEquals(server.getRolls().size(), 0);
-//	}
-	
-	
-	
+		
 	@After
 	public void tearDown() {
 		server.resetGame();
