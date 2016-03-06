@@ -293,7 +293,7 @@ public class Game {
 					}
 				}
 				if (!playerFound) {
-					return "false:You cannot play an charge card when there are no cards you can remove from other player displays!";
+					return "false:You cannot play a charge card when there are no cards you can remove from other player displays!";
 				}
 
 				moveCardFromHandToDiscardPile(playerNum, name);
@@ -311,6 +311,7 @@ public class Game {
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			}
+			
 
 //			System.out.println("\n\nBEFORE:");
 //			System.out.println("DISPLAY: "

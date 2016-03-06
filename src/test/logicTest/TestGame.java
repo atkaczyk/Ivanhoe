@@ -41,12 +41,15 @@ public class TestGame {
 	// Colour Card
 	private static final Card BLUE_CARD_3 = new ColourCard("Blue (Axe) 3", 3,
 			Config.BLUE);
+	private static final Card PURPLE_CARD_7 = new ColourCard("Purple (Jousting) 7", 7,
+			Config.PURPLE);
 
 	// Action Cards
 	private static final Card DROP_WEAPON_CARD = new ActionCard("Drop Weapon");
 	private static final Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
 	private static final Card CHARGE_CARD = new ActionCard("Charge");
-
+	private static final Card COUNTER_CHARGE_CARD = new ActionCard("Countercharge");
+	
 	Game game;
 
 	@Before
@@ -754,6 +757,36 @@ public class TestGame {
 		game.addTokenToPlayer(0, Config.GREEN);
 		assertEquals(3, game.getPlayer(0).getTokens().size());
 		assertEquals(22, game.getTokenPool().size());
+	}
+	
+	@Test
+	public void playCounterChargeCardTwoPlayersTwoOfHighestValueToRemove() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
+		String result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
+
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
 
 	@After
