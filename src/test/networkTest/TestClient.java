@@ -105,6 +105,12 @@ public class TestClient {
 //	}
 	
 	@Test
+	public void tournamentColourIsRequestedByPLayer(){
+		clientOne.handle("TournamentColourRequest");
+		assertEquals(true, clientOne.getTournamentColourRequest());
+	}
+	
+	@Test
 	public void playerPlaysCardFromGui(){
 		String msg = " ";
 		clientOne.cardPlayed(msg);
