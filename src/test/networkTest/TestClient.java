@@ -43,23 +43,23 @@ public class TestClient {
 		assertEquals(clientTwo.isConnected(), CONNECTED);
 		assertEquals(clientThree.isConnected(), CONNECTED);
 	}
-
-	@Test
-	public void drawTokenFromPool(){
-		server.handle(clientOne.getID(), "drawToken");
-		assertEquals(1, server.getGame().getTokensPicked());
-	}
 	
 //	@Test
 //	public void lauchGameReadyScreen(){
 //		clientOne.handle("launch game ready screen");
 //		assertEquals(true, clientOne.getGameScreenLaunched());
 //	}
-	
+
 	@Test
 	public void tokenRequestedByClientToServer(){
 		clientOne.handle("tokenRequest");
 		assertEquals(true, clientOne.getTokenRequest());
+	}
+	
+	@Test
+	public void drawTokenFromPool(){
+		server.handle(clientOne.getID(), "drawToken");
+		assertEquals(1, server.getGame().getTokensPicked());
 	}
 	
 	@Test
@@ -72,6 +72,12 @@ public class TestClient {
 	public void gameReadyButtonPressed(){
 		clientOne.handle("gameReady");
 		assertEquals(true, clientOne.getGameReady());
+	}
+	
+	@Test
+	public void sendingMessageToServerToUpdateAllGameInfo(){
+		clientOne.handle("updateGameInformation");
+		assertEquals(true, clientOne.getUpdateGameInfo());
 	}
 	
 //	@Test

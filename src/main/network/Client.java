@@ -32,6 +32,7 @@ public class Client {
 	private Boolean playerActive = false;
 	private Boolean tournamentInfo = false;
 	private Boolean tokenRequest = false;
+	private Boolean updateGameInfo = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -332,5 +333,8 @@ public class Client {
 	}
 	public Object getTokenRequest(){
 		return tokenRequest;
+	}
+	public Object getUpdateGameInfo(){
+		return updateGameInfo;
 	}
 }
