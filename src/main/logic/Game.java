@@ -450,11 +450,12 @@ public class Game {
 		}
 
 		if (playersStillActive == 1) {
+			startTournament();
+			
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
 			
-			startTournament();
 			return winningPlayer + "," + (tournamentNumber-1) + ","
 					+ tournamentColour;
 		}
