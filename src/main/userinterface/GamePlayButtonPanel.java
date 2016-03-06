@@ -76,7 +76,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		String action = e.getActionCommand();
 		if (action.equals("Withdraw")) {
 			gui.requestToWithdraw();
-			gui.setEnableMainScreen("false");
+			//gui.setEnableMainScreen("false");
 		}
 		else if (action.equals("Draw a Card")) {
 			gui.requestToDrawCard();
