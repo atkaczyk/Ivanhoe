@@ -70,19 +70,23 @@ public class PlayerCardStats extends JPanel{
 // TURN STR which is 012 into its proper colour..
 		String temp = "";
 		if(s.contains("0")){
-			temp += "P ";
+			temp += "P";
 			//numTokens.setForeground(Color.MAGENTA);
-		} else if(s.contains("1")){
-			temp += "R ";
+		}
+		if(s.contains("1")){
+			temp += "R";
 			//tColour = Color.RED;
-		} else if(s.contains("2")){
-			temp += "Y ";
+		}
+		if(s.contains("2")){
+			temp += "Y";
 			//tColour = Color.YELLOW;
-		} else if(s.contains("3")){
-			temp += "G ";
+		}
+		if(s.contains("3")){
+			temp += "G";
 			//tColour = Color.GREEN;
-		} else if(s.contains("4")){
-			temp += "B ";
+		}
+		if(s.contains("4")){
+			temp += "B";
 			//tColour = Color.BLUE;
 		} 
 		numTokens.setText("TOKENS: " +temp);	
