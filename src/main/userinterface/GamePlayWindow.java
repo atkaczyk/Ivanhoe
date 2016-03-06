@@ -101,6 +101,7 @@ public class GamePlayWindow extends JFrame{
 
 		// Set program to stop when window closed
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		pack();
 		setSize(1400, 1000); // manually computed sizes
 		setResizable(true);
 	}
