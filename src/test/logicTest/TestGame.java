@@ -49,6 +49,7 @@ public class TestGame {
 	private static final Card OUTMANEUVER_CARD = new ActionCard("Outmaneuver");
 	private static final Card CHARGE_CARD = new ActionCard("Charge");
 	private static final Card COUNTER_CHARGE_CARD = new ActionCard("Countercharge");
+	private static final Card DISGRACE_CARD = new ActionCard("Disgrace");
 	
 	Game game;
 
@@ -837,6 +838,36 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
+	}
+	
+	@Test
+	public void playDisgraceCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
+		String result = game.playCard(1, DISGRACE_CARD.getName());
+
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
 	}
 
 	@After
