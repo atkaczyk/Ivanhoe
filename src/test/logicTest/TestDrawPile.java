@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import utils.PrintHelper;
-
 public class TestDrawPile {
 	private static final Card ACTION_CARD = new ActionCard("Stunned");
 	
