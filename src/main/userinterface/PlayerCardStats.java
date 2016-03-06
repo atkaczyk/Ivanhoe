@@ -66,8 +66,17 @@ public class PlayerCardStats extends JPanel{
 		playerName.setText(playerName2);
 	}
 
-	public void setPlayerTokens(int numToken) {
-		numTokens.setText("TOKENS: " + numToken);	
+	public void setPlayerTokens(String str) {
+// TURN STR which is 012 into its proper colour..
+		String temp = "";
+		if (str.contains("0")){
+			temp += "p";
+		}else if (str.contains("1")){
+			temp += "y";
+		}else if (str.contains("2")){
+			temp += "z";
+		}
+		numTokens.setText("TOKENS: " +temp);	
 	}
 
 	public void setPlayerScore(int score2) {

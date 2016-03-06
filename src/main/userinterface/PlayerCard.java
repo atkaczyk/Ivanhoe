@@ -24,7 +24,7 @@ public class PlayerCard extends JPanel{
 
 	public PlayerCard(String name){
 		setLayout(null); //new FlowLayout()); 
-		setBorder(BorderFactory.createTitledBorder("Player Card")); 
+		setBorder(BorderFactory.createTitledBorder(" ^^^ ")); 
 
 		playerStats = new PlayerCardStats(name, 0, 0, false);
 		//setPlayerStats("Shit", 1, 2, true);
@@ -49,19 +49,25 @@ public class PlayerCard extends JPanel{
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
 	public void setPlayerStats(String playerInfo) {
-		//setBorder(BorderFactory.createTitledBorder("shittyier")); 
 		//		System.out.println("IN THE PLAYER CARD -> SETTING THE PLAYER STATS:     >> " + playerInfo);
 		String[] stats = playerInfo.split(",");
 		playerStats.setPlayerName(stats[0]);
 		if(stats[1].equals("")){
 			stats[1] = "0";
 		}
-		playerStats.setPlayerTokens(Integer.parseInt(stats[1]));
+		playerStats.setPlayerTokens(stats[1]);
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
 	
 		playerStats.setPlayerTurn(stats[7]);
 
 		playerStats.setWithdrawn(stats[6]);
+		if (stats[6].equals("true")){
+
+			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
+		} else if (stats[6].equals("false")){
+
+			setBorder(BorderFactory.createTitledBorder(" ^^^ ")); 
+		}
 
 		add(playerStats);
 	}

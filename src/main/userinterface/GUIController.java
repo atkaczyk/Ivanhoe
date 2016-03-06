@@ -88,6 +88,7 @@ public class GUIController {
 	}
 	public void requestToDrawCard() {
 		client.handle("requestToDrawCard:");	
+		//disableDrawCardButton
 	}
 	public void requestToEndTurn() {
 		client.handle("requestToEndTurn:");	
@@ -109,7 +110,7 @@ public class GUIController {
 	}
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[2] + " WAS PLAYED BY " + player[1]);
+		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
 	}
 	public void displayFinalWinner(String s) {
 		String[] player = s.split(",");
@@ -120,8 +121,9 @@ public class GUIController {
 		JOptionPane.showMessageDialog(gamePlayWindow, msg);
 
 	}
+	//This gets called when the player announces the end of their turn or disables the card button 
 	public void disableDrawCardButton() {
-		//gamePlayWindow.setDrawCardButton(false); WHY THE NULL POINTER EXCEPTION?
+		//gamePlayWindow.setDrawCardButton(false);// WHY THE NULL POINTER EXCEPTION?
 		System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
 	}
 }

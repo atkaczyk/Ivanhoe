@@ -210,11 +210,12 @@ public class Server implements Runnable {
 						String[] msg = result.split(":");
 						broadcastMessageToPlayer("ERROR~"+msg[1], ID, 0);
 					}
-					if(result.contains("actionCard")){
+					if(result.contains("moreInformationNeeded")){
 						System.out.println("SERVER: requestToPlayThisCard: ACTION CARD");
 					}
-					if(result.contains("actionCardPlayedMessage:")){
+					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
+						updateAll();
 					}
 					
 				}

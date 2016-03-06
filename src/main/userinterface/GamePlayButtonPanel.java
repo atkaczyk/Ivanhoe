@@ -59,7 +59,8 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 			gui.requestToWithdraw();
 		}
 		else if (action.equals("Draw a Card")) {
-			gui.requestToDrawCard(); //this should add a card to the hand.
+			gui.requestToDrawCard();
+			setDrawCardButton(false);//this should add a card to the hand.
 			//GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
 		}
 		else if (action.equals("Announce End of Turn")) {
