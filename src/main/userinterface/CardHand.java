@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -39,7 +40,7 @@ public class CardHand extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setName("Cards Panel");
 		panel.setLayout(new FlowLayout());
-
+panel.setBackground(new Color(137, 78, 72));
 		scrollPane.setViewportView(panel);
 		scrollPane.setName("Scroll Pane");
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -56,6 +57,7 @@ public class CardHand extends JPanel implements ActionListener {
 		//		donePlayingCards = new JButton("Done Drawing Cards");
 		//		donePlayingCards.addActionListener(this);
 		//		this.add(donePlayingCards);
+		this.setBackground(new Color(242, 202, 150));
 		setSize(150, 200); 
 		setVisible(true);
 	}

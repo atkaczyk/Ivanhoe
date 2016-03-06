@@ -2,6 +2,7 @@ package userinterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,26 +30,31 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		empty.setSize(10, 10);
 
 		button = new JButton("Discard Pile");
+		button.setBackground(new Color(118, 108, 81));
+		button.setBorderPainted(true);
+		button.setFont(new Font("Serif", Font.BOLD, 16));
 		add(button);
 		add(empty);
 
 		withdrawButton = new JButton("Withdraw");
 		withdrawButton.addActionListener(this);
+		withdrawButton.setBackground(new Color(118, 108, 81));
 		add(withdrawButton);
 		add(empty);
 
 		endTurnButton = new JButton("Announce End of Turn");
 		endTurnButton.addActionListener(this);
-		//endTurnButton.setPreferredSize(new Dimension(10,10));
+		endTurnButton.setBackground(new Color(118, 108, 81));
 		add(endTurnButton);
 		add(empty);
 
 		drawCardButton = new JButton("Draw a Card");
 		drawCardButton.addActionListener(this);
+		drawCardButton.setBackground(new Color(118, 108, 81));
 		add(drawCardButton);
 		//add(Box.createRigidArea(new Dimension(5,10)));
 
-		this.setBackground(Color.blue);
+		this.setBackground(new Color(242, 202, 150));
 		setPreferredSize(new Dimension(200, 150)); 
 	}
 
