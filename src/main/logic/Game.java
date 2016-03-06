@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+
 import utils.Config;
 
 public class Game {
@@ -112,19 +114,23 @@ public class Game {
 	public void goToNextPlayer() {
 		// If the current player is the last one in the deque set to first
 		// player
-		if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
-			currentPlayer = players[0];
-			return;
-		}
-
-		// Otherwise, get position of current player
-		int i;
-		for (i = 0; i < numOfPlayers; i++) {
-			if (players[i].getName().equals(currentPlayer.getName())) {
-				currentPlayer = players[i + 1];
-				break;
+		// Make sure that the player is not withdrawn
+		
+		do {
+			if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
+				currentPlayer = players[0];
+				return;
 			}
-		}
+	
+			// Otherwise, get position of current player
+			int i;
+			for (i = 0; i < numOfPlayers; i++) {
+				if (players[i].getName().equals(currentPlayer.getName())) {
+					currentPlayer = players[i + 1];
+					break;
+				}
+			}
+		} while (currentPlayer.isWithdrawn());
 
 	}
 
@@ -452,6 +458,8 @@ public class Game {
 			return winningPlayer + "," + (tournamentNumber-1) + ","
 					+ tournamentColour;
 		}
+		
+		goToNextPlayer();
 
 		return "";
 	}
