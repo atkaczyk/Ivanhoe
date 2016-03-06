@@ -35,6 +35,7 @@ public class Client {
 	private Boolean updateGameInfo = false;
 	private Boolean tournamentColourRequest = false;
 	private Boolean purpleTokenWin = false;
+	private Boolean endTurn = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -206,6 +207,7 @@ public class Client {
    		//from gui to server
    		else if(msg.contains("requestToEndTurn")){
    			System.out.println("CLIENT: requestToEndTurn");
+   			endTurn = true;
    			sendMessageToServer(msg);
    		}
    		//from gui to server
@@ -347,5 +349,8 @@ public class Client {
 	}
 	public Object getPurpleTokenRequest(){
 		return purpleTokenWin;
+	}
+	public Object getEndTurn(){
+		return endTurn;
 	}
 }

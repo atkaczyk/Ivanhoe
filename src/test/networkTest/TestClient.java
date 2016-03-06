@@ -120,7 +120,8 @@ public class TestClient {
 	@Test
 	public void requestToEndTurn(){
 		clientOne.handle("requestToEndTurn");
-		assertEquals(1, game.getCurrentPlayerNumber());
+		assertEquals(true, clientOne.getEndTurn());
+		//assertEquals(1, game.getCurrentPlayerNumber());
 	}
 	
 	@Test
