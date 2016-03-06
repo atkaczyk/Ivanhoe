@@ -307,11 +307,10 @@ public class Game {
 						}
 					}
 				}
-				
+
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
-			}
-			else if (name.equals("Countercharge")) {
+			} else if (name.equals("Countercharge")) {
 				// Identify the highest value card throughout all displays. All
 				// players must discard all cards of this value from their
 				// displays.
@@ -342,20 +341,66 @@ public class Game {
 						}
 					}
 				}
+
+				return "actionCardPlayedMessage~" + name + ","
+						+ getPlayer(playerNum).getName();
+			} else if (name.equals("Disgrace")) {
+				// Each player must remove all his supporters from his display
+
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1 && players[i].hasSupporterCardInDisplay()) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false:You cannot play a disgrace card when there are no cards you can remove from other player displays!";
+				}
+				
+				 System.out.println("\n\nBEFORE:");
+				 System.out.println("DISPLAY: "
+				 + players[0].getDisplayAsString());
+				 System.out.println("HAND: " +
+				 players[0].getHandAsString());
+				
+
+				moveCardFromHandToDiscardPile(playerNum, name);
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						List<Card> cardsRemoved = players[i]
+								.removeAllSupporterCards();
+						for (Card toDiscard : cardsRemoved) {
+							discardPile.add(toDiscard);
+						}
+					}
+				}
+
+				 System.out.println("AFTER:");
+				 System.out.println("DISPLAY: "
+				 + players[0].getDisplayAsString());
+				 System.out.println("HAND: " +
+				 players[0].getHandAsString());
 				
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			}
 
-//			System.out.println("\n\nBEFORE:");
-//			System.out.println("DISPLAY: "
-//					+ players[playerNum].getDisplayAsString());
-//			System.out.println("HAND: " + players[playerNum].getHandAsString());
-//
-//			System.out.println("AFTER:");
-//			System.out.println("DISPLAY: "
-//					+ players[playerNum].getDisplayAsString());
-//			System.out.println("HAND: " + players[playerNum].getHandAsString());
+			// System.out.println("\n\nBEFORE:");
+			// System.out.println("DISPLAY: "
+			// + players[playerNum].getDisplayAsString());
+			// System.out.println("HAND: " +
+			// players[playerNum].getHandAsString());
+			//
+			// System.out.println("AFTER:");
+			// System.out.println("DISPLAY: "
+			// + players[playerNum].getDisplayAsString());
+			// System.out.println("HAND: " +
+			// players[playerNum].getHandAsString());
 			System.out.println(discardPile);
 
 		}
@@ -396,10 +441,10 @@ public class Game {
 		// Withdraw the given player
 		List<Card> cardsToDiscard = getPlayer(playerNum).withdraw();
 
-		for (Card c: cardsToDiscard) {
+		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
-		
+
 		String winningPlayer = "";
 		int playersStillActive = 0;
 
@@ -446,22 +491,22 @@ public class Game {
 	public List<Integer> getTokenPool() {
 		return tokenPool;
 	}
-	
+
 	public void addTokenToPlayer(int playerNum, int colour) {
 		if (players[0].addToken(colour)) {
 			tokenPool.remove((Object) colour);
 		}
 	}
-	
+
 	public String getTokensRemainingForPlayer(int playerNum) {
 		String result = "";
-		
-		for (int colour: Config.ALL_TOKEN_COLOURS) {
+
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
 			if (!players[playerNum].getTokens().contains(colour)) {
 				result += colour;
 			}
 		}
-		
+
 		return result;
 	}
 }

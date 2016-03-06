@@ -127,7 +127,7 @@ public class Player {
 
 	public List<Card> withdraw() {
 		withdrawn = true;
-		
+
 		List<Card> result = new ArrayList<Card>();
 		while (!display.isEmpty()) {
 			result.add(display.pop());
@@ -209,7 +209,8 @@ public class Player {
 		List<Card> result = new ArrayList<Card>();
 
 		ArrayDeque<Card> displayCopy = display.clone();
-		for (Iterator<Card> itr = displayCopy.descendingIterator();itr.hasNext();) {
+		for (Iterator<Card> itr = displayCopy.descendingIterator(); itr
+				.hasNext();) {
 			Card c = itr.next();
 			if (display.size() > 1) {
 				if (c instanceof SupporterCard) {
@@ -248,6 +249,33 @@ public class Player {
 		}
 
 		return max;
+	}
+
+	public boolean hasSupporterCardInDisplay() {
+		for (Card c : display) {
+			if (c instanceof SupporterCard) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public List<Card> removeAllSupporterCards() {
+		List<Card> result = new ArrayList<Card>();
+
+		ArrayDeque<Card> displayCopy = display.clone();
+		for (Iterator<Card> itr = displayCopy.descendingIterator(); itr
+				.hasNext();) {
+			Card c = itr.next();
+			if (display.size() > 1) {
+				if (c instanceof SupporterCard) {
+					result.add(c);
+					display.removeLastOccurrence(c);
+				}
+			}
+		}
+
+		return result;
 	}
 
 }
