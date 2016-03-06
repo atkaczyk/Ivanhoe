@@ -79,6 +79,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 0;
 		Step.setFont(new Font("Serif", Font.BOLD, 26));
+		Step.setBackground(new Color(242, 202, 150));
 		Step.setVisible(true);
 		add(Step, c);
 
@@ -153,7 +154,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		add(gameReady, c);
 		gameReady.addActionListener(this);
 
-		this.setBackground(new Color(0, 0, 0));
+		getContentPane().setBackground(new Color(242, 202, 150));
 		setVisible(true);
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // allow window to close

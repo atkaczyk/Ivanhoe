@@ -2,6 +2,7 @@ package userinterface;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -24,27 +25,28 @@ public class PlayerCard extends JPanel{
 
 	public PlayerCard(String name){
 		setLayout(null); //new FlowLayout()); 
-		setBorder(BorderFactory.createTitledBorder(" ^^^ ")); 
+		setBorder(BorderFactory.createTitledBorder(" ")); 
 
 		playerStats = new PlayerCardStats(name, 0, 0, false);
-		//setPlayerStats("Shit", 1, 2, true);
-		playerStats.setLocation(20,20);
+		playerStats.setLocation(15,15);
+		playerStats.setPreferredSize(new  Dimension(100, 70));
+		playerStats.setBackground(new Color(242, 202, 150));
 
 		ImageIcon a = new ImageIcon(this.getClass().getResource("Images/Avatar.jpg"));
 		JLabel avatar = new JLabel();
 		avatar.setIcon(a);
 		avatar.setSize(a.getIconWidth(),a.getIconHeight());
-		avatar.setLocation(160, 20);
-
+		avatar.setLocation(playerStats.getWidth(), 15);
+		avatar.setBackground(new Color(242, 202, 150));
 
 		display = new PlayerCardDisplay();
 
-		display.setLocation(160+10+a.getIconWidth(),20);
-
+		display.setLocation(playerStats.getWidth()+ 10 +a.getIconWidth(),15);
+		display.setBackground(new Color(242, 202, 150));
 		add(playerStats);
 		add(avatar);
 		add(display);
-
+		this.setBackground(new Color(119, 105,78));
 		setSize(500, 150); 
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
@@ -54,25 +56,25 @@ public class PlayerCard extends JPanel{
 		playerStats.setPlayerName(stats[0]);
 		playerStats.setPlayerTokens(stats[1]);
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
-	
+
 		playerStats.setPlayerTurn(stats[7]);
 
 		playerStats.setWithdrawn(stats[6]);
-		
+
 		//Doesn't Work For All Players
 		if (stats[6].equals("true")){
 			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
 		} else if (stats[6].equals("false")){
-			setBorder(BorderFactory.createTitledBorder(" ^^^ ")); 
+			setBorder(BorderFactory.createTitledBorder(" ")); 
 		}
 
 		add(playerStats);
 	}
 
 	public void emptyPlayerDisplay(){
-	display.emptyDisplay();
-}
-	
+		display.emptyDisplay();
+	}
+
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
 		display.emptyDisplay();
 		//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);
