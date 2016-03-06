@@ -5,19 +5,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-import com.sun.xml.internal.ws.api.Component;
-import com.sun.xml.internal.ws.api.server.Container;
-
 import network.Client;
 import utils.Config;
 
