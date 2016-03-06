@@ -177,6 +177,7 @@ public class Client {
    		//from gui to server
    		else if(msg.contains("TournamentColourRequest")){
    			System.out.println("CLIENT: TournamentColourRequest");
+   			tournamentColourRequest = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
