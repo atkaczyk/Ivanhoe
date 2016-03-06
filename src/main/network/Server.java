@@ -283,11 +283,12 @@ public class Server implements Runnable {
 					System.out.println("SERVER: finalWinnerCheck");
 					String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
 					if(result.equals("")){
+						// If there is no winner yet, start a new tournament
+						updateAll();
 					}
 					else{
 						broadcastToAllPlayers("gameWinner~"+result);
 					}
-					updateAll();
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
