@@ -223,6 +223,7 @@ public class Client {
    		//from gui to server
    		else if(msg.contains("PurpleWinTokenColourChoice~")){
    			System.out.println("CLIENT: PurpleWinTokenColourChoice~"+msg);
+   			purpleTokenWin = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
