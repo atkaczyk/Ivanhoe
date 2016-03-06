@@ -176,7 +176,6 @@ public class Server implements Runnable {
 					}					
 				}
 				if (input.contains("updateGameInformation")){
-					System.out.println("~~~~SERVER: handle updateGameInformation: ID: "+ID);
 					update(ID); //call update function
 					
 					if (game.getCurrentPlayerNumber() == playerNumbers.get(ID)) {
@@ -184,7 +183,6 @@ public class Server implements Runnable {
 					}
 				}
 				if (input.contains("TournamentColourRequest")){
-					System.out.println("SERVER: TournamentColourRequest");
 					String[] tournamentC = input.split(":");
 					int colour = Integer.parseInt(tournamentC[1]);
 					boolean result = game.setTournamentColour(colour);
@@ -201,17 +199,14 @@ public class Server implements Runnable {
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
 					if(result.contains("true")){
-						System.out.println("SERVER: requestToPlayThisCard: TRUE");
 						getPlayerHand(ID);
 						updateAll();
 					}
 					if(result.contains("false")){
-						System.out.println("SERVER: requestToPlayThisCard: FALSE");
 						String[] msg = result.split(":");
 						broadcastMessageToPlayer("ERROR~"+msg[1], ID, 0);
 					}
 					if(result.contains("moreInformationNeeded")){
-						System.out.println("SERVER: requestToPlayThisCard: ACTION CARD");
 					}
 					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
@@ -229,7 +224,6 @@ public class Server implements Runnable {
 					updateAll();
 				}
 				else if (input.contains("requestToWithdraw")){
-					System.out.println("SERVER: requestToWithdraw");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
 					
@@ -280,7 +274,6 @@ public class Server implements Runnable {
 							+ game.getTournamentColour());
 				}
 				else if (input.contains("finalWinnerCheck")){
-					System.out.println("SERVER: finalWinnerCheck");
 					String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
 					if(result.equals("")){
 						// If there is no winner yet, start a new tournament
@@ -427,7 +420,6 @@ public class Server implements Runnable {
 	public synchronized void broadcastToAllPlayers(String message){
 		synchronized (serverThreadsLock) {
 			for (ServerThread to : serverThreads.values()) {
-				System.out.println("~~~~~~Server: broadcastToAllPlayers~~~~~~~~");
 				to.send(String.format("%s\n", message));
 				logger.info(String.format("SERVER BROADCASTING MESSAGE TO ALL PLAYERS: %s", message));
 				Trace.getInstance().logchatToAll(this, message);
@@ -469,7 +461,6 @@ public class Server implements Runnable {
 	}
 
 	public void displayGameStart(int numOfPlayers) {
-		System.out.println("in display game start server");
 		synchronized (serverThreadsLock) {
 			String message = "STARTING THE GAME! " + game.getNumPlayers()
 					+ " players \n";
@@ -484,9 +475,7 @@ public class Server implements Runnable {
 	
 	public void update(int ID){
 		//update the game info for all players
-		System.out.println("Server: Update: players game info");
 		String gameInfo = getAllPlayerInfo();
-		System.out.println("~~~~Server: update info: " + gameInfo);
 		broadcastToAllPlayers(gameInfo);
 		
 		//update the player hand for the specific player
@@ -544,7 +533,6 @@ public class Server implements Runnable {
 			if (id == ID){
 				handInfo = "PLAYERHAND~";
 				handInfo += getPlayerHandCards(game.getPlayer(playerNumbers.get(id)));
-				System.out.println("SERVER: Update: player hand" + handInfo);
 				broadcastMessageToPlayer(handInfo, id, 1);
 			}
 		}
@@ -555,7 +543,6 @@ public class Server implements Runnable {
 			int playerNumber = playerNumbers.get(id);
 			String playerSI = "PLAYERSPECIFICINFO~";
 			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getPlayer(playerNumber).getName();
-			System.out.println("SERVER: Update: player hand" + playerSI);
 			broadcastMessageToPlayer(playerSI, id, 1);	
 		}
 	}
@@ -570,14 +557,12 @@ public class Server implements Runnable {
 	public String getPlayerDisplayCards(Player p){
 		String result = "";
 		result += p.getDisplayAsString();
-		System.out.println("SERVER: getPlayerDisplayCards result: "+ result);
 		return result;
 	}
 	
 	public String getPlayerHandCards(Player p){
 		String result = "";
 		result += p.getHandAsString();
-		System.out.println("SERVER: getPlayerHandCards result: "+result);
 		return result;
 	}
 	
