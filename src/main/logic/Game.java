@@ -361,13 +361,6 @@ public class Game {
 				if (!playerFound) {
 					return "false:You cannot play a disgrace card when there are no cards you can remove from other player displays!";
 				}
-				
-				 System.out.println("\n\nBEFORE:");
-				 System.out.println("DISPLAY: "
-				 + players[0].getDisplayAsString());
-				 System.out.println("HAND: " +
-				 players[0].getHandAsString());
-				
 
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
@@ -379,12 +372,6 @@ public class Game {
 						}
 					}
 				}
-
-				 System.out.println("AFTER:");
-				 System.out.println("DISPLAY: "
-				 + players[0].getDisplayAsString());
-				 System.out.println("HAND: " +
-				 players[0].getHandAsString());
 				
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
