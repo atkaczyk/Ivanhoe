@@ -3,6 +3,7 @@ package userinterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -44,10 +45,13 @@ public class GamePlayWindow extends JFrame{
 		GameStats = new JPanel(new FlowLayout());
 
 
-		tournamentColour = new JLabel("**********");
+		tournamentColour = new JLabel("");
 		tournamentColour.setBackground(Color.white);
+		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
 
-		tournamentNumber = new JLabel("Tournament Number ");
+		tournamentNumber = new JLabel("");
+		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
+		
 		//JPanel tournamentStuff = new JPanel();
 		//tournamentStuff.add(tournamentColour);
 		//tournamentStuff.add(tournamentNumber);
@@ -60,8 +64,8 @@ public class GamePlayWindow extends JFrame{
 		title.setIcon(icon);
 
 		GameStats.add(title);
-		GameStats.add(tournamentColour);
 		GameStats.add(tournamentNumber);
+		GameStats.add(tournamentColour);
 
 		GameStats.setBackground(new Color(242, 202, 150));
 		upperPanel.add(GameStats);
@@ -81,7 +85,7 @@ public class GamePlayWindow extends JFrame{
 		playerCard4 = new PlayerCard("INACTIVE");
 		upperPanel.add(playerCard4);
 
-		upperPanel.setBackground(new Color(242, 202, 150));
+	//	upperPanel.setBackground(new Color(255, 255, 255 )); //242, 202, 150));
 		add(upperPanel);
 
 		JPanel lowerPanel = new JPanel();
@@ -93,8 +97,6 @@ public class GamePlayWindow extends JFrame{
 		lowerPanel.add(buttonPanel);
 		lowerPanel.setBackground(new Color(242, 202, 150));
 		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
-	//	System.out.println(lowerPanel.getHeight() + ", " + lowerPanel.getWidth());
-	//	System.out.println(hand.getHeight() + ", " + hand.getWidth()+buttonPanel.getWidth());
 		add(lowerPanel);
 
 		// Set program to stop when window closed
@@ -142,31 +144,36 @@ public class GamePlayWindow extends JFrame{
 		hand.showCardsInHand(cardsInHand);
 	}
 	public void setCurrentPlayerName(String str){
-		hand.setName(str);
+		buttonPanel.setName(str);
 	}
 	public void setTournamentNumAndColour(String s) {
 		String[] player = s.split(",");
 		setTournamentColour(player[0]);
-		tournamentNumber.setText("Its Tournament Number " + player[1]);
+		tournamentNumber.setText("Tournament #" + player[1] + " is...");
+	
 	}
 	public void setTournamentColour(String s){
 		if (s.equals("-1")){
 			tColour = Color.BLACK;
 		} else {
 			if(s.equals("0")){
-				tColour = Color.MAGENTA;
+				tColour =new Color(107, 66, 130);
 			} else if(s.equals("1")){
-				tColour = Color.RED;
+				tColour = new Color(167, 63, 53);
 			} else if(s.equals("2")){
-				tColour = Color.YELLOW;
+				tColour = new Color(160, 145, 112);
 			} else if(s.equals("3")){
-				tColour = Color.GREEN;
+				tColour =new Color(85, 110, 188);
 			} else if(s.equals("4")){
-				tColour = Color.BLUE;
+				tColour = new Color(68, 62, 149);
 			} 
-			tournamentColour.setText("This tournament Colour is " + Config.TOKEN_COLOUR_NAMES[Integer.parseInt(s)]);	
+			tournamentColour.setText(Config.TOKEN_COLOUR_NAMES[Integer.parseInt(s)]);	
 		}
 		tournamentColour.setForeground(tColour);
+		tournamentColour.setBackground(tColour);
+		tournamentNumber.setBackground(tColour);
+	tournamentNumber.setForeground(tColour);
+		
 	}
 	public void setDrawCardButton(boolean b) {
 		System.out.println("YOU MADE IT TO THE GAME PLAY WINDOW");
