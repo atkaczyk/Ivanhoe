@@ -311,7 +311,41 @@ public class Game {
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			}
-			
+			else if (name.equals("Countercharge")) {
+				// Identify the highest value card throughout all displays. All
+				// players must discard all cards of this value from their
+				// displays.
+
+				// First check to see there is at least one player where you can
+				// remove a card
+				Boolean playerFound = false;
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						if (players[i].getDisplayCards().size() > 1) {
+							playerFound = true;
+							break;
+						}
+					}
+				}
+				if (!playerFound) {
+					return "false:You cannot play a counter charge card when there are no cards you can remove from other player displays!";
+				}
+
+				moveCardFromHandToDiscardPile(playerNum, name);
+				for (int i = 0; i < numOfPlayers; i++) {
+					if (playerNum != i) {
+						int highestValue = players[i].getHighestDisplayValue();
+						List<Card> cardsRemoved = players[i]
+								.removeAllCardsWithValue(highestValue);
+						for (Card toDiscard : cardsRemoved) {
+							discardPile.add(toDiscard);
+						}
+					}
+				}
+				
+				return "actionCardPlayedMessage~" + name + ","
+						+ getPlayer(playerNum).getName();
+			}
 
 //			System.out.println("\n\nBEFORE:");
 //			System.out.println("DISPLAY: "

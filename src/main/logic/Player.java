@@ -228,4 +228,26 @@ public class Player {
 		return result;
 	}
 
+	/**
+	 * Find the largest card value in the display
+	 * 
+	 * @return The largest value found
+	 */
+	public int getHighestDisplayValue() {
+		int max = 0;
+		for (Card c : display) {
+			if (c instanceof SupporterCard) {
+				if (((SupporterCard) c).getNumber() > max) {
+					max = ((SupporterCard) c).getNumber();
+				}
+			} else if (c instanceof ColourCard) {
+				if (((ColourCard) c).getNumber() > max) {
+					max = ((ColourCard) c).getNumber();
+				}
+			}
+		}
+
+		return max;
+	}
+
 }

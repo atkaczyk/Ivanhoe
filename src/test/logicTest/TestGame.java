@@ -788,6 +788,37 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
+	
+	@Test
+	public void playCounterchargeCardTwoPlayersOnlyOneCardNumber() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
+		String result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
+		
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
+
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
+	}
 
 	@After
 	public void tearDown() {
