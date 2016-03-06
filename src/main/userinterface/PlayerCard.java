@@ -61,16 +61,18 @@ public class PlayerCard extends JPanel{
 		
 		//Doesn't Work For All Players
 		if (stats[6].equals("true")){
-
 			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
 		} else if (stats[6].equals("false")){
-
 			setBorder(BorderFactory.createTitledBorder(" ^^^ ")); 
 		}
 
 		add(playerStats);
 	}
 
+	public void emptyPlayerDisplay(){
+	display.emptyDisplay();
+}
+	
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
 		display.emptyDisplay();
 		//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);

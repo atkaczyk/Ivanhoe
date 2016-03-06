@@ -99,10 +99,6 @@ public class GamePlayWindow extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1400, 1000); // manually computed sizes
 		setResizable(true);
-		// Set program to stop when window closed
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1500, 1000); // manually computed sizes
-		setResizable(true);
 	}
 
 	//can now take in a string and parse to all players.
@@ -176,6 +172,23 @@ public class GamePlayWindow extends JFrame{
 
 		System.out.println("THERE WAS SOMETHING CALLED ON BUTTON!");
 
+	}
+
+	public void emptyPlayerDisplay(int i) {
+		if(i == 0) {
+			playerCard0.emptyPlayerDisplay();
+		}else if( i == 1) {
+			playerCard1.emptyPlayerDisplay();
+		}
+		else if (i ==2){
+			playerCard2.emptyPlayerDisplay();
+		}
+		else if (i ==3){
+			playerCard3.emptyPlayerDisplay();
+		}
+		else if (i ==4){
+			playerCard4.emptyPlayerDisplay();
+		}
 	}
 }
 //	public void setPlayerScreenEnabled(boolean b) {

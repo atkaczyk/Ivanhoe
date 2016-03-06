@@ -62,8 +62,9 @@ public class GUIController {
 			String [] playerInfo = player[i].split("#");
 
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
-			if(playerInfo.length == 1){}
-			else {
+			if(playerInfo.length == 1){
+			gamePlayWindow.emptyPlayerDisplay(i);
+			}else {
 				gamePlayWindow.setPlayerCardDisplay(i, playerInfo[1]);
 			}
 		}
