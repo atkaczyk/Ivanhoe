@@ -926,6 +926,20 @@ public class TestGame {
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
 	}
+	
+	@Test
+	public void twoTournaments() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+		game.withdrawPlayer(0);
+
+		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
+		assertEquals(false, game.getTokenPool().isEmpty());
+		assertEquals(2, game.getTournamentNumber());
+	}
 
 	@After
 	public void tearDown() {
