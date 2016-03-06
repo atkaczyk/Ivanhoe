@@ -240,6 +240,7 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("finalWinnerCheck")){
+   			winner = true;
    			System.out.println("CLIENT: finalWinnerCheck");
    			finalWinner = true;
    			sendMessageToServer(msg);

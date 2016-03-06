@@ -445,7 +445,8 @@ public class Game {
 		}
 
 		if (playersStillActive == 1) {
-			return winningPlayer + "," + tournamentNumber + ","
+			startTournament();
+			return winningPlayer + "," + (tournamentNumber-1) + ","
 					+ tournamentColour;
 		}
 
