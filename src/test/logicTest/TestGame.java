@@ -100,7 +100,7 @@ public class TestGame {
 		game.startGame();
 
 		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
-		assertEquals(false, game.getTokens().isEmpty());
+		assertEquals(false, game.getTokenPool().isEmpty());
 	}
 
 	@Test

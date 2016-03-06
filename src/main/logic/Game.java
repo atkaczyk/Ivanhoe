@@ -13,7 +13,7 @@ public class Game {
 	private Player[] players;
 	private int tournamentNumber = 0;
 	private DrawPile drawPile = new DrawPile();
-	private List<Integer> tokens = new ArrayList<Integer>();
+	private List<Integer> tokenPool = new ArrayList<Integer>();
 	private int tournamentColour = -1;
 	private ArrayDeque<Card> discardPile = new ArrayDeque<Card>();;
 
@@ -87,7 +87,7 @@ public class Game {
 		// Initialize the 25 tokens (5 of each colour)
 		for (int colour : Config.ALL_TOKEN_COLOURS) {
 			for (int i = 1; i <= 5; i++) {
-				tokens.add(colour);
+				tokenPool.add(colour);
 			}
 		}
 
@@ -114,10 +114,6 @@ public class Game {
 			}
 		}
 
-	}
-
-	public List<Integer> getTokens() {
-		return tokens;
 	}
 
 	public int getTournamentColour() {
@@ -413,6 +409,6 @@ public class Game {
 	}
 
 	public List<Integer> getTokenPool() {
-		return null;
+		return tokenPool;
 	}
 }
