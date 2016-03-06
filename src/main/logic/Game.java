@@ -92,8 +92,21 @@ public class Game {
 		}
 
 		// Figure out which player is first
-		goToNextPlayer();
+		do {
+			goToNextPlayer();
+		} while (!playerCanStart(currentPlayer));
+		
 		startTournament();
+	}
+	
+	public boolean playerCanStart(Player p) {
+		for (Card c: p.getHandCards()) {
+			if (c instanceof SimpleCard) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	// Change the current player to be the next player
@@ -440,11 +453,16 @@ public class Game {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
 				currentPlayer = players[i];
+				
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
+			while (!playerCanStart(currentPlayer)) {
+				goToNextPlayer();
+			}
+			
 			startTournament();
 			return winningPlayer + "," + (tournamentNumber-1) + ","
 					+ tournamentColour;

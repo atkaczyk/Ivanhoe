@@ -78,7 +78,7 @@ public class TestGame {
 	public void startingPlayer() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 
@@ -946,11 +946,14 @@ public class TestGame {
 	public void playerUnableToStartTournament() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED); // jack
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
-		game.getPlayer(0).addCardToHand(new ActionCard("Charge"));
 
-		game.goToNextPlayer();
-		
+		game.getPlayer(0).addCardToHand(new ActionCard("Charge"));
+		game.getPlayer(1).addCardToHand(new SupporterCard("", 0));
+
+		// This means that player 0 will win and is supposed to start the next
+		// tournament
+		game.withdrawPlayer(1);
+
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 
