@@ -723,6 +723,17 @@ public class TestGame {
 		game.addTokenToPlayer(0, Config.BLUE);
 		assertEquals(true, game.getPlayer(0).getTokens().contains(Config.BLUE));
 	}
+	
+	@Test
+	public void addTwoOfSameColourTokensToPlayer() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.addTokenToPlayer(0, Config.BLUE);
+		game.addTokenToPlayer(0, Config.BLUE);
+		assertEquals(1, game.getPlayer(0).getTokens().size());
+	}
 
 	@After
 	public void tearDown() {

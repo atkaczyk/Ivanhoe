@@ -415,4 +415,16 @@ public class Game {
 	public void addTokenToPlayer(int playerNum, int colour) {
 		players[0].addToken(colour);
 	}
+	
+	public String getTokensRemainingForPlayer(int playerNum) {
+		String result = "";
+		
+		for (int colour: Config.ALL_TOKEN_COLOURS) {
+			if (players[playerNum].getTokens().contains(colour)) {
+				
+			}
+		}
+		
+		return result;
+	}
 }
