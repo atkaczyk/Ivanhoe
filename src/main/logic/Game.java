@@ -413,6 +413,6 @@ public class Game {
 	}
 	
 	public void addTokenToPlayer(int playerNum, int colour) {
-		
+		players[0].addToken(colour);
 	}
 }
