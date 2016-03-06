@@ -127,26 +127,31 @@ public class GUIController {
 		String temp = "";
 		String rets = "";
 		if(s.contains("0")){
-			temp  = "Purple ";
+			temp  += "Purple ";
 			//numTokens.setForeground(Color.MAGENTA);
-		} else if(s.contains("1")){
-			temp  = "Red ";
+		}
+		if(s.contains("1")){
+			temp  += "Red ";
 			//tColour = Color.RED;
-		} else if(s.contains("2")){
-			temp  = "Yellow ";
+		}
+		if(s.contains("2")){
+			temp  += "Yellow ";
 			//tColour = Color.YELLOW;
-		} else if(s.contains("3")){
-			temp  = "Green ";
+		}
+		if(s.contains("3")){
+			temp  += "Green ";
 			//tColour = Color.GREEN;
-		} else if(s.contains("4")){
-			temp  = "Blue ";
+		}
+		if(s.contains("4")){
+			temp  += "Blue ";
 			//tColour = Color.BLUE;
 		} 
+		temp = temp.substring(0, temp.length()-1);
 		String[] possibilities = temp.split(" ");
 		rets = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"Select your tournament colour\n If it is invalid, you will be asked to select it again",
-				"Customized Dialog",
+				"You won the jousting (purple) tournament!\nSelect the token you want to collect.",
+				"Select Token Colour",
 				JOptionPane.PLAIN_MESSAGE,
 				null,
 				possibilities,
@@ -168,6 +173,6 @@ public class GUIController {
 			temp  = "4";
 			//tColour = Color.BLUE;
 		} 
-		client.handle("PurpleWinTokenColourChoice~" + rets);
+		client.handle("PurpleWinTokenColourChoice~" + temp);
 	}
 }

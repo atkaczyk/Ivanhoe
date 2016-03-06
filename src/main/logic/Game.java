@@ -422,7 +422,7 @@ public class Game {
 	 * 
 	 * @param playerNum
 	 *            the player we want to withdraw
-	 * @return
+	 * @return the <name of winner>,<tournament number>,<tournament colour>
 	 */
 	public String withdrawPlayer(int playerNum) {
 		// Withdraw the given player

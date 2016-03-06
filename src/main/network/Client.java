@@ -227,11 +227,12 @@ public class Client {
    		}
    		//from gui to server
    		else if(msg.contains("PurpleWinTokenColourChoice~")){
-   			System.out.println("CLIENT: PurpleWinTokenColourChoice~");
+   			System.out.println("CLIENT: PurpleWinTokenColourChoice~"+msg);
    			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("tournamentWinner~")){
+   			System.out.println("\n\nI RECEIVED:"+msg);
    			winner = true;
    			String[] winningT = msg.split("~");
    			System.out.println("CLIENT: winner: "+winningT[1]);
