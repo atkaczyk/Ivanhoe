@@ -89,7 +89,7 @@ public class GamePlayWindow extends JFrame{
 		hand = new CardHand(gui); //"MY CARD HAND DISPLAY SCROLLER");
 		lowerPanel.add(hand);
 		lowerPanel.add(buttonPanel);
-		lowerPanel.setBackground(Color.green);
+		lowerPanel.setBackground(new Color(242, 202, 150));
 		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
 		System.out.println(lowerPanel.getHeight() + ", " + lowerPanel.getWidth());
 		System.out.println(hand.getHeight() + ", " + hand.getWidth()+buttonPanel.getWidth());

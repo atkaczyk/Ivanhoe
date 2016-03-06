@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.awt.Color;
 
 import network.Client;
 
@@ -34,14 +37,11 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	JButton gameReady;
 
 	JLabel finalToken;
-	JLabel Step1;
-
 	JButton tokenRequest;
 
 	int tokenNum;
 	GUIController guiController;
-	JLabel Step2;
-	JLabel Step3 ;
+	JLabel Step;
 	JLabel avatar;
 	javax.swing.JFrame frame ;
 
@@ -57,24 +57,35 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		yellowToken =new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
 
 		tokens = new ImageIcon[]{purpleToken, redToken, yellowToken, greenToken, blueToken, whiteToken}; //blueToken, greyToken, redToken, purpleToken, greenToken, goldToken};
-
 		setPreferredSize(new Dimension(500,500));
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		Step1 = new JLabel("Step 1: Enter your Name");
-		c.fill = GridBagConstraints.HORIZONTAL;
+		//		JLabel empty = new JLabel();
+		//		c.fill = GridBagConstraints.CENTER;
+		//
+		//		c.ipady = 10;      //make this component tall
+		//		c.weightx = 0.5;
+		//		c.gridx = 0;
+		//		c.gridy = 0;
+		//		add(empty, c);
 
-		c.ipady = 10;      //make this component tall
+		c.fill = GridBagConstraints.CENTER;
+		Step = new JLabel("Step 1: Enter Your Name");
+		c.ipady = 10;   
 		c.weightx = 0.5;
+		c.gridwidth= 5;
 		c.gridx = 0;
 		c.gridy = 0;
-		add(Step1, c);
+		Step.setFont(new Font("Serif", Font.BOLD, 26));
+		Step.setVisible(true);
+		add(Step, c);
 
 		avatar = new JLabel();
 		avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
-		c.ipady = avatar.getHeight();     
+		c.ipady = 50 + avatar.getHeight();    
+		c.ipadx = avatar.getWidth();
 		c.weightx = 0.5;
 		c.gridx = 0;
 		c.gridy = 1;
@@ -82,8 +93,10 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 
 		playerName = new JTextField();	
-		playerName.setPreferredSize(new Dimension(100, 50));	
-		c.ipady = 10;   
+		playerName.setPreferredSize(new Dimension(90, 25));	
+
+		c.ipady = 20;   
+		c.ipadx = 90;
 		c.weightx = 0.5;
 		c.gridx = 0;
 		c.gridy = 3;
@@ -98,29 +111,21 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		playerNameSubmit.addActionListener(this);
 
 
-		Step2 = new JLabel("Step 2: Click here to pick a token");
-		c.fill = GridBagConstraints.CENTER;
-		c.ipady = 10;   
-		c.weightx = 0.5;
-		c.gridx = 2;
-		c.gridy = 0;
-
-		Step2.setVisible(false);
-		add(Step2, c);
-
 		token = new JLabel();
 		token.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = token.getHeight();   
+		c.ipadx = token.getWidth() + token.getWidth()*6;
 		c.weightx = 0.5;
-		c.gridx = 2;
+		c.gridx = 1;
 		c.gridy = 1;
+
 
 		token.setVisible(false);
 		add(token, c);
 
 		tokenRequest = new JButton("Press to Retrieve a Token");
 		c.weightx = 0.8;
-		c.gridx = 2;
+		c.gridx = 0;
 		c.gridy = 3;
 
 		tokenRequest.setVisible(false);
@@ -128,20 +133,12 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		tokenRequest.addActionListener(this);
 
-		Step3 = new JLabel("Step 3: PREPARE TO BATTLE");
-		c.fill = GridBagConstraints.CENTER;
-		c.ipady = 10;   
-		c.weightx = 0.5;
-		c.gridx = 3;
-		c.gridy = 0;
-		Step3.setVisible(false);
-		add(Step3, c);
-
 		finalToken = new JLabel();//"This is the token you retrieved";
 		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = finalToken.getHeight();   
+		c.ipadx = finalToken.getWidth() + avatar.getWidth()*4;
 		c.weightx = 0.5;
-		c.gridx = 3;
+		c.gridx = 1;
 		c.gridy = 1;
 
 		finalToken.setVisible(false);
@@ -149,54 +146,56 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		gameReady = new JButton("Join Game");
 		c.weightx = 0.8;
-		c.gridx = 3;
+		c.gridx = 0;
 		c.gridy = 3;
 
 		gameReady.setVisible(false);
 		add(gameReady, c);
 		gameReady.addActionListener(this);
 
+		this.setBackground(new Color(0, 0, 0));
 		setVisible(true);
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // allow window to close
-		setSize(500, 500); // Set the size of the window
+		//this.setIconImage();
+		setSize(600, 400); // Set the size of the window
 
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 		if (action.equals("Submit")) {
-			Step2.setVisible(true);
+
+			avatar.setVisible(false);
+			playerNameSubmit.setVisible(false);
+			playerName.setVisible(false);
+
 			token.setVisible(true);
 			tokenRequest.setVisible(true);
-			
-			Step2.setText("Step 2: " + playerName.getText() + " Press to Retrieve a Token");
-			Step3.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
 
+			Step.setText("Step 2: " + playerName.getText() + " Press to Retrieve a Token");
 		}
 		else if (action.equals("Press to Retrieve a Token")){
-			Step3.setVisible(true);
+			Step.setText("Step 3: " + playerName.getText() + " PREPARE TO BATTLE");
 			finalToken.setVisible(true);
 			gameReady.setVisible(true);
 
-			Step1.setVisible(false);
-			
-			playerName.setVisible(false);
-			playerNameSubmit.setVisible(false);
-			Step2.setVisible(false);
+
 			token.setVisible(false);
 			tokenRequest.setVisible(false);
 
+
 			guiController.sendTokenRequest();
+
 		}
 		else if(action.equals("Join Game")){
-			Step1.setVisible(true);
-			Step1.setText(" WELCOME " + playerName.getText() + " WAITING FOR OTHER PLAYERS TO JOIN......");	
-			Step3.setVisible(false);
+			Step.setText(" WELCOME " + playerName.getText() + " PLEASE WAIT");
+			avatar.setVisible(true);
+			finalToken.setVisible(false);
 			gameReady.setVisible(false);
-			
-			
-			guiController.sendJoinGame(playerName.getText(), tokenNum);		
+
+			guiController.sendJoinGame(playerName.getText(), tokenNum);	
+
 		}
 	}
 	public void setFinalToken(int tokenColour) {

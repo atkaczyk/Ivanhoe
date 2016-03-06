@@ -58,6 +58,8 @@ public class PlayerCard extends JPanel{
 		playerStats.setPlayerTurn(stats[7]);
 
 		playerStats.setWithdrawn(stats[6]);
+		
+		//Doesn't Work For All Players
 		if (stats[6].equals("true")){
 
 			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
