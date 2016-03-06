@@ -266,7 +266,7 @@ public class Server implements Runnable {
 				else if(input.contains("PurpleWinTokenColourChoice~")){
 					String[] choice = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					game.addTokenToPlayer(playerNum, choice[1]);
+					game.addTokenToPlayer(playerNum, Integer.parseInt(choice[1]));
 					broadcastToAllPlayers("tournamentWinner~"+choice);
 				}
 				else if (input.contains("finalWinnerCheck")){
