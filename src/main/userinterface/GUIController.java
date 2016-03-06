@@ -47,14 +47,11 @@ public class GUIController {
 		client.handle("TournamentColourRequest:" + s);
 	}
 	public void setTournamentInfo(String s) {
-		String[] player = s.split(","); //colour comma number
-		gamePlayWindow.setTournamentColour(player[0]);
-
+		gamePlayWindow.setTournamentNumAndColour(s);
 	}
-	public void setTournamentColour(String s){ 
+	public void setTournamentColour(String s) {
 		gamePlayWindow.setTournamentColour(s);
 	}
-
 	public void displayTokenColour(int tokenColour){
 		gameReadyWindow.setFinalToken(tokenColour);
 	}	
@@ -98,12 +95,16 @@ public class GUIController {
 	}
 	public void displayTournamentWinner(String s) {
 		String[] player = s.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + Config.ALL_TOKEN_COLOURS[Integer.parseInt(player[2])] + " TOURNAMENT #" + player[1]);
+		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + Config.TOKEN_COLOUR_NAMES[Integer.parseInt(player[2])] + " TOURNAMENT #" + player[1]);
 		client.handle("finalWinnerCheck");	
+	}
+	public void displayFinalWinner(String s) {
+		String[] player = s.split(",");
+		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
-			gamePlayWindow.setEnabled(true);
+			gamePlayWindow.setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
 		}else if(str.equals("false")){
 			gamePlayWindow.setEnabled(false);
 		}
@@ -111,10 +112,6 @@ public class GUIController {
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
-	}
-	public void displayFinalWinner(String s) {
-		String[] player = s.split(",");
-		JOptionPane.showMessageDialog(gamePlayWindow, "CONGRATULATIONS TO : " + player[0] + " THEY WON THE " + player[2] + " TOURNAMENT #" + player[1]);
 	}
 
 	public void displayErrorMessage(String msg) {
@@ -125,5 +122,52 @@ public class GUIController {
 	public void disableDrawCardButton() {
 		//gamePlayWindow.setDrawCardButton(false);// WHY THE NULL POINTER EXCEPTION?
 		System.out.println("disaBLE THE FUCKING DRAW CARD BUTTON");
+	}
+	public void launchPurpleWinTokenChoice(String s){
+		String temp = "";
+		String rets = "";
+		if(s.contains("0")){
+			temp  = "Purple ";
+			//numTokens.setForeground(Color.MAGENTA);
+		} else if(s.contains("1")){
+			temp  = "Red ";
+			//tColour = Color.RED;
+		} else if(s.contains("2")){
+			temp  = "Yellow ";
+			//tColour = Color.YELLOW;
+		} else if(s.contains("3")){
+			temp  = "Green ";
+			//tColour = Color.GREEN;
+		} else if(s.contains("4")){
+			temp  = "Blue ";
+			//tColour = Color.BLUE;
+		} 
+		String[] possibilities = temp.split(" ");
+		rets = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"Select your tournament colour\n If it is invalid, you will be asked to select it again",
+				"Customized Dialog",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				possibilities,
+				"colour");
+		
+		if(rets.contains("Purple")){
+			temp  = "0";
+			//numTokens.setForeground(Color.MAGENTA);
+		} else if(rets.contains("Red")){
+			temp  = "1";
+			//tColour = Color.RED;
+		} else if(rets.contains("Yellow")){
+			temp  = "2";
+			//tColour = Color.YELLOW;
+		} else if(rets.contains("Green")){
+			temp  = "3";
+			//tColour = Color.GREEN;
+		} else if(rets.contains("Blue")){
+			temp  = "4";
+			//tColour = Color.BLUE;
+		} 
+		client.handle("PurpleWinTokenColourChoice~" + rets);
 	}
 }

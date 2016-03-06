@@ -37,9 +37,11 @@ public class CardHand extends JPanel implements ActionListener {
 		scrollPane = new JScrollPane();
 
 		panel = new JPanel();
+		panel.setName("Cards Panel");
 		panel.setLayout(new FlowLayout());
 
 		scrollPane.setViewportView(panel);
+		scrollPane.setName("Scroll Pane");
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setPreferredSize(new Dimension(900, 220));
 		this.add(scrollPane, BorderLayout.CENTER);

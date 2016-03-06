@@ -70,6 +70,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
 	public void setDrawCardButton(boolean b) {
 		drawCardButton.setEnabled(b);
+		System.out.println("THE DRAW CARD BUTTON SHOULD BE >>" + b);
 
 	}
 
