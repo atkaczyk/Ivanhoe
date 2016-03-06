@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
 
 import logic.Game;
 import logic.Player;
+import utils.Config;
 import utils.Trace;
 
 public class Server implements Runnable {
@@ -230,14 +231,42 @@ public class Server implements Runnable {
 					System.out.println("SERVER: requestToWithdraw");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
+					
+					//no one has one the tournament yet
 					if(result.equals("")){
 						//Ending turn
 						game.goToNextPlayer();
 						updateAll();
 					}
+					
+					//someone has won the tournament
 					else{
-						broadcastToAllPlayers("tournamentWinner~"+result);
+						int playerW = Integer.parseInt(result);
+						//if it was a purple tournament
+						if(game.getTournamentColour() == Config.PURPLE){
+							//send to client and ask to pick colour
+							String colours = "PurpleWinTokenChoice~" + game.getTokensRemainingForPlayer(playerW);
+							int winnerID = 0;
+							for (int stID : playerNumbers.keySet()) {
+								if (playerNumbers.get(stID) == playerW){
+									winnerID = stID;
+									break;
+								}
+							}					
+							broadcastMessageToPlayer(colours, winnerID, 1);
+						//if it was another colour tournament
+						}else{
+							game.addTokenToPlayer(playerW ,game.getTournamentColour());
+							broadcastToAllPlayers("tournamentWinner~"+result);
+						}
 					}
+				}
+				//the purple tournament win 
+				else if(input.contains("PurpleWinTokenColourChoice~")){
+					String[] choice = input.split("~");
+					int playerNum = playerNumbers.get(ID); //gives the player number
+					game.addTokenToPlayer(playerNum, choice[1]);
+					broadcastToAllPlayers("tournamentWinner~"+choice);
 				}
 				else if (input.contains("finalWinnerCheck")){
 					System.out.println("SERVER: finalWinnerCheck");
