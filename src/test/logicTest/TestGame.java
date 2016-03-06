@@ -896,6 +896,36 @@ public class TestGame {
 		assertEquals(true,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_7));
 	}
+	
+	@Test
+	public void playDisgraceCardAllSupporters() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
+		String result = game.playCard(1, DISGRACE_CARD.getName());
+
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+
+		// It should still contain this card
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(MAIDEN_CARD));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
+	}
 
 	@After
 	public void tearDown() {
