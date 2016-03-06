@@ -130,6 +130,7 @@ public class Client {
    		}
    		//from gui
    		else if (msg.contains("updateGameInformation")){
+   			updateGameInfo = true;
    			sendMessageToServer(msg);
    		}
    		//from server to gui
