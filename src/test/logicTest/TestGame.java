@@ -701,6 +701,18 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(3, game.getDiscardPileSize());
 	}
+	
+	@Test
+	public void startGameWithFullTokenPool() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		
+		assertEquals(25, game.getTokenPool().size());
+	}
 
 	@After
 	public void tearDown() {

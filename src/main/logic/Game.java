@@ -411,4 +411,8 @@ public class Game {
 	public ArrayDeque<Card> getDiscardPile() {
 		return discardPile;
 	}
+
+	public List<Integer> getTokenPool() {
+		return null;
+	}
 }
