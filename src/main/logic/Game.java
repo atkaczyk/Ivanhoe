@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.GOTO;
-
 import utils.Config;
 
 public class Game {
