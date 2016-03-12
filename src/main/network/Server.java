@@ -206,13 +206,20 @@ public class Server implements Runnable {
 						String[] msg = result.split(":");
 						broadcastMessageToPlayer("ERROR~"+msg[1], ID, 0);
 					}
-					if(result.contains("moreInformationNeeded")){
+					if(result.contains("moreInformationNeeded~")){
+						broadcastMessageToPlayer(result, ID, 0);
 					}
 					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
 					}
 					
+				}
+				else if(input.contains("actionInfoGathered~")){
+					String[] info = input.split("~");
+					int playerNum = playerNumbers.get(ID); //gives the player number
+					System.out.println("SERVER: actionInfoGathered~: "+info);
+					//game.playActionCard(playerNum, info);
 				}
 				else if (input.contains("requestToDrawCard")){
 					int playerNum = playerNumbers.get(ID);
@@ -569,6 +576,33 @@ public class Server implements Runnable {
 	public void updateAll() {
 		for (int id: playerNumbers.keySet()) {
 			update(id);
+		}
+	}
+	
+	public void actionCards(String msg){
+		System.out.println("MoreInfo Action Cards: "+msg);
+		if (msg.contains("BreakLance")){
+			
+		}else if(msg.contains("Riposte")){
+			
+		}else if(msg.contains("Dodge")){
+			
+		}else if(msg.contains("Retreat")){
+			
+		}else if(msg.contains("KnockDown")){
+			
+		}else if(msg.contains("Outmaneuver")){
+			
+		}else if(msg.contains("Charge")){
+			
+		}else if(msg.contains("Countercharge")){
+			
+		}else if(msg.contains("Disgrace")){
+			
+		}else if(msg.contains("Adapt")){
+			
+		}else if(msg.contains("Outwit")){
+			
 		}
 	}
 }
