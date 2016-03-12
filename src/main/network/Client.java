@@ -191,11 +191,12 @@ public class Client {
    		else if(msg.contains("moreInformationNeeded~")){
    			String[] result = msg.split("~");
    			System.out.println("CLIENT: moreInformationNeeded~: "+result[1]);
-   			//gui.getActionCardInfo(result[1]);
+   			gui.getActionCardInfo(result[1]);
    		}
    		//from gui to server
    		else if(msg.contains("actionInfoGathered~")){
-   			
+   			actionInfo = true;
+   			sendMessageToServer(msg);
    		}
    		//from server to gui
    		else if(msg.contains("actionCardPlayedMessage")){

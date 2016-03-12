@@ -218,8 +218,8 @@ public class Server implements Runnable {
 				else if(input.contains("actionInfoGathered~")){
 					String[] info = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					System.out.println("SERVER: actionInfoGathered~: "+info);
-					//game.playActionCard(playerNum, info);
+					System.out.println("SERVER: actionInfoGathered~: "+info[1]);
+					game.playActionCard(playerNum, info[1]);
 				}
 				else if (input.contains("requestToDrawCard")){
 					int playerNum = playerNumbers.get(ID);
