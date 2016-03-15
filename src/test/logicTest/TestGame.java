@@ -993,7 +993,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
 
 		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
-		assertEquals(true, result.contains("false"));
+		assertEquals(true, result.contains("moreInformationNeeded"));
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
