@@ -532,4 +532,8 @@ public class Game {
 
 		return result;
 	}
+
+	public void playActionCard(int playerNum, String info) {
+		
+	}
 }
