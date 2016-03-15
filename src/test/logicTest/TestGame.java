@@ -980,6 +980,24 @@ public class TestGame {
 		
 		assertEquals(4, game.getDrawPile().getNumCards());
 	}
+	
+	@Test
+	public void tryPlayingRiposteCardMoreInfoNeeded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+
+		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+	}
 
 	@After
 	public void tearDown() {
