@@ -414,7 +414,9 @@ public class Game {
 					result += ",";
 				}
 				result += players[i].getName();
-				result += "[" + players[i].getDisplayCards().getLast().getName() + "]";
+				result += "["
+						+ players[i].getDisplayCards().getLast().getName()
+						+ "]";
 			}
 		}
 
@@ -534,6 +536,20 @@ public class Game {
 	}
 
 	public void playActionCard(int playerNum, String info) {
+		String cardName = info.split("@")[0];
+		String extraInfo = info.split("@")[1];
+		if (info.contains("Riposte")) {
+			// Take the last card played on the given opponent's display and add
+			// it to the given player
+			Card cardToMove = null;
+			for (Player p: players) {
+				if (p.getName().equals(extraInfo)) {
+					cardToMove = p.getDisplayCards().removeLast();
+				}
+			}
+			players[playerNum].addCardToDisplay(cardToMove, tournamentColour);
+		}
 		
+		moveCardFromHandToDiscardPile(playerNum, cardName);
 	}
 }
