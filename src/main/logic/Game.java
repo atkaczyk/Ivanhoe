@@ -94,17 +94,17 @@ public class Game {
 		do {
 			goToNextPlayer();
 		} while (!playerCanStart(currentPlayer));
-		
+
 		startTournament();
 	}
-	
+
 	public boolean playerCanStart(Player p) {
-		for (Card c: p.getHandCards()) {
+		for (Card c : p.getHandCards()) {
 			if (c instanceof SimpleCard) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -113,13 +113,14 @@ public class Game {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
-		
+
 		do {
-			if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
+			if (players[numOfPlayers - 1].getName().equals(
+					currentPlayer.getName())) {
 				currentPlayer = players[0];
 				return;
 			}
-	
+
 			// Otherwise, get position of current player
 			int i;
 			for (i = 0; i < numOfPlayers; i++) {
@@ -368,7 +369,8 @@ public class Game {
 				Boolean playerFound = false;
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1 && players[i].hasSupporterCardInDisplay()) {
+						if (players[i].getDisplayCards().size() > 1
+								&& players[i].hasSupporterCardInDisplay()) {
 							playerFound = true;
 							break;
 						}
@@ -388,13 +390,35 @@ public class Game {
 						}
 					}
 				}
-				
+
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
+			} else if (name.equals("Riposte")) {
+				return "moreInformationNeeded~Riposte@"
+						+ getAllPlayersNamesAndLastDisplayCard(playerNum);
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	// excluding the given player
+	private String getAllPlayersNamesAndLastDisplayCard(int playerNum) {
+		String result = "";
+
+		for (int i = 0; i < numOfPlayers; i++) {
+			// First we need to check to see if they have more than one card in
+			// their display
+			if (i != playerNum && players[i].getDisplayCards().size() > 1) {
+				if (result.endsWith("]")) {
+					result += ",";
+				}
+				result += players[i].getName();
+				result += "[" + players[i].getDisplayCards().getLast().getName() + "]";
+			}
+		}
+
+		return result;
 	}
 
 	/**
@@ -433,7 +457,7 @@ public class Game {
 		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
-		
+
 		String winningPlayer = "";
 		int playersStillActive = 0;
 
@@ -442,22 +466,22 @@ public class Game {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
 				currentPlayer = players[i];
-				
+
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
 			startTournament();
-			
+
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
-			
-			return winningPlayer + "," + (tournamentNumber-1) + ","
+
+			return winningPlayer + "," + (tournamentNumber - 1) + ","
 					+ tournamentColour;
 		}
-		
+
 		goToNextPlayer();
 
 		return "";

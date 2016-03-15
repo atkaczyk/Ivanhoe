@@ -52,6 +52,8 @@ public class TestGame {
 			"Countercharge");
 	private static final Card DISGRACE_CARD = new ActionCard("Disgrace");
 
+	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
+	
 	Game game;
 
 	@Before
@@ -990,13 +992,17 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 
-		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
 
-		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		String result = game.playCard(0, RIPOSTE_CARD.getName());
+		System.out.println(result);
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(0, game.getDiscardPileSize());
-		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 	}
 
 	@After
