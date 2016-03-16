@@ -151,9 +151,7 @@ public class GUIController {
 		else if (cardInfo[0].equals("Ivanhoe")){
 			//	playRiposte(cardInfo[1]);
 		} 
-
 	}
-
 	private void playOutwit(String string) {
 
 	}
