@@ -54,7 +54,8 @@ public class TestGame {
 
 	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
 	private static final Card UNHORSE_CARD = new ActionCard("Unhorse");
-	private static final Card CHANGE_WEAPON_CARD = new ActionCard("Change Weapon");
+	private static final Card CHANGE_WEAPON_CARD = new ActionCard(
+			"Change Weapon");
 	private static final Card BREAK_LANCE_CARD = new ActionCard("Break Lance");
 	private static final Card DODGE_CARD = new ActionCard("Dodge");
 	private static final Card RETREAT_CARD = new ActionCard("Retreat");
@@ -1126,16 +1127,16 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.overrideTourColour(Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
 
-		String info = "Unhorse@"+Config.YELLOW;
+		String info = "Unhorse@" + Config.YELLOW;
 		game.playActionCard(0, info);
-		
+
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void tryPlayingChangeWeaponMoreInfoNeeded() {
 		game.setNumPlayers(2);
@@ -1150,7 +1151,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.RED, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayChangeWeapon() {
 		game.setNumPlayers(2);
@@ -1165,23 +1166,23 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void playUnhorseFromBlueToYellow() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.overrideTourColour(Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
 
-		String info = "Change Weapon@"+Config.YELLOW;
+		String info = "Change Weapon@" + Config.YELLOW;
 		game.playActionCard(0, info);
-		
+
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayBreakLance() {
 		game.setNumPlayers(3);
@@ -1190,13 +1191,13 @@ public class TestGame {
 		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
@@ -1206,7 +1207,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void tryPlayingBreakLanceMoreInfoNeeded() {
 		game.setNumPlayers(3);
@@ -1217,13 +1218,13 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
@@ -1231,7 +1232,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void playBreakLance() {
 		game.setNumPlayers(3);
@@ -1242,24 +1243,26 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
-		String info = "Break Lance@"+PLAYER_THREE_NAME;
+		String info = "Break Lance@" + PLAYER_THREE_NAME;
 		game.playActionCard(0, info);
 		assertEquals(4, game.getDiscardPileSize());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
-		assertEquals(true, game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_7));
-		assertEquals(false, game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_7));
+		assertEquals(false,
+				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_3));
 	}
-	
+
 	@Test
 	public void tryPlayingDodgeMoreInfoNeeded() {
 		game.setNumPlayers(3);
@@ -1275,7 +1278,7 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(DODGE_CARD);
 
 		String result = game.playCard(0, DODGE_CARD.getName());
@@ -1283,17 +1286,17 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayDodge() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(DODGE_CARD);
 
 		String result = game.playCard(0, DODGE_CARD.getName());
@@ -1301,14 +1304,14 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void playDodge() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
-		
+
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 
@@ -1317,21 +1320,24 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(DODGE_CARD);
 
-		String info = "Dodge@"+PLAYER_TWO_NAME+","+PURPLE_CARD_3.getName();
+		String info = "Dodge@" + PLAYER_TWO_NAME + ","
+				+ PURPLE_CARD_3.getName();
 		game.playActionCard(0, info);
-		
+
 		assertEquals(2, game.getDiscardPileSize());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
-		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(false,
+				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
 	}
-	
+
 	@Test
 	public void tryPlayingRetreatMoreInfoNeeded() {
 		game.setNumPlayers(2);
@@ -1340,10 +1346,10 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(RETREAT_CARD);
 
 		String result = game.playCard(0, RETREAT_CARD.getName());
@@ -1351,7 +1357,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayRetreat() {
 		game.setNumPlayers(2);
@@ -1360,16 +1366,41 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(RETREAT_CARD);
 
 		String result = game.playCard(0, RETREAT_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+
+	@Test
+	public void playRetreatCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+
+		String info = "Retreat@" + SQUIRE_CARD_2.getName();
+		game.playActionCard(0, info);
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(true, game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(false, game.getPlayer(0).getHandCards().contains(PURPLE_CARD_3));
+		assertEquals(true, game.getPlayer(0).getHandCards().contains(SQUIRE_CARD_2));
+		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
 	}
 
 	@After
