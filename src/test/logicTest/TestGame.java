@@ -1162,6 +1162,22 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
+	
+	@Test
+	public void playUnhorseFromBlueToYellow() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
+
+		String info = "Change Weapon@"+Config.YELLOW;
+		game.playActionCard(0, info);
+		
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(Config.YELLOW, game.getTournamentColour());
+	}
 
 	@After
 	public void tearDown() {
