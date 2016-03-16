@@ -398,10 +398,38 @@ public class Game {
 				} else {
 					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
 				}
+			} else if (name.equals("Break Lance")) {
+				String playersToChoose = getPlayersWithPurpleToRemove(playerNum);
+				if (!playersToChoose.equals("")) {
+					return "moreInformationNeeded~Break Lance@"
+							+ playersToChoose;
+				} else {
+					return "false:You cannot play a break lance card when there are no purple cards to remove from other players!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String getPlayersWithPurpleToRemove(int playerNum) {
+		String result = "";
+
+		for (int i = 0; i < numOfPlayers; i++) {
+			Player p = players[i];
+			if (i != playerNum) {
+				if (!p.isWithdrawn() && p.getDisplayCards().size() > 1
+						&& p.hasPurpleCardInDisplay()) {
+					result += p.getName() + ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 2);
+		}
+
+		return result;
 	}
 
 	private boolean moreThanOneCardInOtherDisplays(int playerNum) {
@@ -571,8 +599,8 @@ public class Game {
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
-		
+
 		return "actionCardPlayedMessage~" + cardName + ","
-		+ getPlayer(playerNum).getName();
+				+ getPlayer(playerNum).getName();
 	}
 }

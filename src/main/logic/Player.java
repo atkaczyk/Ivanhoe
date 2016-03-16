@@ -278,4 +278,13 @@ public class Player {
 		return result;
 	}
 
+	public boolean hasPurpleCardInDisplay() {
+		for (Card c: display) {
+			if (c instanceof ColourCard && ((ColourCard) c).getColour() == Config.PURPLE) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
