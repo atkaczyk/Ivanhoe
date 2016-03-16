@@ -1198,12 +1198,36 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
+	}
+	
+	@Test
+	public void tryPlayingBreakLanceMoreInfoNeeded() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
+		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After
