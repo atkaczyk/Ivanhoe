@@ -1300,6 +1300,36 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
+	
+	@Test
+	public void playDodge() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(DODGE_CARD);
+
+		String info = "Dodge@"+PLAYER_TWO_NAME+","+PURPLE_CARD_3.getName();
+		game.playActionCard(0, info);
+		
+		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+	}
 
 	@After
 	public void tearDown() {
