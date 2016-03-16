@@ -1414,8 +1414,8 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
-		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);

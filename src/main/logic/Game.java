@@ -420,10 +420,46 @@ public class Game {
 				} else {
 					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
 				}
+			} else if (name.equals("Knock Down")) {
+				if (playersWithHandCards(playerNum)) {
+					return "moreInformationNeeded~Knock Down@"
+							+ playersWithHandToChoose(playerNum);
+				} else {
+					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String playersWithHandToChoose(int playerNum) {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getHandCards().size() > 0) {
+					result += players[i].getName();
+					result += ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
+	private boolean playersWithHandCards(int playerNum) {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getHandCards().size() > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private String playersWithMoreThanOneCardInDisplay(int playerNum) {
