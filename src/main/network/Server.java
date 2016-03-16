@@ -241,7 +241,6 @@ public class Server implements Runnable {
 					//no one has won the tournament yet
 					if(result.equals("")){
 						//Ending turn
-						game.goToNextPlayer();
 						updateAll();
 					}
 					
@@ -284,6 +283,7 @@ public class Server implements Runnable {
 							//if it was another colour tournament
 							}else{
 								game.addTokenToPlayer(playerW ,game.getTournamentColour());
+								updateAll();
 								broadcastToAllPlayers("tournamentWinner~"+result);
 							}
 						}
@@ -297,6 +297,7 @@ public class Server implements Runnable {
 					
 					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
 							+ game.getTournamentColour());
+					updateAll();
 				}
 				else if (input.contains("finalWinnerCheck")){
 					//String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
