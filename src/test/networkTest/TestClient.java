@@ -118,6 +118,12 @@ public class TestClient {
 	}
 
 	@Test
+	public void actionCardInfoGatheredFromGUI(){
+		clientTwo.handle("actionInfoGathered");
+		assertEquals(true, clientTwo.getActionInfo());
+	}
+	
+	@Test
 	public void requestToEndTurn(){
 		clientOne.handle("requestToEndTurn");
 		assertEquals(true, clientOne.getEndTurn());

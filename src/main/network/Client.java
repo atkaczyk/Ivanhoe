@@ -36,6 +36,7 @@ public class Client {
 	private Boolean tournamentColourRequest = false;
 	private Boolean purpleTokenWin = false;
 	private Boolean endTurn = false;
+	private Boolean actionInfo = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -187,6 +188,17 @@ public class Client {
    			cardPlayed(msg);
    		}
    		//from server to gui
+   		else if(msg.contains("moreInformationNeeded~")){
+   			String[] result = msg.split("~");
+   			System.out.println("CLIENT: moreInformationNeeded~: "+result[1]);
+   			gui.getActionCardInfo(result[1]);
+   		}
+   		//from gui to server
+   		else if(msg.contains("actionInfoGathered~")){
+   			actionInfo = true;
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
    		else if(msg.contains("actionCardPlayedMessage")){
    			String messageToDisplay = msg.split("~")[1];
    			gui.actionCardPlayedMessage(messageToDisplay);
@@ -325,5 +337,8 @@ public class Client {
 	}
 	public Object getEndTurn(){
 		return endTurn;
+	}
+	public Object getActionInfo(){
+		return actionInfo;
 	}
 }
