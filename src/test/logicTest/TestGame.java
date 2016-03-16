@@ -1147,6 +1147,21 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.RED, game.getTournamentColour());
 	}
+	
+	@Test
+	public void notAllowedToPlayChangeWeapon() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
+
+		String result = game.playCard(0, CHANGE_WEAPON_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(Config.PURPLE, game.getTournamentColour());
+	}
 
 	@After
 	public void tearDown() {
