@@ -140,39 +140,44 @@ public class GUIController {
 			playOutwit(cardInfo[1]);
 		}  
 		else if (cardInfo[0].equals("Adapt")){
-			//playRiposte(cardInfo[1]);
 		}  
 		else if (cardInfo[0].equals("Shield")){
-			//playRiposte(cardInfo[1]);
 		}  
 		else if (cardInfo[0].equals("Stunned")){
-			//	playRiposte(cardInfo[1]);
 		}  
 		else if (cardInfo[0].equals("Ivanhoe")){
-			//	playRiposte(cardInfo[1]);
 		} 
 	}
 	private void playOutwit(String string) {
 
 	}
-	private void playKnockDown(String string) {
-		// TODO Auto-generated method stub
-
-	}
-	private void playRetreat(String msg) {
+	private void playKnockDown(String msg) {
 		String[] p = msg.split(",");
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"You played the Retreat Card!\n"
-				+ "You may take any one card from your own display back into your hand.\n"
-				+ "Select the player you want to attack.",
-				"Retreat",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				p,
-				"Player");
-		//then take the players info? to get them to select the card.. lol
+				"You played the Knock Down Card!\n"
+						+ "You may draw at random one card from any one opponent's hand and add it to your own hand (without revealing the card)\n"
+						+ "Select the player whom you wish to draw from",
+						"Knock Down",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Players");
 		client.handle("actionInfoGathered~Retreat@"+ chosenName);
+	}
+	private void playRetreat(String msg) {
+		String[] p = msg.split(",");
+		String chosenCard = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Retreat Card!\n"
+						+ "You may take any one card from your own display back into your hand.\n"
+						+ "Select the card you wish to retreat.",
+						"Retreat",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Cards");
+		client.handle("actionInfoGathered~Retreat@"+ chosenCard);
 	}
 
 	private void playDodge(String msg) {
@@ -180,14 +185,14 @@ public class GUIController {
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
-				+ "You may discard any one card from any one opponent's display \n"
-				+ "Select the player you want to attack.",
-				"Dodge",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				p,
+						+ "You may discard any one card from any one opponent's display \n"
+						+ "Select the player you want to attack.",
+						"Dodge",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
 				"Player");
-		
+
 		//then take the players info? to get them to select the card.. lol
 		client.handle("actionInfoGathered~Dodge@"+ chosenName);
 	}
@@ -196,12 +201,12 @@ public class GUIController {
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Break Lance Card!\n "
-				+ "One opponent must discard all purple cards from his display \n"
-				+ "Select the player to use this on",
-				"Break Lance",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				p,
+						+ "One opponent must discard all purple cards from his display \n"
+						+ "Select the player to use this on",
+						"Break Lance",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
 				"Players");
 		client.handle("actionInfoGathered~Break Lance@"+ chosenName);
 	}
@@ -222,16 +227,16 @@ public class GUIController {
 		if(tokens.contains("4")){
 			temp  += "Blue";
 		} 
-		
+
 		String[] options = temp.split(",");
 		String chosenColour = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Change Weapon Card!\n Change the tournament colour from red, blue or yellow to a different one of these colours.\n"
-				+ "Select the colour you want to change to.",
-				"Change Weapon",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				options,
+						+ "Select the colour you want to change to.",
+						"Change Weapon",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
 				"Colours");
 		client.handle("ChangeWeapon@"+ chosenColour);
 	}
@@ -252,38 +257,39 @@ public class GUIController {
 		if(tokens.contains("4")){
 			temp  += "Blue";
 		} 
-		
+
 		String[] options = temp.split(",");
 		String chosenColour = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Unhorse Card!\n Change the tournament colour, from purple to red blue or yellow.\n"
-				+ "Select the colour you want to change to.",
-				"Unhorse",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				options,
+						+ "Select the colour you want to change to.",
+						"Unhorse",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
 				"Colours");
 		client.handle("actionInfoGathered~Unhorse@"+ chosenColour);
 	}
-	public void playRiposte(String msg){
+	private void playRiposte(String msg){
 		String[] p = msg.split(",");
 		/*String pInfo = null;
 				for (int i = 0; i< p.length; i++){
 			pInfo = p[i].split("[");			
 		}
-		 
+
 		//temp = temp.substring(0, temp.length()-1);
 		String[] options = p; //.split(" ");*/
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"You played the Riposte Card!\n You may take the last card of any opponents display, and add it to your own display \n"
-				+ "Select the player you want to Steal from.",
-				"Riposte",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				p,
-				"Player^Card^");
-		String[] retVal = chosenName.split("^");
+				"You played the Riposte Card!\n "
+						+ "You may take the last card of any opponents display, and add it to your own display \n"
+						+ "Select the player you want to Steal from.",
+						"Riposte",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Player-Card-");
+		String[] retVal = chosenName.split("-");
 		client.handle("actionInfoGathered~Riposte@"+ retVal[0]);
 	}
 
