@@ -151,6 +151,46 @@ public class GUIController {
 	private void playOutwit(String string) {
 
 	}
+	private void playDodge(String msg) {
+		String[] playersInfo = msg.split("#");
+		String [] pNames = new String[playersInfo.length];
+		String [] pCards = new String[15]; //um just gonna make max possible cards per player 15
+		//pick the player you wish to attack.
+		for(int i = 0; i< playersInfo.length; i++){
+			pNames[i] = playersInfo[i].split("-")[0];
+			
+		}
+		
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Dodge Card!\n"
+						+ "You may discard any one card from any one opponent's display \n"
+						+ "Select the player you want to choose a card from.",
+						"Dodge",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						pNames,
+				"Player");
+
+		for(int i = 0; i< playersInfo.length; i++){
+			if(playersInfo[i].contains(chosenName)){
+				pCards = playersInfo[i].split("-")[1].split(",");
+			}
+		}
+		
+		String chosenCard = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Dodge Card!\n"
+						+ "And you chose to steal from " + chosenName + "\n"
+						+ "Select the card that you'd like to take.",
+						"Dodge",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						pCards,
+				"Player");
+		
+		client.handle("actionInfoGathered~Dodge@"+ chosenName +","+ chosenCard);
+	}
 	private void playKnockDown(String msg) {
 		String[] p = msg.split(",");
 		String chosenName = (String)JOptionPane.showInputDialog(
@@ -178,24 +218,6 @@ public class GUIController {
 						p,
 				"Cards");
 		client.handle("actionInfoGathered~Retreat@"+ chosenCard);
-	}
-
-	private void playDodge(String msg) {
-/*		String[] playersInfo = msg.split("#");
-		String[] playersNames 
-		String chosenName = (String)JOptionPane.showInputDialog(
-				gamePlayWindow,
-				"You played the Dodge Card!\n"
-						+ "You may discard any one card from any one opponent's display \n"
-						+ "Select the player you want to choose a card from.",
-						"Dodge",
-						JOptionPane.QUESTION_MESSAGE,
-						null,
-						playersInfo,
-				"Player");*/
-
-		//then take the players info? to get them to select the card.. lol
-		//client.handle("actionInfoGathered~Dodge@"+ chosenName);
 	}
 	private void playBreakLance(String msg) {
 		String[] p = msg.split(",");
@@ -271,8 +293,6 @@ public class GUIController {
 				"Colours");
 		client.handle("actionInfoGathered~Unhorse@"+ convertNameToNumber(chosenColour));
 	}
-
-
 	private void playRiposte(String msg){
 		String[] p = msg.split(",");
 		/*String pInfo = null;
