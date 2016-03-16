@@ -181,20 +181,21 @@ public class GUIController {
 	}
 
 	private void playDodge(String msg) {
-		String[] p = msg.split(",");
+/*		String[] playersInfo = msg.split("#");
+		String[] playersNames 
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
 						+ "You may discard any one card from any one opponent's display \n"
-						+ "Select the player you want to attack.",
+						+ "Select the player you want to choose a card from.",
 						"Dodge",
 						JOptionPane.QUESTION_MESSAGE,
 						null,
-						p,
-				"Player");
+						playersInfo,
+				"Player");*/
 
 		//then take the players info? to get them to select the card.. lol
-		client.handle("actionInfoGathered~Dodge@"+ chosenName);
+		//client.handle("actionInfoGathered~Dodge@"+ chosenName);
 	}
 	private void playBreakLance(String msg) {
 		String[] p = msg.split(",");
@@ -211,7 +212,7 @@ public class GUIController {
 		client.handle("actionInfoGathered~Break Lance@"+ chosenName);
 	}
 	private void playChangeWeapon(String tokens) {
-		String temp = null;
+		String temp = "";
 		if(tokens.contains("0")){
 			temp += "Purple,";
 		}
@@ -268,11 +269,10 @@ public class GUIController {
 						null,
 						options,
 				"Colours");
-		
 		client.handle("actionInfoGathered~Unhorse@"+ convertNameToNumber(chosenColour));
 	}
 
-	
+
 	private void playRiposte(String msg){
 		String[] p = msg.split(",");
 		/*String pInfo = null;
@@ -346,24 +346,17 @@ public class GUIController {
 	}
 	private String convertNameToNumber(String chosenColour) {
 		String temp = "";
-		
 		if(chosenColour.contains("Purple")){
 			temp  = "0";
-			//numTokens.setForeground(Color.MAGENTA);
 		} else if(chosenColour.contains("Red")){
 			temp  = "1";
-			//tColour = Color.RED;
 		} else if(chosenColour.contains("Yellow")){
 			temp  = "2";
-			//tColour = Color.YELLOW;
 		} else if(chosenColour.contains("Green")){
 			temp  = "3";
-			//tColour = Color.GREEN;
 		} else if(chosenColour.contains("Blue")){
 			temp  = "4";
-			//tColour = Color.BLUE;
 		} 
-		
 		return temp;
 	}
 }
