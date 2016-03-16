@@ -641,9 +641,7 @@ public class Game {
 			for (Card c : cardsToDiscard) {
 				discardPile.add(c);
 			}
-		}
-
-		else if (info.contains("Dodge")) {
+		} else if (info.contains("Dodge")) {
 			String playerName = extraInfo.split(",")[0];
 			String chosenCard = extraInfo.split(",")[1];
 
@@ -652,6 +650,8 @@ public class Game {
 					discardPile.add(p.removeFromDisplay(chosenCard));
 				}
 			}
+		} else if (info.contains("Retreat")) {
+			players[playerNum].addCardToHand(players[playerNum].removeFromDisplay(extraInfo));
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
