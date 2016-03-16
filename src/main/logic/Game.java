@@ -76,7 +76,7 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Unhorse"));
+		players[0].addCardToHand(new ActionCard("Change Weapon"));
 		
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -396,7 +396,7 @@ public class Game {
 				if (tournamentColour == Config.RED
 						|| tournamentColour == Config.BLUE
 						|| tournamentColour == Config.YELLOW) {
-					return "moreInformationNeeded~Unhorse@" + Config.RED
+					return "moreInformationNeeded~Change Weapon@" + Config.RED
 							+ Config.BLUE + Config.YELLOW;
 				} else {
 					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
