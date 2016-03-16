@@ -149,7 +149,7 @@ public class GUIController {
 	}
 	private void playOutwit(String msg) {
 		
-		String [] myPlayerCards = msg.split("|")[0].split(","); //new String[15];
+		String [] myPlayerCards = msg.split("\\|")[0].split(","); //new String[15];
 		String myChosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -162,7 +162,7 @@ public class GUIController {
 				"Cards");
 		
 		
-		String[] playersInfo = msg.split("|")[1].split("#");	
+		String[] playersInfo = msg.split("\\|")[1].split("#");	
 		String [] pNames = new String[playersInfo.length];
 		String [] pCards = new String[15]; 
 		//get the players names in the pinfo string
