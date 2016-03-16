@@ -1229,6 +1229,34 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
+	
+	@Test
+	public void playBreakLance() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		String info = "Break Lance@"+PLAYER_THREE_NAME;
+		game.playActionCard(0, info);
+		assertEquals(4, game.getDiscardPileSize());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
+		assertEquals(true, game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_7));
+		assertEquals(false, game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_3));
+	}
 
 	@After
 	public void tearDown() {

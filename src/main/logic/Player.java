@@ -287,4 +287,23 @@ public class Player {
 		return false;
 	}
 
+	public List<Card> removeAllPurpleCards() {
+		List<Card> result = new ArrayList<Card>();
+
+		ArrayDeque<Card> displayCopy = display.clone();
+		for (Iterator<Card> itr = displayCopy.descendingIterator(); itr
+				.hasNext();) {
+			Card c = itr.next();
+			if (display.size() > 1) {
+				if (c instanceof ColourCard
+						&& ((ColourCard) c).getColour() == Config.PURPLE) {
+					result.add(c);
+					display.removeLastOccurrence(c);
+				}
+			}
+		}
+
+		return result;
+	}
+
 }

@@ -596,6 +596,16 @@ public class Game {
 		} else if (info.contains("Change Weapon")) {
 			int newColour = Integer.parseInt(extraInfo);
 			tournamentColour = newColour;
+		} else if (info.contains("Break Lance")) {
+			List<Card> cardsToDiscard = null;
+			for (Player p: players) {
+				if (p.getName().equals(extraInfo)) {
+					cardsToDiscard = p.removeAllPurpleCards();
+				}
+			}
+			for (Card c : cardsToDiscard) {
+				discardPile.add(c);
+			}
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
