@@ -740,6 +740,25 @@ public class Game {
 					players[playerNum].addCardToHand(p.getRandomCardFromHand());
 				}
 			}
+		} else if (info.contains("Outwit")) {
+			String playerCard = extraInfo.split(",")[0];
+			String targetPlayer = extraInfo.split(",")[1];
+			String targetCard = extraInfo.split(",")[2];
+			
+			Card tempPlayerCard = players[playerNum].removeFaceupCard(playerCard);
+			Card tempTargetCard = null;
+			
+			Player targetPlayerObject = null;
+			
+			for (Player p: players) {
+				if (p.getName().equals(targetPlayer)) {
+					targetPlayerObject = p;
+					tempTargetCard = p.removeFaceupCard(targetCard);
+				}
+			}
+			
+			players[playerNum].addFaceupCard(tempTargetCard);
+			targetPlayerObject.addFaceupCard(tempPlayerCard);
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);

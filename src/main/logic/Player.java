@@ -369,4 +369,33 @@ public class Player {
 		return result;
 	}
 
+	public Card removeFaceupCard(String cardName) {
+		Card result = null;
+		for (Card c: display) {
+			if (c.getName().equals(cardName)) {
+				result = c;
+				display.remove(c);
+				break;
+			}
+		}
+		
+		for (Card c: specialCards) {
+			if (c.getName().equals(cardName)) {
+				result = c;
+				specialCards.remove(c);
+				break;
+			}
+		}
+		
+		return result;
+	}
+
+	public void addFaceupCard(Card card) {
+		if (card.getName().equals("Shield") || card.getName().equals("Stunned")) {
+			addSpecialCard(card);
+			return;
+		}
+		
+		display.addLast(card);
+	}
 }

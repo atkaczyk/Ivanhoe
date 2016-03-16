@@ -1528,7 +1528,12 @@ public class TestGame {
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(true,
 				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
+		
 		assertEquals(true,
+				game.getPlayer(0).hasSpecialCard(SHIELD_CARD.getName()));
+		assertEquals(false,
 				game.getPlayer(1).hasSpecialCard(SHIELD_CARD.getName()));
 	}
 
