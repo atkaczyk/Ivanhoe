@@ -425,7 +425,7 @@ public class Game {
 					return "moreInformationNeeded~Knock Down@"
 							+ playersWithHandToChoose(playerNum);
 				} else {
-					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
+					return "false:You cannot play a knock down card when there are no players to take a card form their hand!";
 				}
 			}
 		}
