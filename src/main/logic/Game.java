@@ -427,10 +427,52 @@ public class Game {
 				} else {
 					return "false:You cannot play a knock down card when there are no players to take a card form their hand!";
 				}
+			} else if (name.equals("Outwit")) {
+				if (players[playerNum].getNumFaceupCards() > 0
+						&& otherPlayersHaveFaceupCards(playerNum)) {
+					return "moreInformationNeeded~Outwit@"+getOutwitInfo(playerNum);
+				} else {
+					return "false:You cannot play an outwit card when there are no faceup cards you can switch!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String getOutwitInfo(int playerNum) {
+		String result = "";
+		
+		result += players[playerNum].getFaceupCardsAsString();
+		
+		result += "|";
+		
+		for (int i=0; i< numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getNumFaceupCards() > 0) {
+					result += players[i].getName();
+					result += "["+players[i].getFaceupCardsAsString()+"]";
+					result += "#";
+				}
+			}
+		}
+		
+		if (result.endsWith("#")) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
+	}
+
+	private boolean otherPlayersHaveFaceupCards(int playerNum) {
+		for (int i=0; i< numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getNumFaceupCards() > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private String playersWithHandToChoose(int playerNum) {
@@ -471,12 +513,12 @@ public class Game {
 					result += "[";
 					result += players[i].getDisplayAsString();
 					result += "]";
-					result += ",";
+					result += "#";
 				}
 			}
 		}
 
-		if (result.endsWith(",")) {
+		if (result.endsWith("#")) {
 			result = result.substring(0, result.length() - 1);
 		}
 
@@ -687,9 +729,9 @@ public class Game {
 				}
 			}
 		} else if (info.contains("Retreat")) {
-			players[playerNum].addCardToHand(players[playerNum].removeFromDisplay(extraInfo));
-		}
-		else if (info.contains("Knock Down")) {
+			players[playerNum].addCardToHand(players[playerNum]
+					.removeFromDisplay(extraInfo));
+		} else if (info.contains("Knock Down")) {
 			for (Player p : players) {
 				if (p.getName().equals(extraInfo)) {
 					players[playerNum].addCardToHand(p.getRandomCardFromHand());
