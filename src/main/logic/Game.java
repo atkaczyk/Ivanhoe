@@ -406,10 +406,38 @@ public class Game {
 				} else {
 					return "false:You cannot play a break lance card when there are no purple cards to remove from other players!";
 				}
+			} else if (name.equals("Dodge")) {
+				if (moreThanOneCardInOtherDisplays(playerNum)) {
+					return "moreInformationNeeded~Dodge@"
+							+ playersWithMoreThanOneCardInDisplay(playerNum);
+				} else {
+					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String playersWithMoreThanOneCardInDisplay(int playerNum) {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getDisplayCards().size() > 1) {
+					result += players[i].getName();
+					result += "[";
+					result += players[i].getDisplayAsString();
+					result += "]";
+					result += ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
 	}
 
 	private String getPlayersWithPurpleToRemove(int playerNum) {
@@ -598,7 +626,7 @@ public class Game {
 			tournamentColour = newColour;
 		} else if (info.contains("Break Lance")) {
 			List<Card> cardsToDiscard = null;
-			for (Player p: players) {
+			for (Player p : players) {
 				if (p.getName().equals(extraInfo)) {
 					cardsToDiscard = p.removeAllPurpleCards();
 				}
