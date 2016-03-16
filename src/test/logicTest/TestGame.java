@@ -1278,8 +1278,25 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(DODGE_CARD);
 
 		String result = game.playCard(0, DODGE_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void notAllowedToPlayDodge() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(DODGE_CARD);
+
+		String result = game.playCard(0, DODGE_CARD.getName());
+		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
