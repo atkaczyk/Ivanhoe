@@ -76,8 +76,10 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Unhorse"));
-		
+		players[0].addCardToHand(new ActionCard("Retreat"));
+		players[0].addCardToHand(new SupporterCard("Squire 2", 2));
+		players[0].addCardToHand(new SupporterCard("Squire 2", 2));
+
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -396,7 +398,7 @@ public class Game {
 				if (tournamentColour == Config.RED
 						|| tournamentColour == Config.BLUE
 						|| tournamentColour == Config.YELLOW) {
-					return "moreInformationNeeded~Unhorse@" + Config.RED
+					return "moreInformationNeeded~Change Weapon@" + Config.RED
 							+ Config.BLUE + Config.YELLOW;
 				} else {
 					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
@@ -419,7 +421,7 @@ public class Game {
 			} else if (name.equals("Retreat")) {
 				if (players[playerNum].getDisplayCards().size() > 1) {
 					return "moreInformationNeeded~Retreat@"
-							+ players[playerNum].getDisplayAsString();
+							+ players[playerNum].getDisplayAsStringNoDuplicates();
 				} else {
 					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
 				}

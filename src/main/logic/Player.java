@@ -122,7 +122,7 @@ public class Player {
 	}
 
 	public Boolean hasSpecialCard(String name) {
-		for (Card c: specialCards) {
+		for (Card c : specialCards) {
 			if (c.getName().equals(name)) {
 				return true;
 			}
@@ -159,6 +159,20 @@ public class Player {
 		String result = "";
 		for (Card c : display) {
 			result += c.getName() + ",";
+		}
+		result = result.substring(0, result.length() - 1);
+		return result;
+	}
+
+	public String getDisplayAsStringNoDuplicates() {
+		if (display.size() == 0) {
+			return "";
+		}
+		String result = "";
+		for (Card c : display) {
+			if (!result.contains(c.getName())) {
+				result += c.getName() + ",";
+			}
 		}
 		result = result.substring(0, result.length() - 1);
 		return result;
@@ -284,8 +298,9 @@ public class Player {
 	}
 
 	public boolean hasPurpleCardInDisplay() {
-		for (Card c: display) {
-			if (c instanceof ColourCard && ((ColourCard) c).getColour() == Config.PURPLE) {
+		for (Card c : display) {
+			if (c instanceof ColourCard
+					&& ((ColourCard) c).getColour() == Config.PURPLE) {
 				return true;
 			}
 		}
@@ -312,7 +327,7 @@ public class Player {
 	}
 
 	public Card removeFromDisplay(String cardName) {
-		for (Card c: display) {
+		for (Card c : display) {
 			if (c.getName().equals(cardName)) {
 				display.remove(c);
 				return c;
@@ -327,30 +342,30 @@ public class Player {
 
 	public int getNumFaceupCards() {
 		int total = display.size();
-		
+
 		if (specialCards.contains("Shield")) {
 			total += 1;
 		}
 		if (specialCards.contains("Stunned")) {
 			total += 1;
 		}
-		
+
 		return total;
 	}
 
 	public String getFaceupCardsAsString() {
 		String result = "";
-		
+
 		result += getDisplayAsString();
-		
-		for (Card c: specialCards) {
-			result += ","+c.getName();
+
+		for (Card c : specialCards) {
+			result += "," + c.getName();
 		}
-		
+
 		if (result.startsWith(",")) {
 			result = result.substring(1, result.length());
 		}
-		
+
 		return result;
 	}
 
