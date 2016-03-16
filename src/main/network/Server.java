@@ -299,15 +299,15 @@ public class Server implements Runnable {
 							+ game.getTournamentColour());
 				}
 				else if (input.contains("finalWinnerCheck")){
-					String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
-					if(result.equals("")){
+					//String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
+					//if(result.equals("")){
 						// If there is no winner yet, start a new tournament
-						//updateAll();
-						handle(ID, "updateGameInformation");
-					}
-					else{
-						broadcastToAllPlayers("gameWinner~"+result);
-					}
+						////updateAll();
+						//handle(ID, "updateGameInformation");
+					//}
+					//else{
+						//broadcastToAllPlayers("gameWinner~"+result);
+					//}
 				}
 				if (input.contains("gameReady")){
 					//String[] playerInfo = message.split(" ");
