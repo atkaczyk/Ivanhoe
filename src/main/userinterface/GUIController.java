@@ -159,25 +159,50 @@ public class GUIController {
 		// TODO Auto-generated method stub
 
 	}
-	private void playRetreat(String string) {
-		// TODO Auto-generated method stub
-
+	private void playRetreat(String msg) {
+		String[] p = msg.split(",");
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Retreat Card!\n"
+				+ "You may take any one card from your own display back into your hand.\n"
+				+ "Select the player you want to attack.",
+				"Retreat",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				p,
+				"Player");
+		//then take the players info? to get them to select the card.. lol
+		client.handle("actionInfoGathered~Retreat@"+ chosenName);
 	}
-	private void playDodge(String string) {
-		// TODO Auto-generated method stub
 
+	private void playDodge(String msg) {
+		String[] p = msg.split(",");
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Dodge Card!\n"
+				+ "You may discard any one card from any one opponent's display \n"
+				+ "Select the player you want to attack.",
+				"Dodge",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				p,
+				"Player");
+		
+		//then take the players info? to get them to select the card.. lol
+		client.handle("actionInfoGathered~Dodge@"+ chosenName);
 	}
 	private void playBreakLance(String msg) {
 		String[] p = msg.split(",");
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"You played the Break Lance Card!\n You may take the last card of any opponents display, and add it to your own display \n"
-				+ "Select the player you want to Steal from.",
+				"You played the Break Lance Card!\n "
+				+ "One opponent must discard all purple cards from his display \n"
+				+ "Select the player to use this on",
 				"Break Lance",
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				p,
-				"Player[Card]");
+				"Players");
 		client.handle("actionInfoGathered~Break Lance@"+ chosenName);
 	}
 	private void playChangeWeapon(String tokens) {
@@ -257,8 +282,9 @@ public class GUIController {
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				p,
-				"Player[Card]");
-		client.handle("actionInfoGathered~Riposte@"+ chosenName);
+				"Player^Card^");
+		String[] retVal = chosenName.split("^");
+		client.handle("actionInfoGathered~Riposte@"+ retVal[0]);
 	}
 
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
