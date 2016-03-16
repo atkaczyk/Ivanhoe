@@ -454,7 +454,7 @@ public class Game {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					result += players[i].getName();
-					result += "^"+players[i].getFaceupCardsAsString()+"^";
+					result += "-"+players[i].getFaceupCardsAsString()+"-";
 					result += "#";
 				}
 			}
@@ -513,9 +513,9 @@ public class Game {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getDisplayCards().size() > 1) {
 					result += players[i].getName();
-					result += "^";
+					result += "-";
 					result += players[i].getDisplayAsString();
-					result += "^";
+					result += "-";
 					result += "#";
 				}
 			}
@@ -572,9 +572,9 @@ public class Game {
 					result += ",";
 				}
 				result += players[i].getName();
-				result += "^"
+				result += "-"
 						+ players[i].getDisplayCards().getLast().getName()
-						+ "^";
+						+ "-";
 			}
 		}
 
