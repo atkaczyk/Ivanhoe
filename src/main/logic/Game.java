@@ -76,8 +76,8 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Unhorse"));
-		
+		players[0].addCardToHand(new ActionCard("Outwit"));
+
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -396,7 +396,7 @@ public class Game {
 				if (tournamentColour == Config.RED
 						|| tournamentColour == Config.BLUE
 						|| tournamentColour == Config.YELLOW) {
-					return "moreInformationNeeded~Unhorse@" + Config.RED
+					return "moreInformationNeeded~Change Weapon@" + Config.RED
 							+ Config.BLUE + Config.YELLOW;
 				} else {
 					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
@@ -412,14 +412,14 @@ public class Game {
 			} else if (name.equals("Dodge")) {
 				if (moreThanOneCardInOtherDisplays(playerNum)) {
 					return "moreInformationNeeded~Dodge@"
-							+ playersWithMoreThanOneCardInDisplay(playerNum);
+							+ getDodgeInfo(playerNum);
 				} else {
 					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
 				}
 			} else if (name.equals("Retreat")) {
 				if (players[playerNum].getDisplayCards().size() > 1) {
 					return "moreInformationNeeded~Retreat@"
-							+ players[playerNum].getDisplayAsString();
+							+ players[playerNum].getDisplayAsStringNoDuplicates();
 				} else {
 					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
 				}
@@ -446,7 +446,7 @@ public class Game {
 	private String getOutwitInfo(int playerNum) {
 		String result = "";
 		
-		result += players[playerNum].getFaceupCardsAsString();
+		result += players[playerNum].getFaceupCardsAsStringNoDuplicates();
 		
 		result += "|";
 		
@@ -454,7 +454,7 @@ public class Game {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					result += players[i].getName();
-					result += "-"+players[i].getFaceupCardsAsString()+"-";
+					result += "-"+players[i].getFaceupCardsAsStringNoDuplicates()+"-";
 					result += "#";
 				}
 			}
@@ -507,14 +507,14 @@ public class Game {
 		return false;
 	}
 
-	private String playersWithMoreThanOneCardInDisplay(int playerNum) {
+	private String getDodgeInfo(int playerNum) {
 		String result = "";
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getDisplayCards().size() > 1) {
 					result += players[i].getName();
 					result += "-";
-					result += players[i].getDisplayAsString();
+					result += players[i].getDisplayAsStringNoDuplicates();
 					result += "-";
 					result += "#";
 				}
@@ -740,6 +740,25 @@ public class Game {
 					players[playerNum].addCardToHand(p.getRandomCardFromHand());
 				}
 			}
+		} else if (info.contains("Outwit")) {
+			String playerCard = extraInfo.split(",")[0];
+			String targetPlayer = extraInfo.split(",")[1];
+			String targetCard = extraInfo.split(",")[2];
+			
+			Card tempPlayerCard = players[playerNum].removeFaceupCard(playerCard);
+			Card tempTargetCard = null;
+			
+			Player targetPlayerObject = null;
+			
+			for (Player p: players) {
+				if (p.getName().equals(targetPlayer)) {
+					targetPlayerObject = p;
+					tempTargetCard = p.removeFaceupCard(targetCard);
+				}
+			}
+			
+			players[playerNum].addFaceupCard(tempTargetCard);
+			targetPlayerObject.addFaceupCard(tempPlayerCard);
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
