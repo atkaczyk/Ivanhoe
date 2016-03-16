@@ -132,6 +132,9 @@ public class Player {
 		while (!display.isEmpty()) {
 			result.add(display.pop());
 		}
+		while (!hand.isEmpty()) {
+			result.add(hand.pop());
+		}
 		return result;
 	}
 

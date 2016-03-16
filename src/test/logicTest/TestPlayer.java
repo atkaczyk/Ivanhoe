@@ -284,6 +284,8 @@ public class TestPlayer {
 		player.addCardToHand(PURPLE_CARD);
 		player.addCardToHand(PURPLE_CARD);
 		
+		player.withdraw();
+		
 		assertEquals(0, player.getHandCards().size());
 	}
 	
