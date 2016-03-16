@@ -54,7 +54,8 @@ public class TestGame {
 
 	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
 	private static final Card UNHORSE_CARD = new ActionCard("Unhorse");
-
+	private static final Card CHANGE_WEAPON_CARD = new ActionCard("Change Weapon");
+	
 	Game game;
 
 	@Before
@@ -1130,6 +1131,21 @@ public class TestGame {
 		
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
+	}
+	
+	@Test
+	public void tryPlayingChangeWeaponMoreInfoNeeded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.RED);
+
+		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
+
+		String result = game.playCard(0, CHANGE_WEAPON_CARD.getName());
+		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(Config.RED, game.getTournamentColour());
 	}
 
 	@After
