@@ -310,7 +310,7 @@ public class GUIController {
 						null,
 						options,
 				"Colours");
-		client.handle("ChangeWeapon@"+ convertNameToNumber(chosenColour));
+		client.handle("actionInfoGathered~Change Weapon@"+ convertNameToNumber(chosenColour));
 	}
 	private void playUnhorse(String tokens) {
 		String temp = "";
