@@ -392,6 +392,14 @@ public class Game {
 					return "false:You cannot play an unhorse card when the tournament colour is not purple!";
 				}
 			}
+			else if (name.equals("Change Weapon")) {
+				if (tournamentColour == Config.RED || tournamentColour == Config.BLUE || tournamentColour == Config.YELLOW) {
+					return "moreInformationNeeded~Unhorse@"+Config.RED+Config.BLUE+Config.YELLOW;
+				}
+				else {
+					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
+				}
+			}
 		}
 
 		return "false:This action card has not been implemented yet!";
