@@ -54,7 +54,7 @@ public class TestGame {
 
 	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
 	private static final Card UNHORSE_CARD = new ActionCard("Unhorse");
-	
+
 	Game game;
 
 	@Before
@@ -562,7 +562,7 @@ public class TestGame {
 		assertEquals(true,
 				game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
 	}
-	
+
 	@Test
 	public void notAllowedToPlayOutmaneuverWithdrawn() {
 		game.setNumPlayers(2);
@@ -570,7 +570,7 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 
 		game.getPlayer(1).withdraw();
-		
+
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
 
 		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
@@ -707,7 +707,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayChargeBecauseWithdrawn() {
 		game.setNumPlayers(3);
@@ -997,7 +997,7 @@ public class TestGame {
 
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
-	
+
 	@Test
 	public void drawPileRefillsWhenEmpty() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -1007,21 +1007,21 @@ public class TestGame {
 		game.getDiscardPile().add(new ActionCard(""));
 		game.getDiscardPile().add(new ActionCard(""));
 		game.getDiscardPile().add(new ActionCard(""));
-		
+
 		game.getDrawPile().clearCards();
-		
+
 		// Add cards to the draw pile
 		game.getDrawPile().addCard(new SupporterCard("", 0));
 		game.getDrawPile().addCard(new SupporterCard("", 0));
-		
+
 		// Empty the draw pile
 		// Draw pile should refill with the cards from the discard pile
 		game.drawCard(0);
 		game.drawCard(0);
-		
+
 		assertEquals(4, game.getDrawPile().getNumCards());
 	}
-	
+
 	@Test
 	public void tryPlayingRiposteCardMoreInfoNeeded() {
 		game.setNumPlayers(2);
@@ -1033,7 +1033,7 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
 
 		String result = game.playCard(0, RIPOSTE_CARD.getName());
@@ -1042,7 +1042,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void playRiposteCardTwoPlayers() {
 		game.setNumPlayers(2);
@@ -1054,18 +1054,18 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
-		
+
 		// Player 0 will be taking the last card from player 1s display
-		String info = "Riposte@"+PLAYER_TWO_NAME;
+		String info = "Riposte@" + PLAYER_TWO_NAME;
 		game.playActionCard(0, info);
-		
+
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayRiposteCard() {
 		game.setNumPlayers(2);
@@ -1076,7 +1076,7 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
 
 		String result = game.playCard(0, RIPOSTE_CARD.getName());
@@ -1085,14 +1085,14 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void tryPlayingUnhorseMoreInfoNeeded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.overrideTourColour(Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
 
 		String result = game.playCard(0, UNHORSE_CARD.getName());
@@ -1100,20 +1100,36 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayUnhorse() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.overrideTourColour(Config.BLUE);
-		
+
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
 
 		String result = game.playCard(0, UNHORSE_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.BLUE, game.getTournamentColour());
+	}
+
+	@Test
+	public void playUnhorseFromPurpleToYellow() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
+
+		String info = "Unhorse@"+Config.YELLOW;
+		game.playActionCard(0, info);
+		
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
 
 	@After
