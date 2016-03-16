@@ -394,12 +394,29 @@ public class Game {
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
 			} else if (name.equals("Riposte")) {
-				return "moreInformationNeeded~Riposte@"
-						+ getAllPlayersNamesAndLastDisplayCard(playerNum);
+				if (moreThanOneCardInOtherDisplays(playerNum)) {
+					return "moreInformationNeeded~Riposte@"
+							+ getAllPlayersNamesAndLastDisplayCard(playerNum);
+				}
+				else {
+					return "false:You cannot play a riposte card when there are no cards you can remove from other player displays!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private boolean moreThanOneCardInOtherDisplays(int playerNum) {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i) {
+				if (players[i].getDisplayCards().size() > 1) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	// excluding the given player
@@ -542,14 +559,14 @@ public class Game {
 			// Take the last card played on the given opponent's display and add
 			// it to the given player
 			Card cardToMove = null;
-			for (Player p: players) {
+			for (Player p : players) {
 				if (p.getName().equals(extraInfo)) {
 					cardToMove = p.getDisplayCards().removeLast();
 				}
 			}
 			players[playerNum].addCardToDisplay(cardToMove, tournamentColour);
 		}
-		
+
 		moveCardFromHandToDiscardPile(playerNum, cardName);
 	}
 }
