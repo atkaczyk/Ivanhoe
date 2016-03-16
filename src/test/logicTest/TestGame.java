@@ -59,6 +59,7 @@ public class TestGame {
 	private static final Card BREAK_LANCE_CARD = new ActionCard("Break Lance");
 	private static final Card DODGE_CARD = new ActionCard("Dodge");
 	private static final Card RETREAT_CARD = new ActionCard("Retreat");
+	private static final Card KNOCK_DOWN_CARD = new ActionCard("Knock Down");
 
 	Game game;
 
@@ -1396,11 +1397,36 @@ public class TestGame {
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
-		assertEquals(true, game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
-		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
-		assertEquals(false, game.getPlayer(0).getHandCards().contains(PURPLE_CARD_3));
-		assertEquals(true, game.getPlayer(0).getHandCards().contains(SQUIRE_CARD_2));
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(false,
+				game.getPlayer(0).getHandCards().contains(PURPLE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(0).getHandCards().contains(SQUIRE_CARD_2));
 		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
+	}
+	
+	@Test
+	public void tryPlayingKnockDownMoreInfoNeeded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+
+		String result = game.playCard(0, KNOCK_DOWN_CARD.getName());
+		System.out.println(result);
+		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After
