@@ -561,6 +561,23 @@ public class TestGame {
 		assertEquals(true,
 				game.getPlayer(1).getDisplayCards().contains(MAIDEN_CARD));
 	}
+	
+	@Test
+	public void notAllowedToPlayOutmaneuverWithdrawn() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).withdraw();
+		
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+
+		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
+	}
 
 	@Test
 	public void playChargeCardTwoPlayersTwoOfLowestValueToRemove() {
