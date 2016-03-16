@@ -57,6 +57,7 @@ public class TestGame {
 	private static final Card CHANGE_WEAPON_CARD = new ActionCard("Change Weapon");
 	private static final Card BREAK_LANCE_CARD = new ActionCard("Break Lance");
 	private static final Card DODGE_CARD = new ActionCard("Dodge");
+	private static final Card RETREAT_CARD = new ActionCard("Retreat");
 
 	Game game;
 
@@ -1329,6 +1330,31 @@ public class TestGame {
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
 		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
 		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+	}
+	
+	@Test
+	public void tryPlayingRetreatMoreInfoNeeded() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+
+		String result = game.playCard(0, RETREAT_CARD.getName());
+		System.out.println(result);
+		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After
