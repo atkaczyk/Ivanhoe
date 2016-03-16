@@ -1488,8 +1488,24 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(OUTWIT_CARD);
 
 		String result = game.playCard(0, OUTWIT_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void notAllowedToPlayOutwit() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(OUTWIT_CARD);
+
+		String result = game.playCard(0, OUTWIT_CARD.getName());
+		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
