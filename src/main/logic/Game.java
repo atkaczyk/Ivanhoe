@@ -549,7 +549,7 @@ public class Game {
 		return result;
 	}
 
-	public void playActionCard(int playerNum, String info) {
+	public String playActionCard(int playerNum, String info) {
 		String cardName = info.split("@")[0];
 		String extraInfo = info.split("@")[1];
 		if (info.contains("Riposte")) {
@@ -571,5 +571,8 @@ public class Game {
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
+		
+		return "actionCardPlayedMessage~" + cardName + ","
+		+ getPlayer(playerNum).getName();
 	}
 }
