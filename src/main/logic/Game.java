@@ -94,17 +94,17 @@ public class Game {
 		do {
 			goToNextPlayer();
 		} while (!playerCanStart(currentPlayer));
-		
+
 		startTournament();
 	}
-	
+
 	public boolean playerCanStart(Player p) {
-		for (Card c: p.getHandCards()) {
+		for (Card c : p.getHandCards()) {
 			if (c instanceof SimpleCard) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -113,13 +113,14 @@ public class Game {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
-		
+
 		do {
-			if (players[numOfPlayers - 1].getName().equals(currentPlayer.getName())) {
+			if (players[numOfPlayers - 1].getName().equals(
+					currentPlayer.getName())) {
 				currentPlayer = players[0];
 				return;
 			}
-	
+
 			// Otherwise, get position of current player
 			int i;
 			for (i = 0; i < numOfPlayers; i++) {
@@ -268,16 +269,7 @@ public class Game {
 
 				// First check to see there is at least one player where you can
 				// remove a card
-				Boolean playerFound = false;
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1) {
-							playerFound = true;
-							break;
-						}
-					}
-				}
-				if (!playerFound) {
+				if (!moreThanOneCardInOtherDisplays(playerNum)) {
 					return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
 				}
 
@@ -299,16 +291,7 @@ public class Game {
 
 				// First check to see there is at least one player where you can
 				// remove a card
-				Boolean playerFound = false;
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1) {
-							playerFound = true;
-							break;
-						}
-					}
-				}
-				if (!playerFound) {
+				if (!moreThanOneCardInOtherDisplays(playerNum)) {
 					return "false:You cannot play a charge card when there are no cards you can remove from other player displays!";
 				}
 
@@ -368,7 +351,8 @@ public class Game {
 				Boolean playerFound = false;
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1 && players[i].hasSupporterCardInDisplay()) {
+						if (players[i].getDisplayCards().size() > 1
+								&& players[i].hasSupporterCardInDisplay()) {
 							playerFound = true;
 							break;
 						}
@@ -388,13 +372,168 @@ public class Game {
 						}
 					}
 				}
-				
+
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
+			} else if (name.equals("Riposte")) {
+				if (moreThanOneCardInOtherDisplays(playerNum)) {
+					return "moreInformationNeeded~Riposte@"
+							+ getAllPlayersNamesAndLastDisplayCard(playerNum);
+				} else {
+					return "false:You cannot play a riposte card when there are no cards you can remove from other player displays!";
+				}
+			} else if (name.equals("Unhorse")) {
+				if (tournamentColour == Config.PURPLE) {
+					return "moreInformationNeeded~Unhorse@" + Config.RED
+							+ Config.BLUE + Config.YELLOW;
+				} else {
+					return "false:You cannot play an unhorse card when the tournament colour is not purple!";
+				}
+			} else if (name.equals("Change Weapon")) {
+				if (tournamentColour == Config.RED
+						|| tournamentColour == Config.BLUE
+						|| tournamentColour == Config.YELLOW) {
+					return "moreInformationNeeded~Unhorse@" + Config.RED
+							+ Config.BLUE + Config.YELLOW;
+				} else {
+					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
+				}
+			} else if (name.equals("Break Lance")) {
+				String playersToChoose = getPlayersWithPurpleToRemove(playerNum);
+				if (!playersToChoose.equals("")) {
+					return "moreInformationNeeded~Break Lance@"
+							+ playersToChoose;
+				} else {
+					return "false:You cannot play a break lance card when there are no purple cards to remove from other players!";
+				}
+			} else if (name.equals("Dodge")) {
+				if (moreThanOneCardInOtherDisplays(playerNum)) {
+					return "moreInformationNeeded~Dodge@"
+							+ playersWithMoreThanOneCardInDisplay(playerNum);
+				} else {
+					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
+				}
+			} else if (name.equals("Retreat")) {
+				if (players[playerNum].getDisplayCards().size() > 1) {
+					return "moreInformationNeeded~Retreat@"
+							+ players[playerNum].getDisplayAsString();
+				} else {
+					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
+				}
+			} else if (name.equals("Knock Down")) {
+				if (playersWithHandCards(playerNum)) {
+					return "moreInformationNeeded~Knock Down@"
+							+ playersWithHandToChoose(playerNum);
+				} else {
+					return "false:You cannot play a knock down card when there are no players to take a card form their hand!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String playersWithHandToChoose(int playerNum) {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getHandCards().size() > 0) {
+					result += players[i].getName();
+					result += ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
+	private boolean playersWithHandCards(int playerNum) {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getHandCards().size() > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private String playersWithMoreThanOneCardInDisplay(int playerNum) {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getDisplayCards().size() > 1) {
+					result += players[i].getName();
+					result += "[";
+					result += players[i].getDisplayAsString();
+					result += "]";
+					result += ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
+	private String getPlayersWithPurpleToRemove(int playerNum) {
+		String result = "";
+
+		for (int i = 0; i < numOfPlayers; i++) {
+			Player p = players[i];
+			if (i != playerNum) {
+				if (!p.isWithdrawn() && p.getDisplayCards().size() > 1
+						&& p.hasPurpleCardInDisplay()) {
+					result += p.getName() + ",";
+				}
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
+	private boolean moreThanOneCardInOtherDisplays(int playerNum) {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (playerNum != i && !players[i].isWithdrawn()) {
+				if (players[i].getDisplayCards().size() > 1) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// excluding the given player
+	private String getAllPlayersNamesAndLastDisplayCard(int playerNum) {
+		String result = "";
+
+		for (int i = 0; i < numOfPlayers; i++) {
+			// First we need to check to see if they have more than one card in
+			// their display
+			if (i != playerNum && players[i].getDisplayCards().size() > 1) {
+				if (result.endsWith("]")) {
+					result += ",";
+				}
+				result += players[i].getName();
+				result += "["
+						+ players[i].getDisplayCards().getLast().getName()
+						+ "]";
+			}
+		}
+
+		return result;
 	}
 
 	/**
@@ -433,7 +572,7 @@ public class Game {
 		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
-		
+
 		String winningPlayer = "";
 		int playersStillActive = 0;
 
@@ -442,22 +581,22 @@ public class Game {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
 				currentPlayer = players[i];
-				
+
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
 			startTournament();
-			
+
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
-			
-			return winningPlayer + "," + (tournamentNumber-1) + ","
+
+			return winningPlayer + "," + (tournamentNumber - 1) + ","
 					+ tournamentColour;
 		}
-		
+
 		goToNextPlayer();
 
 		return "";
@@ -507,5 +646,60 @@ public class Game {
 		}
 
 		return result;
+	}
+
+	public String playActionCard(int playerNum, String info) {
+		String cardName = info.split("@")[0];
+		String extraInfo = info.split("@")[1];
+		if (info.contains("Riposte")) {
+			// Take the last card played on the given opponent's display and add
+			// it to the given player
+			Card cardToMove = null;
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					cardToMove = p.getDisplayCards().removeLast();
+				}
+			}
+			players[playerNum].addCardToDisplay(cardToMove, tournamentColour);
+		} else if (info.contains("Unhorse")) {
+			int newColour = Integer.parseInt(extraInfo);
+			tournamentColour = newColour;
+		} else if (info.contains("Change Weapon")) {
+			int newColour = Integer.parseInt(extraInfo);
+			tournamentColour = newColour;
+		} else if (info.contains("Break Lance")) {
+			List<Card> cardsToDiscard = null;
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					cardsToDiscard = p.removeAllPurpleCards();
+				}
+			}
+			for (Card c : cardsToDiscard) {
+				discardPile.add(c);
+			}
+		} else if (info.contains("Dodge")) {
+			String playerName = extraInfo.split(",")[0];
+			String chosenCard = extraInfo.split(",")[1];
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					discardPile.add(p.removeFromDisplay(chosenCard));
+				}
+			}
+		} else if (info.contains("Retreat")) {
+			players[playerNum].addCardToHand(players[playerNum].removeFromDisplay(extraInfo));
+		}
+		else if (info.contains("Knock Down")) {
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					players[playerNum].addCardToHand(p.getRandomCardFromHand());
+				}
+			}
+		}
+
+		moveCardFromHandToDiscardPile(playerNum, cardName);
+
+		return "actionCardPlayedMessage~" + cardName + ","
+				+ getPlayer(playerNum).getName();
 	}
 }

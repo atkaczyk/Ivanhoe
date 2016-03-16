@@ -132,6 +132,9 @@ public class Player {
 		while (!display.isEmpty()) {
 			result.add(display.pop());
 		}
+		while (!hand.isEmpty()) {
+			result.add(hand.pop());
+		}
 		return result;
 	}
 
@@ -276,6 +279,48 @@ public class Player {
 		}
 
 		return result;
+	}
+
+	public boolean hasPurpleCardInDisplay() {
+		for (Card c: display) {
+			if (c instanceof ColourCard && ((ColourCard) c).getColour() == Config.PURPLE) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public List<Card> removeAllPurpleCards() {
+		List<Card> result = new ArrayList<Card>();
+
+		ArrayDeque<Card> displayCopy = display.clone();
+		for (Iterator<Card> itr = displayCopy.descendingIterator(); itr
+				.hasNext();) {
+			Card c = itr.next();
+			if (display.size() > 1) {
+				if (c instanceof ColourCard
+						&& ((ColourCard) c).getColour() == Config.PURPLE) {
+					result.add(c);
+					display.removeLastOccurrence(c);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public Card removeFromDisplay(String cardName) {
+		for (Card c: display) {
+			if (c.getName().equals(cardName)) {
+				display.remove(c);
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public Card getRandomCardFromHand() {
+		return hand.pop();
 	}
 
 }
