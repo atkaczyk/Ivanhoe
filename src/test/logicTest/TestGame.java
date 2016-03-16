@@ -55,7 +55,8 @@ public class TestGame {
 	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
 	private static final Card UNHORSE_CARD = new ActionCard("Unhorse");
 	private static final Card CHANGE_WEAPON_CARD = new ActionCard("Change Weapon");
-	
+	private static final Card BREAK_LANCE_CARD = new ActionCard("Break Lance");
+
 	Game game;
 
 	@Before
@@ -1178,6 +1179,29 @@ public class TestGame {
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
+	
+	@Test
+	public void notAllowedToPlayBreakLance() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
+		System.out.println(result);
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
+}
 
 	@After
 	public void tearDown() {
