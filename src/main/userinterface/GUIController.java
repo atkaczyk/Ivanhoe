@@ -63,7 +63,7 @@ public class GUIController {
 
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
 			if(playerInfo.length == 1){
-			gamePlayWindow.emptyPlayerDisplay(i);
+				gamePlayWindow.emptyPlayerDisplay(i);
 			}else {
 				gamePlayWindow.setPlayerCardDisplay(i, playerInfo[1]);
 			}
@@ -112,11 +112,194 @@ public class GUIController {
 			gamePlayWindow.setEnabled(false);
 		}
 	}
+
+	public void getActionCardInfo(String info){
+		String[] cardInfo = info.split("@");
+		if(cardInfo[0].equals("Riposte")){
+			playRiposte(cardInfo[1]);
+		} 
+		else if (cardInfo[0].equals("Unhorse")){
+			playUnhorse(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Change Weapon")){
+			playChangeWeapon(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Break Lance")){
+			playBreakLance(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Dodge")){
+			playDodge(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Retreat")){
+			playRetreat(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Knock Down")){
+			playKnockDown(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Outwit")){
+			playOutwit(cardInfo[1]);
+		}  
+		else if (cardInfo[0].equals("Adapt")){
+		}  
+		else if (cardInfo[0].equals("Shield")){
+		}  
+		else if (cardInfo[0].equals("Stunned")){
+		}  
+		else if (cardInfo[0].equals("Ivanhoe")){
+		} 
+	}
+	private void playOutwit(String string) {
+
+	}
+	private void playKnockDown(String msg) {
+		String[] p = msg.split(",");
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Knock Down Card!\n"
+						+ "You may draw at random one card from any one opponent's hand and add it to your own hand (without revealing the card)\n"
+						+ "Select the player whom you wish to draw from",
+						"Knock Down",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Players");
+		client.handle("actionInfoGathered~Retreat@"+ chosenName);
+	}
+	private void playRetreat(String msg) {
+		String[] p = msg.split(",");
+		String chosenCard = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Retreat Card!\n"
+						+ "You may take any one card from your own display back into your hand.\n"
+						+ "Select the card you wish to retreat.",
+						"Retreat",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Cards");
+		client.handle("actionInfoGathered~Retreat@"+ chosenCard);
+	}
+
+	private void playDodge(String msg) {
+/*		String[] playersInfo = msg.split("#");
+		String[] playersNames 
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Dodge Card!\n"
+						+ "You may discard any one card from any one opponent's display \n"
+						+ "Select the player you want to choose a card from.",
+						"Dodge",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						playersInfo,
+				"Player");*/
+
+		//then take the players info? to get them to select the card.. lol
+		//client.handle("actionInfoGathered~Dodge@"+ chosenName);
+	}
+	private void playBreakLance(String msg) {
+		String[] p = msg.split(",");
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Break Lance Card!\n "
+						+ "One opponent must discard all purple cards from his display \n"
+						+ "Select the player to use this on",
+						"Break Lance",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Players");
+		client.handle("actionInfoGathered~Break Lance@"+ chosenName);
+	}
+	private void playChangeWeapon(String tokens) {
+		String temp = "";
+		if(tokens.contains("0")){
+			temp += "Purple,";
+		}
+		if(tokens.contains("1")){
+			temp  += "Red,";
+		}
+		if(tokens.contains("2")){
+			temp  += "Yellow,";
+		}
+		if(tokens.contains("3")){
+			temp  += "Green,";
+		}
+		if(tokens.contains("4")){
+			temp  += "Blue";
+		} 
+
+		String[] options = temp.split(",");
+		String chosenColour = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Change Weapon Card!\n Change the tournament colour from red, blue or yellow to a different one of these colours.\n"
+						+ "Select the colour you want to change to.",
+						"Change Weapon",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
+				"Colours");
+		client.handle("ChangeWeapon@"+ convertNameToNumber(chosenColour));
+	}
+	private void playUnhorse(String tokens) {
+		String temp = "";
+		if(tokens.contains("0")){
+			temp += "Purple,";
+		}
+		if(tokens.contains("1")){
+			temp  += "Red,";
+		}
+		if(tokens.contains("2")){
+			temp  += "Yellow,";
+		}
+		if(tokens.contains("3")){
+			temp  += "Green,";
+		}
+		if(tokens.contains("4")){
+			temp  += "Blue";
+		} 
+
+		String[] options = temp.split(",");
+		String chosenColour = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Unhorse Card!\n Change the tournament colour, from purple to red blue or yellow.\n"
+						+ "Select the colour you want to change to.",
+						"Unhorse",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						options,
+				"Colours");
+		client.handle("actionInfoGathered~Unhorse@"+ convertNameToNumber(chosenColour));
+	}
+
+
+	private void playRiposte(String msg){
+		String[] p = msg.split(",");
+		/*String pInfo = null;
+				for (int i = 0; i< p.length; i++){
+			pInfo = p[i].split("[");			
+		}
+
+		//temp = temp.substring(0, temp.length()-1);
+		String[] options = p; //.split(" ");*/
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Riposte Card!\n "
+						+ "You may take the last card of any opponents display, and add it to your own display \n"
+						+ "Select the player you want to Steal from.",
+						"Riposte",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Player-Card-");
+		String[] retVal = chosenName.split("-");
+		client.handle("actionInfoGathered~Riposte@"+ retVal[0]);
+	}
+
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
 	}
-
 	public void displayErrorMessage(String msg) {
 		JOptionPane.showMessageDialog(gamePlayWindow, msg);
 
@@ -155,27 +338,25 @@ public class GUIController {
 				gamePlayWindow,
 				"You won the jousting (purple) tournament!\nSelect the token you want to collect.",
 				"Select Token Colour",
-				JOptionPane.PLAIN_MESSAGE,
+				JOptionPane.QUESTION_MESSAGE,
 				null,
 				possibilities,
 				"colour");
-		
-		if(rets.contains("Purple")){
+		client.handle("PurpleWinTokenColourChoice~" + convertNameToNumber(rets));
+	}
+	private String convertNameToNumber(String chosenColour) {
+		String temp = "";
+		if(chosenColour.contains("Purple")){
 			temp  = "0";
-			//numTokens.setForeground(Color.MAGENTA);
-		} else if(rets.contains("Red")){
+		} else if(chosenColour.contains("Red")){
 			temp  = "1";
-			//tColour = Color.RED;
-		} else if(rets.contains("Yellow")){
+		} else if(chosenColour.contains("Yellow")){
 			temp  = "2";
-			//tColour = Color.YELLOW;
-		} else if(rets.contains("Green")){
+		} else if(chosenColour.contains("Green")){
 			temp  = "3";
-			//tColour = Color.GREEN;
-		} else if(rets.contains("Blue")){
+		} else if(chosenColour.contains("Blue")){
 			temp  = "4";
-			//tColour = Color.BLUE;
 		} 
-		client.handle("PurpleWinTokenColourChoice~" + temp);
+		return temp;
 	}
 }
