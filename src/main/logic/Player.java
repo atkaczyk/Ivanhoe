@@ -306,4 +306,14 @@ public class Player {
 		return result;
 	}
 
+	public Card removeFromDisplay(String cardName) {
+		for (Card c: display) {
+			if (c.getName().equals(cardName)) {
+				display.remove(c);
+				return c;
+			}
+		}
+		return null;
+	}
+
 }

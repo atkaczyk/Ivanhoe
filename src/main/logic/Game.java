@@ -636,6 +636,17 @@ public class Game {
 			}
 		}
 
+		else if (info.contains("Dodge")) {
+			String playerName = extraInfo.split(",")[0];
+			String chosenCard = extraInfo.split(",")[1];
+			
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					discardPile.add(p.removeFromDisplay(chosenCard));
+				}
+			}
+		}
+
 		moveCardFromHandToDiscardPile(playerNum, cardName);
 
 		return "actionCardPlayedMessage~" + cardName + ","
