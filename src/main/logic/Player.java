@@ -316,4 +316,8 @@ public class Player {
 		return null;
 	}
 
+	public Card getRandomCardFromHand() {
+		return hand.pop();
+	}
+
 }

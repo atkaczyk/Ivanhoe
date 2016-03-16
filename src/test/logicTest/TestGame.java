@@ -1440,10 +1440,30 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
 
 		String result = game.playCard(0, KNOCK_DOWN_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void playKnockDown() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+
+		String info = "Knock Down@"+PLAYER_TWO_NAME;
+		game.playActionCard(0, info);
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
 	}
 
 	@After

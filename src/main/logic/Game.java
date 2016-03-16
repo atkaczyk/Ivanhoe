@@ -689,6 +689,13 @@ public class Game {
 		} else if (info.contains("Retreat")) {
 			players[playerNum].addCardToHand(players[playerNum].removeFromDisplay(extraInfo));
 		}
+		else if (info.contains("Knock Down")) {
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					players[playerNum].addCardToHand(p.getRandomCardFromHand());
+				}
+			}
+		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
 
