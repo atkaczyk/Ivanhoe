@@ -241,7 +241,7 @@ public class GUIController {
 		client.handle("ChangeWeapon@"+ chosenColour);
 	}
 	private void playUnhorse(String tokens) {
-		String temp = null;
+		String temp = "";
 		if(tokens.contains("0")){
 			temp += "Purple,";
 		}
@@ -268,8 +268,33 @@ public class GUIController {
 						null,
 						options,
 				"Colours");
-		client.handle("actionInfoGathered~Unhorse@"+ chosenColour);
+		
+		client.handle("actionInfoGathered~Unhorse@"+ convertNameToNumber(chosenColour));
 	}
+	
+	private String convertNameToNumber(String chosenColour) {
+		String temp = "";
+		
+		if(chosenColour.contains("Purple")){
+			temp  = "0";
+			//numTokens.setForeground(Color.MAGENTA);
+		} else if(chosenColour.contains("Red")){
+			temp  = "1";
+			//tColour = Color.RED;
+		} else if(chosenColour.contains("Yellow")){
+			temp  = "2";
+			//tColour = Color.YELLOW;
+		} else if(chosenColour.contains("Green")){
+			temp  = "3";
+			//tColour = Color.GREEN;
+		} else if(chosenColour.contains("Blue")){
+			temp  = "4";
+			//tColour = Color.BLUE;
+		} 
+		
+		return temp;
+	}
+	
 	private void playRiposte(String msg){
 		String[] p = msg.split(",");
 		/*String pInfo = null;
