@@ -108,8 +108,10 @@ public class GUIController {
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
 			gamePlayWindow.setPlayable(true); //setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
+			gamePlayWindow.repaint();
 		}else if(str.equals("false")){
 			gamePlayWindow.setPlayable(false);
+			gamePlayWindow.repaint();
 		}
 	}
 	public void getActionCardInfo(String info){
