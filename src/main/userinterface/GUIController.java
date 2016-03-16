@@ -203,7 +203,7 @@ public class GUIController {
 						null,
 						p,
 				"Players");
-		client.handle("actionInfoGathered~Retreat@"+ chosenName);
+		client.handle("actionInfoGathered~Knock Down@"+ chosenName);
 	}
 	private void playRetreat(String msg) {
 		String[] p = msg.split(",");
