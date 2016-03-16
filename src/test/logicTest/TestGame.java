@@ -1198,6 +1198,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
+		System.out.println(result);
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
