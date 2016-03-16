@@ -53,6 +53,7 @@ public class TestGame {
 	private static final Card DISGRACE_CARD = new ActionCard("Disgrace");
 
 	private static final Card RIPOSTE_CARD = new ActionCard("Riposte");
+	private static final Card UNHORSE_CARD = new ActionCard("Unhorse");
 	
 	Game game;
 
@@ -1083,6 +1084,21 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+	}
+	
+	@Test
+	public void tryPlayingUnhorseMoreInfoNeeded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
+
+		String result = game.playCard(0, UNHORSE_CARD.getName());
+		assertEquals(true, result.contains("moreInformationNeeded"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
 
 	@After
