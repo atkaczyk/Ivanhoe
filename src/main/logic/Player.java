@@ -13,7 +13,7 @@ public class Player {
 	private ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
 	private List<Integer> tokens = new ArrayList<Integer>();
-	private String specialCard = "";
+	private List<Card> specialCards = new ArrayList<Card>();
 
 	public void setWithdrawn(Boolean status) {
 		withdrawn = status;
@@ -118,11 +118,16 @@ public class Player {
 	}
 
 	public void addSpecialCard(Card c) {
-		specialCard = c.getName();
+		specialCards.add(c);
 	}
 
-	public Boolean hasSpecialCard(String s) {
-		return specialCard.contains(s);
+	public Boolean hasSpecialCard(String name) {
+		for (Card c: specialCards) {
+			if (c.getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Card> withdraw() {
@@ -131,9 +136,6 @@ public class Player {
 		List<Card> result = new ArrayList<Card>();
 		while (!display.isEmpty()) {
 			result.add(display.pop());
-		}
-		while (!hand.isEmpty()) {
-			result.add(hand.pop());
 		}
 		return result;
 	}
@@ -321,6 +323,35 @@ public class Player {
 
 	public Card getRandomCardFromHand() {
 		return hand.pop();
+	}
+
+	public int getNumFaceupCards() {
+		int total = display.size();
+		
+		if (specialCards.contains("Shield")) {
+			total += 1;
+		}
+		if (specialCards.contains("Stunned")) {
+			total += 1;
+		}
+		
+		return total;
+	}
+
+	public String getFaceupCardsAsString() {
+		String result = "";
+		
+		result += getDisplayAsString();
+		
+		for (Card c: specialCards) {
+			result += ","+c.getName();
+		}
+		
+		if (result.startsWith(",")) {
+			result = result.substring(1, result.length());
+		}
+		
+		return result;
 	}
 
 }

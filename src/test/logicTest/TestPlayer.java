@@ -278,17 +278,6 @@ public class TestPlayer {
 		assertEquals(1, player.getDisplayCards().size());
 	}
 	
-	@Test
-	public void withdrawClearHandCards() {
-		player.addCardToHand(PURPLE_CARD);
-		player.addCardToHand(PURPLE_CARD);
-		player.addCardToHand(PURPLE_CARD);
-		
-		player.withdraw();
-		
-		assertEquals(0, player.getHandCards().size());
-	}
-	
 	@After
 	public void tearDown() {
 		player = null;
