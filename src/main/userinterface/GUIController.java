@@ -107,9 +107,9 @@ public class GUIController {
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
-			gamePlayWindow.setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
+			gamePlayWindow.setPlayable(true); //setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
 		}else if(str.equals("false")){
-			gamePlayWindow.setEnabled(false);
+			gamePlayWindow.setPlayable(false);
 		}
 	}
 	public void getActionCardInfo(String info){
@@ -148,7 +148,6 @@ public class GUIController {
 		} 
 	}
 	private void playOutwit(String msg) {
-		
 		String [] myPlayerCards = msg.split("|")[0].split(","); //new String[15];
 		String myChosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
@@ -160,8 +159,6 @@ public class GUIController {
 						null,
 						myPlayerCards,
 				"Cards");
-		
-		
 		String[] playersInfo = msg.split("|")[1].split("#");	
 		String [] pNames = new String[playersInfo.length];
 		String [] pCards = new String[15]; 
@@ -169,7 +166,6 @@ public class GUIController {
 		for(int i = 0; i< playersInfo.length; i++){
 			pNames[i] = playersInfo[i].split("-")[0];
 		}
-		
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -180,13 +176,11 @@ public class GUIController {
 						null,
 						pNames,
 				"Player");
-
 		for(int i = 0; i< playersInfo.length; i++){
 			if(playersInfo[i].contains(chosenName)){
 				pCards = playersInfo[i].split("-")[1].split(",");
 			}
 		}
-		
 		String chosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -197,7 +191,6 @@ public class GUIController {
 						null,
 						pCards,
 				"Cards");
-		
 		client.handle("actionInfoGathered~Outwit@"+ myChosenCard + "," + chosenName +","+ chosenCard);
 	}
 	private void playDodge(String msg) {
@@ -207,9 +200,9 @@ public class GUIController {
 		//pick the player you wish to attack.
 		for(int i = 0; i< playersInfo.length; i++){
 			pNames[i] = playersInfo[i].split("-")[0];
-			
+
 		}
-		
+
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
@@ -226,7 +219,7 @@ public class GUIController {
 				pCards = playersInfo[i].split("-")[1].split(",");
 			}
 		}
-		
+
 		String chosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
@@ -237,7 +230,7 @@ public class GUIController {
 						null,
 						pCards,
 				"Player");
-		
+
 		client.handle("actionInfoGathered~Dodge@"+ chosenName +","+ chosenCard);
 	}
 	private void playKnockDown(String msg) {
