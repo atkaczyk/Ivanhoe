@@ -1334,17 +1334,13 @@ public class TestGame {
 	
 	@Test
 	public void tryPlayingRetreatMoreInfoNeeded() {
-		game.setNumPlayers(3);
+		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-
-		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-
+		
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		

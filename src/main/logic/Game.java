@@ -413,6 +413,13 @@ public class Game {
 				} else {
 					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
 				}
+			} else if (name.equals("Retreat")) {
+				if (players[playerNum].getDisplayCards().size() > 1) {
+					return "moreInformationNeeded~Retreat@"
+							+ players[playerNum].getDisplayAsString();
+				} else {
+					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
+				}
 			}
 		}
 
@@ -639,7 +646,7 @@ public class Game {
 		else if (info.contains("Dodge")) {
 			String playerName = extraInfo.split(",")[0];
 			String chosenCard = extraInfo.split(",")[1];
-			
+
 			for (Player p : players) {
 				if (p.getName().equals(playerName)) {
 					discardPile.add(p.removeFromDisplay(chosenCard));
