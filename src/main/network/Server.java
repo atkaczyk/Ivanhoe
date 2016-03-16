@@ -234,7 +234,7 @@ public class Server implements Runnable {
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
 					
-					//no one has one the tournament yet
+					//no one has won the tournament yet
 					if(result.equals("")){
 						//Ending turn
 						game.goToNextPlayer();
@@ -243,31 +243,45 @@ public class Server implements Runnable {
 					
 					//someone has won the tournament
 					else{
-						String nameOfWinner = result.split(",")[0];
-						int playerW = 0;
-						for (int num: playerNumbers.values()) {
-							if (game.getPlayer(num).getName().equals(nameOfWinner)) {
-								playerW = num;
-								break;
-							}
-						}
+						//first check to see if they are the winner of the whole game. USING final winner check.
+						//REMAKE
 						
-						//if it was a purple tournament
-						if(game.getTournamentColour() == Config.PURPLE){
-							//send to client and ask to pick colour
-							String colours = "PurpleWinTokenChoice~" + game.getTokensRemainingForPlayer(playerW);
-							int winnerID = 0;
-							for (int stID : playerNumbers.keySet()) {
-								if (playerNumbers.get(stID) == playerW){
-									winnerID = stID;
+						String fWinnerR = game.checkForWinner(); //returns name of winning player, and empty if no winner
+						if(!(fWinnerR.equals(""))){
+							// If there is a winner of the game
+							broadcastToAllPlayers("gameWinner~"+fWinnerR);
+						}
+						//continue with the rest of the tournament win check
+						else{
+												
+							//END REMAKE
+												
+							String nameOfWinner = result.split(",")[0];
+							int playerW = 0;
+							for (int num: playerNumbers.values()) {
+								if (game.getPlayer(num).getName().equals(nameOfWinner)) {
+									playerW = num;
 									break;
 								}
-							}					
-							broadcastMessageToPlayer(colours, winnerID, 1);
-						//if it was another colour tournament
-						}else{
-							game.addTokenToPlayer(playerW ,game.getTournamentColour());
-							broadcastToAllPlayers("tournamentWinner~"+result);
+							}
+						
+							//if it was a purple tournament
+							if(game.getTournamentColour() == Config.PURPLE){
+								//send to client and ask to pick colour
+								String colours = "PurpleWinTokenChoice~" + game.getTokensRemainingForPlayer(playerW);
+								int winnerID = 0;
+								for (int stID : playerNumbers.keySet()) {
+									if (playerNumbers.get(stID) == playerW){
+										winnerID = stID;
+										break;
+									}
+								}					
+								broadcastMessageToPlayer(colours, winnerID, 1);
+							//if it was another colour tournament
+							}else{
+								game.addTokenToPlayer(playerW ,game.getTournamentColour());
+								broadcastToAllPlayers("tournamentWinner~"+result);
+							}
 						}
 					}
 				}
