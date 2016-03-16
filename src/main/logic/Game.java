@@ -384,6 +384,14 @@ public class Game {
 					return "false:You cannot play a riposte card when there are no cards you can remove from other player displays!";
 				}
 			}
+			else if (name.equals("Unhorse")) {
+				if (tournamentColour == Config.PURPLE) {
+					return "moreInformationNeeded~Unhorse@"+Config.RED+Config.BLUE+Config.YELLOW;
+				}
+				else {
+					return "false:You cannot play an unhorse card when the tournament colour is not purple!";
+				}
+			}
 		}
 
 		return "false:This action card has not been implemented yet!";
