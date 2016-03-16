@@ -446,7 +446,7 @@ public class Game {
 	private String getOutwitInfo(int playerNum) {
 		String result = "";
 		
-		result += players[playerNum].getFaceupCardsAsString();
+		result += players[playerNum].getFaceupCardsAsStringNoDuplicates();
 		
 		result += "|";
 		
@@ -454,7 +454,7 @@ public class Game {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					result += players[i].getName();
-					result += "-"+players[i].getFaceupCardsAsString()+"-";
+					result += "-"+players[i].getFaceupCardsAsStringNoDuplicates()+"-";
 					result += "#";
 				}
 			}
@@ -740,6 +740,25 @@ public class Game {
 					players[playerNum].addCardToHand(p.getRandomCardFromHand());
 				}
 			}
+		} else if (info.contains("Outwit")) {
+			String playerCard = extraInfo.split(",")[0];
+			String targetPlayer = extraInfo.split(",")[1];
+			String targetCard = extraInfo.split(",")[2];
+			
+			Card tempPlayerCard = players[playerNum].removeFaceupCard(playerCard);
+			Card tempTargetCard = null;
+			
+			Player targetPlayerObject = null;
+			
+			for (Player p: players) {
+				if (p.getName().equals(targetPlayer)) {
+					targetPlayerObject = p;
+					tempTargetCard = p.removeFaceupCard(targetCard);
+				}
+			}
+			
+			players[playerNum].addFaceupCard(tempTargetCard);
+			targetPlayerObject.addFaceupCard(tempPlayerCard);
 		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
