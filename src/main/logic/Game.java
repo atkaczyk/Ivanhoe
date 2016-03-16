@@ -272,7 +272,7 @@ public class Game {
 				if (!moreThanOneCardInOtherDisplays(playerNum)) {
 					return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
 				}
-				
+
 				moveCardFromHandToDiscardPile(playerNum, name);
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
@@ -379,24 +379,23 @@ public class Game {
 				if (moreThanOneCardInOtherDisplays(playerNum)) {
 					return "moreInformationNeeded~Riposte@"
 							+ getAllPlayersNamesAndLastDisplayCard(playerNum);
-				}
-				else {
+				} else {
 					return "false:You cannot play a riposte card when there are no cards you can remove from other player displays!";
 				}
-			}
-			else if (name.equals("Unhorse")) {
+			} else if (name.equals("Unhorse")) {
 				if (tournamentColour == Config.PURPLE) {
-					return "moreInformationNeeded~Unhorse@"+Config.RED+Config.BLUE+Config.YELLOW;
-				}
-				else {
+					return "moreInformationNeeded~Unhorse@" + Config.RED
+							+ Config.BLUE + Config.YELLOW;
+				} else {
 					return "false:You cannot play an unhorse card when the tournament colour is not purple!";
 				}
-			}
-			else if (name.equals("Change Weapon")) {
-				if (tournamentColour == Config.RED || tournamentColour == Config.BLUE || tournamentColour == Config.YELLOW) {
-					return "moreInformationNeeded~Unhorse@"+Config.RED+Config.BLUE+Config.YELLOW;
-				}
-				else {
+			} else if (name.equals("Change Weapon")) {
+				if (tournamentColour == Config.RED
+						|| tournamentColour == Config.BLUE
+						|| tournamentColour == Config.YELLOW) {
+					return "moreInformationNeeded~Unhorse@" + Config.RED
+							+ Config.BLUE + Config.YELLOW;
+				} else {
 					return "false:You cannot play a change weapon card when the tournament colour is not red, blue or yellow!";
 				}
 			}
@@ -413,7 +412,7 @@ public class Game {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -563,8 +562,10 @@ public class Game {
 				}
 			}
 			players[playerNum].addCardToDisplay(cardToMove, tournamentColour);
-		}
-		else if (info.contains("Unhorse")) {
+		} else if (info.contains("Unhorse")) {
+			int newColour = Integer.parseInt(extraInfo);
+			tournamentColour = newColour;
+		} else if (info.contains("Change Weapon")) {
 			int newColour = Integer.parseInt(extraInfo);
 			tournamentColour = newColour;
 		}
