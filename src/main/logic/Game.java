@@ -76,9 +76,7 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Retreat"));
-		players[0].addCardToHand(new SupporterCard("Squire 2", 2));
-		players[0].addCardToHand(new SupporterCard("Squire 2", 2));
+		players[0].addCardToHand(new ActionCard("Dodge"));
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -414,7 +412,7 @@ public class Game {
 			} else if (name.equals("Dodge")) {
 				if (moreThanOneCardInOtherDisplays(playerNum)) {
 					return "moreInformationNeeded~Dodge@"
-							+ playersWithMoreThanOneCardInDisplay(playerNum);
+							+ getDodgeInfo(playerNum);
 				} else {
 					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
 				}
@@ -509,14 +507,14 @@ public class Game {
 		return false;
 	}
 
-	private String playersWithMoreThanOneCardInDisplay(int playerNum) {
+	private String getDodgeInfo(int playerNum) {
 		String result = "";
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getDisplayCards().size() > 1) {
 					result += players[i].getName();
 					result += "-";
-					result += players[i].getDisplayAsString();
+					result += players[i].getDisplayAsStringNoDuplicates();
 					result += "-";
 					result += "#";
 				}
