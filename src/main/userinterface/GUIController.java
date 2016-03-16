@@ -112,7 +112,6 @@ public class GUIController {
 			gamePlayWindow.setEnabled(false);
 		}
 	}
-
 	public void getActionCardInfo(String info){
 		String[] cardInfo = info.split("@");
 		if(cardInfo[0].equals("Riposte")){
@@ -148,8 +147,58 @@ public class GUIController {
 		else if (cardInfo[0].equals("Ivanhoe")){
 		} 
 	}
-	private void playOutwit(String string) {
+	private void playOutwit(String msg) {
+		
+		String [] myPlayerCards = msg.split("|")[0].split(","); //new String[15];
+		String myChosenCard = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Outwit Card!\n"
+						+ "Place one of your face up cards in front of an opponent, take one face up card from this opponent and place it face up in front of yourself. This may include SHEILD and STUNNED cards \n"
+						+ "Select the card you want to swap",
+						"Outwit",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						myPlayerCards,
+				"Cards");
+		
+		
+		String[] playersInfo = msg.split("|")[1].split("#");	
+		String [] pNames = new String[playersInfo.length];
+		String [] pCards = new String[15]; 
+		//get the players names in the pinfo string
+		for(int i = 0; i< playersInfo.length; i++){
+			pNames[i] = playersInfo[i].split("-")[0];
+		}
+		
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Outwit Card!\n"
+						+ "Place one of your face up cards in front of an opponent, take one face up card from this opponent and place it face up in front of yourself. This may include SHEILD and STUNNED cards \n"
+						+ "Select the player you want to swap a card with.",
+						"Outwit",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						pNames,
+				"Player");
 
+		for(int i = 0; i< playersInfo.length; i++){
+			if(playersInfo[i].contains(chosenName)){
+				pCards = playersInfo[i].split("-")[1].split(",");
+			}
+		}
+		
+		String chosenCard = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Outwit Card!\n"
+						+ "And you chose to swap " + chosenName + "\n"
+						+ "Select the card that you'd like to swap.",
+						"Outwit",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						pCards,
+				"Cards");
+		
+		client.handle("actionInfoGathered~Outwit@"+ myChosenCard + "," + chosenName +","+ chosenCard);
 	}
 	private void playDodge(String msg) {
 		String[] playersInfo = msg.split("#");
@@ -315,7 +364,6 @@ public class GUIController {
 		String[] retVal = chosenName.split("-");
 		client.handle("actionInfoGathered~Riposte@"+ retVal[0]);
 	}
-
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
