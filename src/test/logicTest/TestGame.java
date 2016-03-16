@@ -706,6 +706,27 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
+	
+	@Test
+	public void notAllowedToPlayChargeBecauseWithdrawn() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
+		game.getPlayer(0).withdraw();
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		String result = game.playCard(1, CHARGE_CARD.getName());
+
+		assertEquals(true, result.contains("false"));
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
+	}
 
 	@Test
 	public void withdrawAPlayerClearsTheirDisplay() {
