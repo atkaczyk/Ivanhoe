@@ -112,6 +112,11 @@ public class GUIController {
 			gamePlayWindow.setEnabled(false);
 		}
 	}
+	
+	public void getActionCardInfo(String info){
+		
+	}
+
 	public void actionCardPlayedMessage(String cardnamecommaplayer){
 		String[] player = cardnamecommaplayer.split(",");
 		JOptionPane.showMessageDialog(gamePlayWindow,  "THE ACTION CARD "+ player[0] + " WAS PLAYED BY " + player[1]);
