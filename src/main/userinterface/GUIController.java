@@ -238,7 +238,7 @@ public class GUIController {
 						null,
 						options,
 				"Colours");
-		client.handle("ChangeWeapon@"+ chosenColour);
+		client.handle("ChangeWeapon@"+ convertNameToNumber(chosenColour));
 	}
 	private void playUnhorse(String tokens) {
 		String temp = "";
@@ -271,29 +271,7 @@ public class GUIController {
 		
 		client.handle("actionInfoGathered~Unhorse@"+ convertNameToNumber(chosenColour));
 	}
-	
-	private String convertNameToNumber(String chosenColour) {
-		String temp = "";
-		
-		if(chosenColour.contains("Purple")){
-			temp  = "0";
-			//numTokens.setForeground(Color.MAGENTA);
-		} else if(chosenColour.contains("Red")){
-			temp  = "1";
-			//tColour = Color.RED;
-		} else if(chosenColour.contains("Yellow")){
-			temp  = "2";
-			//tColour = Color.YELLOW;
-		} else if(chosenColour.contains("Green")){
-			temp  = "3";
-			//tColour = Color.GREEN;
-		} else if(chosenColour.contains("Blue")){
-			temp  = "4";
-			//tColour = Color.BLUE;
-		} 
-		
-		return temp;
-	}
+
 	
 	private void playRiposte(String msg){
 		String[] p = msg.split(",");
@@ -364,23 +342,28 @@ public class GUIController {
 				null,
 				possibilities,
 				"colour");
-
-		if(rets.contains("Purple")){
+		client.handle("PurpleWinTokenColourChoice~" + convertNameToNumber(rets));
+	}
+	private String convertNameToNumber(String chosenColour) {
+		String temp = "";
+		
+		if(chosenColour.contains("Purple")){
 			temp  = "0";
 			//numTokens.setForeground(Color.MAGENTA);
-		} else if(rets.contains("Red")){
+		} else if(chosenColour.contains("Red")){
 			temp  = "1";
 			//tColour = Color.RED;
-		} else if(rets.contains("Yellow")){
+		} else if(chosenColour.contains("Yellow")){
 			temp  = "2";
 			//tColour = Color.YELLOW;
-		} else if(rets.contains("Green")){
+		} else if(chosenColour.contains("Green")){
 			temp  = "3";
 			//tColour = Color.GREEN;
-		} else if(rets.contains("Blue")){
+		} else if(chosenColour.contains("Blue")){
 			temp  = "4";
 			//tColour = Color.BLUE;
 		} 
-		client.handle("PurpleWinTokenColourChoice~" + temp);
+		
+		return temp;
 	}
 }
