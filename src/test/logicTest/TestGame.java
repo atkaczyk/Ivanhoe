@@ -62,6 +62,10 @@ public class TestGame {
 	private static final Card KNOCK_DOWN_CARD = new ActionCard("Knock Down");
 	private static final Card OUTWIT_CARD = new ActionCard("Outwit");
 
+	private static final Card SHIELD_CARD = new ActionCard("Shield");
+	private static final Card STUNNED_CARD = new ActionCard("Stunned");
+	private static final Card IVANHOE_CARD = new ActionCard("Ivanhoe");
+	
 	Game game;
 
 	@Before
@@ -1475,7 +1479,9 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-
+		
+		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
+		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 
