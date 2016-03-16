@@ -556,6 +556,10 @@ public class Game {
 			}
 			players[playerNum].addCardToDisplay(cardToMove, tournamentColour);
 		}
+		else if (info.contains("Unhorse")) {
+			int newColour = Integer.parseInt(extraInfo);
+			tournamentColour = newColour;
+		}
 
 		moveCardFromHandToDiscardPile(playerNum, cardName);
 	}
