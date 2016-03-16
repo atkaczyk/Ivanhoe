@@ -353,10 +353,10 @@ public class Player {
 		return total;
 	}
 
-	public String getFaceupCardsAsString() {
+	public String getFaceupCardsAsStringNoDuplicates() {
 		String result = "";
 
-		result += getDisplayAsString();
+		result += getDisplayAsStringNoDuplicates();
 
 		for (Card c : specialCards) {
 			result += "," + c.getName();

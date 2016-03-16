@@ -446,7 +446,7 @@ public class Game {
 	private String getOutwitInfo(int playerNum) {
 		String result = "";
 		
-		result += players[playerNum].getFaceupCardsAsString();
+		result += players[playerNum].getFaceupCardsAsStringNoDuplicates();
 		
 		result += "|";
 		
@@ -454,7 +454,7 @@ public class Game {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					result += players[i].getName();
-					result += "-"+players[i].getFaceupCardsAsString()+"-";
+					result += "-"+players[i].getFaceupCardsAsStringNoDuplicates()+"-";
 					result += "#";
 				}
 			}

@@ -65,7 +65,7 @@ public class TestGame {
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	private static final Card STUNNED_CARD = new ActionCard("Stunned");
 	private static final Card IVANHOE_CARD = new ActionCard("Ivanhoe");
-	
+
 	Game game;
 
 	@Before
@@ -1412,7 +1412,7 @@ public class TestGame {
 				game.getPlayer(0).getHandCards().contains(SQUIRE_CARD_2));
 		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void tryPlayingKnockDownMoreInfoNeeded() {
 		game.setNumPlayers(2);
@@ -1432,7 +1432,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayKnockDown() {
 		game.setNumPlayers(2);
@@ -1449,7 +1449,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void playKnockDown() {
 		game.setNumPlayers(2);
@@ -1464,13 +1464,13 @@ public class TestGame {
 
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
 
-		String info = "Knock Down@"+PLAYER_TWO_NAME;
+		String info = "Knock Down@" + PLAYER_TWO_NAME;
 		game.playActionCard(0, info);
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 	}
-	
+
 	@Test
 	public void tryPlayingOutwitMoreInfoNeeded() {
 		game.setNumPlayers(2);
@@ -1479,7 +1479,7 @@ public class TestGame {
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-		
+
 		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
 		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1492,7 +1492,7 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayOutwit() {
 		game.setNumPlayers(2);
@@ -1508,6 +1508,28 @@ public class TestGame {
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+
+	@Test
+	public void playOutwitSwitchingDisplayForShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addSpecialCard(SHIELD_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(OUTWIT_CARD);
+
+		String info = "Outwit@" + PURPLE_CARD_3.getName() + ","
+				+ PLAYER_TWO_NAME + "," + SHIELD_CARD.getName();
+		game.playActionCard(0, info);
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(1).hasSpecialCard(SHIELD_CARD.getName()));
 	}
 
 	@After
