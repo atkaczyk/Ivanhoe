@@ -1100,6 +1100,21 @@ public class TestGame {
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
+	
+	@Test
+	public void notAllowedToPlayUnhorse() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
+
+		String result = game.playCard(0, UNHORSE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(Config.BLUE, game.getTournamentColour());
+	}
 
 	@After
 	public void tearDown() {
