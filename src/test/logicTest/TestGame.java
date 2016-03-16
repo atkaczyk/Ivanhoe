@@ -1026,6 +1026,26 @@ public class TestGame {
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 	}
+	
+	@Test
+	public void notAllowedToPlayRiposteCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		
+		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
+
+		String result = game.playCard(0, RIPOSTE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
+	}
 
 	@After
 	public void tearDown() {
