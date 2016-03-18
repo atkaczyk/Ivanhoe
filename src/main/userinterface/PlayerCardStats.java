@@ -17,9 +17,12 @@ public class PlayerCardStats extends JPanel{
 	JLabel turn;
 	JButton changeDisplay;
 	JLabel isWithdrawn;
+	String sCards;
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		setLayout(null); 
 		int top = 10;
+
+		sCards = "";
 
 		playerName = new JLabel(" " + pName);
 		playerName.setLocation(0, top);
@@ -70,23 +73,18 @@ public class PlayerCardStats extends JPanel{
 		String temp = "";
 		if(s.contains("0")){
 			temp += "P";
-			//numTokens.setForeground(Color.MAGENTA);
 		}
 		if(s.contains("1")){
 			temp += "R";
-			//tColour = Color.RED;
 		}
 		if(s.contains("2")){
 			temp += "Y";
-			//tColour = Color.YELLOW;
 		}
 		if(s.contains("3")){
 			temp += "G";
-			//tColour = Color.GREEN;
 		}
 		if(s.contains("4")){
 			temp += "B";
-			//tColour = Color.BLUE;
 		} 
 		numTokens.setText("Tokens: " +temp);	
 	}
@@ -114,21 +112,36 @@ public class PlayerCardStats extends JPanel{
 			isWithdrawn.setForeground(Color.black);
 			isWithdrawn.setText("IN PLAY");
 		}
-
 	}
 
 	public void setShield(String str) {
-		specialCard.setText("Special Cards: " + str);
-		
+		if (str.equals("true")){
+			if(sCards.contains("Shield")){} else{
+				sCards += "Shield ";
+			}
+		} else if (str.equals("false")){
+			sCards.replaceAll("Shield ", "");
+		}
+		specialCard.setText("* " + sCards);
+
 	}
 
 	public void setStunned(String str) {
-		specialCard.setText("Special Cards: " + str);
-		
+		if (str.equals("true")){
+			if(sCards.contains("Stunned")){
+
+			} else{
+				sCards += "Stunned ";
+			}
+		} else if (str.equals("false")){
+			sCards.replaceAll("Stunned ", "");
+		}
+		specialCard.setText("* " + sCards);
+
 	}
 
 	public void setIvanhoe(String string) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
