@@ -438,10 +438,43 @@ public class Game {
 
 				return "actionCardPlayedMessage~" + name + ","
 						+ getPlayer(playerNum).getName();
+			} else if (name.equals("Adapt")) {
+				if (allowedToPlayAdapt()) {
+					moveCardFromHandToDiscardPile(playerNum, name);
+					return "adaptNeedMoreInfo~"+getAdaptInfo();
+				} else {
+					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private boolean allowedToPlayAdapt() {
+		for (Player p: players) {
+			if (p.allowedToPlayAdapt()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private String getAdaptInfo() {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (!players[i].isWithdrawn() && players[i].allowedToPlayAdapt()) {
+				result += i + "-";
+				result += players[i].getValuesAndCardsAsStringNoDuplicates();
+				result += "#";
+			}
+		}
+		
+		if (result.endsWith("#")) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
 	}
 
 	private String getOutwitInfo(int playerNum) {
@@ -773,5 +806,25 @@ public class Game {
 
 		return "actionCardPlayedMessage~" + cardName + ","
 				+ getPlayer(playerNum).getName();
+	}
+
+	public void adaptCardsChosen(int playerNum, String valuesAndNames) {
+		Player p = players[playerNum];
+		
+		String[] valuesInfo = valuesAndNames.split(",");
+		for (String info: valuesInfo) {
+			int value = Integer.parseInt(info.split("-")[0]);
+			String cardToKeep = info.split("-")[1];
+			
+			List<Card> cardsToDiscard = p.keepOnlyCard(value, cardToKeep);
+			for (Card c : cardsToDiscard) {
+				discardPile.add(c);
+			}
+		}
+		
+		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();;
+		for (Card c : cardsToDiscard) {
+			discardPile.add(c);
+		}
 	}
 }
