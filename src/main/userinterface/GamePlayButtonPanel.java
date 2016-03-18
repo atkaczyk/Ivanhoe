@@ -23,10 +23,6 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	JLabel curPlayerName;
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
-		JButton button;
-		JButton withdrawButton;
-		JButton endTurnButton;
-		JButton drawCardButton;
 
 		setLayout(new FlowLayout());//new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		curPlayerName = new JLabel("CurPlayerName");
@@ -77,22 +73,23 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		String action = e.getActionCommand();
 		if (action.equals("Withdraw")) {
 			gui.requestToWithdraw();
-			//gui.setEnableMainScreen("false");
+			setWithdrawEnable(false);
 		}
 		else if (action.equals("Draw a Card")) {
 			gui.requestToDrawCard();
-			//	setDrawCardButton(false);//this should add a card to the hand.
-			//GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
+			setDrawCardEnable(false);//this should add a card to the hand.
 		}
 		else if (action.equals("Announce End of Turn")) {
 			gui.requestToEndTurn();
 		}
 	}
 
-	public void setDrawCardButton(boolean b) {
-		//drawCardButton.setEnabled(b);
-		//System.out.println("THE DRAW CARD BUTTON SHOULD BE >>" + b);
+	public void setWithdrawEnable(boolean b) {
+		withdrawButton.setEnabled(b);
+	}
 
+	public void setDrawCardEnable(boolean b) {
+		drawCardButton.setEnabled(b);
 	}
 
 	public void setName(String str){

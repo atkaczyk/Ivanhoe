@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
@@ -30,7 +31,7 @@ public class PlayerCardDisplay extends JPanel {
 		setSize(400, 130); 
 	}
 
-	public void add(JButton card,String str){
+	public void add(JLabel card,String str){
 		numCardsInDisplay ++;
 		//	System.out.print
 		ImageIcon icon =new ImageIcon(this.getClass().getResource("Cards/"+str));
@@ -38,8 +39,8 @@ public class PlayerCardDisplay extends JPanel {
 		Image newimg = img.getScaledInstance(80, 125,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		card.setIcon(icon);
-		card.setContentAreaFilled(false);
-		card.setBorderPainted(false);
+		//card.setContentAreaFilled(false);
+		//card.setBorderPainted(false);
 		card.setOpaque(false);
 		card.setSize(80, 125);
 		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());

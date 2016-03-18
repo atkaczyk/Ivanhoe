@@ -9,8 +9,10 @@ public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
 	Client client;
+	private int mainScreenCounter = 0;
 
 	public GUIController(Client c){ 
+		
 		client = c;	
 	}
 	public void launchGameReadyWindow(){
@@ -55,13 +57,14 @@ public class GUIController {
 	public void displayTokenColour(int tokenColour){
 		gameReadyWindow.setFinalToken(tokenColour);
 	}	
-	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
+	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public void setAllPlayersInfo(String str){ 
 		String[] player = str.split("@");
 		for (int i = 0; i < player.length; i++){	
 			String [] playerInfo = player[i].split("#");
 
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
+			
 			if(playerInfo.length == 1){
 				gamePlayWindow.emptyPlayerDisplay(i);
 			}else {
@@ -107,13 +110,26 @@ public class GUIController {
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
+			if(mainScreenCounter == 0) {
+				System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
+				mainScreenCounter =1;
+				gamePlayWindow.resetDrawCards();
+			}
 			gamePlayWindow.setPlayable(true); //setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
+			
 			gamePlayWindow.repaint();
 		}else if(str.equals("false")){
+			if(mainScreenCounter == 1) {
+				mainScreenCounter =0;
+
+				System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
+			}
 			gamePlayWindow.setPlayable(false);
 			gamePlayWindow.repaint();
 		}
 	}
+	
+	
 	public void getActionCardInfo(String info){
 		String[] cardInfo = info.split("@");
 		if(cardInfo[0].equals("Riposte")){

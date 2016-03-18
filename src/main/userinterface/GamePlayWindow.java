@@ -179,7 +179,7 @@ public class GamePlayWindow extends JFrame{
 	}
 	public void setDrawCardButton(boolean b) {
 		System.out.println("YOU MADE IT TO THE GAME PLAY WINDOW");
-		buttonPanel.setDrawCardButton(b);
+	//	buttonPanel.setDrawCardButton(b);
 
 		System.out.println("THERE WAS SOMETHING CALLED ON BUTTON!");
 
@@ -205,8 +205,11 @@ public class GamePlayWindow extends JFrame{
 	public void setPlayable(boolean b) {
 		buttonPanel.setEnableOptionButtons(b);
 		hand.setEnableHandButtons(b);
-		// TODO Auto-generated method stub
-
+	}
+	
+	public void resetDrawCards(){
+	buttonPanel.setDrawCardEnable(true);
+	buttonPanel.setWithdrawEnable(true);
 	}
 }
 //	public void setPlayerScreenEnabled(boolean b) {
