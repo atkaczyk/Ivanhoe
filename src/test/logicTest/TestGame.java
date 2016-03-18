@@ -61,6 +61,7 @@ public class TestGame {
 	private static final Card RETREAT_CARD = new ActionCard("Retreat");
 	private static final Card KNOCK_DOWN_CARD = new ActionCard("Knock Down");
 	private static final Card OUTWIT_CARD = new ActionCard("Outwit");
+	private static final Card ADAPT_CARD = new ActionCard("Adapt");
 
 	private static final Card SHIELD_CARD = new ActionCard("Shield");
 	private static final Card STUNNED_CARD = new ActionCard("Stunned");
@@ -1530,11 +1531,31 @@ public class TestGame {
 				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
 		assertEquals(false,
 				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
-		
+
 		assertEquals(true,
 				game.getPlayer(0).hasSpecialCard(SHIELD_CARD.getName()));
 		assertEquals(false,
 				game.getPlayer(1).hasSpecialCard(SHIELD_CARD.getName()));
+	}
+
+	@Test
+	public void tryPlayingAdaptMoreInfoNeeded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+
+		String result = game.playCard(0, ADAPT_CARD.getName());
+		assertEquals(true, result.contains("adaptNeedMoreInfo"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After
