@@ -150,7 +150,7 @@ public class GUIController {
 		} 
 	}
 	private void playOutwit(String msg) {
-		String [] myPlayerCards = msg.split("|")[0].split(","); //new String[15];
+		String [] myPlayerCards = msg.split("\\|")[0].split(","); //new String[15];
 		String myChosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -160,8 +160,8 @@ public class GUIController {
 						JOptionPane.QUESTION_MESSAGE,
 						null,
 						myPlayerCards,
-				"Cards");
-		String[] playersInfo = msg.split("|")[1].split("#");	
+				"Cards");	
+		String[] playersInfo = msg.split("\\|")[1].split("#");	
 		String [] pNames = new String[playersInfo.length];
 		String [] pCards = new String[15]; 
 		//get the players names in the pinfo string
@@ -247,7 +247,7 @@ public class GUIController {
 						null,
 						p,
 				"Players");
-		client.handle("actionInfoGathered~Retreat@"+ chosenName);
+		client.handle("actionInfoGathered~Knock Down@"+ chosenName);
 	}
 	private void playRetreat(String msg) {
 		String[] p = msg.split(",");
@@ -305,7 +305,7 @@ public class GUIController {
 						null,
 						options,
 				"Colours");
-		client.handle("ChangeWeapon@"+ convertNameToNumber(chosenColour));
+		client.handle("actionInfoGathered~Change Weapon@"+ convertNameToNumber(chosenColour));
 	}
 	private void playUnhorse(String tokens) {
 		String temp = "";

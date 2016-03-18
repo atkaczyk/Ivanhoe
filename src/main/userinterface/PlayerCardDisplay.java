@@ -38,7 +38,6 @@ public class PlayerCardDisplay extends JPanel {
 		Image newimg = img.getScaledInstance(80, 125,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		card.setIcon(icon);
-		
 		card.setContentAreaFilled(false);
 		card.setBorderPainted(false);
 		card.setOpaque(false);
