@@ -318,8 +318,18 @@ public class Server implements Runnable {
 							}else{
 								game.addTokenToPlayer(playerW ,game.getTournamentColour());
 								updateAll();
-								broadcastMessageToPlayer("launchTournamentColour", ID, 0);
 								broadcastToAllPlayers("tournamentWinner~"+result);
+								
+								int currID = 0;
+								
+								for (int serverThreadID : playerNumbers.keySet()) {
+									if (playerNumbers.get(serverThreadID) == game.getCurrentPlayerNumber()){
+										currID = serverThreadID;
+										break;
+									}
+								}
+								
+								broadcastMessageToPlayer("launchTournamentColour", currID, 0);
 								//handle(ID, "updateGameInformation"); //should send tournament colour pop-up to the correct person
 							}
 						}
