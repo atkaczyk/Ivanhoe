@@ -9,8 +9,10 @@ public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
 	Client client;
+	private int mainScreenCounter = 0;
 
 	public GUIController(Client c){ 
+		
 		client = c;	
 	}
 	public void launchGameReadyWindow(){
@@ -55,13 +57,14 @@ public class GUIController {
 	public void displayTokenColour(int tokenColour){
 		gameReadyWindow.setFinalToken(tokenColour);
 	}	
-	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
+	//String tempPlayersInfo = "GAMEINFORMATION~playerName,012,true,false, false,30,true(withdraw),false(turn)#Charge,Blue (Axe) 2,Red (Sword) 3@playerName,012,true,false, false,30,true#Charge,Blue (Axe) 2,Red (Sword) 3";
 	public void setAllPlayersInfo(String str){ 
 		String[] player = str.split("@");
 		for (int i = 0; i < player.length; i++){	
 			String [] playerInfo = player[i].split("#");
 
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
+			
 			if(playerInfo.length == 1){
 				gamePlayWindow.emptyPlayerDisplay(i);
 			}else {
@@ -107,11 +110,26 @@ public class GUIController {
 	}
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
-			gamePlayWindow.setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
+			if(mainScreenCounter == 0) {
+				System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
+				mainScreenCounter =1;
+				gamePlayWindow.resetDrawCards();
+			}
+			gamePlayWindow.setPlayable(true); //setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
+			
+			gamePlayWindow.repaint();
 		}else if(str.equals("false")){
-			gamePlayWindow.setEnabled(false);
+			if(mainScreenCounter == 1) {
+				mainScreenCounter =0;
+
+				System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
+			}
+			gamePlayWindow.setPlayable(false);
+			gamePlayWindow.repaint();
 		}
 	}
+	
+	
 	public void getActionCardInfo(String info){
 		String[] cardInfo = info.split("@");
 		if(cardInfo[0].equals("Riposte")){
@@ -148,7 +166,6 @@ public class GUIController {
 		} 
 	}
 	private void playOutwit(String msg) {
-		
 		String [] myPlayerCards = msg.split("\\|")[0].split(","); //new String[15];
 		String myChosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
@@ -159,9 +176,7 @@ public class GUIController {
 						JOptionPane.QUESTION_MESSAGE,
 						null,
 						myPlayerCards,
-				"Cards");
-		
-		
+				"Cards");	
 		String[] playersInfo = msg.split("\\|")[1].split("#");	
 		String [] pNames = new String[playersInfo.length];
 		String [] pCards = new String[15]; 
@@ -169,7 +184,6 @@ public class GUIController {
 		for(int i = 0; i< playersInfo.length; i++){
 			pNames[i] = playersInfo[i].split("-")[0];
 		}
-		
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -180,13 +194,11 @@ public class GUIController {
 						null,
 						pNames,
 				"Player");
-
 		for(int i = 0; i< playersInfo.length; i++){
 			if(playersInfo[i].contains(chosenName)){
 				pCards = playersInfo[i].split("-")[1].split(",");
 			}
 		}
-		
 		String chosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Outwit Card!\n"
@@ -197,7 +209,6 @@ public class GUIController {
 						null,
 						pCards,
 				"Cards");
-		
 		client.handle("actionInfoGathered~Outwit@"+ myChosenCard + "," + chosenName +","+ chosenCard);
 	}
 	private void playDodge(String msg) {
@@ -207,9 +218,9 @@ public class GUIController {
 		//pick the player you wish to attack.
 		for(int i = 0; i< playersInfo.length; i++){
 			pNames[i] = playersInfo[i].split("-")[0];
-			
+
 		}
-		
+
 		String chosenName = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
@@ -226,7 +237,7 @@ public class GUIController {
 				pCards = playersInfo[i].split("-")[1].split(",");
 			}
 		}
-		
+
 		String chosenCard = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
 				"You played the Dodge Card!\n"
@@ -237,7 +248,7 @@ public class GUIController {
 						null,
 						pCards,
 				"Player");
-		
+
 		client.handle("actionInfoGathered~Dodge@"+ chosenName +","+ chosenCard);
 	}
 	private void playKnockDown(String msg) {

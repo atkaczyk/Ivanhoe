@@ -52,22 +52,12 @@ public class PlayerCard extends JPanel{
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
 	public void setPlayerStats(String playerInfo) {
-		//		System.out.println("IN THE PLAYER CARD -> SETTING THE PLAYER STATS:     >> " + playerInfo);
 		String[] stats = playerInfo.split(",");
 		playerStats.setPlayerName(stats[0]);
 		playerStats.setPlayerTokens(stats[1]);
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
-
 		playerStats.setPlayerTurn(stats[7]);
-
 		playerStats.setWithdrawn(stats[6]);
-
-		//Doesn't Work For All Players
-//		if (stats[6].equals("true")){
-//			setBorder(BorderFactory.createTitledBorder("WITHDRAWN")); 
-//		} else if (stats[6].equals("false")){
-//			setBorder(BorderFactory.createTitledBorder(" ")); 
-//		}
 
 		add(playerStats);
 	}
@@ -78,18 +68,15 @@ public class PlayerCard extends JPanel{
 
 	public void setPlayerDisplay(String str){ //take in a string and parse it and add the number you paRSE
 		display.emptyDisplay();
-		//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY:  >> " + str);
 		if(str.isEmpty()){}
 		else {
 			String[] cards = str.split(",");
-
 			if(cards.length < 1){
-				display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[0]));
-				//System.out.println("IN THE PLAYER CARD -> SETTING THE DISPLAY: CARDS[0]  >> " + cards[0]);
+				display.add(new JLabel(), Config.CARD_NAME_TO_PICTURES.get(cards[0]));
 			}
 			else{
 				for(int i =0; i<cards.length; i++){
-					display.add(new JButton(), Config.CARD_NAME_TO_PICTURES.get(cards[i]));
+					display.add(new JLabel(), Config.CARD_NAME_TO_PICTURES.get(cards[i]));
 				}
 				add(display);
 			}

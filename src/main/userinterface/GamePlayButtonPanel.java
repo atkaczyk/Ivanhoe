@@ -1,5 +1,6 @@
 package userinterface;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,20 +20,16 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	JButton endTurnButton;
 	JButton drawCardButton;
 
-	 JLabel curPlayerName;
+	JLabel curPlayerName;
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
-		JButton button;
-		JButton withdrawButton;
-		JButton endTurnButton;
-		JButton drawCardButton;
 
 		setLayout(new FlowLayout());//new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		curPlayerName = new JLabel("CurPlayerName");
 		curPlayerName.setFont(new Font("Century", Font.BOLD, 16));
 		add(curPlayerName);
 
-		
+
 		JLabel empty = new JLabel();
 		empty.setSize(10, 10);
 
@@ -76,28 +73,34 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		String action = e.getActionCommand();
 		if (action.equals("Withdraw")) {
 			gui.requestToWithdraw();
-			//gui.setEnableMainScreen("false");
+			setWithdrawEnable(false);
 		}
 		else if (action.equals("Draw a Card")) {
 			gui.requestToDrawCard();
-		//	setDrawCardButton(false);//this should add a card to the hand.
-			//GamePlayWindow.playerCard1.display.add(new JButton(),  "blue2.jpg");
+			setDrawCardEnable(false);//this should add a card to the hand.
 		}
 		else if (action.equals("Announce End of Turn")) {
 			gui.requestToEndTurn();
 		}
 	}
 
-	public void setDrawCardButton(boolean b) {
-		//drawCardButton.setEnabled(b);
-		//System.out.println("THE DRAW CARD BUTTON SHOULD BE >>" + b);
-
+	public void setWithdrawEnable(boolean b) {
+		withdrawButton.setEnabled(b);
 	}
-	
+
+	public void setDrawCardEnable(boolean b) {
+		drawCardButton.setEnabled(b);
+	}
+
 	public void setName(String str){
 		curPlayerName.setText("Actions for " +str);
 	}
 
-
+	public void setEnableOptionButtons(boolean b){
+		Component[] str = this.getComponents();
+		for (int i = 0; i < str.length; i++){
+			str[i].setEnabled(b);
+		}
+	}
 
 }
