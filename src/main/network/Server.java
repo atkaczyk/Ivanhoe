@@ -194,7 +194,6 @@ public class Server implements Runnable {
 					}
 				}
 				if (input.contains("requestToPlayThisCard,")){
-					
 					String[] cardInfo = input.split(",");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
@@ -223,8 +222,8 @@ public class Server implements Runnable {
 							//look in map to get mathching pnum with id
 							//send pNums[1] to specific ID
 							for (int id: playerNumbers.keySet()){
-								if (id == pNum){
-									broadcastMessageToPlayer("adaptNeedMoreInfo"+pNums[1], id, 1);
+								if (playerNumbers.get(id) == pNum){
+									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
 								}
 							}
 						}
