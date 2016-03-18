@@ -250,7 +250,7 @@ public class Client {
    		//to gui
    		else if(msg.contains("adaptNeedMoreInfo~")){
    			String[] adaptInfo = msg.split("~");
-   			//gui.adaptNeedMoreInfo(adaptInfo[1]);
+   			gui.adaptNeedMoreInfo(adaptInfo[1]);
    		}
    		//to server
    		else if(msg.contains("adaptGiveInfo@")){
