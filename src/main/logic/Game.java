@@ -439,6 +439,7 @@ public class Game {
 				}
 			} else if (name.equals("Adapt")) {
 				if (allowedToPlayAdapt()) {
+					moveCardFromHandToDiscardPile(playerNum, name);
 					return "adaptNeedMoreInfo~"+getAdaptInfo();
 				} else {
 					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
@@ -797,5 +798,25 @@ public class Game {
 
 		return "actionCardPlayedMessage~" + cardName + ","
 				+ getPlayer(playerNum).getName();
+	}
+
+	public void adaptCardsChosen(int playerNum, String valuesAndNames) {
+		Player p = players[playerNum];
+		
+		String[] valuesInfo = valuesAndNames.split(",");
+		for (String info: valuesInfo) {
+			int value = Integer.parseInt(info.split("-")[0]);
+			String cardToKeep = info.split("-")[1];
+			
+			List<Card> cardsToDiscard = p.keepOnlyCard(value, cardToKeep);
+			for (Card c : cardsToDiscard) {
+				discardPile.add(c);
+			}
+		}
+		
+		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();;
+		for (Card c : cardsToDiscard) {
+			discardPile.add(c);
+		}
 	}
 }

@@ -41,6 +41,8 @@ public class TestGame {
 	// Colour Card
 	private static final Card BLUE_CARD_3 = new ColourCard("Blue (Axe) 3", 3,
 			Config.BLUE);
+	private static final Card GREEN_CARD_1 = new ColourCard(
+			"Green (No Weapon) 1", 1, Config.GREEN);
 	private static final Card PURPLE_CARD_7 = new ColourCard(
 			"Purple (Jousting) 7", 7, Config.PURPLE);
 
@@ -1544,12 +1546,12 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
-		
+
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 
@@ -1560,10 +1562,10 @@ public class TestGame {
 
 		String result = game.playCard(0, ADAPT_CARD.getName());
 		assertEquals(true, result.contains("adaptNeedMoreInfo"));
-		assertEquals(0, game.getDiscardPileSize());
-		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void notAllowedToPlayAdapt() {
 		game.setNumPlayers(2);
@@ -1574,15 +1576,49 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
 
 		String result = game.playCard(0, ADAPT_CARD.getName());
-		System.out.println(result);
 
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
+	}
+
+	@Test
+	public void adaptChoicesGiven() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(1).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.adaptCardsChosen(1, "1-" + GREEN_CARD_1.getName() + ",3-"
+				+ SQUIRE_CARD_3.getName());
+		
+		game.adaptCardsChosen(0, "3-" + PURPLE_CARD_3.getName());
+
+		assertEquals(5, game.getDiscardPileSize());
+		
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
+		assertEquals(true, game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
+
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_3));
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(GREEN_CARD_1));
 	}
 
 	@After

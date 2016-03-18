@@ -453,4 +453,39 @@ public class Player {
 		
 		return result;
 	}
+
+	public List<Card> keepOnlyCard(int value, String cardName) {
+		List<Card> result = new ArrayList<Card>();
+		
+		// First remove any cards where the name does not match the one to keep
+		for (Card c: display) {
+			if (((SimpleCard) c).getNumber() == value) {
+				if (!c.getName().equals(cardName)) {
+					Card cardToRemove = removeFromDisplay(c.getName());
+					result.add(cardToRemove);
+					System.out.println("I REMOVED "+cardToRemove);
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	public List<Card> removeDuplicatesInDisplay() {
+		List<Card> result = new ArrayList<Card>();
+		
+		Set<Card> noDuplicates = new HashSet<Card>();
+		for (Card c: display) {
+			if (noDuplicates.contains(c)) {
+				System.out.println("I AM REMOVING DUPLICATE "+c);
+				Card cardToRemove = removeFromDisplay(c.getName());
+				result.add(cardToRemove);
+			}
+			noDuplicates.add(c);
+		}
+		
+		
+		
+		return result;
+	}
 }
