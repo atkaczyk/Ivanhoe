@@ -165,7 +165,7 @@ public class GUIController {
 
 	}
 
-	private void adaptNeedMoreInfo(String msg) {
+	public void adaptNeedMoreInfo(String msg) {
 		String [] set = msg.split("+");
 		String rets = "";
 		for(int i=0; i<set.length; i++){
