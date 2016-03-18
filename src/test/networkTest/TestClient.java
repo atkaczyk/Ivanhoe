@@ -124,6 +124,12 @@ public class TestClient {
 	}
 	
 	@Test
+	public void adaptCardInfoFromGUI(){
+		clientTwo.handle("adaptNeedMoreInfo");
+		assertEquals(true, clientTwo.getAdaptInfo());
+	}
+	
+	@Test
 	public void requestToEndTurn(){
 		clientOne.handle("requestToEndTurn");
 		assertEquals(true, clientOne.getEndTurn());
