@@ -34,14 +34,15 @@ public class GamePlayWindow extends JFrame{
 	//will hold the player cards
 	//will hold the cardLayout discard pile: still to be made
 	JLabel tournamentNumber;
-
+	JPanel upperPanel;
+	JPanel lowerPanel;
 	public GamePlayWindow(Client client){
 		super(); 
 		gui = new GUIController(client);
 
 		setLayout(new GridLayout(2,1)); 
 
-		JPanel upperPanel = new JPanel(new GridLayout(3,2));
+		upperPanel = new JPanel(new GridLayout(3,2));
 		GameStats = new JPanel(new FlowLayout());
 
 
@@ -51,7 +52,7 @@ public class GamePlayWindow extends JFrame{
 
 		tournamentNumber = new JLabel("");
 		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
-		
+
 		//JPanel tournamentStuff = new JPanel();
 		//tournamentStuff.add(tournamentColour);
 		//tournamentStuff.add(tournamentNumber);
@@ -85,10 +86,10 @@ public class GamePlayWindow extends JFrame{
 		playerCard4 = new PlayerCard("INACTIVE");
 		upperPanel.add(playerCard4);
 
-	//	upperPanel.setBackground(new Color(255, 255, 255 )); //242, 202, 150));
+		//	upperPanel.setBackground(new Color(255, 255, 255 )); //242, 202, 150));
 		add(upperPanel);
 
-		JPanel lowerPanel = new JPanel();
+		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout());
 
 		buttonPanel = new GamePlayButtonPanel(gui);
@@ -151,7 +152,7 @@ public class GamePlayWindow extends JFrame{
 		String[] player = s.split(",");
 		setTournamentColour(player[0]);
 		tournamentNumber.setText("Tournament #" + player[1] + " is...");
-	
+
 	}
 	public void setTournamentColour(String s){
 		if (s.equals("-1")){
@@ -173,8 +174,8 @@ public class GamePlayWindow extends JFrame{
 		tournamentColour.setForeground(tColour);
 		tournamentColour.setBackground(tColour);
 		tournamentNumber.setBackground(tColour);
-	tournamentNumber.setForeground(tColour);
-		
+		tournamentNumber.setForeground(tColour);
+
 	}
 	public void setDrawCardButton(boolean b) {
 		System.out.println("YOU MADE IT TO THE GAME PLAY WINDOW");
@@ -199,6 +200,13 @@ public class GamePlayWindow extends JFrame{
 		else if (i ==4){
 			playerCard4.emptyPlayerDisplay();
 		}
+	}
+
+	public void setPlayable(boolean b) {
+		buttonPanel.setEnableOptionButtons(b);
+		hand.setEnableHandButtons(b);
+		// TODO Auto-generated method stub
+
 	}
 }
 //	public void setPlayerScreenEnabled(boolean b) {

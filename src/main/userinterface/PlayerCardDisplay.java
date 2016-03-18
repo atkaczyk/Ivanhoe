@@ -48,6 +48,7 @@ public class PlayerCardDisplay extends JPanel {
 
 		//System.out.println(numCardsInDisplay);
 		this.add(lp);
+		this.repaint();
 	}
 
 	public void emptyDisplay() {
