@@ -1541,6 +1541,95 @@ public class TestGame {
 	}
 
 	@Test
+	public void playShieldCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+		
+		game.getPlayer(1).addCardToHand(OUTMANEUVER_CARD);
+		String result = game.playCard(1, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		result = game.playCard(1, CHARGE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+
+		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
+		result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+
+		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
+		result = game.playCard(1, DISGRACE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+
+		game.getPlayer(1).addCardToHand(RIPOSTE_CARD);
+		result = game.playCard(1, RIPOSTE_CARD.getName());
+		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+		result = game.playCard(1, BREAK_LANCE_CARD.getName());
+		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+
+		game.getPlayer(1).addCardToHand(DODGE_CARD);
+		result = game.playCard(1, DODGE_CARD.getName());
+		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+		result = game.playCard(0, RETREAT_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		
+		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
+		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
+		assertEquals(true, result.contains("false"));
+	}
+	
+	@Test
+	public void withdrawPlayerRemovesShieldAndStunned() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
+		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
+		
+		assertEquals("", game.withdrawPlayer(0));
+		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
+		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
+		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
+		assertEquals(5, game.getDiscardPileSize());
+	}	
+	
 	public void tryPlayingAdaptMoreInfoNeeded() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);

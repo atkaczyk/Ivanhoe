@@ -209,6 +209,27 @@ public class Server implements Runnable {
 					if(result.contains("moreInformationNeeded~")){
 						broadcastMessageToPlayer(result, ID, 0);
 					}
+					if(result.contains("adaptNeedMoreInfo~")){
+						//adaptNeedMoreInfo~playerNum-2@squire,green,blue+3@yellow,green#playerNum-2@squire,green,blue+3@yellow,green
+						//broadcast separate message to each player
+						String[] msgs = result.split("~");
+						//playernum-1,3,4,5-#nameother-1,2,3-
+						String[] msg = msgs[1].split("#");
+						//playerNum-2@squire,green,blue+3@yellow,green#
+					
+						for (int m=0; m<msg.length; m++){
+							String pNums[] = msg[m].split("-"); //get playernum before the -
+							int pNum = Integer.parseInt(pNums[0]);
+							//look in map to get mathching pnum with id
+							//send pNums[1] to specific ID
+							for (int id: playerNumbers.keySet()){
+								if (id == pNum){
+									broadcastMessageToPlayer("adaptNeedMoreInfo"+pNums[1], id, 1);
+								}
+							}
+						}
+						
+					}
 					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
@@ -225,6 +246,12 @@ public class Server implements Runnable {
 						updateAll();
 					}
 				}
+				else if(input.contains("adaptGiveInfo@")){
+					String[] cards = input.split("@");
+					int playerNum = playerNumbers.get(ID); //gives the player number
+					game.adaptCardsChosen(playerNum, cards[1]);
+					updateAll();
+		   		}
 				else if (input.contains("requestToDrawCard")){
 					int playerNum = playerNumbers.get(ID);
 					game.drawCard(playerNum);
@@ -284,7 +311,9 @@ public class Server implements Runnable {
 							}else{
 								game.addTokenToPlayer(playerW ,game.getTournamentColour());
 								updateAll();
+								broadcastMessageToPlayer("launchTournamentColour", ID, 0);
 								broadcastToAllPlayers("tournamentWinner~"+result);
+								//handle(ID, "updateGameInformation"); //should send tournament colour pop-up to the correct person
 							}
 						}
 					}
@@ -297,7 +326,7 @@ public class Server implements Runnable {
 					
 					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
 							+ game.getTournamentColour());
-					updateAll();
+					updateAll(); //maybe put this before the broadcast
 				}
 				else if (input.contains("finalWinnerCheck")){
 					//String result = game.checkForWinner(); //returns name of winning player, and empty if no winner

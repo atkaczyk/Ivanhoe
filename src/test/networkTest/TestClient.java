@@ -119,8 +119,14 @@ public class TestClient {
 
 	@Test
 	public void actionCardInfoGatheredFromGUI(){
-		clientTwo.handle("actionInfoGathered");
+		clientTwo.handle("actionInfoGathered~");
 		assertEquals(true, clientTwo.getActionInfo());
+	}
+	
+	@Test
+	public void adaptCardInfoFromGUI(){
+		clientTwo.handle("adaptGiveInfo@");
+		assertEquals(true, clientTwo.getAdaptInfo());
 	}
 	
 	@Test

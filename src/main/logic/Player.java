@@ -141,6 +141,11 @@ public class Player {
 		while (!display.isEmpty()) {
 			result.add(display.pop());
 		}
+		for (Card c: specialCards) {
+			result.add(c);
+		}
+		specialCards.clear();
+		
 		return result;
 	}
 
@@ -403,6 +408,13 @@ public class Player {
 		display.addLast(card);
 	}
 
+	public Card removeCardFromHand(String name) {
+		Card retVal = getCardFromHand(name);
+		
+		display.remove(retVal);
+		return retVal;
+	}
+	
 	public boolean allowedToPlayAdapt() {
 		// If they have 
 		List<Integer> list = new ArrayList<Integer>();
@@ -463,7 +475,6 @@ public class Player {
 				if (!c.getName().equals(cardName)) {
 					Card cardToRemove = removeFromDisplay(c.getName());
 					result.add(cardToRemove);
-					System.out.println("I REMOVED "+cardToRemove);
 				}
 			}
 		}
@@ -477,14 +488,11 @@ public class Player {
 		Set<Card> noDuplicates = new HashSet<Card>();
 		for (Card c: display) {
 			if (noDuplicates.contains(c)) {
-				System.out.println("I AM REMOVING DUPLICATE "+c);
 				Card cardToRemove = removeFromDisplay(c.getName());
 				result.add(cardToRemove);
 			}
 			noDuplicates.add(c);
 		}
-		
-		
 		
 		return result;
 	}
