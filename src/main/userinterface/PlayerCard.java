@@ -55,7 +55,13 @@ public class PlayerCard extends JPanel{
 		String[] stats = playerInfo.split(",");
 		playerStats.setPlayerName(stats[0]);
 		playerStats.setPlayerTokens(stats[1]);
+
+		playerStats.setShield(stats[2]);
+		playerStats.setStunned(stats[3]);
+		playerStats.setIvanhoe(stats[4]);
+		
 		playerStats.setPlayerScore(Integer.parseInt(stats[5]));
+		
 		playerStats.setPlayerTurn(stats[7]);
 		playerStats.setWithdrawn(stats[6]);
 
