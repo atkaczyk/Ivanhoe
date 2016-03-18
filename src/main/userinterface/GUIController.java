@@ -12,7 +12,7 @@ public class GUIController {
 	private int mainScreenCounter = 0;
 
 	public GUIController(Client c){ 
-		
+
 		client = c;	
 	}
 	public void launchGameReadyWindow(){
@@ -64,7 +64,7 @@ public class GUIController {
 			String [] playerInfo = player[i].split("#");
 
 			gamePlayWindow.setPlayerCardStats(i , playerInfo[0]);
-			
+
 			if(playerInfo.length == 1){
 				gamePlayWindow.emptyPlayerDisplay(i);
 			}else {
@@ -116,7 +116,7 @@ public class GUIController {
 				gamePlayWindow.resetDrawCards();
 			}
 			gamePlayWindow.setPlayable(true); //setEnabled(true);//setPlayerScreenEnabled(true); //setEnabled(true);
-			
+
 			gamePlayWindow.repaint();
 		}else if(str.equals("false")){
 			if(mainScreenCounter == 1) {
@@ -128,8 +128,8 @@ public class GUIController {
 			gamePlayWindow.repaint();
 		}
 	}
-	
-	
+
+
 	public void getActionCardInfo(String info){
 		String[] cardInfo = info.split("@");
 		if(cardInfo[0].equals("Riposte")){
@@ -156,14 +156,33 @@ public class GUIController {
 		else if (cardInfo[0].equals("Outwit")){
 			playOutwit(cardInfo[1]);
 		}  
-		else if (cardInfo[0].equals("Adapt")){
-		}  
-		else if (cardInfo[0].equals("Shield")){
-		}  
-		else if (cardInfo[0].equals("Stunned")){
-		}  
 		else if (cardInfo[0].equals("Ivanhoe")){
+			playIvanhoe(cardInfo[1]);
 		} 
+	}
+	private void playIvanhoe(String string) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void adaptNeedMoreInfo(String msg) {
+		String [] set = msg.split("+");
+		String rets = "";
+		for(int i=0; i<set.length; i++){
+			String card = (String)JOptionPane.showInputDialog(
+					gamePlayWindow,
+					"You played the Adapt Card!\n"
+							+ "\n"
+							+ "Select the card you want to keep of value" + set[i].split("@")[0],
+							"Outwit",
+							JOptionPane.QUESTION_MESSAGE,
+							null,
+							set[i].split("@")[1].split(","),
+					"Cards");
+			rets+= set[i].split("@")[0] + "-" + card + ",";
+		}
+		client.handle("adaptGiveInfo@"+rets.substring(0,rets.length()-1));
+
 	}
 	private void playOutwit(String msg) {
 		String [] myPlayerCards = msg.split("\\|")[0].split(","); //new String[15];
