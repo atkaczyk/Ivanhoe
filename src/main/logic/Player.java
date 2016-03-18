@@ -137,6 +137,11 @@ public class Player {
 		while (!display.isEmpty()) {
 			result.add(display.pop());
 		}
+		for (Card c: specialCards) {
+			result.add(c);
+		}
+		specialCards.clear();
+		
 		return result;
 	}
 

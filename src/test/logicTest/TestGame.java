@@ -1603,6 +1603,29 @@ public class TestGame {
 		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("false"));
 	}
+	
+	@Test
+	public void withdrawPlayerRemovesShieldAndStunned() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
+		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
+		
+		assertEquals("", game.withdrawPlayer(0));
+		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
+		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
+		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
+		assertEquals(5, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {
