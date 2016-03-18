@@ -398,4 +398,11 @@ public class Player {
 		
 		display.addLast(card);
 	}
+
+	public Card removeCardFromHand(String name) {
+		Card retVal = getCardFromHand(name);
+		
+		display.remove(retVal);
+		return retVal;
+	}
 }

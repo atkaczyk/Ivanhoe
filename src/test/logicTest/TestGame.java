@@ -1564,22 +1564,23 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
 		
 		game.getPlayer(1).addCardToHand(OUTMANEUVER_CARD);
-		assertEquals("true", game.playCard(1, OUTMANEUVER_CARD.getName()));
+		String result = game.playCard(1, OUTMANEUVER_CARD.getName());
+		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 
 		game.getPlayer(1).addCardToHand(CHARGE_CARD);
-		String result = game.playCard(1, CHARGE_CARD.getName());
-		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		result = game.playCard(1, CHARGE_CARD.getName());
+		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 
 		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
 		result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
-		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 
 		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
 		result = game.playCard(1, DISGRACE_CARD.getName());
-		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 
 		game.getPlayer(1).addCardToHand(RIPOSTE_CARD);
@@ -1594,16 +1595,12 @@ public class TestGame {
 		result = game.playCard(1, DODGE_CARD.getName());
 		assertEquals(false, result.contains(PLAYER_ONE_NAME));
 
-		game.getPlayer(1).addCardToHand(RETREAT_CARD);
-		result = game.playCard(1, RETREAT_CARD.getName());
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+		result = game.playCard(0, RETREAT_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		
 		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
 		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
-		assertEquals(true, result.contains("false"));
-
-		game.getPlayer(1).addCardToHand(OUTWIT_CARD);
-		result = game.playCard(0, OUTWIT_CARD.getName());
 		assertEquals(true, result.contains("false"));
 	}
 

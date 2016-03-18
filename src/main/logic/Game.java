@@ -237,7 +237,6 @@ public class Game {
 	}
 
 	public String playCard(int playerNum, String name) {
-		// Get the card name from the file name
 		Card c = players[playerNum].getCardFromHand(name);
 
 		if (c instanceof SimpleCard) {
@@ -319,16 +318,7 @@ public class Game {
 
 				// First check to see there is at least one player where you can
 				// remove a card
-				Boolean playerFound = false;
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1) {
-							playerFound = true;
-							break;
-						}
-					}
-				}
-				if (!playerFound) {
+				if (!moreThanOneCardInOtherDisplays(playerNum)) {
 					return "false:You cannot play a counter charge card when there are no cards you can remove from other player displays!";
 				}
 
@@ -355,7 +345,8 @@ public class Game {
 				for (int i = 0; i < numOfPlayers; i++) {
 					if (playerNum != i) {
 						if (players[i].getDisplayCards().size() > 1
-								&& players[i].hasSupporterCardInDisplay()) {
+								&& players[i].hasSupporterCardInDisplay()
+								&& !players[i].hasSpecialCard("Shield")) {
 							playerFound = true;
 							break;
 						}
@@ -417,9 +408,11 @@ public class Game {
 					return "false:You cannot play a dodge card when there are no cards to remove from other opponent's displays!";
 				}
 			} else if (name.equals("Retreat")) {
-				if (players[playerNum].getDisplayCards().size() > 1) {
+				if (!players[playerNum].hasSpecialCard("Shield")
+						&& players[playerNum].getDisplayCards().size() > 1) {
 					return "moreInformationNeeded~Retreat@"
-							+ players[playerNum].getDisplayAsStringNoDuplicates();
+							+ players[playerNum]
+									.getDisplayAsStringNoDuplicates();
 				} else {
 					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
 				}
@@ -433,10 +426,18 @@ public class Game {
 			} else if (name.equals("Outwit")) {
 				if (players[playerNum].getNumFaceupCards() > 0
 						&& otherPlayersHaveFaceupCards(playerNum)) {
-					return "moreInformationNeeded~Outwit@"+getOutwitInfo(playerNum);
+					return "moreInformationNeeded~Outwit@"
+							+ getOutwitInfo(playerNum);
 				} else {
 					return "false:You cannot play an outwit card when there are no faceup cards you can switch!";
 				}
+			} else if (name.equals("Shield")) {
+				// Take card from the player's hand and apply it to the player
+				players[playerNum].addSpecialCard(players[playerNum]
+						.removeCardFromHand(name));
+
+				return "actionCardPlayedMessage~" + name + ","
+						+ getPlayer(playerNum).getName();
 			}
 		}
 
@@ -445,30 +446,32 @@ public class Game {
 
 	private String getOutwitInfo(int playerNum) {
 		String result = "";
-		
+
 		result += players[playerNum].getFaceupCardsAsStringNoDuplicates();
-		
+
 		result += "|";
-		
-		for (int i=0; i< numOfPlayers; i++) {
+
+		for (int i = 0; i < numOfPlayers; i++) {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					result += players[i].getName();
-					result += "-"+players[i].getFaceupCardsAsStringNoDuplicates()+"-";
+					result += "-"
+							+ players[i].getFaceupCardsAsStringNoDuplicates()
+							+ "-";
 					result += "#";
 				}
 			}
 		}
-		
+
 		if (result.endsWith("#")) {
 			result = result.substring(0, result.length() - 1);
 		}
-		
+
 		return result;
 	}
 
 	private boolean otherPlayersHaveFaceupCards(int playerNum) {
-		for (int i=0; i< numOfPlayers; i++) {
+		for (int i = 0; i < numOfPlayers; i++) {
 			if (playerNum != i && !players[i].isWithdrawn()) {
 				if (players[i].getNumFaceupCards() > 0) {
 					return true;
@@ -481,7 +484,8 @@ public class Game {
 	private String playersWithHandToChoose(int playerNum) {
 		String result = "";
 		for (int i = 0; i < numOfPlayers; i++) {
-			if (playerNum != i && !players[i].isWithdrawn()) {
+			if (!players[i].hasSpecialCard("Shield") && playerNum != i
+					&& !players[i].isWithdrawn()) {
 				if (players[i].getHandCards().size() > 0) {
 					result += players[i].getName();
 					result += ",";
@@ -498,7 +502,8 @@ public class Game {
 
 	private boolean playersWithHandCards(int playerNum) {
 		for (int i = 0; i < numOfPlayers; i++) {
-			if (playerNum != i && !players[i].isWithdrawn()) {
+			if (!players[i].hasSpecialCard("Shield") && playerNum != i
+					&& !players[i].isWithdrawn()) {
 				if (players[i].getHandCards().size() > 0) {
 					return true;
 				}
@@ -535,7 +540,8 @@ public class Game {
 			Player p = players[i];
 			if (i != playerNum) {
 				if (!p.isWithdrawn() && p.getDisplayCards().size() > 1
-						&& p.hasPurpleCardInDisplay()) {
+						&& p.hasPurpleCardInDisplay()
+						&& !p.hasSpecialCard("Shield")) {
 					result += p.getName() + ",";
 				}
 			}
@@ -550,7 +556,8 @@ public class Game {
 
 	private boolean moreThanOneCardInOtherDisplays(int playerNum) {
 		for (int i = 0; i < numOfPlayers; i++) {
-			if (playerNum != i && !players[i].isWithdrawn()) {
+			if (playerNum != i && !players[i].isWithdrawn()
+					&& !players[i].hasSpecialCard("Shield")) {
 				if (players[i].getDisplayCards().size() > 1) {
 					return true;
 				}
@@ -744,19 +751,20 @@ public class Game {
 			String playerCard = extraInfo.split(",")[0];
 			String targetPlayer = extraInfo.split(",")[1];
 			String targetCard = extraInfo.split(",")[2];
-			
-			Card tempPlayerCard = players[playerNum].removeFaceupCard(playerCard);
+
+			Card tempPlayerCard = players[playerNum]
+					.removeFaceupCard(playerCard);
 			Card tempTargetCard = null;
-			
+
 			Player targetPlayerObject = null;
-			
-			for (Player p: players) {
+
+			for (Player p : players) {
 				if (p.getName().equals(targetPlayer)) {
 					targetPlayerObject = p;
 					tempTargetCard = p.removeFaceupCard(targetCard);
 				}
 			}
-			
+
 			players[playerNum].addFaceupCard(tempTargetCard);
 			targetPlayerObject.addFaceupCard(tempPlayerCard);
 		}
