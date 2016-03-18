@@ -411,7 +411,7 @@ public class Player {
 	public Card removeCardFromHand(String name) {
 		Card retVal = getCardFromHand(name);
 		
-		display.remove(retVal);
+		hand.remove(retVal);
 		return retVal;
 	}
 	
