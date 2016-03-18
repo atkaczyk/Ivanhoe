@@ -76,7 +76,8 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Outwit"));
+		players[0].addCardToHand(new ActionCard("Shield"));
+
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {

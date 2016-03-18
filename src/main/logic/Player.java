@@ -456,7 +456,7 @@ public class Player {
 			if (result.endsWith(",")) {
 				result = result.substring(0, result.length() - 1);
 			}
-			result += "+";
+			result += "_";
 		}
 		
 		if (result.endsWith("+")) {
@@ -473,25 +473,35 @@ public class Player {
 		for (Card c: display) {
 			if (((SimpleCard) c).getNumber() == value) {
 				if (!c.getName().equals(cardName)) {
-					Card cardToRemove = removeFromDisplay(c.getName());
-					result.add(cardToRemove);
+					result.add(c);
 				}
 			}
+		}
+		
+		for (Card c: result) {
+			removeFromDisplay(c.getName());
 		}
 		
 		return result;
 	}
 
 	public List<Card> removeDuplicatesInDisplay() {
+		// Result is the cards we will be removing from the display
 		List<Card> result = new ArrayList<Card>();
 		
-		Set<Card> noDuplicates = new HashSet<Card>();
+		Set<String> noDuplicates = new HashSet<String>();
+		
 		for (Card c: display) {
-			if (noDuplicates.contains(c)) {
-				Card cardToRemove = removeFromDisplay(c.getName());
-				result.add(cardToRemove);
+			if (noDuplicates.contains(c.getName())) {
+				result.add(c);
 			}
-			noDuplicates.add(c);
+			else {
+				noDuplicates.add(c.getName());
+			}
+		}
+		
+		for (Card c: result) {
+			display.remove(c);
 		}
 		
 		return result;
