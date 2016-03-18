@@ -2,8 +2,12 @@ package logic;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import utils.Config;
 
@@ -397,5 +401,91 @@ public class Player {
 		}
 		
 		display.addLast(card);
+	}
+
+	public boolean allowedToPlayAdapt() {
+		// If they have 
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (Card c: display) {
+			if (!list.contains(((SimpleCard) c).getNumber())) {
+				list.add(((SimpleCard) c).getNumber());
+			}
+			else {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	public String getValuesAndCardsAsStringNoDuplicates() {		
+		Map<Integer, Set<String>> displayCards = new HashMap<Integer, Set<String>>();
+		
+		for (Card c: display) {
+			int cardValue = ((SimpleCard) c).getNumber();
+			if (displayCards.keySet().contains(cardValue)) {
+				displayCards.get(cardValue).add(c.getName());
+			}
+			else {
+				Set<String> cardNames = new HashSet<String>();
+				cardNames.add(c.getName());
+				displayCards.put(cardValue, cardNames);
+			}
+		}
+		
+		String result = "";
+		
+		for (int num: displayCards.keySet()) {
+			result += num + "@";
+			for (String name: displayCards.get(num)) {
+				result += name + ",";
+			}
+			if (result.endsWith(",")) {
+				result = result.substring(0, result.length() - 1);
+			}
+			result += "+";
+		}
+		
+		if (result.endsWith("+")) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
+	}
+
+	public List<Card> keepOnlyCard(int value, String cardName) {
+		List<Card> result = new ArrayList<Card>();
+		
+		// First remove any cards where the name does not match the one to keep
+		for (Card c: display) {
+			if (((SimpleCard) c).getNumber() == value) {
+				if (!c.getName().equals(cardName)) {
+					Card cardToRemove = removeFromDisplay(c.getName());
+					result.add(cardToRemove);
+					System.out.println("I REMOVED "+cardToRemove);
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	public List<Card> removeDuplicatesInDisplay() {
+		List<Card> result = new ArrayList<Card>();
+		
+		Set<Card> noDuplicates = new HashSet<Card>();
+		for (Card c: display) {
+			if (noDuplicates.contains(c)) {
+				System.out.println("I AM REMOVING DUPLICATE "+c);
+				Card cardToRemove = removeFromDisplay(c.getName());
+				result.add(cardToRemove);
+			}
+			noDuplicates.add(c);
+		}
+		
+		
+		
+		return result;
 	}
 }
