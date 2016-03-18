@@ -37,6 +37,7 @@ public class Client {
 	private Boolean purpleTokenWin = false;
 	private Boolean endTurn = false;
 	private Boolean actionInfo = false;
+	private Boolean adaptInfo = false;
 	
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
@@ -241,11 +242,20 @@ public class Client {
    			gui.displayFinalWinner(gWinner[1]);
    		}
    		//setGameStats
-   		
-   		
+   		   		
    		else if(msg.contains("ERROR~")){
    			String[] errMessage = msg.split("~");
    			gui.displayErrorMessage(errMessage[1]);
+   		}
+   		//to gui
+   		else if(msg.contains("adaptNeedMoreInfo~")){
+   			String[] adaptInfo = msg.split("~");
+   			gui.adaptNeedMoreInfo(adaptInfo[1]);
+   		}
+   		//to server
+   		else if(msg.contains("adaptGiveInfo@")){
+   			adaptInfo = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
@@ -340,5 +350,8 @@ public class Client {
 	}
 	public Object getActionInfo(){
 		return actionInfo;
+	}
+	public Object getAdaptInfo(){
+		return adaptInfo;
 	}
 }
