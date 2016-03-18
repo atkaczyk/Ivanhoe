@@ -101,7 +101,12 @@ public class Client {
          }
    }
 	
-
+	/**
+	 * Handle the information that gets sent through the client from the server and gui.
+	 * 
+	 * @param msg
+	 *            The String message that the client receives from GUI or server
+	 */
    public void handle (String msg) {
    		if (msg.equalsIgnoreCase("quit!")) {  
 			System.out.println(ID + "Good bye. Press RETURN to exit ...");

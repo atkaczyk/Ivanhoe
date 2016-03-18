@@ -141,6 +141,14 @@ public class Server implements Runnable {
 		}
 	}
 
+	/**
+	 * Handle the information that gets sent to the Server from the Client
+	 * 
+	 * @param ID
+	 *            The int client ID of the client sending the info
+	 * @param input
+	 * 			  The String input from the specified client ID
+	 */
 	public synchronized void handle(int ID, String input) {
 		synchronized (serverThreadsLock) {
 			if (input.equals("quit!")) {
@@ -220,11 +228,11 @@ public class Server implements Runnable {
 						for (int m=0; m<msg.length; m++){
 							String pNums[] = msg[m].split("-"); //get playernum before the -
 							int pNum = Integer.parseInt(pNums[0]);
-							//look in map to get mathching pnum with id
+							//look in map to get matching pnum with id
 							//send pNums[1] to specific ID
 							for (int id: playerNumbers.keySet()){
-								if (id == pNum){
-									broadcastMessageToPlayer("adaptNeedMoreInfo"+pNums[1], id, 1);
+								if (playerNumbers.get(id) == pNum){
+									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
 								}
 							}
 						}
