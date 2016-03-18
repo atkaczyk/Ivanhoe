@@ -437,10 +437,42 @@ public class Game {
 				} else {
 					return "false:You cannot play an outwit card when there are no faceup cards you can switch!";
 				}
+			} else if (name.equals("Adapt")) {
+				if (allowedToPlayAdapt()) {
+					return "adaptNeedMoreInfo~"+getAdaptInfo();
+				} else {
+					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
+				}
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private boolean allowedToPlayAdapt() {
+		for (Player p: players) {
+			if (p.allowedToPlayAdapt()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private String getAdaptInfo() {
+		String result = "";
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (!players[i].isWithdrawn() && players[i].allowedToPlayAdapt()) {
+				result += i + "-";
+				result += players[i].getValuesAndCardsAsStringNoDuplicates();
+				result += "#";
+			}
+		}
+		
+		if (result.endsWith("#")) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
 	}
 
 	private String getOutwitInfo(int playerNum) {

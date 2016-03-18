@@ -1540,10 +1540,17 @@ public class TestGame {
 
 	@Test
 	public void tryPlayingAdaptMoreInfoNeeded() {
-		game.setNumPlayers(2);
+		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 
+		
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 
@@ -1553,6 +1560,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
 
 		String result = game.playCard(0, ADAPT_CARD.getName());
+		System.out.println(result);
 		assertEquals(true, result.contains("adaptNeedMoreInfo"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
