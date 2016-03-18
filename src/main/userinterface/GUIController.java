@@ -166,14 +166,14 @@ public class GUIController {
 	}
 
 	public void adaptNeedMoreInfo(String msg) {
-		String [] set = msg.split("+");
+		String [] set = msg.split("_");
 		String rets = "";
 		for(int i=0; i<set.length; i++){
 			String card = (String)JOptionPane.showInputDialog(
 					gamePlayWindow,
-					"You played the Adapt Card!\n"
+					"Someone played the Adapt Card!\n"
 							+ "\n"
-							+ "Select the card you want to keep of value" + set[i].split("@")[0],
+							+ "Select the card you want to keep of value " + set[i].split("@")[0],
 							"Outwit",
 							JOptionPane.QUESTION_MESSAGE,
 							null,

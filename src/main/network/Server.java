@@ -202,7 +202,6 @@ public class Server implements Runnable {
 					}
 				}
 				if (input.contains("requestToPlayThisCard,")){
-					
 					String[] cardInfo = input.split(",");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
