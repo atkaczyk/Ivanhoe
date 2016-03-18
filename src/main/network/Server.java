@@ -249,7 +249,7 @@ public class Server implements Runnable {
 				else if(input.contains("adaptGiveInfo@")){
 					String[] cards = input.split("@");
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					//game.adaptCardsChosen(playerNum, cards[1]);
+					game.adaptCardsChosen(playerNum, cards[1]);
 					updateAll();
 		   		}
 				else if (input.contains("requestToDrawCard")){

@@ -253,8 +253,9 @@ public class Client {
    			//gui.adaptNeedMoreInfo(adaptInfo[1]);
    		}
    		//to server
-   		else if(msg.contains("adaptGiveInfo")){
-   			
+   		else if(msg.contains("adaptGiveInfo@")){
+   			adaptInfo = true;
+   			sendMessageToServer(msg);
    		}
    		else if (msg.contains("gameReady")){
    			gameReady = true;
