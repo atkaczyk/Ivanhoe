@@ -77,7 +77,7 @@ public class Game {
 	public void startGame() {
 		// TODO: DELETE THIS
 		players[0].addCardToHand(new ActionCard("Shield"));
-
+		players[0].addCardToHand(new ActionCard("Stunned"));
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -95,11 +95,18 @@ public class Game {
 		}
 
 		// Figure out which player is first
+
 		do {
 			goToNextPlayer();
 		} while (!playerCanStart(currentPlayer));
 
 		startTournament();
+	}
+
+	private void clearAllCardCounters() {
+		for (Player p : players) {
+			p.clearCardDisplayCounter();
+		}
 	}
 
 	public boolean playerCanStart(Player p) {
@@ -117,24 +124,23 @@ public class Game {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
+		clearAllCardCounters();
 
 		do {
 			if (players[numOfPlayers - 1].getName().equals(
 					currentPlayer.getName())) {
 				currentPlayer = players[0];
-				return;
-			}
-
-			// Otherwise, get position of current player
-			int i;
-			for (i = 0; i < numOfPlayers; i++) {
-				if (players[i].getName().equals(currentPlayer.getName())) {
-					currentPlayer = players[i + 1];
-					break;
+			} else {
+				// Otherwise, get position of current player
+				int i;
+				for (i = 0; i < numOfPlayers; i++) {
+					if (players[i].getName().equals(currentPlayer.getName())) {
+						currentPlayer = players[i + 1];
+						break;
+					}
 				}
 			}
 		} while (currentPlayer.isWithdrawn());
-
 	}
 
 	public int getTournamentColour() {
@@ -246,6 +252,10 @@ public class Game {
 
 			if (result == true) {
 				return "true";
+			}
+
+			if (players[playerNum].hasSpecialCard("Stunned")) {
+				return "false:You cannot add a second card to your display when you have a stunned card on you!";
 			}
 
 			if (c instanceof SupporterCard) {
@@ -442,18 +452,35 @@ public class Game {
 			} else if (name.equals("Adapt")) {
 				if (allowedToPlayAdapt()) {
 					moveCardFromHandToDiscardPile(playerNum, name);
-					return "adaptNeedMoreInfo~"+getAdaptInfo();
+					return "adaptNeedMoreInfo~" + getAdaptInfo();
 				} else {
 					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
 				}
+			} else if (name.equals("Stunned")) {
+				return "moreInformationNeeded~Stunned@" + getStunnedInfo();
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
 	}
 
+	private String getStunnedInfo() {
+		String result = "";
+		for (Player p : players) {
+			if (!p.isWithdrawn()) {
+				result += p.getName() + ",";
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
 	private boolean allowedToPlayAdapt() {
-		for (Player p: players) {
+		for (Player p : players) {
 			if (p.allowedToPlayAdapt()) {
 				return true;
 			}
@@ -470,11 +497,11 @@ public class Game {
 				result += "#";
 			}
 		}
-		
+
 		if (result.endsWith("#")) {
 			result = result.substring(0, result.length() - 1);
 		}
-		
+
 		return result;
 	}
 
@@ -661,20 +688,21 @@ public class Game {
 
 		String winningPlayer = "";
 		int playersStillActive = 0;
+		Player winningPlayerObject = null;
 
 		// See if there is only one player left that isn't withdrawn
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
-				currentPlayer = players[i];
-
+				winningPlayerObject = players[i];
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
 			startTournament();
-
+			
+			currentPlayer = winningPlayerObject;
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
@@ -737,6 +765,8 @@ public class Game {
 	public String playActionCard(int playerNum, String info) {
 		String cardName = info.split("@")[0];
 		String extraInfo = info.split("@")[1];
+
+		Boolean allowedToDiscard = true;
 		if (info.contains("Riposte")) {
 			// Take the last card played on the given opponent's display and add
 			// it to the given player
@@ -801,9 +831,22 @@ public class Game {
 
 			players[playerNum].addFaceupCard(tempTargetCard);
 			targetPlayerObject.addFaceupCard(tempPlayerCard);
+		} else if (info.contains("Stunned")) {
+			// Remove the card from the players hand
+			Card cardToMove = players[playerNum].removeCardFromHand("Stunned");
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					p.addSpecialCard(cardToMove);
+					break;
+				}
+			}
+
+			allowedToDiscard = false;
 		}
 
-		moveCardFromHandToDiscardPile(playerNum, cardName);
+		if (allowedToDiscard) {
+			moveCardFromHandToDiscardPile(playerNum, cardName);
+		}
 
 		return "actionCardPlayedMessage~" + cardName + ","
 				+ getPlayer(playerNum).getName();
@@ -811,19 +854,20 @@ public class Game {
 
 	public void adaptCardsChosen(int playerNum, String valuesAndNames) {
 		Player p = players[playerNum];
-		
+
 		String[] valuesInfo = valuesAndNames.split(",");
-		for (String info: valuesInfo) {
+		for (String info : valuesInfo) {
 			int value = Integer.parseInt(info.split("-")[0]);
 			String cardToKeep = info.split("-")[1];
-			
+
 			List<Card> cardsToDiscard = p.keepOnlyCard(value, cardToKeep);
 			for (Card c : cardsToDiscard) {
 				discardPile.add(c);
 			}
 		}
-		
-		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();;
+
+		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();
+		;
 		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
