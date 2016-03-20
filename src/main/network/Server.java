@@ -250,8 +250,12 @@ public class Server implements Runnable {
 					}
 					
 				}
-				else if (input.contains("Ivanhoe@")) {
-					System.out.print("\n\n\n~~~~~~~~~~AHAHAHAHA\n\n\n");
+				else if (input.contains("Ivanhoe~")) {
+					String result = game.processIvanhoeCard(input.split("~")[1]);
+					if(result.contains("actionCardPlayedMessage")){
+						broadcastToOtherPlayers(result, ID);
+						updateAll();
+					}
 				}
 				else if(input.contains("actionInfoGathered~")){
 					String[] info = input.split("~");
