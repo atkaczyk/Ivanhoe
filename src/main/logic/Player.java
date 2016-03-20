@@ -516,4 +516,13 @@ public class Player {
 	public void clearCardDisplayCounter() {
 		cardsAddedToDisplayThisTurn = 0;
 	}
+
+	public Boolean hasIvanhoeCard() {
+		for (Card c: hand) {
+			if (c.getName().equals("Ivanhoe")) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
