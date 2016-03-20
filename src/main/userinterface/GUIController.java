@@ -75,17 +75,16 @@ public class GUIController {
 	public void askForIvanhoe(String str){
 		//str contains msg to pop up@rememberandsend back
 		String[] msg = str.split("@");
-		String[] decide = {"yes","no"};
-		String choice = (String)JOptionPane.showInputDialog(
-				gamePlayWindow,
-				"You have the Ivanhoe\n"
-						+ msg[0],
-						"Ivanhoe",
-						JOptionPane.QUESTION_MESSAGE,
-						null,
-						decide,
-				"Players");
-		client.handle(choice +","+ msg[1]);	
+		String choice;
+		int result = JOptionPane.showConfirmDialog(gamePlayWindow, 
+				   "You have the Ivanhoe \n " + msg[0] ,"Ivanhoe", JOptionPane.YES_NO_OPTION);
+		if(result == JOptionPane.YES_OPTION) {
+		    choice = "yes";
+		} else {
+			choice = "no";
+		}
+
+		client.handle("Ivanhoe@" + choice +","+ msg[1]);	
 		
 	}
 	public void setCurrentPlayerName(String str){
