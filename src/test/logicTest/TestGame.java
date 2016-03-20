@@ -1731,6 +1731,38 @@ public class TestGame {
 		String result = game.playCard(0, "Stunned");
 		assertEquals(true, result.contains("moreInformationNeeded"));
 	}
+	
+	@Test
+	public void playStunnedCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(STUNNED_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+
+		String info = "Stunned@"+PLAYER_TWO_NAME;
+		game.playActionCard(0, info);
+		// Now player 1 can't add more than one card to their display
+		
+		game.overrideTourColour(Config.BLUE);
+		game.playCard(1, BLUE_CARD_3.getName());
+		game.playCard(1, SQUIRE_CARD_3.getName());
+		game.playCard(1, SQUIRE_CARD_2.getName());
+		
+		assertEquals(true, game.getPlayer(1).hasSpecialCard("Stunned"));
+		assertEquals(2, game.getPlayer(1).getHandCards().size());
+		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+	}
 
 	@After
 	public void tearDown() {
