@@ -1753,6 +1753,7 @@ public class TestGame {
 		String info = "Stunned@"+PLAYER_TWO_NAME;
 		game.playActionCard(0, info);
 		// Now player 1 can't add more than one card to their display
+		assertEquals(2, game.getPlayer(0).getHandCards().size());
 		
 		game.overrideTourColour(Config.BLUE);
 		game.playCard(1, BLUE_CARD_3.getName());
@@ -1762,6 +1763,13 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(1).hasSpecialCard("Stunned"));
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
+		
+		game.goToNextPlayer();
+		game.goToNextPlayer();
+		
+		game.playCard(1, SQUIRE_CARD_3.getName());
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
 	}
 
 	@After
