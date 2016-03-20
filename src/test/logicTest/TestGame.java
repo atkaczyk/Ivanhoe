@@ -1785,6 +1785,24 @@ public class TestGame {
 				
 		assertEquals(PLAYER_THREE_NAME, game.getCurrentPlayer().getName());
 	}
+	
+	@Test
+	public void playDropWeaponCardAskForIvanhoe() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
+		System.out.println(result);
+		assertEquals(true, result.contains("Ivanhoe"));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {
