@@ -903,7 +903,22 @@ public class Game {
 	}
 
 	public void processIvanhoeCard(String info) {
-		// TODO Auto-generated method stub
-		
+		String[] splitInfo = info.split("=");
+		String ivanhoeChoice = splitInfo[0];
+		String actionCardName = splitInfo[1];
+		int playerNum = Integer.parseInt(splitInfo[2]);
+
+		if (splitInfo.length == 3) {
+			if (ivanhoeChoice.equals("No")) {
+				// Player decided not to cancel the action card, so play the
+				// card as normal
+				playActionCardNoExtraInfoRequired(playerNum, actionCardName);
+			}
+			else {
+				// Player decided to cancel the action card, so discard both cards instead
+				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
+				moveCardFromHandToDiscardPile(playerNum, actionCardName);
+			}
+		}
 	}
 }
