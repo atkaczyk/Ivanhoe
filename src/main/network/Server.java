@@ -241,6 +241,13 @@ public class Server implements Runnable {
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
 					}
+					if (result.contains("askForIvanhoe")) {
+						for (int id: playerNumbers.keySet()){
+							if (playerNumbers.get(id) == game.getPlayerWithIvanhoe()){
+								broadcastMessageToPlayer(result, id, 1);
+							}
+						}
+					}
 					
 				}
 				else if(input.contains("actionInfoGathered~")){
