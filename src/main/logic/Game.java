@@ -902,7 +902,7 @@ public class Game {
 		}
 	}
 
-	public void processIvanhoeCard(String info) {
+	public String processIvanhoeCard(String info) {
 		String[] splitInfo = info.split("=");
 		String ivanhoeChoice = splitInfo[0];
 		String actionCardName = splitInfo[1];
@@ -912,13 +912,18 @@ public class Game {
 			if (ivanhoeChoice.equals("No")) {
 				// Player decided not to cancel the action card, so play the
 				// card as normal
-				playActionCardNoExtraInfoRequired(playerNum, actionCardName);
-			}
-			else {
-				// Player decided to cancel the action card, so discard both cards instead
+				return playActionCardNoExtraInfoRequired(playerNum,
+						actionCardName);
+			} else {
+				// Player decided to cancel the action card, so discard both
+				// cards instead
+				String ivanhoePlayerName = getPlayer(getPlayerWithIvanhoe()).getName();
 				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
 				moveCardFromHandToDiscardPile(playerNum, actionCardName);
+				return "actionCardPlayedMessage~" + actionCardName + ","
+						+ ivanhoePlayerName;
 			}
 		}
+		return "NOT DONE YET";
 	}
 }
