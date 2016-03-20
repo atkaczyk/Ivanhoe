@@ -901,4 +901,9 @@ public class Game {
 			discardPile.add(c);
 		}
 	}
+
+	public void processIvanhoeCard(String info) {
+		// TODO Auto-generated method stub
+		
+	}
 }
