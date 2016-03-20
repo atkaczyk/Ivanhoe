@@ -245,14 +245,22 @@ public class Game {
 
 	public String playCard(int playerNum, String name) {
 		Card c = players[playerNum].getCardFromHand(name);
-
 		if (c instanceof SimpleCard) {
 			return playSimpleCard(playerNum, name, c);
 		} else {
 			if (Config.ACTION_CARDS_NO_INPUT.contains(name)) {
+				if (getPlayerWithIvanhoe() != -1) {
+					// ask for ivanhoe
+					return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+							+ getPlayer(playerNum).getName()
+							+ " is trying to play the "
+							+ name
+							+ " action card.@"
+							+ name;
+				}
 				return playActionCardNoExtraInfoRequired(playerNum, name);
 			}
-			
+
 			if (name.equals("Riposte")) {
 				if (moreThanOneCardInOtherDisplays(playerNum)) {
 					return "moreInformationNeeded~Riposte@"
@@ -335,6 +343,15 @@ public class Game {
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private int getPlayerWithIvanhoe() {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (players[i].hasIvanhoeCard()) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	private String playActionCardNoExtraInfoRequired(int playerNum, String name) {
@@ -714,7 +731,7 @@ public class Game {
 
 		if (playersStillActive == 1) {
 			startTournament();
-			
+
 			currentPlayer = winningPlayerObject;
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
