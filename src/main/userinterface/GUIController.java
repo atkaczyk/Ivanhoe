@@ -74,7 +74,7 @@ public class GUIController {
 	}
 	public void askForIvanhoe(String str){
 		//str contains msg to pop up@rememberandsend back
-		String[] msg = str.split("@");
+		String[] msg = str.split("---");
 		String choice;
 		int result = JOptionPane.showConfirmDialog(gamePlayWindow, 
 				   "You have the Ivanhoe \n " + msg[0] ,"Ivanhoe", JOptionPane.YES_NO_OPTION);
@@ -84,7 +84,7 @@ public class GUIController {
 			choice = "no";
 		}
 
-		client.handle("Ivanhoe@" + choice +","+ msg[1]);	
+		client.handle("Ivanhoe~" + choice +"="+ msg[1]);	
 		
 	}
 	public void setCurrentPlayerName(String str){
