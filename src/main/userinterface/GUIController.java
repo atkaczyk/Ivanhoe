@@ -84,7 +84,7 @@ public class GUIController {
 			choice = "no";
 		}
 
-		client.handle(choice +","+ msg[1]);	
+		client.handle("Ivanhoe@" + choice +","+ msg[1]);	
 		
 	}
 	public void setCurrentPlayerName(String str){
