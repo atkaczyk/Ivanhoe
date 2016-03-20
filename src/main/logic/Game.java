@@ -77,7 +77,7 @@ public class Game {
 	public void startGame() {
 		// TODO: DELETE THIS
 		players[0].addCardToHand(new ActionCard("Shield"));
-		players[0].addCardToHand(new ActionCard("Stunned"));
+		players[0].addCardToHand(new ActionCard("Ivanhoe"));
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -255,7 +255,7 @@ public class Game {
 							+ getPlayer(playerNum).getName()
 							+ " is trying to play the "
 							+ name
-							+ " action card.@" + name;
+							+ " action card.---" + name + "=" + playerNum;
 				}
 				return playActionCardNoExtraInfoRequired(playerNum, name);
 			}

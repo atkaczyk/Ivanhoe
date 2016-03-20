@@ -250,8 +250,8 @@ public class Server implements Runnable {
 					}
 					
 				}
-				else if (input.contains("Ivanhoe@")) {
-					System.out.print("\n\n\n~~~~~~~~~~AHAHAHAHA\n\n\n");
+				else if (input.contains("Ivanhoe~")) {
+					System.out.print("\n\n\n~~~~~~~~~~AHAHAHAHA"+input+"\n\n\n");
 				}
 				else if(input.contains("actionInfoGathered~")){
 					String[] info = input.split("~");

@@ -210,7 +210,7 @@ public class Client {
    			gui.askForIvanhoe(result[1]);
    		}
    		//from gui to server
-   		else if(msg.contains("Ivanhoe@")){
+   		else if(msg.contains("Ivanhoe~")){
    			sendMessageToServer(msg);
    		}
    		//from server to gui
