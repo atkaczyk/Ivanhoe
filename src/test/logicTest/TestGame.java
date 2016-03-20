@@ -1709,6 +1709,29 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
 		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(GREEN_CARD_1));
 	}
+	
+	@Test
+	public void tryPlayingStunnedCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(STUNNED_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+
+		String result = game.playCard(0, "Stunned");
+		System.out.println(result);
+		assertEquals(true, result.contains("moreInformationNeeded"));
+	}
 
 	@After
 	public void tearDown() {
