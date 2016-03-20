@@ -18,6 +18,7 @@ public class Player {
 	private ArrayDeque<Card> display = new ArrayDeque<Card>();
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private List<Card> specialCards = new ArrayList<Card>();
+	private int cardsAddedToDisplayThisTurn = 0;
 
 	public void setWithdrawn(Boolean status) {
 		withdrawn = status;
@@ -40,6 +41,10 @@ public class Player {
 	}
 
 	public Boolean addCardToDisplay(Card card, int tournamentColour) {
+		if (hasSpecialCard("Stunned") && cardsAddedToDisplayThisTurn > 0) {
+			return false;
+		}
+		
 		// If card is a supporter card, increase by number
 		if (card instanceof SupporterCard) {
 			// If the card is a maiden, we must check that there isn't already a
@@ -57,6 +62,7 @@ public class Player {
 		}
 
 		display.addLast(card);
+		cardsAddedToDisplayThisTurn++;
 		return true;
 	}
 
@@ -505,5 +511,18 @@ public class Player {
 		}
 		
 		return result;
+	}
+
+	public void clearCardDisplayCounter() {
+		cardsAddedToDisplayThisTurn = 0;
+	}
+
+	public Boolean hasIvanhoeCard() {
+		for (Card c: hand) {
+			if (c.getName().equals("Ivanhoe")) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -205,6 +205,15 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
+   		else if(msg.contains("askForIvanhoe~")){
+   			String[] result = msg.split("~");
+   			gui.askForIvanhoe(result[1]);
+   		}
+   		//from gui to server
+   		else if(msg.contains("Ivanhoe~")){
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
    		else if(msg.contains("actionCardPlayedMessage")){
    			String messageToDisplay = msg.split("~")[1];
    			gui.actionCardPlayedMessage(messageToDisplay);

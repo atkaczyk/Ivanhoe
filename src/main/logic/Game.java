@@ -77,7 +77,7 @@ public class Game {
 	public void startGame() {
 		// TODO: DELETE THIS
 		players[0].addCardToHand(new ActionCard("Shield"));
-
+		players[0].addCardToHand(new ActionCard("Ivanhoe"));
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -95,11 +95,18 @@ public class Game {
 		}
 
 		// Figure out which player is first
+
 		do {
 			goToNextPlayer();
 		} while (!playerCanStart(currentPlayer));
 
 		startTournament();
+	}
+
+	private void clearAllCardCounters() {
+		for (Player p : players) {
+			p.clearCardDisplayCounter();
+		}
 	}
 
 	public boolean playerCanStart(Player p) {
@@ -117,24 +124,23 @@ public class Game {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
+		clearAllCardCounters();
 
 		do {
 			if (players[numOfPlayers - 1].getName().equals(
 					currentPlayer.getName())) {
 				currentPlayer = players[0];
-				return;
-			}
-
-			// Otherwise, get position of current player
-			int i;
-			for (i = 0; i < numOfPlayers; i++) {
-				if (players[i].getName().equals(currentPlayer.getName())) {
-					currentPlayer = players[i + 1];
-					break;
+			} else {
+				// Otherwise, get position of current player
+				int i;
+				for (i = 0; i < numOfPlayers; i++) {
+					if (players[i].getName().equals(currentPlayer.getName())) {
+						currentPlayer = players[i + 1];
+						break;
+					}
 				}
 			}
 		} while (currentPlayer.isWithdrawn());
-
 	}
 
 	public int getTournamentColour() {
@@ -239,138 +245,22 @@ public class Game {
 
 	public String playCard(int playerNum, String name) {
 		Card c = players[playerNum].getCardFromHand(name);
-
 		if (c instanceof SimpleCard) {
-			Boolean result = players[playerNum].addCardToDisplay(c,
-					tournamentColour);
-
-			if (result == true) {
-				return "true";
-			}
-
-			if (c instanceof SupporterCard) {
-				return "false:You cannot add a second maiden card to your display!";
-			}
-			return "false:When playing a colour card, the colour must match the current tournament colour!";
+			return playSimpleCard(playerNum, name, c);
 		} else {
-			if (name.equals("Drop Weapon")) {
-				// The tournament color changes from red, blue or yellow to
-				// green.
-				if (tournamentColour == Config.RED
-						|| tournamentColour == Config.BLUE
-						|| tournamentColour == Config.YELLOW) {
-					tournamentColour = Config.GREEN;
-					moveCardFromHandToDiscardPile(playerNum, name);
-
-					return "true";
-				} else {
-					return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
+			if (Config.ACTION_CARDS_NO_INPUT.contains(name)) {
+				if (getPlayerWithIvanhoe() != -1) {
+					// ask for ivanhoe
+					return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+							+ getPlayer(playerNum).getName()
+							+ " is trying to play the "
+							+ name
+							+ " action card.---" + name + "=" + playerNum;
 				}
-			} else if (name.equals("Outmaneuver")) {
-				// All opponents must remove the last card played on their
-				// displays.
+				return playActionCardNoExtraInfoRequired(playerNum, name);
+			}
 
-				// First check to see there is at least one player where you can
-				// remove a card
-				if (!moreThanOneCardInOtherDisplays(playerNum)) {
-					return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
-				}
-
-				moveCardFromHandToDiscardPile(playerNum, name);
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() >= 2) {
-							Card cardFromDisplay = players[i].getDisplayCards()
-									.removeLast();
-							discardPile.add(cardFromDisplay);
-						}
-					}
-				}
-				return "true";
-			} else if (name.equals("Charge")) {
-				// Identify the lowest value card throughout all displays. All
-				// players must discard all cards of this value from their
-				// displays.
-
-				// First check to see there is at least one player where you can
-				// remove a card
-				if (!moreThanOneCardInOtherDisplays(playerNum)) {
-					return "false:You cannot play a charge card when there are no cards you can remove from other player displays!";
-				}
-
-				moveCardFromHandToDiscardPile(playerNum, name);
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						int lowestValue = players[i].getLowestDisplayValue();
-						List<Card> cardsRemoved = players[i]
-								.removeAllCardsWithValue(lowestValue);
-						for (Card toDiscard : cardsRemoved) {
-							discardPile.add(toDiscard);
-						}
-					}
-				}
-
-				return "actionCardPlayedMessage~" + name + ","
-						+ getPlayer(playerNum).getName();
-			} else if (name.equals("Countercharge")) {
-				// Identify the highest value card throughout all displays. All
-				// players must discard all cards of this value from their
-				// displays.
-
-				// First check to see there is at least one player where you can
-				// remove a card
-				if (!moreThanOneCardInOtherDisplays(playerNum)) {
-					return "false:You cannot play a counter charge card when there are no cards you can remove from other player displays!";
-				}
-
-				moveCardFromHandToDiscardPile(playerNum, name);
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						int highestValue = players[i].getHighestDisplayValue();
-						List<Card> cardsRemoved = players[i]
-								.removeAllCardsWithValue(highestValue);
-						for (Card toDiscard : cardsRemoved) {
-							discardPile.add(toDiscard);
-						}
-					}
-				}
-
-				return "actionCardPlayedMessage~" + name + ","
-						+ getPlayer(playerNum).getName();
-			} else if (name.equals("Disgrace")) {
-				// Each player must remove all his supporters from his display
-
-				// First check to see there is at least one player where you can
-				// remove a card
-				Boolean playerFound = false;
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						if (players[i].getDisplayCards().size() > 1
-								&& players[i].hasSupporterCardInDisplay()
-								&& !players[i].hasSpecialCard("Shield")) {
-							playerFound = true;
-							break;
-						}
-					}
-				}
-				if (!playerFound) {
-					return "false:You cannot play a disgrace card when there are no cards you can remove from other player displays!";
-				}
-
-				moveCardFromHandToDiscardPile(playerNum, name);
-				for (int i = 0; i < numOfPlayers; i++) {
-					if (playerNum != i) {
-						List<Card> cardsRemoved = players[i]
-								.removeAllSupporterCards();
-						for (Card toDiscard : cardsRemoved) {
-							discardPile.add(toDiscard);
-						}
-					}
-				}
-
-				return "actionCardPlayedMessage~" + name + ","
-						+ getPlayer(playerNum).getName();
-			} else if (name.equals("Riposte")) {
+			if (name.equals("Riposte")) {
 				if (moreThanOneCardInOtherDisplays(playerNum)) {
 					return "moreInformationNeeded~Riposte@"
 							+ getAllPlayersNamesAndLastDisplayCard(playerNum);
@@ -442,18 +332,184 @@ public class Game {
 			} else if (name.equals("Adapt")) {
 				if (allowedToPlayAdapt()) {
 					moveCardFromHandToDiscardPile(playerNum, name);
-					return "adaptNeedMoreInfo~"+getAdaptInfo();
+					return "adaptNeedMoreInfo~" + getAdaptInfo();
 				} else {
 					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
 				}
+			} else if (name.equals("Stunned")) {
+				return "moreInformationNeeded~Stunned@" + getStunnedInfo();
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
 	}
 
+	public int getPlayerWithIvanhoe() {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (players[i].hasIvanhoeCard()) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private String playActionCardNoExtraInfoRequired(int playerNum, String name) {
+		if (name.equals("Drop Weapon")) {
+			// The tournament color changes from red, blue or yellow to
+			// green.
+			if (tournamentColour == Config.RED
+					|| tournamentColour == Config.BLUE
+					|| tournamentColour == Config.YELLOW) {
+				tournamentColour = Config.GREEN;
+				moveCardFromHandToDiscardPile(playerNum, name);
+
+				return "true";
+			} else {
+				return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
+			}
+		} else if (name.equals("Outmaneuver")) {
+			// All opponents must remove the last card played on their
+			// displays.
+
+			// First check to see there is at least one player where you can
+			// remove a card
+			if (!moreThanOneCardInOtherDisplays(playerNum)) {
+				return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
+			}
+
+			moveCardFromHandToDiscardPile(playerNum, name);
+			for (int i = 0; i < numOfPlayers; i++) {
+				if (playerNum != i) {
+					if (players[i].getDisplayCards().size() >= 2) {
+						Card cardFromDisplay = players[i].getDisplayCards()
+								.removeLast();
+						discardPile.add(cardFromDisplay);
+					}
+				}
+			}
+			return "true";
+		} else if (name.equals("Charge")) {
+			// Identify the lowest value card throughout all displays. All
+			// players must discard all cards of this value from their
+			// displays.
+
+			// First check to see there is at least one player where you can
+			// remove a card
+			if (!moreThanOneCardInOtherDisplays(playerNum)) {
+				return "false:You cannot play a charge card when there are no cards you can remove from other player displays!";
+			}
+
+			moveCardFromHandToDiscardPile(playerNum, name);
+			for (int i = 0; i < numOfPlayers; i++) {
+				if (playerNum != i) {
+					int lowestValue = players[i].getLowestDisplayValue();
+					List<Card> cardsRemoved = players[i]
+							.removeAllCardsWithValue(lowestValue);
+					for (Card toDiscard : cardsRemoved) {
+						discardPile.add(toDiscard);
+					}
+				}
+			}
+
+			return "actionCardPlayedMessage~" + name + ","
+					+ getPlayer(playerNum).getName();
+		} else if (name.equals("Countercharge")) {
+			// Identify the highest value card throughout all displays. All
+			// players must discard all cards of this value from their
+			// displays.
+
+			// First check to see there is at least one player where you can
+			// remove a card
+			if (!moreThanOneCardInOtherDisplays(playerNum)) {
+				return "false:You cannot play a counter charge card when there are no cards you can remove from other player displays!";
+			}
+
+			moveCardFromHandToDiscardPile(playerNum, name);
+			for (int i = 0; i < numOfPlayers; i++) {
+				if (playerNum != i) {
+					int highestValue = players[i].getHighestDisplayValue();
+					List<Card> cardsRemoved = players[i]
+							.removeAllCardsWithValue(highestValue);
+					for (Card toDiscard : cardsRemoved) {
+						discardPile.add(toDiscard);
+					}
+				}
+			}
+
+			return "actionCardPlayedMessage~" + name + ","
+					+ getPlayer(playerNum).getName();
+		} else if (name.equals("Disgrace")) {
+			// Each player must remove all his supporters from his display
+
+			// First check to see there is at least one player where you can
+			// remove a card
+			Boolean playerFound = false;
+			for (int i = 0; i < numOfPlayers; i++) {
+				if (playerNum != i) {
+					if (players[i].getDisplayCards().size() > 1
+							&& players[i].hasSupporterCardInDisplay()
+							&& !players[i].hasSpecialCard("Shield")) {
+						playerFound = true;
+						break;
+					}
+				}
+			}
+			if (!playerFound) {
+				return "false:You cannot play a disgrace card when there are no cards you can remove from other player displays!";
+			}
+
+			moveCardFromHandToDiscardPile(playerNum, name);
+			for (int i = 0; i < numOfPlayers; i++) {
+				if (playerNum != i) {
+					List<Card> cardsRemoved = players[i]
+							.removeAllSupporterCards();
+					for (Card toDiscard : cardsRemoved) {
+						discardPile.add(toDiscard);
+					}
+				}
+			}
+
+			return "actionCardPlayedMessage~" + name + ","
+					+ getPlayer(playerNum).getName();
+		}
+		return "";
+	}
+
+	private String playSimpleCard(int playerNum, String name, Card c) {
+		Boolean result = players[playerNum].addCardToDisplay(c,
+				tournamentColour);
+
+		if (result == true) {
+			return "true";
+		}
+
+		if (players[playerNum].hasSpecialCard("Stunned")) {
+			return "false:You cannot add a second card to your display when you have a stunned card on you!";
+		}
+
+		if (c instanceof SupporterCard) {
+			return "false:You cannot add a second maiden card to your display!";
+		}
+		return "false:When playing a colour card, the colour must match the current tournament colour!";
+	}
+
+	private String getStunnedInfo() {
+		String result = "";
+		for (Player p : players) {
+			if (!p.isWithdrawn()) {
+				result += p.getName() + ",";
+			}
+		}
+
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+
+		return result;
+	}
+
 	private boolean allowedToPlayAdapt() {
-		for (Player p: players) {
+		for (Player p : players) {
 			if (p.allowedToPlayAdapt()) {
 				return true;
 			}
@@ -470,11 +526,11 @@ public class Game {
 				result += "#";
 			}
 		}
-		
+
 		if (result.endsWith("#")) {
 			result = result.substring(0, result.length() - 1);
 		}
-		
+
 		return result;
 	}
 
@@ -661,13 +717,13 @@ public class Game {
 
 		String winningPlayer = "";
 		int playersStillActive = 0;
+		Player winningPlayerObject = null;
 
 		// See if there is only one player left that isn't withdrawn
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
-				currentPlayer = players[i];
-
+				winningPlayerObject = players[i];
 				winningPlayer = players[i].getName();
 			}
 		}
@@ -675,6 +731,7 @@ public class Game {
 		if (playersStillActive == 1) {
 			startTournament();
 
+			currentPlayer = winningPlayerObject;
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
@@ -734,9 +791,11 @@ public class Game {
 		return result;
 	}
 
-	public String playActionCard(int playerNum, String info) {
+	public String playActionCardWithAdditionalInfo(int playerNum, String info) {
 		String cardName = info.split("@")[0];
 		String extraInfo = info.split("@")[1];
+
+		Boolean allowedToDiscard = true;
 		if (info.contains("Riposte")) {
 			// Take the last card played on the given opponent's display and add
 			// it to the given player
@@ -801,9 +860,22 @@ public class Game {
 
 			players[playerNum].addFaceupCard(tempTargetCard);
 			targetPlayerObject.addFaceupCard(tempPlayerCard);
+		} else if (info.contains("Stunned")) {
+			// Remove the card from the players hand
+			Card cardToMove = players[playerNum].removeCardFromHand("Stunned");
+			for (Player p : players) {
+				if (p.getName().equals(extraInfo)) {
+					p.addSpecialCard(cardToMove);
+					break;
+				}
+			}
+
+			allowedToDiscard = false;
 		}
 
-		moveCardFromHandToDiscardPile(playerNum, cardName);
+		if (allowedToDiscard) {
+			moveCardFromHandToDiscardPile(playerNum, cardName);
+		}
 
 		return "actionCardPlayedMessage~" + cardName + ","
 				+ getPlayer(playerNum).getName();
@@ -811,21 +883,47 @@ public class Game {
 
 	public void adaptCardsChosen(int playerNum, String valuesAndNames) {
 		Player p = players[playerNum];
-		
+
 		String[] valuesInfo = valuesAndNames.split(",");
-		for (String info: valuesInfo) {
+		for (String info : valuesInfo) {
 			int value = Integer.parseInt(info.split("-")[0]);
 			String cardToKeep = info.split("-")[1];
-			
+
 			List<Card> cardsToDiscard = p.keepOnlyCard(value, cardToKeep);
 			for (Card c : cardsToDiscard) {
 				discardPile.add(c);
 			}
 		}
-		
-		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();;
+
+		List<Card> cardsToDiscard = p.removeDuplicatesInDisplay();
+		;
 		for (Card c : cardsToDiscard) {
 			discardPile.add(c);
 		}
+	}
+
+	public String processIvanhoeCard(String info) {
+		String[] splitInfo = info.split("=");
+		String ivanhoeChoice = splitInfo[0];
+		String actionCardName = splitInfo[1];
+		int playerNum = Integer.parseInt(splitInfo[2]);
+
+		if (splitInfo.length == 3) {
+			if (ivanhoeChoice.equals("No")) {
+				// Player decided not to cancel the action card, so play the
+				// card as normal
+				return playActionCardNoExtraInfoRequired(playerNum,
+						actionCardName);
+			} else {
+				// Player decided to cancel the action card, so discard both
+				// cards instead
+				String ivanhoePlayerName = getPlayer(getPlayerWithIvanhoe()).getName();
+				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
+				moveCardFromHandToDiscardPile(playerNum, actionCardName);
+				return "actionCardPlayedMessage~" + actionCardName + ","
+						+ ivanhoePlayerName;
+			}
+		}
+		return "NOT DONE YET";
 	}
 }
