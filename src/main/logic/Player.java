@@ -517,8 +517,12 @@ public class Player {
 		cardsAddedToDisplayThisTurn = 0;
 	}
 
-	public Object hasIvanhoeCard() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean hasIvanhoeCard() {
+		for (Card c: hand) {
+			if (c.getName().equals("Ivanhoe")) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
