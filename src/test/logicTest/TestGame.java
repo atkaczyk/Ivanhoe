@@ -150,7 +150,7 @@ public class TestGame {
 	public void getCurrentPlayerNumber() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-
+		
 		game.startGame();
 
 		assertEquals(0, game.getCurrentPlayerNumber());
@@ -1770,6 +1770,20 @@ public class TestGame {
 		game.playCard(1, SQUIRE_CARD_3.getName());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
+	}
+	
+	@Test
+	public void withdrawPlayerGoesToTheCorrectPlayer() {
+		game.setNumPlayers(4);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_TWO_NAME, Config.RED);
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		
+		game.startGame();
+		game.withdrawPlayer(1);
+				
+		assertEquals(PLAYER_THREE_NAME, game.getCurrentPlayer().getName());
 	}
 
 	@After

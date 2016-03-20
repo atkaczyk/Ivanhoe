@@ -95,6 +95,7 @@ public class Game {
 		}
 
 		// Figure out which player is first
+
 		do {
 			goToNextPlayer();
 		} while (!playerCanStart(currentPlayer));
@@ -103,7 +104,7 @@ public class Game {
 	}
 
 	private void clearAllCardCounters() {
-		for (Player p: players) {
+		for (Player p : players) {
 			p.clearCardDisplayCounter();
 		}
 	}
@@ -124,24 +125,22 @@ public class Game {
 		// player
 		// Make sure that the player is not withdrawn
 		clearAllCardCounters();
-		
+
 		do {
 			if (players[numOfPlayers - 1].getName().equals(
 					currentPlayer.getName())) {
 				currentPlayer = players[0];
-				return;
-			}
-
-			// Otherwise, get position of current player
-			int i;
-			for (i = 0; i < numOfPlayers; i++) {
-				if (players[i].getName().equals(currentPlayer.getName())) {
-					currentPlayer = players[i + 1];
-					break;
+			} else {
+				// Otherwise, get position of current player
+				int i;
+				for (i = 0; i < numOfPlayers; i++) {
+					if (players[i].getName().equals(currentPlayer.getName())) {
+						currentPlayer = players[i + 1];
+						break;
+					}
 				}
 			}
 		} while (currentPlayer.isWithdrawn());
-
 	}
 
 	public int getTournamentColour() {
@@ -254,7 +253,7 @@ public class Game {
 			if (result == true) {
 				return "true";
 			}
-			
+
 			if (players[playerNum].hasSpecialCard("Stunned")) {
 				return "false:You cannot add a second card to your display when you have a stunned card on you!";
 			}
@@ -694,7 +693,6 @@ public class Game {
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
-				currentPlayer = players[i];
 
 				winningPlayer = players[i].getName();
 			}
