@@ -1822,6 +1822,26 @@ public class TestGame {
 		assertEquals(Config.GREEN, game.getTournamentColour());
 		assertEquals(1, game.getDiscardPileSize());
 	}
+	
+	@Test
+	public void yesToIvanhoeDropWeaponGetsPlayed() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "Yes="+DROP_WEAPON_CARD+"=0";
+		game.processIvanhoeCard(info);
+		
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(Config.RED, game.getTournamentColour());
+		assertEquals(2, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {
