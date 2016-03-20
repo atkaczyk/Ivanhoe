@@ -1073,7 +1073,7 @@ public class TestGame {
 
 		// Player 0 will be taking the last card from player 1s display
 		String info = "Riposte@" + PLAYER_TWO_NAME;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(1, game.getDiscardPileSize());
@@ -1140,7 +1140,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
 
 		String info = "Unhorse@" + Config.YELLOW;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
@@ -1186,7 +1186,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
 
 		String info = "Change Weapon@" + Config.YELLOW;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
@@ -1261,7 +1261,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
 		String info = "Break Lance@" + PLAYER_THREE_NAME;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 		assertEquals(4, game.getDiscardPileSize());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
@@ -1334,7 +1334,7 @@ public class TestGame {
 
 		String info = "Dodge@" + PLAYER_TWO_NAME + ","
 				+ PURPLE_CARD_3.getName();
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 
 		assertEquals(2, game.getDiscardPileSize());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
@@ -1401,7 +1401,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(RETREAT_CARD);
 
 		String info = "Retreat@" + SQUIRE_CARD_2.getName();
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
@@ -1468,7 +1468,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
 
 		String info = "Knock Down@" + PLAYER_TWO_NAME;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
@@ -1527,7 +1527,7 @@ public class TestGame {
 
 		String info = "Outwit@" + PURPLE_CARD_3.getName() + ","
 				+ PLAYER_TWO_NAME + "," + SHIELD_CARD.getName();
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 		assertEquals(1, game.getDiscardPileSize());
 		assertEquals(true,
 				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
@@ -1751,7 +1751,7 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 
 		String info = "Stunned@"+PLAYER_TWO_NAME;
-		game.playActionCard(0, info);
+		game.playActionCardWithAdditionalInfo(0, info);
 		// Now player 1 can't add more than one card to their display
 		assertEquals(2, game.getPlayer(0).getHandCards().size());
 		
@@ -1784,6 +1784,24 @@ public class TestGame {
 		game.withdrawPlayer(1);
 				
 		assertEquals(PLAYER_THREE_NAME, game.getCurrentPlayer().getName());
+	}
+	
+	@Test
+	public void playDropWeaponCardAskForIvanhoe() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
+		System.out.println(result);
+		assertEquals(true, result.contains("Ivanhoe"));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(0, game.getDiscardPileSize());
 	}
 
 	@After
