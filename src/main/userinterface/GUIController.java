@@ -128,7 +128,9 @@ public class GUIController {
 			gamePlayWindow.repaint();
 		}
 	}
-
+	public void maidenWithdrawLoseToken(String info){
+		
+	}
 
 	public void getActionCardInfo(String info){
 		String[] cardInfo = info.split("@");

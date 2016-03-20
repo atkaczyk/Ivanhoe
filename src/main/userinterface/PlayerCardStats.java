@@ -16,7 +16,7 @@ public class PlayerCardStats extends JPanel{
 	JButton changeDisplay;
 	JLabel isWithdrawn;
 	String sCards;
-	
+
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		setLayout(null); 
 		int top = 10;
@@ -119,7 +119,7 @@ public class PlayerCardStats extends JPanel{
 				sCards += "Shield ";
 			}
 		} else if (str.equals("false")){
-			sCards.replaceAll("Shield ", "");
+			sCards= "";
 		}
 		specialCard.setText("* " + sCards);
 
@@ -133,7 +133,11 @@ public class PlayerCardStats extends JPanel{
 				sCards += "Stunned ";
 			}
 		} else if (str.equals("false")){
-			sCards.replaceAll("Stunned ", "");
+			if(sCards.contains("Shield")){
+				sCards = "Shield";
+			}else{
+				sCards = "";
+			}
 		}
 		specialCard.setText("* " + sCards);
 
