@@ -79,9 +79,9 @@ public class GUIController {
 		int result = JOptionPane.showConfirmDialog(gamePlayWindow, 
 				   "You have the Ivanhoe \n " + msg[0] ,"Ivanhoe", JOptionPane.YES_NO_OPTION);
 		if(result == JOptionPane.YES_OPTION) {
-		    choice = "yes";
+		    choice = "Yes";
 		} else {
-			choice = "no";
+			choice = "No";
 		}
 
 		client.handle("Ivanhoe@" + choice +","+ msg[1]);	
