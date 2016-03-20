@@ -156,13 +156,24 @@ public class GUIController {
 		else if (cardInfo[0].equals("Outwit")){
 			playOutwit(cardInfo[1]);
 		}  
-		else if (cardInfo[0].equals("Ivanhoe")){
-			playIvanhoe(cardInfo[1]);
+		else if (cardInfo[0].equals("Stunned")){
+			playStunned(cardInfo[1]);
 		} 
 	}
-	private void playIvanhoe(String string) {
-		// TODO Auto-generated method stub
-
+	private void playStunned(String msg) {
+		String[] p = msg.split(",");
+		String chosenName = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You played the Stunned Card!\n"
+						+ "Play this card on any one opponent stil in the tournament, but separate from the opponent's display\n"
+						+ "While the player is stunned, THEY may only add one new card to his display each turn"
+						+ "Select the player whom you wish to Stun",
+						"Stunned",
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						p,
+				"Players");
+		client.handle("actionInfoGathered~Stunned@"+ chosenName);
 	}
 
 	public void adaptNeedMoreInfo(String msg) {
