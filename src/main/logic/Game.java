@@ -446,10 +446,27 @@ public class Game {
 				} else {
 					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
 				}
+			} else if (name.equals("Stunned")) {
+				return "moreInformationNeeded~@Stunned"+getStunnedInfo();
 			}
 		}
 
 		return "false:This action card has not been implemented yet!";
+	}
+
+	private String getStunnedInfo() {
+		String result = "";
+		for (Player p: players) {
+			if (!p.isWithdrawn()) {
+				result += p.getName() + ",";
+			}
+		}
+		
+		if (result.endsWith(",")) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
 	}
 
 	private boolean allowedToPlayAdapt() {

@@ -1729,7 +1729,6 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 
 		String result = game.playCard(0, "Stunned");
-		System.out.println(result);
 		assertEquals(true, result.contains("moreInformationNeeded"));
 	}
 
