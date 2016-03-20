@@ -688,19 +688,21 @@ public class Game {
 
 		String winningPlayer = "";
 		int playersStillActive = 0;
+		Player winningPlayerObject = null;
 
 		// See if there is only one player left that isn't withdrawn
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].isWithdrawn()) {
 				playersStillActive++;
-
+				winningPlayerObject = players[i];
 				winningPlayer = players[i].getName();
 			}
 		}
 
 		if (playersStillActive == 1) {
 			startTournament();
-
+			
+			currentPlayer = winningPlayerObject;
 			while (!playerCanStart(currentPlayer)) {
 				goToNextPlayer();
 			}
