@@ -28,7 +28,28 @@ public class StartServer {
 
 		System.out.println("Starting server ...");
 		Trace.getInstance().setLevel(Level.STDOUT);
-		server = new Server(Config.DEFAULT_PORT);
+		
+		//Asking user for server port
+		String s = (String)JOptionPane.showInputDialog(
+                null,
+                "Enter the Server Port (eg. 5050)",
+                "Customized Dialog",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+		
+		//If a string was returned, say so.
+		//if ((s != null) && (s.length() > 0)) {
+		//    setLabel("Green eggs and... " + s + "!");
+		//    return;
+		//}
+
+		//If you're here, the return value was null/empty.
+		//setLabel("Come on, finish the sentence!");
+		
+		//server = new Server(Config.DEFAULT_PORT); 		//cannot use default port. need to prompt user for the port
+		server = new Server(Integer.parseInt(s)); 
 		started = Boolean.TRUE;
 
 		String[] choices = { "2", "3", "4", "5" };
