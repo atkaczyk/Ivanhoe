@@ -77,6 +77,7 @@ public class Game {
 	public void startGame() {
 		// TODO: DELETE THIS
 		players[0].addCardToHand(new ActionCard("Shield"));
+		players[0].addCardToHand(new ActionCard("Stunned"));
 
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
@@ -252,6 +253,10 @@ public class Game {
 
 			if (result == true) {
 				return "true";
+			}
+			
+			if (players[playerNum].hasSpecialCard("Stunned")) {
+				return "false:You cannot add a second card to your display when you have a stunned card on you!";
 			}
 
 			if (c instanceof SupporterCard) {
@@ -453,7 +458,7 @@ public class Game {
 					return "false:You cannot play an adapt card when there are no cards to remove from any players!";
 				}
 			} else if (name.equals("Stunned")) {
-				return "moreInformationNeeded~@Stunned" + getStunnedInfo();
+				return "moreInformationNeeded~Stunned@" + getStunnedInfo();
 			}
 		}
 
