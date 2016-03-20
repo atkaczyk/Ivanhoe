@@ -8,8 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PlayerCardStats extends JPanel{
-	// panel 1: labels for name, #tokens, score, holding(special card
-
 	JLabel playerName;
 	JLabel numTokens;
 	JLabel score;
@@ -18,6 +16,7 @@ public class PlayerCardStats extends JPanel{
 	JButton changeDisplay;
 	JLabel isWithdrawn;
 	String sCards;
+	
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		setLayout(null); 
 		int top = 10;
