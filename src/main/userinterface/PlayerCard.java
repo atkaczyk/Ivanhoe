@@ -66,6 +66,7 @@ public class PlayerCard extends JPanel{
 		playerStats.setWithdrawn(stats[6]);
 
 		add(playerStats);
+		repaint();
 	}
 
 	public void emptyPlayerDisplay(){
@@ -87,6 +88,7 @@ public class PlayerCard extends JPanel{
 				add(display);
 			}
 		}
+		repaint();
 	}
 }
 
