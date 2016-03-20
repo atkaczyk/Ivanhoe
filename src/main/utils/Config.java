@@ -1,6 +1,8 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Config {
@@ -18,6 +20,15 @@ public class Config {
 	public static final int DEFAULT_PORT = 5050;
 	public static final String DEFAULT_HOST = "127.0.0.1";
 	public static final boolean PRINT_STACK_TRACE = false;
+	
+	public static final List<String> ACTION_CARDS_NO_INPUT = new ArrayList<String>();
+	static {
+		ACTION_CARDS_NO_INPUT.add("Drop Weapon");
+		ACTION_CARDS_NO_INPUT.add("Outmaneuver");
+		ACTION_CARDS_NO_INPUT.add("Charge");
+		ACTION_CARDS_NO_INPUT.add("Countercharge");
+		ACTION_CARDS_NO_INPUT.add("Disgrace");
+	}
 	
 	public static final Map<String, String> CARD_NAME_TO_PICTURES = new HashMap<String, String>();
 	static {
