@@ -516,4 +516,9 @@ public class Player {
 	public void clearCardDisplayCounter() {
 		cardsAddedToDisplayThisTurn = 0;
 	}
+
+	public Object hasIvanhoeCard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

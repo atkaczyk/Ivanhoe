@@ -25,6 +25,8 @@ public class TestPlayer {
 	private static final Card RED_CARD = new ColourCard("Red", 2, Config.RED);
 	private static final Card PURPLE_CARD = new ColourCard("Purple", 2, Config.PURPLE);
 	
+	private static final Card IVANHOE_CARD = new ActionCard("Ivanhoe");
+	
 	Player player;
 	
 	
@@ -276,6 +278,13 @@ public class TestPlayer {
 		
 		assertEquals(((SimpleCard) PURPLE_CARD).getNumber(), player.getDisplayTotal(Config.PURPLE));
 		assertEquals(1, player.getDisplayCards().size());
+	}
+	
+	@Test
+	public void addIvanhoeToHand() {
+		player.addCardToHand(IVANHOE_CARD);
+		
+		assertEquals(true, player.hasIvanhoeCard());
 	}
 	
 	@After
