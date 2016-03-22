@@ -1798,6 +1798,7 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
 		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
+		System.out.println("old test..."+result);
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(0, game.getDiscardPileSize());
@@ -1834,13 +1835,37 @@ public class TestGame {
 		
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "Yes="+DROP_WEAPON_CARD+"=0";
+		String info = "Yes="+DROP_WEAPON_CARD.getName()+"=0";
 		game.processIvanhoeCard(info);
 		
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.RED, game.getTournamentColour());
 		assertEquals(2, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void playKnockDownCardAskForIvanhoe() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+
+		String info = "Knock Down@" + PLAYER_TWO_NAME;
+		
+		String result = game.checkForIvanhoeAdditionalInfoCard(0, info);
+		System.out.println(result);
+		assertEquals(true, result.contains("Ivanhoe"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
 	}
 
 	@After

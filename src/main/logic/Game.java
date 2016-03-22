@@ -912,6 +912,8 @@ public class Game {
 			if (ivanhoeChoice.equals("No")) {
 				// Player decided not to cancel the action card, so play the
 				// card as normal
+				
+				// TODO: check what type of card it is
 				return playActionCardNoExtraInfoRequired(playerNum,
 						actionCardName);
 			} else {
@@ -924,6 +926,11 @@ public class Game {
 						+ ivanhoePlayerName;
 			}
 		}
-		return "NOT DONE YET";
+		return "";
+	}
+
+	public String checkForIvanhoeAdditionalInfoCard(int i, String info) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
