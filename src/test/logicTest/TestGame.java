@@ -1882,6 +1882,25 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
+	
+	@Test
+	public void yesToIvanhoeKnockDownGetsDiscarded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "Yes="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+		game.processIvanhoeCard(info);
+		
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {
