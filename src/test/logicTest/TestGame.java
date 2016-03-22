@@ -1798,7 +1798,6 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
 		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
-		System.out.println("old test..."+result);
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(0, game.getDiscardPileSize());
@@ -1858,7 +1857,6 @@ public class TestGame {
 		String info = KNOCK_DOWN_CARD.getName() + "@" + PLAYER_TWO_NAME;
 		
 		String result = game.checkForIvanhoeAdditionalInfoCard(0, info);
-		System.out.println(result);
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(0, game.getDiscardPileSize());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
