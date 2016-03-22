@@ -929,8 +929,20 @@ public class Game {
 		return "";
 	}
 
-	public String checkForIvanhoeAdditionalInfoCard(int i, String info) {
-		// TODO Auto-generated method stub
+	public String checkForIvanhoeAdditionalInfoCard(int playerNum, String info) {
+		String cardName = info.split("@")[0];
+		String extraInfo = info.split("@")[1];
+		
+		if (getPlayerWithIvanhoe() != -1) {
+			// ask for ivanhoe
+			// TODO: change this to give a custom ivanhoe message for each action card.
+			return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+					+ getPlayer(playerNum).getName()
+					+ " is trying to play the "
+					+ cardName
+					+ " action card.---" + cardName + "=" + playerNum + "=" + extraInfo;
+		}
+		//return playActionCardNoExtraInfoRequired(playerNum, name);
 		return null;
 	}
 }
