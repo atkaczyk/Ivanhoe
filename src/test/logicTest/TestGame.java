@@ -1864,6 +1864,26 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
+	
+	@Test
+	public void noToIvanhoeKnockDownGetsPlayed() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+		
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+		
+		String info = "No="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+		game.processIvanhoeCard(info);
+
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getPlayer(1).getHandCards().size());
+	}
 
 	@After
 	public void tearDown() {

@@ -942,7 +942,6 @@ public class Game {
 					+ cardName
 					+ " action card.---" + cardName + "=" + playerNum + "=" + extraInfo;
 		}
-		//return playActionCardNoExtraInfoRequired(playerNum, name);
-		return null;
+		return playActionCardWithAdditionalInfo(playerNum, info);
 	}
 }
