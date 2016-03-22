@@ -1824,7 +1824,7 @@ public class TestGame {
 	}
 	
 	@Test
-	public void yesToIvanhoeDropWeaponGetsPlayed() {
+	public void yesToIvanhoeDropWeaponGetsDiscarded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
