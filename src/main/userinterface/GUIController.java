@@ -117,6 +117,7 @@ public class GUIController {
 				"colour");
 		client.handle("maidenTokenColourPicked~" + convertNameToNumber(rets));
 	}
+	
 	public void setCurrentPlayerName(String str){
 		gamePlayWindow.setCurrentPlayerName(str);
 	}
