@@ -1970,6 +1970,26 @@ public class TestGame {
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPileSize());
 	}
+	
+	@Test
+	public void playerLostWithMaidenInDisplay() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		game.getPlayer(0).addToken(Config.BLUE);
+		game.getPlayer(0).addToken(Config.RED);
+		game.getPlayer(0).addToken(Config.YELLOW);
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+		game.withdrawPlayer(1);
+		
+		String result = game.checkForMaidenInDisplay();
+		System.out.println(result);
+		assertEquals(false, result.equals(""));
+	}
 
 	@After
 	public void tearDown() {
