@@ -261,10 +261,17 @@ public class Server implements Runnable {
 					String[] info = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					System.out.println("SERVER: actionInfoGathered~: "+info[1]);
-					String result = game.playActionCardWithAdditionalInfo(playerNum, info[1]);
+					String result = game.checkForIvanhoeAdditionalInfoCard(playerNum, info[1]);
 					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
+					}
+					if (result.contains("askForIvanhoe")) {
+						for (int id: playerNumbers.keySet()){
+							if (playerNumbers.get(id) == game.getPlayerWithIvanhoe()){
+								broadcastMessageToPlayer(result, id, 1);
+							}
+						}
 					}
 				}
 				else if(input.contains("adaptGiveInfo@")){
