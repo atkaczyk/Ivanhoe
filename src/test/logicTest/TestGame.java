@@ -1987,6 +1987,26 @@ public class TestGame {
 		String result = game.withdrawPlayer(1);
 		assertEquals(true, result.contains("maidenPickTokenToReturn"));
 	}
+	
+	@Test
+	public void processReturnToken() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.startGame();
+		
+		game.addTokenToPlayer(1, Config.BLUE);
+		game.addTokenToPlayer(1, Config.RED);
+		game.addTokenToPlayer(1, Config.YELLOW);
+		
+		assertEquals(22, game.getTokenPool().size());
+		game.processReturnToken(1, Config.RED);
+		assertEquals(23, game.getTokenPool().size());
+		assertEquals(false, game.getPlayer(1).getTokens().contains(Config.RED));
+		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
+		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.YELLOW));
+	}
 
 	@After
 	public void tearDown() {

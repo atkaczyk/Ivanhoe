@@ -983,4 +983,9 @@ public class Game {
 		}
 		return playActionCardWithAdditionalInfo(playerNum, info);
 	}
+
+	public void processReturnToken(int i, int red) {
+		// TODO Auto-generated method stub
+		
+	}
 }
