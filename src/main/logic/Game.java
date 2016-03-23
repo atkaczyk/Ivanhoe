@@ -721,7 +721,12 @@ public class Game {
 		// Withdraw the given player
 		List<Card> cardsToDiscard = getPlayer(playerNum).withdraw();
 
+		String maidenInfo = "";
+		
 		for (Card c : cardsToDiscard) {
+			if (c.getName().contains("Maiden") && players[playerNum].getTokens().size() > 0) {
+				maidenInfo = "maidenPickTokenToReturn~"+players[playerNum].getTokensAsString();
+			}
 			discardPile.add(c);
 		}
 
@@ -747,12 +752,16 @@ public class Game {
 			}
 
 			return winningPlayer + "," + (tournamentNumber - 1) + ","
-					+ tournamentColour;
+					+ tournamentColour + "#" + maidenInfo;
 		}
 
 		goToNextPlayer();
+		
+		if (!maidenInfo.equals("")) {
+			return "#" + maidenInfo;
+		}
 
-		return "";
+		return "#";
 	}
 
 	/**
@@ -973,5 +982,13 @@ public class Game {
 					+ cardName + "=" + playerNum + "=" + extraInfo;
 		}
 		return playActionCardWithAdditionalInfo(playerNum, info);
+	}
+
+	public void processReturnToken(int playerNum, int tokenColour) {
+		int tokenToAddToPool = players[playerNum].removeToken(tokenColour);
+		
+		if (tokenToAddToPool != -1) {
+			tokenPool.add(tokenToAddToPool);
+		}
 	}
 }
