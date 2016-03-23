@@ -1945,12 +1945,30 @@ public class TestGame {
 
 		String info = "No="+ADAPT_CARD+"=0";
 		String result = game.processIvanhoeCard(info);
-		System.out.println(result);
 		
 		assertEquals(true, result.contains("adaptNeed"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void yesToIvanhoeAdaptGetsDiscarded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "Yes="+ADAPT_CARD.getName()+"=0";
+		String result = game.processIvanhoeCard(info);
+		
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getDiscardPileSize());
 	}
 
 	@After

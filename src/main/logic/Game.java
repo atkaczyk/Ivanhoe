@@ -933,7 +933,7 @@ public class Game {
 						.getName();
 				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
 				moveCardFromHandToDiscardPile(playerNum, actionCardName);
-				return "actionCardPlayedMessage~" + actionCardName + ","
+				return "actionCardPlayedMessage~Ivanhoe,"
 						+ ivanhoePlayerName;
 			}
 		} else {
