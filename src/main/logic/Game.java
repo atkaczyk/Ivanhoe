@@ -974,9 +974,4 @@ public class Game {
 		}
 		return playActionCardWithAdditionalInfo(playerNum, info);
 	}
-
-	public String checkForMaidenInDisplay() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
