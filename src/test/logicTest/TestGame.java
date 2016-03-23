@@ -1919,13 +1919,38 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
 		String result = game.playCard(0, ADAPT_CARD.getName());
-		System.out.println(result);
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(0, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void noToIvanhoeAdaptAsksForMoreInfo() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "No="+ADAPT_CARD+"=0";
+		String result = game.processIvanhoeCard(info);
+		System.out.println(result);
+		
+		assertEquals(true, result.contains("adaptNeed"));
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getDiscardPileSize());
 	}
 
 	@After
