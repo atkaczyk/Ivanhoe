@@ -984,8 +984,11 @@ public class Game {
 		return playActionCardWithAdditionalInfo(playerNum, info);
 	}
 
-	public void processReturnToken(int i, int red) {
-		// TODO Auto-generated method stub
+	public void processReturnToken(int playerNum, int tokenColour) {
+		int tokenToAddToPool = players[playerNum].removeToken(tokenColour);
 		
+		if (tokenToAddToPool != -1) {
+			tokenPool.add(tokenToAddToPool);
+		}
 	}
 }

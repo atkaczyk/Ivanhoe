@@ -119,12 +119,13 @@ public class Player {
 		return tokens;
 	}
 
-	public Boolean removeToken(int colour) {
+	public int removeToken(int colour) {
+		int tokenRemoved = -1;
 		if (tokens.contains(colour)) {
+			tokenRemoved = colour;
 			tokens.remove((Object) colour);
-			return true;
 		}
-		return false;
+		return tokenRemoved;
 	}
 
 	public void addSpecialCard(Card c) {
