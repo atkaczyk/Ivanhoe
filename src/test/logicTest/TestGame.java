@@ -1824,7 +1824,7 @@ public class TestGame {
 	}
 	
 	@Test
-	public void yesToIvanhoeDropWeaponGetsPlayed() {
+	public void yesToIvanhoeDropWeaponGetsDiscarded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1834,12 +1834,140 @@ public class TestGame {
 		
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "Yes="+DROP_WEAPON_CARD+"=0";
+		String info = "Yes="+DROP_WEAPON_CARD.getName()+"=0";
 		game.processIvanhoeCard(info);
 		
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.RED, game.getTournamentColour());
+		assertEquals(2, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void playKnockDownCardAskForIvanhoe() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+
+		game.getPlayer(0).addCardToHand(IVANHOE_CARD);
+
+		String info = KNOCK_DOWN_CARD.getName() + "@" + PLAYER_TWO_NAME;
+		
+		String result = game.checkForIvanhoeAdditionalInfoCard(0, info);
+		assertEquals(true, result.contains("Ivanhoe"));
+		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getPlayer(1).getHandCards().size());
+	}
+	
+	@Test
+	public void noToIvanhoeKnockDownGetsPlayed() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
+		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+		
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+		
+		String info = "No="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+		game.processIvanhoeCard(info);
+
+		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getPlayer(1).getHandCards().size());
+	}
+	
+	@Test
+	public void yesToIvanhoeKnockDownGetsDiscarded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "Yes="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+		game.processIvanhoeCard(info);
+		
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void playAdaptCardAskForIvanhoe() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String result = game.playCard(0, ADAPT_CARD.getName());
+		assertEquals(true, result.contains("Ivanhoe"));
+		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(0, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void noToIvanhoeAdaptAsksForMoreInfo() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "No="+ADAPT_CARD+"=0";
+		String result = game.processIvanhoeCard(info);
+		
+		assertEquals(true, result.contains("adaptNeed"));
+		assertEquals(1, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(1, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void yesToIvanhoeAdaptGetsDiscarded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		
+		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
+
+		String info = "Yes="+ADAPT_CARD.getName()+"=0";
+		String result = game.processIvanhoeCard(info);
+		
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPileSize());
 	}
 
