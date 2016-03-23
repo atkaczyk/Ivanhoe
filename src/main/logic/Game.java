@@ -724,7 +724,7 @@ public class Game {
 		String maidenInfo = "";
 		
 		for (Card c : cardsToDiscard) {
-			if (c.getName().contains("Maiden")) {
+			if (c.getName().contains("Maiden") && players[playerNum].getTokens().size() > 0) {
 				maidenInfo = "maidenPickTokenToReturn~"+players[playerNum].getTokensAsString();
 			}
 			discardPile.add(c);

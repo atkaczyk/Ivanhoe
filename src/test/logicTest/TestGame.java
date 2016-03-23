@@ -1985,7 +1985,6 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		
 		String result = game.withdrawPlayer(1);
-		
 		assertEquals(true, result.contains("maidenPickTokenToReturn"));
 	}
 
