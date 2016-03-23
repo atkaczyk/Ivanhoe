@@ -19,8 +19,8 @@ import utils.Config;
 public class GamePlayWindow extends JFrame{
 
 	JFrame frame;
-	static PlayerCard playerCard0;
-	static PlayerCard playerCard1;
+	PlayerCard playerCard0;
+	PlayerCard playerCard1;
 	PlayerCard playerCard2;
 	PlayerCard playerCard3;
 	PlayerCard playerCard4;
@@ -39,34 +39,45 @@ public class GamePlayWindow extends JFrame{
 	JPanel lowerPanel;
 	public GamePlayWindow(Client client){
 		super(); 
+
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/GameB.jpg"));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(1400, 1000,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		JLabel background = new JLabel(icon);
+	
+		background.setBounds(0,0,1400, 1000);
+		setContentPane(background);
+		
 		gui = new GUIController(client);
 
 		setLayout(new GridLayout(2,1)); 
 
 		upperPanel = new JPanel(new GridLayout(3,2));
+		
 		GameStats = new JPanel(new FlowLayout());
-
-
-		tournamentColour = new JLabel("");
-		tournamentColour.setBackground(Color.white);
-		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
-
-		tournamentNumber = new JLabel("");
-		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
-
+		
 
 		JLabel title = new JLabel ();
-		ImageIcon icon2 =new ImageIcon(this.getClass().getResource("Images/title.jpg"));
+		ImageIcon icon2 =new ImageIcon(this.getClass().getResource("Images/ivanhoeheader.png"));
 		Image img2 = icon2.getImage() ;  
 		Image newimg2 = img2.getScaledInstance(400, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon2 = new ImageIcon( newimg2 );
 		title.setIcon(icon2);
+		
+		tournamentColour = new JLabel("");
+		tournamentColour.setBackground(Color.white);
+		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
+		
+		tournamentNumber = new JLabel("");
+		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
 
 		GameStats.add(title);
 		GameStats.add(tournamentNumber);
 		GameStats.add(tournamentColour);
-
+		GameStats.setOpaque(false);
 		GameStats.setBackground(new Color(242, 202, 150));
+		
 		upperPanel.add(GameStats);
 
 		playerCard0 = new PlayerCard("INACTIVE");
@@ -100,13 +111,13 @@ public class GamePlayWindow extends JFrame{
 		add(lowerPanel);
 		
 		// Set program to stop when window closed
-		this.setBackground(new Color(242, 202, 150));
+		//this.setBackground(new Color(242, 202, 150));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		pack();
+		//pack();
 		setSize(1400, 1000); // manually computed sizes
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		setResizable(true);
+		//setResizable(true);
 	}
 
 	//can now take in a string and parse to all players.

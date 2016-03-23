@@ -109,8 +109,9 @@ public class GUIController {
 		String[] possibilities = temp.split(" ");
 		rets = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"You had a Maiden in your display and failed to win the tournament.",
-				"Select the colour of the token you would like to remove.",
+				"You had a Maiden in your display and failed to win the tournament.\n"
+				+ "Select the colour of the token you would like to return back to the prize pool.",
+				"Maiden Death",
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				possibilities,
@@ -157,7 +158,7 @@ public class GUIController {
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
 			if(mainScreenCounter == 0) {
-				System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
+				//System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
 				mainScreenCounter =1;
 				gamePlayWindow.resetDrawCards();
 			}
@@ -168,7 +169,7 @@ public class GUIController {
 			if(mainScreenCounter == 1) {
 				mainScreenCounter =0;
 
-				System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
+				//System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
 			}
 			gamePlayWindow.setPlayable(false);
 			gamePlayWindow.repaint();

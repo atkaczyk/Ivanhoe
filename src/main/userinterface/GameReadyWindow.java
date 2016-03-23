@@ -89,7 +89,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		//avatar = new JLabel();
 		avatar = new JLabel();
-		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.png"));
 		Image img2 = icon2.getImage() ;  
 		Image newimg2 = img2.getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon(newimg2);
@@ -152,7 +152,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		tokenRequest.addActionListener(this);
 
 		finalToken = new JLabel();//"This is the token you retrieved";
-		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
+		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/tokenNew.png")));
 		c.ipady = finalToken.getHeight();   
 		c.ipadx = finalToken.getWidth() + avatar.getWidth()*4;
 		c.weightx = 0.5;

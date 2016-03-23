@@ -42,6 +42,7 @@ public class CardHand extends JPanel implements ActionListener {
 		panel.setName("Cards Panel");
 		panel.setLayout(new FlowLayout());
 		panel.setBackground(new Color(137, 78, 72));
+		panel.setOpaque(false);
 		scrollPane.setViewportView(panel);
 		scrollPane.setName("Scroll Pane");
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -49,7 +50,7 @@ public class CardHand extends JPanel implements ActionListener {
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.setBackground(new Color(242, 202, 150));
 		
-		//setOpaque(false);
+		//setOpaque(false); this sets the whole screen to be invisible?
 		setSize(150, 200); 
 		setVisible(true);
 	}

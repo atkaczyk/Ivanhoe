@@ -61,7 +61,8 @@ public class PlayerCardStats extends JPanel{
 		isWithdrawn.setVisible(true);
 		add(isWithdrawn);
 		
-		setOpaque(false);
+		//setOpaque(false);
+		this.setBackground(new Color(153,125,106));
 		setSize(130, 140);	 
 	}
 

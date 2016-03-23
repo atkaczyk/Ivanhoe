@@ -71,7 +71,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		drawCardButton.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
 		add(drawCardButton);
 		//add(Box.createRigidArea(new Dimension(5,10)));
-
+		setOpaque(false);
 		this.setBackground(new Color(242, 202, 150));
 		setPreferredSize(new Dimension(200, 200)); 
 	}
