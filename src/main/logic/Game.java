@@ -76,7 +76,7 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[0].addCardToHand(new ActionCard("Shield"));
+		players[1].addCardToHand(new ActionCard("Outwit"));
 		players[0].addCardToHand(new ActionCard("Ivanhoe"));
 
 		// Distribute 8 cards to each player
@@ -917,13 +917,47 @@ public class Game {
 			} else {
 				// Player decided to cancel the action card, so discard both
 				// cards instead
-				String ivanhoePlayerName = getPlayer(getPlayerWithIvanhoe()).getName();
+				String ivanhoePlayerName = getPlayer(getPlayerWithIvanhoe())
+						.getName();
+				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
+				moveCardFromHandToDiscardPile(playerNum, actionCardName);
+				return "actionCardPlayedMessage~" + actionCardName + ","
+						+ ivanhoePlayerName;
+			}
+		} else {
+			// This means the player was trying to play an action card with
+			// additional info
+			String extraInfo = splitInfo[3];
+			if (ivanhoeChoice.equals("No")) {
+				// Player decided not to cancel the action card, so play the
+				// card as normal
+				return playActionCardWithAdditionalInfo(playerNum, actionCardName + "@" + extraInfo);
+			} else {
+				// Player decided to cancel the action card, so discard both
+				// cards instead
+				String ivanhoePlayerName = getPlayer(getPlayerWithIvanhoe())
+						.getName();
 				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
 				moveCardFromHandToDiscardPile(playerNum, actionCardName);
 				return "actionCardPlayedMessage~" + actionCardName + ","
 						+ ivanhoePlayerName;
 			}
 		}
-		return "NOT DONE YET";
+	}
+
+	public String checkForIvanhoeAdditionalInfoCard(int playerNum, String info) {
+		String cardName = info.split("@")[0];
+		String extraInfo = info.split("@")[1];
+
+		if (getPlayerWithIvanhoe() != -1) {
+			// ask for ivanhoe
+			// TODO: change this to give a custom ivanhoe message for each
+			// action card.
+			return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+					+ getPlayer(playerNum).getName()
+					+ " is trying to play the " + cardName + " action card.---"
+					+ cardName + "=" + playerNum + "=" + extraInfo;
+		}
+		return playActionCardWithAdditionalInfo(playerNum, info);
 	}
 }
