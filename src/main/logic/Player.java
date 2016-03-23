@@ -525,4 +525,12 @@ public class Player {
 		}
 		return false;
 	}
+
+	public String getTokensAsString() {
+		String result = "";
+		for (int token: tokens) {
+			result += token;
+		}
+		return result;
+	}
 }
