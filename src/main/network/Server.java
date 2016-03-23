@@ -384,6 +384,17 @@ public class Server implements Runnable {
 					
 					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
 							+ game.getTournamentColour());
+					
+					//launch to pick the tournament colour after a purple tournament
+					int currID = 0;
+					for (int serverThreadID : playerNumbers.keySet()) {
+						if (playerNumbers.get(serverThreadID) == game.getCurrentPlayerNumber()){
+							currID = serverThreadID;
+							break;
+						}
+					}
+					broadcastMessageToPlayer("launchTournamentColour", currID, 0);
+					
 					updateAll(); //maybe put this before the broadcast
 				}
 				else if (input.contains("finalWinnerCheck")){
