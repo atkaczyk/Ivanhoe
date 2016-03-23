@@ -256,15 +256,42 @@ public class Server implements Runnable {
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
 					}
+					if(result.contains("adaptNeedMoreInfo~")){
+						//adaptNeedMoreInfo~playerNum-2@squire,green,blue+3@yellow,green#playerNum-2@squire,green,blue+3@yellow,green
+						//broadcast separate message to each player
+						String[] msgs = result.split("~");
+						//playernum-1,3,4,5-#nameother-1,2,3-
+						String[] msg = msgs[1].split("#");
+						//playerNum-2@squire,green,blue+3@yellow,green#
+					
+						for (int m=0; m<msg.length; m++){
+							String pNums[] = msg[m].split("-"); //get playernum before the -
+							int pNum = Integer.parseInt(pNums[0]);
+							//look in map to get matching pnum with id
+							//send pNums[1] to specific ID
+							for (int id: playerNumbers.keySet()){
+								if (playerNumbers.get(id) == pNum){
+									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
+								}
+							}
+						}
+					}
 				}
 				else if(input.contains("actionInfoGathered~")){
 					String[] info = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					System.out.println("SERVER: actionInfoGathered~: "+info[1]);
-					String result = game.playActionCardWithAdditionalInfo(playerNum, info[1]);
+					String result = game.checkForIvanhoeAdditionalInfoCard(playerNum, info[1]);
 					if(result.contains("actionCardPlayedMessage")){
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
+					}
+					if (result.contains("askForIvanhoe")) {
+						for (int id: playerNumbers.keySet()){
+							if (playerNumbers.get(id) == game.getPlayerWithIvanhoe()){
+								broadcastMessageToPlayer(result, id, 1);
+							}
+						}
 					}
 				}
 				else if(input.contains("adaptGiveInfo@")){
@@ -357,6 +384,17 @@ public class Server implements Runnable {
 					
 					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
 							+ game.getTournamentColour());
+					
+					//launch to pick the tournament colour after a purple tournament
+					int currID = 0;
+					for (int serverThreadID : playerNumbers.keySet()) {
+						if (playerNumbers.get(serverThreadID) == game.getCurrentPlayerNumber()){
+							currID = serverThreadID;
+							break;
+						}
+					}
+					broadcastMessageToPlayer("launchTournamentColour", currID, 0);
+					
 					updateAll(); //maybe put this before the broadcast
 				}
 				else if (input.contains("finalWinnerCheck")){
