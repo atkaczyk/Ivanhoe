@@ -76,7 +76,9 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[1].addCardToHand(new ActionCard("Outwit"));
+		players[1].addCardToHand(new ActionCard("Adapt"));
+		players[1].addCardToHand(new ActionCard("Adapt"));
+		players[0].addCardToHand(new ActionCard("Ivanhoe"));
 		players[0].addCardToHand(new ActionCard("Ivanhoe"));
 
 		// Distribute 8 cards to each player
@@ -331,6 +333,14 @@ public class Game {
 						+ getPlayer(playerNum).getName();
 			} else if (name.equals("Adapt")) {
 				if (allowedToPlayAdapt()) {
+					if (getPlayerWithIvanhoe() != -1) {
+						// ask for ivanhoe
+						return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+								+ getPlayer(playerNum).getName()
+								+ " is trying to play the "
+								+ name
+								+ " action card.---" + name + "=" + playerNum;
+					}
 					moveCardFromHandToDiscardPile(playerNum, name);
 					return "adaptNeedMoreInfo~" + getAdaptInfo();
 				} else {
@@ -912,6 +922,10 @@ public class Game {
 			if (ivanhoeChoice.equals("No")) {
 				// Player decided not to cancel the action card, so play the
 				// card as normal
+				if (actionCardName.equals("Adapt")) {
+					moveCardFromHandToDiscardPile(playerNum, actionCardName);
+					return "adaptNeedMoreInfo~" + getAdaptInfo();
+				}
 				return playActionCardNoExtraInfoRequired(playerNum,
 						actionCardName);
 			} else {
@@ -921,7 +935,7 @@ public class Game {
 						.getName();
 				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
 				moveCardFromHandToDiscardPile(playerNum, actionCardName);
-				return "actionCardPlayedMessage~" + actionCardName + ","
+				return "actionCardPlayedMessage~Ivanhoe,"
 						+ ivanhoePlayerName;
 			}
 		} else {

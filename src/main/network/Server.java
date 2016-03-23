@@ -256,6 +256,26 @@ public class Server implements Runnable {
 						broadcastToOtherPlayers(result, ID);
 						updateAll();
 					}
+					if(result.contains("adaptNeedMoreInfo~")){
+						//adaptNeedMoreInfo~playerNum-2@squire,green,blue+3@yellow,green#playerNum-2@squire,green,blue+3@yellow,green
+						//broadcast separate message to each player
+						String[] msgs = result.split("~");
+						//playernum-1,3,4,5-#nameother-1,2,3-
+						String[] msg = msgs[1].split("#");
+						//playerNum-2@squire,green,blue+3@yellow,green#
+					
+						for (int m=0; m<msg.length; m++){
+							String pNums[] = msg[m].split("-"); //get playernum before the -
+							int pNum = Integer.parseInt(pNums[0]);
+							//look in map to get matching pnum with id
+							//send pNums[1] to specific ID
+							for (int id: playerNumbers.keySet()){
+								if (playerNumbers.get(id) == pNum){
+									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
+								}
+							}
+						}
+					}
 				}
 				else if(input.contains("actionInfoGathered~")){
 					String[] info = input.split("~");
