@@ -87,6 +87,36 @@ public class GUIController {
 		client.handle("Ivanhoe~" + choice +"="+ msg[1]);	
 		
 	}
+	public void maidenColourSelect(String s){
+		String temp = "";
+		String rets = "";
+		if(s.contains("0")){
+			temp  += "Purple ";
+		}
+		if(s.contains("1")){
+			temp  += "Red ";
+		}
+		if(s.contains("2")){
+			temp  += "Yellow ";
+		}
+		if(s.contains("3")){
+			temp  += "Green ";
+		}
+		if(s.contains("4")){
+			temp  += "Blue ";
+		} 
+		temp = temp.substring(0, temp.length()-1);
+		String[] possibilities = temp.split(" ");
+		rets = (String)JOptionPane.showInputDialog(
+				gamePlayWindow,
+				"You had a Maiden in your display and failed to win the tournament.",
+				"Select the colour of the token you would like to remove.",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				possibilities,
+				"colour");
+		client.handle("maidenTokenColourPicked~" + convertNameToNumber(rets));
+	}
 	public void setCurrentPlayerName(String str){
 		gamePlayWindow.setCurrentPlayerName(str);
 	}
