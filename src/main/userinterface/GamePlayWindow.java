@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -53,16 +54,13 @@ public class GamePlayWindow extends JFrame{
 		tournamentNumber = new JLabel("");
 		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
 
-		//JPanel tournamentStuff = new JPanel();
-		//tournamentStuff.add(tournamentColour);
-		//tournamentStuff.add(tournamentNumber);
 
 		JLabel title = new JLabel ();
-		ImageIcon icon =new ImageIcon(this.getClass().getResource("Images/title.jpg"));
-		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance(400, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
-		icon = new ImageIcon( newimg );
-		title.setIcon(icon);
+		ImageIcon icon2 =new ImageIcon(this.getClass().getResource("Images/title.jpg"));
+		Image img2 = icon2.getImage() ;  
+		Image newimg2 = img2.getScaledInstance(400, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon2 = new ImageIcon( newimg2 );
+		title.setIcon(icon2);
 
 		GameStats.add(title);
 		GameStats.add(tournamentNumber);
@@ -86,9 +84,6 @@ public class GamePlayWindow extends JFrame{
 		playerCard4 = new PlayerCard("INACTIVE");
 		upperPanel.add(playerCard4);
 
-		//	upperPanel.setBackground(new Color(255, 255, 255 )); //242, 202, 150));
-		add(upperPanel);
-
 		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout());
 
@@ -98,12 +93,19 @@ public class GamePlayWindow extends JFrame{
 		lowerPanel.add(buttonPanel);
 		lowerPanel.setBackground(new Color(242, 202, 150));
 		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
+		
+		upperPanel.setOpaque(false);
+		add(upperPanel);
+		lowerPanel.setOpaque(false);
 		add(lowerPanel);
-
+		
 		// Set program to stop when window closed
+		this.setBackground(new Color(242, 202, 150));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 		setSize(1400, 1000); // manually computed sizes
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		setResizable(true);
 	}
 

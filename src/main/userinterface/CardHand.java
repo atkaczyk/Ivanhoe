@@ -48,6 +48,8 @@ public class CardHand extends JPanel implements ActionListener {
 		scrollPane.setPreferredSize(new Dimension(900, 220));
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.setBackground(new Color(242, 202, 150));
+		
+		//setOpaque(false);
 		setSize(150, 200); 
 		setVisible(true);
 	}

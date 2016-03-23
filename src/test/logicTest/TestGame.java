@@ -346,7 +346,7 @@ public class TestGame {
 		String expected = PLAYER_TWO_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(0));
+		assertEquals(expected, game.withdrawPlayer(0).split("#")[0]);
 	}
 
 	@Test
@@ -365,7 +365,7 @@ public class TestGame {
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(1));
+		assertEquals(expected, game.withdrawPlayer(1).split("#")[0]);
 	}
 
 	@Test
@@ -378,7 +378,7 @@ public class TestGame {
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
 
-		assertEquals("", game.withdrawPlayer(1));
+		assertEquals("#", game.withdrawPlayer(1));
 	}
 
 	@Test
@@ -401,7 +401,7 @@ public class TestGame {
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(3));
+		assertEquals(expected, game.withdrawPlayer(3).split("#")[0]);
 	}
 
 	@Test
@@ -757,7 +757,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 
-		assertEquals("", game.withdrawPlayer(0));
+		assertEquals("#", game.withdrawPlayer(0));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(3, game.getDiscardPileSize());
 	}
@@ -1623,7 +1623,7 @@ public class TestGame {
 		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
 		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
 		
-		assertEquals("", game.withdrawPlayer(0));
+		assertEquals("#", game.withdrawPlayer(0));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
@@ -1969,6 +1969,43 @@ public class TestGame {
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPileSize());
+	}
+	
+	@Test
+	public void playerWithdrawWithMaidenInDisplay() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		
+		game.getPlayer(1).addToken(Config.BLUE);
+		game.getPlayer(1).addToken(Config.RED);
+		game.getPlayer(1).addToken(Config.YELLOW);
+		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
+		
+		String result = game.withdrawPlayer(1);
+		assertEquals(true, result.contains("maidenPickTokenToReturn"));
+	}
+	
+	@Test
+	public void processReturnToken() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		
+		game.startGame();
+		
+		game.addTokenToPlayer(1, Config.BLUE);
+		game.addTokenToPlayer(1, Config.RED);
+		game.addTokenToPlayer(1, Config.YELLOW);
+		
+		assertEquals(22, game.getTokenPool().size());
+		game.processReturnToken(1, Config.RED);
+		assertEquals(23, game.getTokenPool().size());
+		assertEquals(false, game.getPlayer(1).getTokens().contains(Config.RED));
+		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
+		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.YELLOW));
 	}
 
 	@After
