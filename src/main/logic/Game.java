@@ -331,6 +331,14 @@ public class Game {
 						+ getPlayer(playerNum).getName();
 			} else if (name.equals("Adapt")) {
 				if (allowedToPlayAdapt()) {
+					if (getPlayerWithIvanhoe() != -1) {
+						// ask for ivanhoe
+						return "askForIvanhoe~Would you like to play your Ivanhoe card? "
+								+ getPlayer(playerNum).getName()
+								+ " is trying to play the "
+								+ name
+								+ " action card.---" + name + "=" + playerNum;
+					}
 					moveCardFromHandToDiscardPile(playerNum, name);
 					return "adaptNeedMoreInfo~" + getAdaptInfo();
 				} else {
