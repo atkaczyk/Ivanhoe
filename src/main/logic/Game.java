@@ -920,6 +920,10 @@ public class Game {
 			if (ivanhoeChoice.equals("No")) {
 				// Player decided not to cancel the action card, so play the
 				// card as normal
+				if (actionCardName.equals("Adapt")) {
+					moveCardFromHandToDiscardPile(playerNum, actionCardName);
+					return "adaptNeedMoreInfo~" + getAdaptInfo();
+				}
 				return playActionCardNoExtraInfoRequired(playerNum,
 						actionCardName);
 			} else {

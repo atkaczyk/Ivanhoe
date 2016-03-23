@@ -1949,7 +1949,7 @@ public class TestGame {
 		
 		assertEquals(true, result.contains("adaptNeed"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
-		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getDiscardPileSize());
 	}
 
