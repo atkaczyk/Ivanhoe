@@ -4,6 +4,7 @@ package userinterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,9 +25,19 @@ public class PlayerCard extends JPanel{
 	PlayerCardStats playerStats;
 
 	public PlayerCard(String name){
-		setLayout(null); //new FlowLayout()); 
+		setLayout(null); 
 		setBorder(BorderFactory.createTitledBorder(" ")); 
 
+		
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/title.jpg"));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(500, 160,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		JLabel background = new JLabel(icon);
+	
+		background.setBounds(0,0, 500,160);
+		//add(background);
+		
 		playerStats = new PlayerCardStats(name, 0, 0, false);
 		playerStats.setLocation(15,15);
 		playerStats.setPreferredSize(new  Dimension(130, 70));
@@ -47,8 +58,11 @@ public class PlayerCard extends JPanel{
 		add(avatar);
 		add(display);
 		
-		this.setBackground(new Color(137, 78, 72));
+	//	this.setBackground(new Color(137, 78, 72)); //0,0,0));
+		setOpaque(false);
+		//add(upperPanel);
 		setSize(500, 160); 
+		
 	}
 	//playerName,012,true,false, false,30,true(withdraw),false(this represents whether or not it is your turn)
 	public void setPlayerStats(String playerInfo) {
