@@ -1,9 +1,12 @@
 package userinterface;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import java.awt.Color;
 
 import network.Client;
 
@@ -48,6 +49,18 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	public GameReadyWindow(Client client){
 		super(); // Set the title of the window
 		//frame = new javax.swing.JFrame("This appears at the top of the window");
+		ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
+
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/ReadyB.jpg"));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(500, 400,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		JLabel background = new JLabel(icon);
+	
+		background.setBounds(0,0,500, 400);
+		this.setContentPane(background);
+		
+		
 		guiController = new GUIController(client);
 		blueToken= new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
 		whiteToken =new ImageIcon(this.getClass().getResource("Images/Tokens/greyToken.png"));
@@ -74,9 +87,15 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		Step.setVisible(true);
 		add(Step, c);
 
+		//avatar = new JLabel();
 		avatar = new JLabel();
-		avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
-		c.ipady = 50 + avatar.getHeight();    
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
+		Image img2 = icon2.getImage() ;  
+		Image newimg2 = img2.getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon(newimg2);
+		avatar.setIcon(icon2);
+	//	avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
+		c.ipady = 10 + avatar.getHeight();    
 		c.ipadx = avatar.getWidth();
 		c.weightx = 0.5;
 		c.gridx = 0;
@@ -94,7 +113,8 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		c.gridy = 3;
 		add(playerName, c);
 
-		playerNameSubmit = new JButton("Submit");
+		playerNameSubmit = new JButton(); //(bImg);//
+		playerNameSubmit.setText("Submit");
 		playerNameSubmit.setBackground(new Color(118, 108, 81));
 		playerNameSubmit.setBorderPainted(true);
 		playerNameSubmit.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
@@ -107,7 +127,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 
 		token = new JLabel();
-		token.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
+		token.setIcon(whiteToken); //new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
 		c.ipady = token.getHeight();   
 		c.ipadx = token.getWidth() + token.getWidth()*6;
 		c.weightx = 0.5;
@@ -158,8 +178,9 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		setVisible(true);
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // allow window to close
-		//this.setIconImage();
-		setSize(600, 400); // Set the size of the window
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		setSize(500, 400); // Set the size of the window
 
 	}
 	@Override
