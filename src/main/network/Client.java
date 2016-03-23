@@ -229,6 +229,15 @@ public class Client {
    			sendMessageToServer(msg);
    		}
    		//from server to gui
+   		else if(msg.contains("maidenPickTokenToReturn~")){
+   			String info = msg.split("~")[1];
+   			gui.maidenColourSelect(info);
+   		}
+   		//from gui to server
+   		else if(msg.contains("maidenTokenColourPicked~")){
+   			sendMessageToServer(msg);
+   		}
+   		//from server to gui
    		else if(msg.contains("PurpleWinTokenChoice~")){
    			String[] choices = msg.split("~");
    			gui.launchPurpleWinTokenChoice(choices[1]);

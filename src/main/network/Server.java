@@ -313,6 +313,11 @@ public class Server implements Runnable {
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.withdrawPlayer(playerNum);
 					
+					if(result.contains("maidenPickTokenToReturn~")){
+						String maidenInfo = result.split("#")[1];
+						broadcastMessageToPlayer(maidenInfo,ID,1);
+					}
+					result = result.split("#")[0];
 					//no one has won the tournament yet
 					if(result.equals("")){
 						//Ending turn
@@ -375,6 +380,12 @@ public class Server implements Runnable {
 							}
 						}
 					}
+				}
+				//a player has a maiden
+				else if(input.contains("maidenTokenColourPicked~")){
+					int playerNum = playerNumbers.get(ID);
+					String choice = input.split("~")[1];
+					game.processReturnToken(playerNum, Integer.parseInt(choice));
 				}
 				//the purple tournament win 
 				else if(input.contains("PurpleWinTokenColourChoice~")){
