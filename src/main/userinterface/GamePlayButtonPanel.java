@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,10 +33,17 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
 		JLabel empty = new JLabel();
 		empty.setSize(10, 10);
+      ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
 
-		button = new JButton("Discard Pile");
+
+		button = new JButton(bImg); //(DiscardPile);
+		button.setHorizontalTextPosition(JButton.CENTER); //remove
+		button.setVerticalTextPosition(JButton.CENTER);//remove
+
+		button.setText("Discard Pile"); //remove
 		button.setBackground(new Color(118, 108, 81));
 		button.setBorderPainted(true);
+		button.setSize(new Dimension(bImg.getIconHeight(),bImg.getIconWidth()));
 		button.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
 		add(button);
 		add(empty);

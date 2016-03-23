@@ -27,7 +27,7 @@ public class PlayerCardDisplay extends JPanel {
 		lp.setPreferredSize(new Dimension(300, 300));
 
 		this.add(lp);
-
+		setOpaque(false);
 		setSize(400, 130); 
 	}
 
