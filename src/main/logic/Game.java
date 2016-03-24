@@ -36,8 +36,7 @@ public class Game {
 	public void addPlayer(String playerName, int tokenColour) {
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (players[i] == null) {
-				players[i] = new Player();
-				players[i].setName(playerName);
+				players[i] = new Player(playerName);
 
 				if (tokenColour == Config.PURPLE) {
 					currentPlayer = players[i];
