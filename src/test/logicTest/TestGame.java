@@ -2007,6 +2007,11 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
 		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.YELLOW));
 	}
+	
+	@Test
+	public void fullNumberOfCards() {
+		assertEquals(110, game.getDrawPile().getNumCards());
+	}
 
 	@After
 	public void tearDown() {
