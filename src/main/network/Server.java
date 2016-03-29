@@ -1,7 +1,7 @@
 /**
  * 
  * @author original Server by: Howard Scott Needham
- * 			refactored by: Victoria Gray, Sophia Brandt, Alisa
+ * 			refactored by: Victoria Gray, Sophia Brandt, Alisa Tkaczyk
  * @Version 1.0
  * 
  * 1: open a server side socket/port and establish a connection 	(Constructor)

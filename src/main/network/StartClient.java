@@ -5,6 +5,15 @@ import javax.swing.JOptionPane;
 import network.Client;
 import utils.Config;
 
+/**
+ * 
+ * @author Victoria Gray, Sophia Brandt, Alisa Tkaczyk
+ * 
+ * 1. After running the StartServer then you may run The StartClient, which will start a client.
+ * 2. Continue running a new StartServer until you have started the number of clients that you requested in the beginning popup.
+ * 3. You can start a max of 5 clients. When the all the clients have been started then the main game play screen will open.
+ *
+ */
 public class StartClient {
 
 	public static void main (String[] argv){
