@@ -1,3 +1,12 @@
+/**
+ * 
+ * @author Victoria Gray, Sophia Brandt, Alisa Tkaczyk
+ * 
+ * 1. Begin the game by running this StartServer class.
+ * 2. It will call the Server class and prompt you to enter the port you would like it to run on.
+ *
+ */
+
 package network;
 
 import java.io.Console;
@@ -10,14 +19,6 @@ import utils.Config;
 import utils.Level;
 import utils.Trace;
 
-/**
- * 
- * @author Victoria Gray, Sophia Brandt, Alisa Tkaczyk
- * 
- * 1. Begin the game by running this StartServer class.
- * 2. It will call the Server class and prompt you to enter the port you would like it to run on.
- *
- */
 public class StartServer {
 	private static Boolean done = Boolean.FALSE;
 	private static Boolean started = Boolean.FALSE;
