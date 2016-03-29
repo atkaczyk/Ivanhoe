@@ -2012,6 +2012,96 @@ public class TestGame {
 	public void fullNumberOfCards() {
 		assertEquals(110, game.getDrawPile().getNumCards());
 	}
+	
+	@Test
+	public void playerStartsOthersDrawWithdraw() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+		game.startGame();
+		
+		game.setTournamentColour(Config.RED);
+		
+		game.drawCard(0);
+		
+		game.goToNextPlayer();
+		game.drawCard(1);
+		game.withdrawPlayer(1);
+		
+		game.goToNextPlayer();
+		game.drawCard(2);
+		String result = game.withdrawPlayer(2);
+		
+		// When other players withdraw, player 0 wins
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+		assertEquals(10, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void onlyOneMaidenAllowed() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+		game.startGame();
+		
+		game.setTournamentColour(Config.RED);
+		
+		game.playCard(0, "Maiden 6");
+		game.playCard(0, "Maiden 6");
+		
+		// You are only allowed to add one maiden to your display
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+	}
+	
+	@Test
+	public void comingToTheEndOfTheDeck() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.startGame();
+		// 8 cards to each of the 5 players
+		// Removes 40 cards from the deck, there are 70 left
+		
+		assertEquals(70, game.getDrawPile().getNumCards());
+		
+		int numberOfCardsPlayed = 0;
+		
+		ArrayDeque<Card> handCopy = new ArrayDeque<Card>();
+		
+		for (Card card: game.getPlayer(0).getHandCards()) {
+			handCopy.add(card);
+		}
+		
+		for (Card c: handCopy) {
+			game.moveCardFromHandToDiscardPile(0, c.getName());
+		}
+		
+		// Now the discard pile has the 8 cards from player 0's hand
+		assertEquals(8, game.getDiscardPileSize());
+		
+		assertEquals(70, game.getDrawPile().getNumCards());
+		
+		// Put the remaining 70 cards into player 0's hand
+		for (int i = 0; i < 70; i ++) {
+			game.drawCard(0);
+		}
+		
+		// The draw pile should NOT be empty
+		// It should refill with the 8 cards from the discard pile
+		assertEquals(8, game.getDrawPile().getNumCards());
+		assertEquals(0, game.getDiscardPileSize());
+	}
 
 	@After
 	public void tearDown() {

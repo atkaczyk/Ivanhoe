@@ -75,10 +75,7 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		players[1].addCardToHand(new ActionCard("Adapt"));
-		players[1].addCardToHand(new SupporterCard("Maiden 6", 6));
-		players[0].addCardToHand(new ActionCard("Ivanhoe"));
-
+		
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -694,7 +691,7 @@ public class Game {
 	 * @param name
 	 *            The name of the card we are moving
 	 */
-	private void moveCardFromHandToDiscardPile(int playerNum, String name) {
+	public void moveCardFromHandToDiscardPile(int playerNum, String name) {
 		Card c = players[playerNum].getCardFromHand(name);
 		discardPile.add(c);
 		players[playerNum].getHandCards().remove(c);
