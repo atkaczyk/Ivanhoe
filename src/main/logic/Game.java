@@ -701,10 +701,6 @@ public class Game {
 		tournamentColour = colour;
 	}
 
-	public int getDiscardPileSize() {
-		return discardPile.size();
-	}
-
 	/**
 	 * Withdraw the given player and check for a win
 	 * 
