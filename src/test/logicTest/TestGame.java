@@ -2075,8 +2075,6 @@ public class TestGame {
 		
 		assertEquals(70, game.getDrawPile().getNumCards());
 		
-		int numberOfCardsPlayed = 0;
-		
 		ArrayDeque<Card> handCopy = new ArrayDeque<Card>();
 		
 		for (Card card: game.getPlayer(0).getHandCards()) {
