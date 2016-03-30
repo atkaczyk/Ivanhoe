@@ -15,13 +15,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import network.Client;
 
-public class GameReadyWindow extends JFrame implements ActionListener{
-	//private Client client = new Client();
+/**
+ * Connected to the guiController and the components it is made of.
+ * Holds contents of the sign in screen, including input fields and registration info
+ * 
+ * Upon being called from the guiController, it retrieves info from the user and
+ * sends messages back to the guiController, which then sends them to the server.
+ *  * @author Alisa Tkaczyk
+ **/
 
+public class GameReadyWindow extends JFrame implements ActionListener{
 	JLabel token;
 	ImageIcon[] tokens;
 
@@ -47,8 +55,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	javax.swing.JFrame frame ;
 
 	public GameReadyWindow(Client client){
-		super(); // Set the title of the window
-		//frame = new javax.swing.JFrame("This appears at the top of the window");
+		super("~ Ivanhoe ~");
 		ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
 
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/ReadyB.jpg"));
@@ -56,11 +63,11 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		Image newimg = img.getScaledInstance(500, 400,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		JLabel background = new JLabel(icon);
-	
+
 		background.setBounds(0,0,500, 400);
 		this.setContentPane(background);
-		
-		
+
+
 		guiController = new GUIController(client);
 		blueToken= new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
 		whiteToken =new ImageIcon(this.getClass().getResource("Images/Tokens/greyToken.png"));
@@ -69,7 +76,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		greenToken=new ImageIcon(this.getClass().getResource("Images/Tokens/greenToken.png"));
 		yellowToken =new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
 
-		tokens = new ImageIcon[]{purpleToken, redToken, yellowToken, greenToken, blueToken, whiteToken}; //blueToken, greyToken, redToken, purpleToken, greenToken, goldToken};
+		tokens = new ImageIcon[]{purpleToken, redToken, yellowToken, greenToken, blueToken, whiteToken};
 		setPreferredSize(new Dimension(500,500));
 
 		setLayout(new GridBagLayout());
@@ -87,21 +94,14 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		Step.setVisible(true);
 		add(Step, c);
 
-		//avatar = new JLabel();
 		avatar = new JLabel();
-		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
-		Image img2 = icon2.getImage() ;  
-		Image newimg2 = img2.getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
-		icon = new ImageIcon(newimg2);
-		avatar.setIcon(icon2);
-	//	avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/Avatar.jpg")));
+		selectAvatar();
 		c.ipady = 10 + avatar.getHeight();    
 		c.ipadx = avatar.getWidth();
 		c.weightx = 0.5;
 		c.gridx = 0;
 		c.gridy = 1;
 		add(avatar, c);
-
 
 		playerName = new JTextField();	
 		playerName.setPreferredSize(new Dimension(90, 25));	
@@ -113,7 +113,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		c.gridy = 3;
 		add(playerName, c);
 
-		playerNameSubmit = new JButton(); //(bImg);//
+		playerNameSubmit = new JButton();
 		playerNameSubmit.setText("Submit");
 		playerNameSubmit.setBackground(new Color(118, 108, 81));
 		playerNameSubmit.setBorderPainted(true);
@@ -134,7 +134,6 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		c.gridx = 1;
 		c.gridy = 1;
 
-
 		token.setVisible(false);
 		add(token, c);
 
@@ -151,8 +150,8 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 		tokenRequest.addActionListener(this);
 
-		finalToken = new JLabel();//"This is the token you retrieved";
-		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/Token.jpg")));
+		finalToken = new JLabel();
+		finalToken.setIcon(new ImageIcon(this.getClass().getResource("Images/tokenNew.png")));
 		c.ipady = finalToken.getHeight();   
 		c.ipadx = finalToken.getWidth() + avatar.getWidth()*4;
 		c.weightx = 0.5;
@@ -177,10 +176,39 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 		getContentPane().setBackground(new Color(242, 202, 150));
 		setVisible(true);
 		pack();
-		setDefaultCloseOperation(EXIT_ON_CLOSE); // allow window to close
+		setDefaultCloseOperation(EXIT_ON_CLOSE); 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		setSize(500, 400); // Set the size of the window
+		setSize(500, 400);
+
+	}
+	private void selectAvatar() {
+		Object[] possibilities = {"Princess Alisa", "Princess Victoria", "Princess Sophia", "Cinderella", "Snow White"};
+		ImageIcon i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar0.png"));
+		String s = (String)JOptionPane.showInputDialog(
+				this,
+				"Select the princess you wish to play this game.",
+				"Avatar Selection",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				possibilities,
+				"Princess");
+		if(s.equals("Princess Alisa")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
+		} else if(s.equals("Princess Victoria")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar2.jpg"));
+		} else if(s.equals("Princess Sophia")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar3.jpg"));
+		} else if(s.equals("Cinderella")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar4.png"));
+		} else if(s.equals("Snow White")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar5.png"));
+		} 
+		
+		Image img = i.getImage() ;  
+		Image newimg = img.getScaledInstance(150, 180,  java.awt.Image.SCALE_SMOOTH ) ; 
+		i = new ImageIcon(newimg);
+		avatar.setIcon(i);
 
 	}
 	@Override

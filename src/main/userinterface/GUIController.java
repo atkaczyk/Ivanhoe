@@ -5,6 +5,13 @@ import javax.swing.JOptionPane;
 import network.Client;
 import utils.Config;
 
+/**
+ * The GUI controller is what communicates with all components of the game,
+ * it handles the communication between the server and the different panels and frames
+ * in the entire gui. Sending messages to the client.
+ * @author Alisa Tkaczyk
+ **/
+
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
@@ -12,7 +19,6 @@ public class GUIController {
 	private int mainScreenCounter = 0;
 
 	public GUIController(Client c){ 
-
 		client = c;	
 	}
 	public void launchGameReadyWindow(){
@@ -109,8 +115,9 @@ public class GUIController {
 		String[] possibilities = temp.split(" ");
 		rets = (String)JOptionPane.showInputDialog(
 				gamePlayWindow,
-				"You had a Maiden in your display and failed to win the tournament.",
-				"Select the colour of the token you would like to remove.",
+				"You had a Maiden in your display and failed to win the tournament.\n"
+				+ "Select the colour of the token you would like to return back to the prize pool.",
+				"Maiden Death",
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				possibilities,
@@ -157,7 +164,7 @@ public class GUIController {
 	public void setEnableMainScreen(String str){
 		if(str.equals("true")){
 			if(mainScreenCounter == 0) {
-				System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
+				//System.out.println("THIS HAPPENS ONCE ZERO TO ONE" );
 				mainScreenCounter =1;
 				gamePlayWindow.resetDrawCards();
 			}
@@ -168,7 +175,7 @@ public class GUIController {
 			if(mainScreenCounter == 1) {
 				mainScreenCounter =0;
 
-				System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
+				//System.out.println("THIS HAPPENS ONCE ONE TO ZERO" );
 			}
 			gamePlayWindow.setPlayable(false);
 			gamePlayWindow.repaint();
