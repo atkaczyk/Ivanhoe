@@ -5,6 +5,13 @@ import javax.swing.JOptionPane;
 import network.Client;
 import utils.Config;
 
+/**
+ * The GUI controller is what communicates with all components of the game,
+ * it handles the communication between the server and the different panels and frames
+ * in the entire gui. Sending messages to the client.
+ * @author Alisa Tkaczyk
+ **/
+
 public class GUIController {
 	GameReadyWindow gameReadyWindow;
 	GamePlayWindow gamePlayWindow;
@@ -12,7 +19,6 @@ public class GUIController {
 	private int mainScreenCounter = 0;
 
 	public GUIController(Client c){ 
-
 		client = c;	
 	}
 	public void launchGameReadyWindow(){

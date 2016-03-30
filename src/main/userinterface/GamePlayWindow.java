@@ -8,12 +8,21 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import network.Client;
-import utils.Config;
+
+/**
+ * Connected to the guiController and the components it is made of.
+ * Holds contents of the main game screen, including the player cards,
+ * button panels, and card hand scroller.
+ * Contains setters for the entire game state.
+ * @author Alisa Tkaczyk
+ **/
 
 
 public class GamePlayWindow extends JFrame{
@@ -26,17 +35,15 @@ public class GamePlayWindow extends JFrame{
 	PlayerCard playerCard4;
 	CardHand hand;
 
-	PlayerCardDisplay	playerDisplay;
 	GUIController gui;
 	JLabel tournamentColour;
 	Color tColour;
-	JPanel GameStats ;
+	JPanel GameStats ;      
 	GamePlayButtonPanel buttonPanel;
-	//will hold the player cards
-	//will hold the cardLayout discard pile: still to be made
 	JLabel tournamentNumber;
 	JPanel upperPanel;
 	JPanel lowerPanel;
+
 	public GamePlayWindow(Client client){
 		super(); 
 
@@ -45,18 +52,14 @@ public class GamePlayWindow extends JFrame{
 		Image newimg = img.getScaledInstance(1400, 1000,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		JLabel background = new JLabel(icon);
-	
+		
 		background.setBounds(0,0,1400, 1000);
 		setContentPane(background);
-		
+
 		gui = new GUIController(client);
 
-		setLayout(new GridLayout(2,1)); 
-
-		upperPanel = new JPanel(new GridLayout(3,2));
-		
-		GameStats = new JPanel(new FlowLayout());
-		
+		getContentPane().setLayout(
+				new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
 		JLabel title = new JLabel ();
 		ImageIcon icon2 =new ImageIcon(this.getClass().getResource("Images/ivanhoeheader.png"));
@@ -64,60 +67,58 @@ public class GamePlayWindow extends JFrame{
 		Image newimg2 = img2.getScaledInstance(400, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon2 = new ImageIcon( newimg2 );
 		title.setIcon(icon2);
-		
-		tournamentColour = new JLabel("");
-		tournamentColour.setBackground(Color.white);
-		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
-		
-		tournamentNumber = new JLabel("");
-		tournamentNumber.setFont(new Font("Century", Font.BOLD, 18));
 
+		ImageIcon icon3 =new ImageIcon(this.getClass().getResource("Images/tokenNew.png"));
+		Image img3 = icon3.getImage() ;  
+		Image newimg3 = img3.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon3 = new ImageIcon( newimg3 );
+
+		tournamentColour = new JLabel(icon3);
+		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
+
+		tournamentNumber = new JLabel();
+		tournamentNumber.setFont(new Font("Century", Font.BOLD, 28));
+
+		GameStats = new JPanel(new FlowLayout());
 		GameStats.add(title);
 		GameStats.add(tournamentNumber);
 		GameStats.add(tournamentColour);
 		GameStats.setOpaque(false);
-		GameStats.setBackground(new Color(242, 202, 150));
-		
-		upperPanel.add(GameStats);
 
 		playerCard0 = new PlayerCard("INACTIVE");
-		upperPanel.add(playerCard0);
-
 		playerCard1 = new PlayerCard("INACTIVE");
-		upperPanel.add(playerCard1);
-
 		playerCard2 = new PlayerCard("INACTIVE");
-		upperPanel.add(playerCard2);
-
 		playerCard3 = new PlayerCard("INACTIVE");
-		upperPanel.add(playerCard3);
-
 		playerCard4 = new PlayerCard("INACTIVE");
+		
+		upperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //new GridLayout(3,2));
+		upperPanel.add(GameStats);
+		upperPanel.add(playerCard0);
+		upperPanel.add(playerCard1);
+		upperPanel.add(playerCard2);
+		upperPanel.add(playerCard3);
 		upperPanel.add(playerCard4);
-
+		
+		buttonPanel = new GamePlayButtonPanel(gui);
+		hand = new CardHand(gui); 
+	
 		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout());
-
-		buttonPanel = new GamePlayButtonPanel(gui);
-		hand = new CardHand(gui); //"MY CARD HAND DISPLAY SCROLLER");
 		lowerPanel.add(hand);
 		lowerPanel.add(buttonPanel);
-		lowerPanel.setBackground(new Color(242, 202, 150));
-		lowerPanel.setPreferredSize(new Dimension(hand.getHeight(), hand.getWidth()+buttonPanel.getWidth()));
 		
+		upperPanel.setPreferredSize(new Dimension(playerCard0.getWidth()*2, (playerCard0.getHeight()*3)-30));
+		lowerPanel.setPreferredSize(new Dimension(hand.getWidth()+buttonPanel.getWidth(), hand.getHeight() - 30));
 		upperPanel.setOpaque(false);
-		add(upperPanel);
 		lowerPanel.setOpaque(false);
-		add(lowerPanel);
 		
-		// Set program to stop when window closed
-		//this.setBackground(new Color(242, 202, 150));
+		add(upperPanel);
+		add(lowerPanel);
+
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//pack();
-		setSize(1400, 1000); // manually computed sizes
+		setSize(1400, 850); 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		//setResizable(true);
 	}
 
 	//can now take in a string and parse to all players.
@@ -164,35 +165,42 @@ public class GamePlayWindow extends JFrame{
 	public void setTournamentNumAndColour(String s) {
 		String[] player = s.split(",");
 		setTournamentColour(player[0]);
-		tournamentNumber.setText("Tournament #" + player[1] + " is...");
+		tournamentNumber.setText("T" + player[1]);
 
 	}
 	public void setTournamentColour(String s){
-		if (s.equals("-1")){
-			tColour = Color.BLACK;
+		ImageIcon updatedIcon =  new ImageIcon(this.getClass().getResource("Images/tokenNew.png"));
+
+		if (s.equals("-1")){			
 		} else {
 			if(s.equals("0")){
 				tColour =new Color(107, 66, 130);
+				updatedIcon =  new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
+
 			} else if(s.equals("1")){
 				tColour = new Color(167, 63, 53);
+				updatedIcon =  new ImageIcon(this.getClass().getResource("Images/Tokens/redToken.png"));
+
 			} else if(s.equals("2")){
 				tColour = new Color(160, 145, 112);
+				updatedIcon =  new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
+
 			} else if(s.equals("3")){
 				tColour = new Color(143, 184, 142);
+				updatedIcon =  new ImageIcon(this.getClass().getResource("Images/Tokens/greenToken.png"));
+
 			} else if(s.equals("4")){ //, 62, 149);
 				tColour =new Color(85, 110, 188);
+				updatedIcon =  new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
+
 			} 
-			tournamentColour.setText(Config.TOKEN_COLOUR_NAMES[Integer.parseInt(s)]);	
 		}
-		tournamentColour.setForeground(tColour);
-		tournamentColour.setBackground(tColour);
-		tournamentNumber.setBackground(tColour);
-		tournamentNumber.setForeground(tColour);
+		tournamentColour.setIcon(updatedIcon);
 
 	}
 	public void setDrawCardButton(boolean b) {
 		System.out.println("YOU MADE IT TO THE GAME PLAY WINDOW");
-	//	buttonPanel.setDrawCardButton(b);
+		//	buttonPanel.setDrawCardButton(b);
 
 		System.out.println("THERE WAS SOMETHING CALLED ON BUTTON!");
 
@@ -219,12 +227,13 @@ public class GamePlayWindow extends JFrame{
 		buttonPanel.setEnableOptionButtons(b);
 		hand.setEnableHandButtons(b);
 	}
-	
+
 	public void resetDrawCards(){
-	buttonPanel.setDrawCardEnable(true);
-	buttonPanel.setWithdrawEnable(true);
+		buttonPanel.setDrawCardEnable(true);
+		buttonPanel.setWithdrawEnable(true);
 	}
 }
+
 //	public void setPlayerScreenEnabled(boolean b) {
 //		//	panel.setEnabled(isEnabled);
 //		java.awt.Component[] components = buttonPanel.getComponents();
@@ -250,27 +259,6 @@ public class GamePlayWindow extends JFrame{
 
 
 
-/* 
- * FOR LATER TO DISABLE ONLY CARD BUTTONS
- * 
- * public List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            compList.add(comp);
-            if (comp instanceof Container)
-                compList.addAll(getAllComponents((Container) comp));
-        }
-        return compList;
-
-        ---
-
-        List<Component> comps = getAllComponents(panel);
-for (Component comp : comps) {
-       comp.setEnabled(false);
-}
- * 
- */
 
 
 

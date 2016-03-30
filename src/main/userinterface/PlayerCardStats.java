@@ -1,11 +1,27 @@
 package userinterface;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+
+import logic.SimpleCard;
+
+/**
+ * Connected to the PlayerCard: used to represent
+ * the unique stats for each individual player. 
+ *  
+ * @author Alisa Tkaczyk
+ * 
+ * Contains setters for each players game state including their name, 
+ * score, turn, special cards and in play status.
+ **/
 
 public class PlayerCardStats extends JPanel{
 	JLabel playerName;
@@ -16,6 +32,7 @@ public class PlayerCardStats extends JPanel{
 	JButton changeDisplay;
 	JLabel isWithdrawn;
 	String sCards;
+	JLayeredPane tokenSet;
 
 	public PlayerCardStats (String pName, int numToken1, int score1, boolean turn1) {
 		setLayout(null); 
@@ -28,6 +45,13 @@ public class PlayerCardStats extends JPanel{
 		playerName.setFont(new Font("Century", Font.BOLD, 14));
 		playerName.setSize(100,30);
 		add(playerName);
+
+		tokenSet = new JLayeredPane();
+		tokenSet.setLocation(0, top + 100);
+		tokenSet.setPreferredSize(new Dimension(100,30)); //setSize(100,30);
+		tokenSet.setBackground(new Color(0,0,0));
+		tokenSet.setOpaque(true);
+		//add(tokenSet);
 
 		numTokens = new JLabel(""); //"# Tokens: " + numToken1);
 		numTokens.setLocation(0, top + 15);
@@ -60,9 +84,9 @@ public class PlayerCardStats extends JPanel{
 		isWithdrawn.setSize(100, 30);
 		isWithdrawn.setVisible(true);
 		add(isWithdrawn);
-		
-		//setOpaque(false);
-		this.setBackground(new Color(153,125,106));
+
+		setOpaque(true);
+		setBackground(new Color(153,125,106));
 		setSize(130, 140);	 
 	}
 
@@ -70,25 +94,67 @@ public class PlayerCardStats extends JPanel{
 		playerName.setText(playerName2);
 	}
 
+	/**
+	 * @param String of numbers that represent the colours of the tokens in the players pool
+	 */
 	public void setPlayerTokens(String s) {
 		// TURN STR which is 012 into its proper colour..
+		int space = 0;
+
+		ImageIcon icon =new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
 		String temp = "";
 		if(s.contains("0")){
 			temp += "P";
+			space++;
+			JLabel pTok = new JLabel(icon);
+			pTok.setOpaque(false);
+			pTok.setSize(30, 30);
+			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
+			tokenSet.add(pTok, space);
 		}
 		if(s.contains("1")){
 			temp += "R";
+			space++;
+			JLabel pTok = new JLabel(icon);
+			pTok.setOpaque(false);
+			pTok.setSize(30, 30);
+			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
+			tokenSet.add(pTok, space);
 		}
 		if(s.contains("2")){
 			temp += "Y";
+			space++;
+			JLabel pTok = new JLabel(icon);
+			pTok.setOpaque(false);
+			pTok.setSize(30, 30);
+			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
+			tokenSet.add(pTok, space);
 		}
 		if(s.contains("3")){
 			temp += "G";
+			space++;
+			JLabel pTok = new JLabel(icon);
+			pTok.setOpaque(false);
+			pTok.setSize(30, 30);
+			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
+			tokenSet.add(pTok, space);
 		}
 		if(s.contains("4")){
 			temp += "B";
+			space++;
+			JLabel pTok = new JLabel(icon);
+			pTok.setOpaque(false);
+			pTok.setSize(30, 30);
+			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
+			tokenSet.add(pTok, space);
 		} 
+
+		//this.add(tokenSet);
 		numTokens.setText("Tokens: " +temp);	
+
 	}
 
 	public void setPlayerScore(int score2) {
@@ -127,7 +193,6 @@ public class PlayerCardStats extends JPanel{
 		specialCard.setText("* " + sCards);
 
 	}
-
 	public void setStunned(String str) {
 		if (str.equals("true")){
 			if(sCards.contains("Stunned")){
