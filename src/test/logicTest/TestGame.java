@@ -150,7 +150,7 @@ public class TestGame {
 	public void getCurrentPlayerNumber() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
 
 		assertEquals(0, game.getCurrentPlayerNumber());
@@ -346,7 +346,7 @@ public class TestGame {
 		String expected = PLAYER_TWO_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(0).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(0, true).split("#")[0]);
 	}
 
 	@Test
@@ -358,14 +358,14 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
+		game.withdrawPlayer(0, true);
 
 		game.overrideTourColour(Config.BLUE);
 
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(1).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(1, true).split("#")[0]);
 	}
 
 	@Test
@@ -378,7 +378,7 @@ public class TestGame {
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
 
-		assertEquals("#", game.withdrawPlayer(1));
+		assertEquals("#", game.withdrawPlayer(1, true));
 	}
 
 	@Test
@@ -392,16 +392,16 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
-		game.withdrawPlayer(1);
-		game.withdrawPlayer(4);
+		game.withdrawPlayer(0, true);
+		game.withdrawPlayer(1, true);
+		game.withdrawPlayer(4, true);
 
 		game.overrideTourColour(Config.BLUE);
 
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(3).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(3, true).split("#")[0]);
 	}
 
 	@Test
@@ -757,7 +757,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 
-		assertEquals("#", game.withdrawPlayer(0));
+		assertEquals("#", game.withdrawPlayer(0, true));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(3, game.getDiscardPile().size());
 	}
@@ -990,7 +990,7 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
+		game.withdrawPlayer(0, true);
 
 		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
 		assertEquals(false, game.getTokenPool().isEmpty());
@@ -1007,7 +1007,7 @@ public class TestGame {
 
 		// This means that player 0 will win and is supposed to start the next
 		// tournament
-		game.withdrawPlayer(1);
+		game.withdrawPlayer(1, true);
 
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
@@ -1565,7 +1565,7 @@ public class TestGame {
 		// Now action cards played on player 0 should have no affect anymore
 
 		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
-		
+
 		game.getPlayer(1).addCardToHand(OUTMANEUVER_CARD);
 		String result = game.playCard(1, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
@@ -1601,12 +1601,12 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(RETREAT_CARD);
 		result = game.playCard(0, RETREAT_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		
+
 		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
 		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("false"));
 	}
-	
+
 	@Test
 	public void withdrawPlayerRemovesShieldAndStunned() {
 		game.setNumPlayers(3);
@@ -1622,14 +1622,14 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
 		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
-		
-		assertEquals("#", game.withdrawPlayer(0));
+
+		assertEquals("#", game.withdrawPlayer(0, true));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
 		assertEquals(5, game.getDiscardPile().size());
-	}	
-	
+	}
+
 	public void tryPlayingAdaptMoreInfoNeeded() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -1694,22 +1694,28 @@ public class TestGame {
 
 		game.adaptCardsChosen(1, "1-" + GREEN_CARD_1.getName() + ",3-"
 				+ SQUIRE_CARD_3.getName());
-		
+
 		game.adaptCardsChosen(0, "3-" + PURPLE_CARD_3.getName());
 
 		assertEquals(5, game.getDiscardPile().size());
-		
+
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
-		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
-		assertEquals(true, game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(false,
+				game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(0).getDisplayCards().contains(PURPLE_CARD_3));
 
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(false, game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_3));
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
-		assertEquals(true, game.getPlayer(1).getDisplayCards().contains(GREEN_CARD_1));
+		assertEquals(false,
+				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_3));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(SQUIRE_CARD_2));
+		assertEquals(true,
+				game.getPlayer(1).getDisplayCards().contains(GREEN_CARD_1));
 	}
-	
+
 	@Test
 	public void tryPlayingStunnedCard() {
 		game.setNumPlayers(2);
@@ -1731,7 +1737,7 @@ public class TestGame {
 		String result = game.playCard(0, "Stunned");
 		assertEquals(true, result.contains("moreInformationNeeded"));
 	}
-	
+
 	@Test
 	public void playStunnedCard() {
 		game.setNumPlayers(2);
@@ -1750,28 +1756,28 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 
-		String info = "Stunned@"+PLAYER_TWO_NAME;
+		String info = "Stunned@" + PLAYER_TWO_NAME;
 		game.playActionCardWithAdditionalInfo(0, info);
 		// Now player 1 can't add more than one card to their display
 		assertEquals(2, game.getPlayer(0).getHandCards().size());
-		
+
 		game.overrideTourColour(Config.BLUE);
 		game.playCard(1, BLUE_CARD_3.getName());
 		game.playCard(1, SQUIRE_CARD_3.getName());
 		game.playCard(1, SQUIRE_CARD_2.getName());
-		
+
 		assertEquals(true, game.getPlayer(1).hasSpecialCard("Stunned"));
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
-		
-		game.goToNextPlayer();
-		game.goToNextPlayer();
-		
+
+		game.goToNextPlayer(false);
+		game.goToNextPlayer(false);
+
 		game.playCard(1, SQUIRE_CARD_3.getName());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void withdrawPlayerGoesToTheCorrectPlayer() {
 		game.setNumPlayers(4);
@@ -1779,13 +1785,13 @@ public class TestGame {
 		game.addPlayer(PLAYER_TWO_NAME, Config.RED);
 		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
 		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
-		
+
 		game.startGame();
-		game.withdrawPlayer(1);
-				
+		game.withdrawPlayer(1, true);
+
 		assertEquals(PLAYER_THREE_NAME, game.getCurrentPlayer().getName());
 	}
-	
+
 	@Test
 	public void playDropWeaponCardAskForIvanhoe() {
 		game.setNumPlayers(2);
@@ -1794,7 +1800,7 @@ public class TestGame {
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
-		
+
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
 		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
@@ -1802,7 +1808,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(0, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void noToIvanhoeDropWeaponGetsPlayed() {
 		game.setNumPlayers(2);
@@ -1811,18 +1817,18 @@ public class TestGame {
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
-		
+
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "No="+DROP_WEAPON_CARD+"=0";
+		String info = "No=" + DROP_WEAPON_CARD + "=0";
 		game.processIvanhoeCard(info);
-		
+
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.GREEN, game.getTournamentColour());
 		assertEquals(1, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void yesToIvanhoeDropWeaponGetsDiscarded() {
 		game.setNumPlayers(2);
@@ -1831,18 +1837,18 @@ public class TestGame {
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
-		
+
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "Yes="+DROP_WEAPON_CARD.getName()+"=0";
+		String info = "Yes=" + DROP_WEAPON_CARD.getName() + "=0";
 		game.processIvanhoeCard(info);
-		
+
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.RED, game.getTournamentColour());
 		assertEquals(2, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void playKnockDownCardAskForIvanhoe() {
 		game.setNumPlayers(2);
@@ -1855,14 +1861,14 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(IVANHOE_CARD);
 
 		String info = KNOCK_DOWN_CARD.getName() + "@" + PLAYER_TWO_NAME;
-		
+
 		String result = game.checkForIvanhoeAdditionalInfoCard(0, info);
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
-	
+
 	@Test
 	public void noToIvanhoeKnockDownGetsPlayed() {
 		game.setNumPlayers(2);
@@ -1872,36 +1878,38 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
-		
+
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
-		
-		String info = "No="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+
+		String info = "No=" + KNOCK_DOWN_CARD.getName() + "=0="
+				+ PLAYER_TWO_NAME;
 		game.processIvanhoeCard(info);
 
 		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
-	
+
 	@Test
 	public void yesToIvanhoeKnockDownGetsDiscarded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
-		
+
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "Yes="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
+		String info = "Yes=" + KNOCK_DOWN_CARD.getName() + "=0="
+				+ PLAYER_TWO_NAME;
 		game.processIvanhoeCard(info);
-		
+
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void playAdaptCardAskForIvanhoe() {
 		game.setNumPlayers(2);
@@ -1912,7 +1920,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
-		
+
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1926,7 +1934,7 @@ public class TestGame {
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(0, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void noToIvanhoeAdaptAsksForMoreInfo() {
 		game.setNumPlayers(2);
@@ -1937,129 +1945,130 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
-		
+
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "No="+ADAPT_CARD+"=0";
+		String info = "No=" + ADAPT_CARD + "=0";
 		String result = game.processIvanhoeCard(info);
-		
+
 		assertEquals(true, result.contains("adaptNeed"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void yesToIvanhoeAdaptGetsDiscarded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
-		
+
 		game.getPlayer(1).addCardToHand(IVANHOE_CARD);
 
-		String info = "Yes="+ADAPT_CARD.getName()+"=0";
+		String info = "Yes=" + ADAPT_CARD.getName() + "=0";
 		String result = game.processIvanhoeCard(info);
-		
+
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getDiscardPile().size());
 	}
-	
+
 	@Test
 	public void playerWithdrawWithMaidenInDisplay() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
-		
+
 		game.getPlayer(1).addToken(Config.BLUE);
 		game.getPlayer(1).addToken(Config.RED);
 		game.getPlayer(1).addToken(Config.YELLOW);
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
-		
-		String result = game.withdrawPlayer(1);
+
+		String result = game.withdrawPlayer(1, true);
 		assertEquals(true, result.contains("maidenPickTokenToReturn"));
 	}
-	
+
 	@Test
 	public void processReturnToken() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		
+
 		game.startGame();
-		
+
 		game.addTokenToPlayer(1, Config.BLUE);
 		game.addTokenToPlayer(1, Config.RED);
 		game.addTokenToPlayer(1, Config.YELLOW);
-		
+
 		assertEquals(22, game.getTokenPool().size());
 		game.processReturnToken(1, Config.RED);
 		assertEquals(23, game.getTokenPool().size());
 		assertEquals(false, game.getPlayer(1).getTokens().contains(Config.RED));
 		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
-		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.YELLOW));
+		assertEquals(true, game.getPlayer(1).getTokens()
+				.contains(Config.YELLOW));
 	}
-	
+
 	@Test
 	public void fullNumberOfCards() {
 		assertEquals(110, game.getDrawPile().getNumCards());
 	}
-	
+
 	@Test
 	public void playerStartsOthersDrawWithdraw() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 		game.startGame();
-		
+
 		game.setTournamentColour(Config.RED);
-		
+
 		game.drawCard(0);
-		
-		game.goToNextPlayer();
+
+		game.goToNextPlayer(true);
 		game.drawCard(1);
-		game.withdrawPlayer(1);
-		
-		game.goToNextPlayer();
+		game.withdrawPlayer(1, true);
+
+		game.goToNextPlayer(true);
 		game.drawCard(2);
-		String result = game.withdrawPlayer(2);
-		
+		String result = game.withdrawPlayer(2, true);
+
 		// When other players withdraw, player 0 wins
 		assertEquals(true, result.contains(PLAYER_ONE_NAME));
 		assertEquals(10, game.getPlayer(0).getHandCards().size());
 	}
-	
+
 	@Test
 	public void onlyOneMaidenAllowed() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		
+
 		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
 		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
 		game.startGame();
-		
+
 		game.setTournamentColour(Config.RED);
-		
+
 		game.playCard(0, "Maiden 6");
 		game.playCard(0, "Maiden 6");
-		
+
 		// You are only allowed to add one maiden to your display
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 	}
-	
+
 	@Test
 	public void comingToTheEndOfTheDeck() {
 		game.setNumPlayers(5);
@@ -2072,33 +2081,67 @@ public class TestGame {
 		game.startGame();
 		// 8 cards to each of the 5 players
 		// Removes 40 cards from the deck, there are 70 left
-		
+
 		assertEquals(70, game.getDrawPile().getNumCards());
-		
+
 		ArrayDeque<Card> handCopy = new ArrayDeque<Card>();
-		
-		for (Card card: game.getPlayer(0).getHandCards()) {
+
+		for (Card card : game.getPlayer(0).getHandCards()) {
 			handCopy.add(card);
 		}
-		
-		for (Card c: handCopy) {
+
+		for (Card c : handCopy) {
 			game.moveCardFromHandToDiscardPile(0, c.getName());
 		}
-		
+
 		// Now the discard pile has the 8 cards from player 0's hand
 		assertEquals(8, game.getDiscardPile().size());
-		
+
 		assertEquals(70, game.getDrawPile().getNumCards());
-		
+
 		// Put the remaining 70 cards into player 0's hand
-		for (int i = 0; i < 70; i ++) {
+		for (int i = 0; i < 70; i++) {
 			game.drawCard(0);
 		}
-		
+
 		// The draw pile should NOT be empty
 		// It should refill with the 8 cards from the discard pile
 		assertEquals(8, game.getDrawPile().getNumCards());
 		assertEquals(0, game.getDiscardPile().size());
+	}
+
+	@Test
+	public void automaticallyWithdrawingPlayerWithLowestScore() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.startGame();
+		// Player 0 has a score of 3
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
+		game.goToNextPlayer(true);
+		// It is now player 1s turn
+		
+		// When I go to the next player, it should not withdraw player 0 because
+		// they have the highest display
+		assertEquals(false, game.getPlayer(0).isWithdrawn());
+		assertEquals(1, game.getCurrentPlayerNumber());
+		
+		// Player 2 has a score of 3
+		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
+
+		game.goToNextPlayer(true);
+		// Is it now player 2's turn
+		// Player 1 is withdrawn because they have a score of 0
+		assertEquals(2, game.getCurrentPlayerNumber());
+		assertEquals(true, game.getPlayer(1).isWithdrawn());
+		
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.RED);
+		String result = game.goToNextPlayer(true);
+		// Automatically withdraws player 2, and player 0 wins
+		
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
 	}
 
 	@After
