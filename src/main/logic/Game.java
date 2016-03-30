@@ -117,7 +117,7 @@ public class Game {
 	}
 
 	// Change the current player to be the next player
-	public void goToNextPlayer() {
+	public String goToNextPlayer() {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
@@ -138,6 +138,7 @@ public class Game {
 				}
 			}
 		} while (currentPlayer.isWithdrawn());
+		return "";
 	}
 
 	public int getTournamentColour() {
