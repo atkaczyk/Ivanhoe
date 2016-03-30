@@ -1,3 +1,10 @@
+/**
+ * @author Victoria Gray, Sophia Brandt, Alisa Tkaczyk
+ * 
+ * 1. After running the StartServer, you run the StartClient
+ * 2. The StartClient will run this Client, and each player in the game will be associated with a client.
+ */
+
 package network;
 
 import java.net.*;
@@ -39,6 +46,13 @@ public class Client {
 	private Boolean actionInfo = false;
 	private Boolean adaptInfo = false;
 	
+	/**
+	 * The Client constructor
+	 * @param serverName
+	 * 				The IP address that the server is running on
+	 * @param serverPort
+	 * 				The Port that the server is running on
+	 */
 	public Client (String serverName, int serverPort) {  
 		System.out.println(ID + ": Establishing connection. Please wait ...");
 
@@ -58,29 +72,32 @@ public class Client {
 		
 	}
 	
+	/**
+	 * This starts up the Client
+	 * @throws IOException
+	 */
+	public void start() throws IOException {  
+		try {
+			console	= new BufferedReader(new InputStreamReader(System.in));
+			streamIn	= new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			streamOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-	public int getID () {
-		return this.ID;
-	}
-	
-	
-   public void start() throws IOException {  
-	   try {
-	   	console	= new BufferedReader(new InputStreamReader(System.in));
-		   streamIn	= new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		   streamOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-		   if (thread == null) {  
-		   	  client = new ClientThread(this, socket);
+			if (thread == null) {  
+				client = new ClientThread(this, socket);
 		   	  
-		      connected = true;
-		   }
-	   } catch (IOException ioe) {
-      	Trace.getInstance().exception(this,ioe);
-         throw ioe;
-	   }
-   }
+				connected = true;
+			}
+		} catch (IOException ioe) {
+			Trace.getInstance().exception(this,ioe);
+			throw ioe;
+		}
+	}
 
+	/**
+	 * sends the message to the server 
+	 * @param msg
+	 * 			the String message that is sent to the server
+	 */
 	public void sendMessageToServer(String msg) { 
 		
 		//running all the time
@@ -103,7 +120,6 @@ public class Client {
 	
 	/**
 	 * Handle the information that gets sent through the client from the server and gui.
-	 * 
 	 * @param msg
 	 *            The String message that the client receives from GUI or server
 	 */
@@ -288,12 +304,19 @@ public class Client {
 		}
    }
 
+   /**
+    * When a card is played by a client
+    * @param msg
+    * 			the String message that is sent from the player describing the card to the server
+    */
    public void cardPlayed(String msg){
 	   cardPlayed = true;
 	   sendMessageToServer(msg);
    }
    
-   
+   /**
+    * Cleanly stops a client when it is closed
+    */
    public void stop() {  
       try { 
       	if (thread != null) thread = null;
@@ -313,34 +336,48 @@ public class Client {
       client.close();  
    }
 
+   
+   	/**
+   	 * A getter for the Clients ID
+   	 * @return
+   	 * 		the clients ID
+   	 */
+	public int getID () {
+		return this.ID;
+	}
+   
+	/**
+	 * A test to check if the clients are connected
+	 * @return
+	 * 		a Boolean, true if client is connected
+	 */
 	public Boolean isConnected() {
 		return connected;
 	}
 
+	/**
+	 * All the functions below are getters that are tests to check that actions and functions are called in the Client
+	 * @return
+	 * 		The resulting private variable
+	 */
 	public Object getGameScreenLaunched() {
 		return gameScreenLaunched;
 	}
-
 	public Object getUpdateAllPlayersInfo() {
 		return updateAllPlayersInfo;
 	}
-	
 	public Object getUpdateShowPlayerHand() {
 		return updateShowPlayerHand;
 	}
-	
 	public Object getCardPlayed() {
 		return cardPlayed;
 	}
-	
 	public Object getGameReady(){
 		return gameReady;
 	}
-	
 	public Object getJoinGame(){
 		return joinGame;
 	}
-	
 	public Object getWithdraw(){
 		return withdraw;
 	}

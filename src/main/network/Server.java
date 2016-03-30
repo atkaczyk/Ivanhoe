@@ -1,15 +1,16 @@
 /**
  * 
- * @author Howard Scott Needham
+ * @author original Server by: Howard Scott Needham
+ * 			refactored by: Victoria Gray, Sophia Brandt, Alisa Tkaczyk
  * @Version 1.0
  * 
  * 1: open a server side socket/port and establish a connection 	(Constructor)
- * 2:	start the servers main thread to listen for client request 	(start/run methods)
- * 3:	The run method is a thread that listens for client requests. When a client
- * 	requests a connection it starts a new server thread that is dedicated to the
- * 	client and is then registered in the clients hashmap - addThread () method
- * 4:	The handle method is called from the servers client thread to handle the incoming message
- * 	Notice how we filter the message - this is where you would plug in your rules engine etc .....
+ * 2: start the servers main thread to listen for client request 	(start/run methods)
+ * 3: The run method is a thread that listens for client requests. When a client
+ * 		requests a connection it starts a new server thread that is dedicated to the
+ * 		client and is then registered in the clients hashmap - addThread () method
+ * 4: The handle method is called from the servers client thread to handle the incoming message
+ * 		Notice how we filter the message - this is where you would plug in your rules engine etc .....
  * 
  * 	The server thread listens on the assigned port and when it receives a message it passes it
  * 	back to the server for processing. It is usually best practice to handle this in a seperate
@@ -50,6 +51,11 @@ public class Server implements Runnable {
 	
 	private List<String> rolls = new ArrayList<String>();
 
+	/**
+	 * The Server class constructor
+	 * @param port
+	 * 			the inputed server port that the clients will eventually connect to
+	 **/
 	public Server(int port) {
 		try {
 			/** Set up our message filter object */
@@ -90,7 +96,7 @@ public class Server implements Runnable {
 		}
 	}
 
-	/** The main server thread starts and is listening for clients to connect */
+	/** The main server thread starts and is listening for clients to connect **/
 	public void run() {
 		while (thread != null) {
 			try {
@@ -106,6 +112,8 @@ public class Server implements Runnable {
 	/**
 	 * Client connection is accepted and now we need to handle it and register
 	 * it and with the server | HashTable
+	 * @param socket
+	 * 			the server socket
 	 **/
 	private void addThread(Socket socket) {
 		Trace.getInstance().write(this, "Client accepted", socket);
@@ -217,7 +225,6 @@ public class Server implements Runnable {
 						broadcastMessageToPlayer(result, ID, 0);
 					}
 					if(result.contains("adaptNeedMoreInfo~")){
-						//adaptNeedMoreInfo~playerNum-2@squire,green,blue+3@yellow,green#playerNum-2@squire,green,blue+3@yellow,green
 						//broadcast separate message to each player
 						String[] msgs = result.split("~");
 						//playernum-1,3,4,5-#nameother-1,2,3-
@@ -227,8 +234,7 @@ public class Server implements Runnable {
 						for (int m=0; m<msg.length; m++){
 							String pNums[] = msg[m].split("-"); //get playernum before the -
 							int pNum = Integer.parseInt(pNums[0]);
-							//look in map to get matching pnum with id
-							//send pNums[1] to specific ID
+							//look in map to get matching pnum with id, send pNums[1] to specific ID.
 							for (int id: playerNumbers.keySet()){
 								if (playerNumbers.get(id) == pNum){
 									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
@@ -257,7 +263,6 @@ public class Server implements Runnable {
 						updateAll();
 					}
 					if(result.contains("adaptNeedMoreInfo~")){
-						//adaptNeedMoreInfo~playerNum-2@squire,green,blue+3@yellow,green#playerNum-2@squire,green,blue+3@yellow,green
 						//broadcast separate message to each player
 						String[] msgs = result.split("~");
 						//playernum-1,3,4,5-#nameother-1,2,3-
@@ -267,8 +272,7 @@ public class Server implements Runnable {
 						for (int m=0; m<msg.length; m++){
 							String pNums[] = msg[m].split("-"); //get playernum before the -
 							int pNum = Integer.parseInt(pNums[0]);
-							//look in map to get matching pnum with id
-							//send pNums[1] to specific ID
+							//look in map to get matching pnum with id, send pNums[1] to specific ID.
 							for (int id: playerNumbers.keySet()){
 								if (playerNumbers.get(id) == pNum){
 									broadcastMessageToPlayer("adaptNeedMoreInfo~"+pNums[1], id, 1);
@@ -326,19 +330,13 @@ public class Server implements Runnable {
 					
 					//someone has won the tournament
 					else{
-						//first check to see if they are the winner of the whole game. USING final winner check.
-						//REMAKE
-						
 						String fWinnerR = game.checkForWinner(); //returns name of winning player, and empty if no winner
 						if(!(fWinnerR.equals(""))){
 							// If there is a winner of the game
 							broadcastToAllPlayers("gameWinner~"+fWinnerR);
 						}
 						//continue with the rest of the tournament win check
-						else{
-												
-							//END REMAKE
-												
+						else{												
 							String nameOfWinner = result.split(",")[0];
 							int playerW = 0;
 							for (int num: playerNumbers.values()) {
@@ -347,7 +345,6 @@ public class Server implements Runnable {
 									break;
 								}
 							}
-						
 							//if it was a purple tournament
 							if(game.getTournamentColour() == Config.PURPLE){
 								//send to client and ask to pick colour
@@ -376,7 +373,6 @@ public class Server implements Runnable {
 								}
 								
 								broadcastMessageToPlayer("launchTournamentColour", currID, 0);
-								//handle(ID, "updateGameInformation"); //should send tournament colour pop-up to the correct person
 							}
 						}
 					}
@@ -430,20 +426,11 @@ public class Server implements Runnable {
 		}
 	}
 
-	private void displaySelectInstructions() {
-		String message = String
-				.format("ENTER COMMANDS%s\nType the command \""
-						+ "select <your player name> <target player> <attack> <attack speed> "
-						+ "<defense> <defense speed> \"\n", "");
-//		for (ServerThread to : serverThreads.values()) {
-//			to.send("STARTING ROUND " + game.getCurrentRound() + "\n");
-//
-//			to.send(message);
-//		}
-//		logOutput("STARTING ROUND " + game.getCurrentRound() + "\n" + message);
-	}
-
-	/** Try and shutdown the client cleanly */
+	/** 
+	 * Shutdown the client cleanly by removing a server thread
+	 * @param ID
+	 * 			the id that is connected to the server thread you want to remove
+	 * */
 	public synchronized void remove(int ID) {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(ID)) {
@@ -485,6 +472,11 @@ public class Server implements Runnable {
 		}
 	}
 
+	/**
+	 * the logger message to keep track of things happening for client and server communication
+	 * @param message
+	 * 			the message logged when things are passed from client to server and back
+	 */
 	public synchronized void logOutput(String message) {
 		synchronized (serverThreadsLock) {
 			for (ServerThread to : serverThreads.values()) {
@@ -494,6 +486,15 @@ public class Server implements Runnable {
 		}
 	}
 
+	/**
+	 * send different messages to the sending client ID and the other clients
+	 * @param messageToOthers
+	 * 			the String message that is sent to clients that are not the sending client
+	 * @param messageToSpecified
+	 * 			the String message that is sent the client that belongs to the sending ID
+	 * @param senderID
+	 * 			the int ID of the client who is sending the message
+	 */
 	public synchronized void broadcastMessageToClients(String messageToOthers, String messageToSpecified, int senderID){
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
@@ -523,9 +524,16 @@ public class Server implements Runnable {
 		}
 	}
 	
-	
-	//if direction is 0 then the server received that message from the given client
-	//if direction is 1 then the server is sending that message to the given client
+	/**
+	 * sends a message to a specific player
+	 * @param message
+	 * 			the message that will be sent to the client
+	 * @param senderID
+	 * 			the ID that corresponds with the client that the message will be sent to
+	 * @param direction
+	 * 			for logging. if the direction is "0" then the server received that message from the client
+	 * 			if the direction is "1" then the server is sending that message to the given client
+	 */
 	public synchronized void broadcastMessageToPlayer(String message, int senderID, int direction) {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
@@ -545,13 +553,15 @@ public class Server implements Runnable {
 				}
 				
 				Trace.getInstance().logchat(this, serverThreads.get(senderID), current, message);
-				//current.send(String.format("%5d: %s\n", senderID, message));
 			}
 		}
 	}
 	
-	
-	//broadcast a message to all players
+	/**
+	 * broadcasts a message to all players
+	 * @param message
+	 * 			the String message that will be sent to all the clients
+	 */
 	public synchronized void broadcastToAllPlayers(String message){
 		synchronized (serverThreadsLock) {
 			for (ServerThread to : serverThreads.values()) {
@@ -562,7 +572,13 @@ public class Server implements Runnable {
 		}
 	}
 	
-	
+	/**
+	 * broadcasts a message to all players except the sending ID player
+	 * @param message
+	 * 			The String message that will be sent to other clients
+	 * @param senderID
+	 * 			The ID corresponding with the sending client who will not receive the message
+	 */
 	public synchronized void broadcastToOtherPlayers(String message, int senderID) {
 		synchronized (serverThreadsLock) {
 			if (serverThreads.containsKey(senderID)) {
@@ -583,18 +599,17 @@ public class Server implements Runnable {
 		}
 	}
 
+	/** reset a game during testing*/
 	public void resetGame() {
 		game = new Game();
 	}
 
+	/** a getter to return the game object */
 	public Game getGame() {
 		return game;
 	}
 
-	public List<String> getRolls() {
-		return rolls;
-	}
-
+	/** Log the start of the game in the StartServer */
 	public void displayGameStart(int numOfPlayers) {
 		synchronized (serverThreadsLock) {
 			String message = "STARTING THE GAME! " + game.getNumPlayers()
@@ -607,7 +622,11 @@ public class Server implements Runnable {
 		}
 	}
 	
-	
+	/**
+	 * update all the information on the game screen
+	 * @param ID
+	 * 			the client id that corresponds to the game screen that you would like to update
+	 */
 	public void update(int ID){
 		//update the game info for all players
 		String gameInfo = getAllPlayerInfo();
@@ -619,10 +638,15 @@ public class Server implements Runnable {
 		getTournamentInfo(ID);
 	}
 	
-	// | will be before each player's information
+	
+	/**
+	 * update all the players information on the screen with the new info stored in the game object
+	 * @return result
+	 * 			a String of all the players information
+	 */
 	public String getAllPlayerInfo() {
 		String result = "PLAYERINFORMATION~";
-		
+		// | will be before each player's information
 		for (int i=0; i<game.getNumPlayers(); i++) {
 			result+="@"+getPlayerInfo(game.getPlayer(i));
 			result+="#"+getPlayerDisplayCards(game.getPlayer(i));
@@ -630,10 +654,15 @@ public class Server implements Runnable {
 		return result;
 	}
 		
-	// , will separate information
+	/**
+	 * getting all the players info, to then be updated 
+	 * @param p
+	 * 			the player object that needs to be updated
+	 * @return
+	 */
 	public String getPlayerInfo(Player p){
 		String result = "";
-		
+		// , will separate information
 		result += p.getName() + ",";
 
 		List<Integer> tokens = p.getTokens();
@@ -661,6 +690,11 @@ public class Server implements Runnable {
 		return result;
 	}
 	
+	/**
+	 * getting the players hand info to be updated
+	 * @param ID
+	 * 			the ID that corresponds to the player thats hand is being updated
+	 */
 	public void getPlayerHand(int ID){
 		String handInfo = "";
 		
@@ -673,6 +707,11 @@ public class Server implements Runnable {
 		}
 	}
 	
+	/**
+	 * gathering the string of information for the players specific info to then be updated
+	 * @param ID
+	 * 			the ID that corresponds to the player thats specific info is being updated
+	 */
 	public void playerSpecificInfo(int ID){	
 		for (int id: playerNumbers.keySet()){
 			int playerNumber = playerNumbers.get(id);
@@ -682,6 +721,11 @@ public class Server implements Runnable {
 		}
 	}
 	
+	/**
+	 * gathering the tournament info that needs to be updated
+	 * @param ID
+	 * 			the ID that corresponds to the player that is currently being updated to update all the tournament info for all the players
+	 */
 	public void getTournamentInfo(int ID){
 		String tournamentInfo = "TOURNAMENTINFO~";
 		tournamentInfo += game.getTournamentColour()+","; //tournament colour
@@ -689,48 +733,36 @@ public class Server implements Runnable {
 		broadcastToAllPlayers(tournamentInfo);
 	}
 	
+	/**
+	 * getting the players display cards to be updated
+	 * @param p
+	 * 			the player whos cards is being updated
+	 * @return
+	 * 			the string of the players cards
+	 */
 	public String getPlayerDisplayCards(Player p){
 		String result = "";
 		result += p.getDisplayAsString();
 		return result;
 	}
 	
+	/**
+	 * getting the players hand cards to be updated
+	 * @param p
+	 * 			the player whos hand cards are being updated
+	 * @return
+	 * 			the string of the hand cards
+	 */
 	public String getPlayerHandCards(Player p){
 		String result = "";
 		result += p.getHandAsString();
 		return result;
 	}
 	
+	/** update all the player and game information at once */
 	public void updateAll() {
 		for (int id: playerNumbers.keySet()) {
 			update(id);
-		}
-	}
-	
-	public void actionCards(String msg){
-		System.out.println("MoreInfo Action Cards: "+msg);
-		if (msg.contains("BreakLance")){
-			
-		}else if(msg.contains("Riposte")){
-			
-		}else if(msg.contains("Dodge")){
-			
-		}else if(msg.contains("Retreat")){
-			
-		}else if(msg.contains("KnockDown")){
-			
-		}else if(msg.contains("Outmaneuver")){
-			
-		}else if(msg.contains("Charge")){
-			
-		}else if(msg.contains("Countercharge")){
-			
-		}else if(msg.contains("Disgrace")){
-			
-		}else if(msg.contains("Adapt")){
-			
-		}else if(msg.contains("Outwit")){
-			
 		}
 	}
 }
