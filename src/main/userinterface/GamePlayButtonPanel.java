@@ -11,17 +11,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+/**
+ * Connected to the Card Hand for the main game screen
+ * and the components it is made of.
+ * Holds contents of the button panel and sends messages to the guiController when a button is pressed
+ *  Contains setters for the entire game state.
+ * @author Alisa Tkaczyk
+ **/
 
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
-
+	
 	GUIController gui;
-
 	JButton button;
 	JButton withdrawButton;
 	JButton endTurnButton;
 	JButton drawCardButton;
-
 	JLabel curPlayerName;
+	
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
 
@@ -30,13 +36,11 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		curPlayerName.setFont(new Font("Century", Font.BOLD, 16));
 		add(curPlayerName);
 
-
 		JLabel empty = new JLabel();
 		empty.setSize(10, 10);
-      ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
+		ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
 
-
-		button = new JButton(bImg); //(DiscardPile);
+		button = new JButton("Discard Pile");
 		button.setHorizontalTextPosition(JButton.CENTER); //remove
 		button.setVerticalTextPosition(JButton.CENTER);//remove
 
@@ -71,8 +75,6 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		drawCardButton.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
 		add(drawCardButton);
 		//add(Box.createRigidArea(new Dimension(5,10)));
-
-		this.setBackground(new Color(242, 202, 150));
 		setPreferredSize(new Dimension(200, 200)); 
 	}
 
