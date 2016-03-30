@@ -317,7 +317,7 @@ public class Server implements Runnable {
 				}
 				else if (input.contains("requestToWithdraw")){
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					String result = game.withdrawPlayer(playerNum);
+					String result = game.withdrawPlayer(playerNum, true);
 					
 					if(result.contains("maidenPickTokenToReturn~")){
 						String maidenInfo = result.split("#")[1];
