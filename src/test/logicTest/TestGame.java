@@ -346,7 +346,7 @@ public class TestGame {
 		String expected = PLAYER_TWO_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(0).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(0, true).split("#")[0]);
 	}
 
 	@Test
@@ -358,14 +358,14 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
+		game.withdrawPlayer(0, true);
 
 		game.overrideTourColour(Config.BLUE);
 
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(1).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(1, true).split("#")[0]);
 	}
 
 	@Test
@@ -378,7 +378,7 @@ public class TestGame {
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
 
-		assertEquals("#", game.withdrawPlayer(1));
+		assertEquals("#", game.withdrawPlayer(1, true));
 	}
 
 	@Test
@@ -392,16 +392,16 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
-		game.withdrawPlayer(1);
-		game.withdrawPlayer(4);
+		game.withdrawPlayer(0, true);
+		game.withdrawPlayer(1, true);
+		game.withdrawPlayer(4, true);
 
 		game.overrideTourColour(Config.BLUE);
 
 		String expected = PLAYER_THREE_NAME + "," + game.getTournamentNumber()
 				+ "," + game.getTournamentColour();
 
-		assertEquals(expected, game.withdrawPlayer(3).split("#")[0]);
+		assertEquals(expected, game.withdrawPlayer(3, true).split("#")[0]);
 	}
 
 	@Test
@@ -757,7 +757,7 @@ public class TestGame {
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 
-		assertEquals("#", game.withdrawPlayer(0));
+		assertEquals("#", game.withdrawPlayer(0, true));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(3, game.getDiscardPile().size());
 	}
@@ -990,7 +990,7 @@ public class TestGame {
 
 		game.startGame();
 
-		game.withdrawPlayer(0);
+		game.withdrawPlayer(0, true);
 
 		assertEquals(false, game.getPlayers()[0].getHandCards().isEmpty());
 		assertEquals(false, game.getTokenPool().isEmpty());
@@ -1007,7 +1007,7 @@ public class TestGame {
 
 		// This means that player 0 will win and is supposed to start the next
 		// tournament
-		game.withdrawPlayer(1);
+		game.withdrawPlayer(1, true);
 
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
@@ -1623,7 +1623,7 @@ public class TestGame {
 		game.getPlayer(0).addSpecialCard(SHIELD_CARD);
 		game.getPlayer(0).addSpecialCard(STUNNED_CARD);
 
-		assertEquals("#", game.withdrawPlayer(0));
+		assertEquals("#", game.withdrawPlayer(0, true));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
@@ -1770,8 +1770,8 @@ public class TestGame {
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 
-		game.goToNextPlayer();
-		game.goToNextPlayer();
+		game.goToNextPlayer(false);
+		game.goToNextPlayer(false);
 
 		game.playCard(1, SQUIRE_CARD_3.getName());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
@@ -1787,7 +1787,7 @@ public class TestGame {
 		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
 
 		game.startGame();
-		game.withdrawPlayer(1);
+		game.withdrawPlayer(1, true);
 
 		assertEquals(PLAYER_THREE_NAME, game.getCurrentPlayer().getName());
 	}
@@ -1992,7 +1992,7 @@ public class TestGame {
 		game.getPlayer(1).addToken(Config.YELLOW);
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 
-		String result = game.withdrawPlayer(1);
+		String result = game.withdrawPlayer(1, true);
 		assertEquals(true, result.contains("maidenPickTokenToReturn"));
 	}
 
@@ -2036,13 +2036,13 @@ public class TestGame {
 
 		game.drawCard(0);
 
-		game.goToNextPlayer();
+		game.goToNextPlayer(true);
 		game.drawCard(1);
-		game.withdrawPlayer(1);
+		game.withdrawPlayer(1, true);
 
-		game.goToNextPlayer();
+		game.goToNextPlayer(true);
 		game.drawCard(2);
-		String result = game.withdrawPlayer(2);
+		String result = game.withdrawPlayer(2, true);
 
 		// When other players withdraw, player 0 wins
 		assertEquals(true, result.contains(PLAYER_ONE_NAME));
@@ -2115,12 +2115,12 @@ public class TestGame {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
 		
 		game.startGame();
 		// Player 0 has a score of 3
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
-		game.goToNextPlayer();
+		game.goToNextPlayer(true);
 		// It is now player 1s turn
 		
 		// When I go to the next player, it should not withdraw player 0 because
@@ -2131,15 +2131,14 @@ public class TestGame {
 		// Player 2 has a score of 3
 		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
 
-		game.goToNextPlayer();
+		game.goToNextPlayer(true);
 		// Is it now player 2's turn
 		// Player 1 is withdrawn because they have a score of 0
 		assertEquals(2, game.getCurrentPlayerNumber());
 		assertEquals(true, game.getPlayer(1).isWithdrawn());
 		
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.RED);
-		String result = game.goToNextPlayer();
-		System.out.println(result);
+		String result = game.goToNextPlayer(true);
 		// Automatically withdraws player 2, and player 0 wins
 		
 		assertEquals(true, result.contains(PLAYER_ONE_NAME));
