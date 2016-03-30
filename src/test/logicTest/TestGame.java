@@ -331,7 +331,7 @@ public class TestGame {
 		// and move the cards to the discard pile
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(8, game.getDiscardPileSize());
+		assertEquals(8, game.getDiscardPile().size());
 
 	}
 
@@ -486,7 +486,7 @@ public class TestGame {
 		assertEquals("true", game.playCard(0, DROP_WEAPON_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.GREEN, game.getTournamentColour());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 	}
 
 	@Test
@@ -502,7 +502,7 @@ public class TestGame {
 
 		assertEquals("true", game.playCard(0, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 
 		// It should still contain this card
@@ -540,7 +540,7 @@ public class TestGame {
 
 		assertEquals("true", game.playCard(2, OUTMANEUVER_CARD.getName()));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPile().size());
 
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
@@ -569,7 +569,7 @@ public class TestGame {
 		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 
 		// It should still contain this card
@@ -590,7 +590,7 @@ public class TestGame {
 		String result = game.playCard(0, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
 	}
 
@@ -615,7 +615,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPile().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
 
@@ -648,7 +648,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(5, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
 
@@ -672,7 +672,7 @@ public class TestGame {
 		assertEquals(true, result.contains(result));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 	}
 
 	@Test
@@ -694,7 +694,7 @@ public class TestGame {
 		String result = game.playCard(2, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
@@ -717,7 +717,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
@@ -738,7 +738,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
@@ -759,7 +759,7 @@ public class TestGame {
 
 		assertEquals("#", game.withdrawPlayer(0));
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPile().size());
 	}
 
 	@Test
@@ -835,7 +835,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 
@@ -868,7 +868,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(5, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(4, game.getPlayer(1).getDisplayCards().size());
 
@@ -891,7 +891,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(2).getDisplayCards().size());
 	}
@@ -915,7 +915,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 
@@ -944,7 +944,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 
@@ -972,7 +972,7 @@ public class TestGame {
 
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
-		assertEquals(3, game.getDiscardPileSize());
+		assertEquals(3, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 
@@ -1053,7 +1053,7 @@ public class TestGame {
 		String result = game.playCard(0, RIPOSTE_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
 		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 	}
 
@@ -1076,7 +1076,7 @@ public class TestGame {
 		game.playActionCardWithAdditionalInfo(0, info);
 
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 	}
 
@@ -1096,7 +1096,7 @@ public class TestGame {
 		String result = game.playCard(0, RIPOSTE_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 	}
 
@@ -1111,7 +1111,7 @@ public class TestGame {
 
 		String result = game.playCard(0, UNHORSE_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
 
@@ -1126,7 +1126,7 @@ public class TestGame {
 
 		String result = game.playCard(0, UNHORSE_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(Config.BLUE, game.getTournamentColour());
 	}
 
@@ -1142,7 +1142,7 @@ public class TestGame {
 		String info = "Unhorse@" + Config.YELLOW;
 		game.playActionCardWithAdditionalInfo(0, info);
 
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
 
@@ -1157,7 +1157,7 @@ public class TestGame {
 
 		String result = game.playCard(0, CHANGE_WEAPON_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(Config.RED, game.getTournamentColour());
 	}
 
@@ -1172,7 +1172,7 @@ public class TestGame {
 
 		String result = game.playCard(0, CHANGE_WEAPON_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(Config.PURPLE, game.getTournamentColour());
 	}
 
@@ -1188,7 +1188,7 @@ public class TestGame {
 		String info = "Change Weapon@" + Config.YELLOW;
 		game.playActionCardWithAdditionalInfo(0, info);
 
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(Config.YELLOW, game.getTournamentColour());
 	}
 
@@ -1211,7 +1211,7 @@ public class TestGame {
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(2, game.getPlayer(2).getDisplayCards().size());
@@ -1238,7 +1238,7 @@ public class TestGame {
 
 		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1262,7 +1262,7 @@ public class TestGame {
 
 		String info = "Break Lance@" + PLAYER_THREE_NAME;
 		game.playActionCardWithAdditionalInfo(0, info);
-		assertEquals(4, game.getDiscardPileSize());
+		assertEquals(4, game.getDiscardPile().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
@@ -1292,7 +1292,7 @@ public class TestGame {
 
 		String result = game.playCard(0, DODGE_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1310,7 +1310,7 @@ public class TestGame {
 
 		String result = game.playCard(0, DODGE_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1336,7 +1336,7 @@ public class TestGame {
 				+ PURPLE_CARD_3.getName();
 		game.playActionCardWithAdditionalInfo(0, info);
 
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(1, game.getPlayer(1).getDisplayCards().size());
@@ -1363,7 +1363,7 @@ public class TestGame {
 
 		String result = game.playCard(0, RETREAT_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1382,7 +1382,7 @@ public class TestGame {
 
 		String result = game.playCard(0, RETREAT_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1402,7 +1402,7 @@ public class TestGame {
 
 		String info = "Retreat@" + SQUIRE_CARD_2.getName();
 		game.playActionCardWithAdditionalInfo(0, info);
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(true,
@@ -1432,7 +1432,7 @@ public class TestGame {
 
 		String result = game.playCard(0, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1449,7 +1449,7 @@ public class TestGame {
 
 		String result = game.playCard(0, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1469,7 +1469,7 @@ public class TestGame {
 
 		String info = "Knock Down@" + PLAYER_TWO_NAME;
 		game.playActionCardWithAdditionalInfo(0, info);
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 	}
@@ -1492,7 +1492,7 @@ public class TestGame {
 
 		String result = game.playCard(0, OUTWIT_CARD.getName());
 		assertEquals(true, result.contains("moreInformationNeeded"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1509,7 +1509,7 @@ public class TestGame {
 
 		String result = game.playCard(0, OUTWIT_CARD.getName());
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1528,7 +1528,7 @@ public class TestGame {
 		String info = "Outwit@" + PURPLE_CARD_3.getName() + ","
 				+ PLAYER_TWO_NAME + "," + SHIELD_CARD.getName();
 		game.playActionCardWithAdditionalInfo(0, info);
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(true,
 				game.getPlayer(1).getDisplayCards().contains(PURPLE_CARD_3));
 		assertEquals(false,
@@ -1627,7 +1627,7 @@ public class TestGame {
 		assertEquals(true, game.getPlayer(0).getDisplayCards().isEmpty());
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Shield"));
 		assertEquals(false, game.getPlayer(0).hasSpecialCard("Stunned"));
-		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(5, game.getDiscardPile().size());
 	}	
 	
 	public void tryPlayingAdaptMoreInfoNeeded() {
@@ -1651,7 +1651,7 @@ public class TestGame {
 
 		String result = game.playCard(0, ADAPT_CARD.getName());
 		assertEquals(true, result.contains("adaptNeedMoreInfo"));
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1671,7 +1671,7 @@ public class TestGame {
 		String result = game.playCard(0, ADAPT_CARD.getName());
 
 		assertEquals(true, result.contains("false"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 	}
 
@@ -1697,7 +1697,7 @@ public class TestGame {
 		
 		game.adaptCardsChosen(0, "3-" + PURPLE_CARD_3.getName());
 
-		assertEquals(5, game.getDiscardPileSize());
+		assertEquals(5, game.getDiscardPile().size());
 		
 		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(false, game.getPlayer(0).getDisplayCards().contains(SQUIRE_CARD_3));
@@ -1800,7 +1800,7 @@ public class TestGame {
 		String result = game.playCard(0, DROP_WEAPON_CARD.getName());
 		assertEquals(true, result.contains("Ivanhoe"));
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1820,7 +1820,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.GREEN, game.getTournamentColour());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1840,7 +1840,7 @@ public class TestGame {
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(Config.RED, game.getTournamentColour());
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1858,7 +1858,7 @@ public class TestGame {
 		
 		String result = game.checkForIvanhoeAdditionalInfoCard(0, info);
 		assertEquals(true, result.contains("Ivanhoe"));
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
@@ -1878,7 +1878,7 @@ public class TestGame {
 		String info = "No="+KNOCK_DOWN_CARD.getName()+"=0="+ PLAYER_TWO_NAME;
 		game.processIvanhoeCard(info);
 
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
 		assertEquals(2, game.getPlayer(1).getHandCards().size());
 	}
@@ -1899,7 +1899,7 @@ public class TestGame {
 		
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(1, game.getPlayer(0).getHandCards().size());
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1924,7 +1924,7 @@ public class TestGame {
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
-		assertEquals(0, game.getDiscardPileSize());
+		assertEquals(0, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1949,7 +1949,7 @@ public class TestGame {
 		assertEquals(true, result.contains("adaptNeed"));
 		assertEquals(1, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(1, game.getDiscardPileSize());
+		assertEquals(1, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -1968,7 +1968,7 @@ public class TestGame {
 		assertEquals(true, result.contains("actionCardPlayedMessage"));
 		assertEquals(0, game.getPlayer(1).getHandCards().size());
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
-		assertEquals(2, game.getDiscardPileSize());
+		assertEquals(2, game.getDiscardPile().size());
 	}
 	
 	@Test
@@ -2006,6 +2006,99 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(1).getTokens().contains(Config.RED));
 		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
 		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.YELLOW));
+	}
+	
+	@Test
+	public void fullNumberOfCards() {
+		assertEquals(110, game.getDrawPile().getNumCards());
+	}
+	
+	@Test
+	public void playerStartsOthersDrawWithdraw() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+		game.startGame();
+		
+		game.setTournamentColour(Config.RED);
+		
+		game.drawCard(0);
+		
+		game.goToNextPlayer();
+		game.drawCard(1);
+		game.withdrawPlayer(1);
+		
+		game.goToNextPlayer();
+		game.drawCard(2);
+		String result = game.withdrawPlayer(2);
+		
+		// When other players withdraw, player 0 wins
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+		assertEquals(10, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void onlyOneMaidenAllowed() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+		game.startGame();
+		
+		game.setTournamentColour(Config.RED);
+		
+		game.playCard(0, "Maiden 6");
+		game.playCard(0, "Maiden 6");
+		
+		// You are only allowed to add one maiden to your display
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+	}
+	
+	@Test
+	public void comingToTheEndOfTheDeck() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.startGame();
+		// 8 cards to each of the 5 players
+		// Removes 40 cards from the deck, there are 70 left
+		
+		assertEquals(70, game.getDrawPile().getNumCards());
+		
+		ArrayDeque<Card> handCopy = new ArrayDeque<Card>();
+		
+		for (Card card: game.getPlayer(0).getHandCards()) {
+			handCopy.add(card);
+		}
+		
+		for (Card c: handCopy) {
+			game.moveCardFromHandToDiscardPile(0, c.getName());
+		}
+		
+		// Now the discard pile has the 8 cards from player 0's hand
+		assertEquals(8, game.getDiscardPile().size());
+		
+		assertEquals(70, game.getDrawPile().getNumCards());
+		
+		// Put the remaining 70 cards into player 0's hand
+		for (int i = 0; i < 70; i ++) {
+			game.drawCard(0);
+		}
+		
+		// The draw pile should NOT be empty
+		// It should refill with the 8 cards from the discard pile
+		assertEquals(8, game.getDrawPile().getNumCards());
+		assertEquals(0, game.getDiscardPile().size());
 	}
 
 	@After

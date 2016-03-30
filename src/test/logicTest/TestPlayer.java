@@ -32,14 +32,7 @@ public class TestPlayer {
 	
 	@Before
 	public void setUp() {
-		player = new Player();
-	}
-	
-	@Test
-	public void playerNameSet() {
-		player.setName(NAME);
-		
-		assertEquals(NAME, player.getName());
+		player = new Player(NAME);
 	}
 	
 	@Test
