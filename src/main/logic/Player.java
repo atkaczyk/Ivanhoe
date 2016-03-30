@@ -11,6 +11,12 @@ import java.util.Set;
 
 import utils.Config;
 
+/**
+ * Represents a player in the Ivanhoe game.
+ * 
+ * @author Sophia
+ * 
+ */
 public class Player {
 	private Boolean withdrawn = false;
 	private String name = "";
@@ -20,12 +26,12 @@ public class Player {
 	private List<Card> specialCards = new ArrayList<Card>();
 	private int cardsAddedToDisplayThisTurn = 0;
 
+	public Player(String name) {
+		this.name = name;
+	}
+	
 	public void setWithdrawn(Boolean status) {
 		withdrawn = status;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getName() {
@@ -44,7 +50,7 @@ public class Player {
 		if (hasSpecialCard("Stunned") && cardsAddedToDisplayThisTurn > 0) {
 			return false;
 		}
-		
+
 		// If card is a supporter card, increase by number
 		if (card instanceof SupporterCard) {
 			// If the card is a maiden, we must check that there isn't already a
@@ -148,11 +154,11 @@ public class Player {
 		while (!display.isEmpty()) {
 			result.add(display.pop());
 		}
-		for (Card c: specialCards) {
+		for (Card c : specialCards) {
 			result.add(c);
 		}
 		specialCards.clear();
-		
+
 		return result;
 	}
 
@@ -387,22 +393,22 @@ public class Player {
 
 	public Card removeFaceupCard(String cardName) {
 		Card result = null;
-		for (Card c: display) {
+		for (Card c : display) {
 			if (c.getName().equals(cardName)) {
 				result = c;
 				display.remove(c);
 				break;
 			}
 		}
-		
-		for (Card c: specialCards) {
+
+		for (Card c : specialCards) {
 			if (c.getName().equals(cardName)) {
 				result = c;
 				specialCards.remove(c);
 				break;
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -411,53 +417,51 @@ public class Player {
 			addSpecialCard(card);
 			return;
 		}
-		
+
 		display.addLast(card);
 	}
 
 	public Card removeCardFromHand(String name) {
 		Card retVal = getCardFromHand(name);
-		
+
 		hand.remove(retVal);
 		return retVal;
 	}
-	
+
 	public boolean allowedToPlayAdapt() {
-		// If they have 
+		// If they have
 		List<Integer> list = new ArrayList<Integer>();
-		
-		for (Card c: display) {
+
+		for (Card c : display) {
 			if (!list.contains(((SimpleCard) c).getNumber())) {
 				list.add(((SimpleCard) c).getNumber());
-			}
-			else {
+			} else {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
-	public String getValuesAndCardsAsStringNoDuplicates() {		
+	public String getValuesAndCardsAsStringNoDuplicates() {
 		Map<Integer, Set<String>> displayCards = new HashMap<Integer, Set<String>>();
-		
-		for (Card c: display) {
+
+		for (Card c : display) {
 			int cardValue = ((SimpleCard) c).getNumber();
 			if (displayCards.keySet().contains(cardValue)) {
 				displayCards.get(cardValue).add(c.getName());
-			}
-			else {
+			} else {
 				Set<String> cardNames = new HashSet<String>();
 				cardNames.add(c.getName());
 				displayCards.put(cardValue, cardNames);
 			}
 		}
-		
+
 		String result = "";
-		
-		for (int num: displayCards.keySet()) {
+
+		for (int num : displayCards.keySet()) {
 			result += num + "@";
-			for (String name: displayCards.get(num)) {
+			for (String name : displayCards.get(num)) {
 				result += name + ",";
 			}
 			if (result.endsWith(",")) {
@@ -465,52 +469,51 @@ public class Player {
 			}
 			result += "_";
 		}
-		
+
 		if (result.endsWith("+")) {
 			result = result.substring(0, result.length() - 1);
 		}
-		
+
 		return result;
 	}
 
 	public List<Card> keepOnlyCard(int value, String cardName) {
 		List<Card> result = new ArrayList<Card>();
-		
+
 		// First remove any cards where the name does not match the one to keep
-		for (Card c: display) {
+		for (Card c : display) {
 			if (((SimpleCard) c).getNumber() == value) {
 				if (!c.getName().equals(cardName)) {
 					result.add(c);
 				}
 			}
 		}
-		
-		for (Card c: result) {
+
+		for (Card c : result) {
 			removeFromDisplay(c.getName());
 		}
-		
+
 		return result;
 	}
 
 	public List<Card> removeDuplicatesInDisplay() {
 		// Result is the cards we will be removing from the display
 		List<Card> result = new ArrayList<Card>();
-		
+
 		Set<String> noDuplicates = new HashSet<String>();
-		
-		for (Card c: display) {
+
+		for (Card c : display) {
 			if (noDuplicates.contains(c.getName())) {
 				result.add(c);
-			}
-			else {
+			} else {
 				noDuplicates.add(c.getName());
 			}
 		}
-		
-		for (Card c: result) {
+
+		for (Card c : result) {
 			display.remove(c);
 		}
-		
+
 		return result;
 	}
 
@@ -519,7 +522,7 @@ public class Player {
 	}
 
 	public Boolean hasIvanhoeCard() {
-		for (Card c: hand) {
+		for (Card c : hand) {
 			if (c.getName().equals("Ivanhoe")) {
 				return true;
 			}
@@ -529,7 +532,7 @@ public class Player {
 
 	public String getTokensAsString() {
 		String result = "";
-		for (int token: tokens) {
+		for (int token : tokens) {
 			result += token;
 		}
 		return result;
