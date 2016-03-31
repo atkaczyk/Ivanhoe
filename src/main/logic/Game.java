@@ -140,7 +140,6 @@ public class Game {
 
 			if (maxScore != currentPlayer.getDisplayTotal(tournamentColour)) {
 				returnValue = withdrawPlayer(playerNum, false);
-				System.out.println(returnValue);
 			}
 		}
 
