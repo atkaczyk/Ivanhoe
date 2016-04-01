@@ -2143,6 +2143,22 @@ public class TestGame {
 		
 		assertEquals(true, result.contains(PLAYER_ONE_NAME));
 	}
+	
+	@Test
+	public void winningATournament() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+		game.withdrawPlayer(0, false);
+		String result = game.withdrawPlayer(1, false);
+		
+		// Player 3 wins
+		assertEquals(true, result.contains(PLAYER_THREE_NAME));
+	}
 
 	@After
 	public void tearDown() {
