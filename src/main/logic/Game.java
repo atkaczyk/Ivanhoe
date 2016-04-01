@@ -75,7 +75,7 @@ public class Game {
 
 	public void startGame() {
 		// TODO: DELETE THIS
-		
+
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -94,7 +94,7 @@ public class Game {
 		// Figure out which player is first
 
 		do {
-			goToNextPlayer();
+			goToNextPlayer(false);
 		} while (!playerCanStart(currentPlayer));
 
 		startTournament();
@@ -117,10 +117,33 @@ public class Game {
 	}
 
 	// Change the current player to be the next player
-	public void goToNextPlayer() {
+	public String goToNextPlayer(boolean announcingEndOfTurn) {
 		// If the current player is the last one in the deque set to first
 		// player
 		// Make sure that the player is not withdrawn
+		String returnValue = "";
+
+		// If the current player's display is not the highest, they must
+		// withdraw
+		if (announcingEndOfTurn) {
+			int maxScore = -1;
+			int playerNum = -1;
+			for (int i = 0; i < numOfPlayers; i++) {
+				Player p = players[i];
+				if (p.getDisplayTotal(tournamentColour) > maxScore) {
+					maxScore = p.getDisplayTotal(tournamentColour);
+				}
+				if (p.getName().equals(currentPlayer.getName())) {
+					playerNum = i;
+				}
+			}
+
+			if (maxScore != currentPlayer.getDisplayTotal(tournamentColour)) {
+				returnValue = withdrawPlayer(playerNum, false);
+				System.out.println(returnValue);
+			}
+		}
+
 		clearAllCardCounters();
 
 		do {
@@ -138,6 +161,7 @@ public class Game {
 				}
 			}
 		} while (currentPlayer.isWithdrawn());
+		return returnValue;
 	}
 
 	public int getTournamentColour() {
@@ -708,15 +732,17 @@ public class Game {
 	 *            the player we want to withdraw
 	 * @return the <name of winner>,<tournament number>,<tournament colour>
 	 */
-	public String withdrawPlayer(int playerNum) {
+	public String withdrawPlayer(int playerNum, Boolean mustGoToNextPlayer) {
 		// Withdraw the given player
 		List<Card> cardsToDiscard = getPlayer(playerNum).withdraw();
 
 		String maidenInfo = "";
-		
+
 		for (Card c : cardsToDiscard) {
-			if (c.getName().contains("Maiden") && players[playerNum].getTokens().size() > 0) {
-				maidenInfo = "maidenPickTokenToReturn~"+players[playerNum].getTokensAsString();
+			if (c.getName().contains("Maiden")
+					&& players[playerNum].getTokens().size() > 0) {
+				maidenInfo = "maidenPickTokenToReturn~"
+						+ players[playerNum].getTokensAsString();
 			}
 			discardPile.add(c);
 		}
@@ -739,15 +765,17 @@ public class Game {
 
 			currentPlayer = winningPlayerObject;
 			while (!playerCanStart(currentPlayer)) {
-				goToNextPlayer();
+				goToNextPlayer(false);
 			}
 
 			return winningPlayer + "," + (tournamentNumber - 1) + ","
 					+ tournamentColour + "#" + maidenInfo;
 		}
 
-		goToNextPlayer();
-		
+		if (mustGoToNextPlayer) {
+			goToNextPlayer(false);
+		}
+
 		if (!maidenInfo.equals("")) {
 			return "#" + maidenInfo;
 		}
@@ -935,8 +963,7 @@ public class Game {
 						.getName();
 				moveCardFromHandToDiscardPile(getPlayerWithIvanhoe(), "Ivanhoe");
 				moveCardFromHandToDiscardPile(playerNum, actionCardName);
-				return "actionCardPlayedMessage~Ivanhoe,"
-						+ ivanhoePlayerName;
+				return "actionCardPlayedMessage~Ivanhoe," + ivanhoePlayerName;
 			}
 		} else {
 			// This means the player was trying to play an action card with
@@ -945,7 +972,8 @@ public class Game {
 			if (ivanhoeChoice.equals("No")) {
 				// Player decided not to cancel the action card, so play the
 				// card as normal
-				return playActionCardWithAdditionalInfo(playerNum, actionCardName + "@" + extraInfo);
+				return playActionCardWithAdditionalInfo(playerNum,
+						actionCardName + "@" + extraInfo);
 			} else {
 				// Player decided to cancel the action card, so discard both
 				// cards instead
@@ -977,7 +1005,7 @@ public class Game {
 
 	public void processReturnToken(int playerNum, int tokenColour) {
 		int tokenToAddToPool = players[playerNum].removeToken(tokenColour);
-		
+
 		if (tokenToAddToPool != -1) {
 			tokenPool.add(tokenToAddToPool);
 		}
