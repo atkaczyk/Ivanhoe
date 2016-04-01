@@ -2035,18 +2035,18 @@ public class TestGame {
 		game.setTournamentColour(Config.RED);
 
 		game.drawCard(0);
-
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		
 		game.goToNextPlayer(true);
 		game.drawCard(1);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
 		game.withdrawPlayer(1, true);
 
-		game.goToNextPlayer(true);
 		game.drawCard(2);
 		String result = game.withdrawPlayer(2, true);
 
 		// When other players withdraw, player 0 wins
 		assertEquals(true, result.contains(PLAYER_ONE_NAME));
-		assertEquals(10, game.getPlayer(0).getHandCards().size());
 	}
 
 	@Test

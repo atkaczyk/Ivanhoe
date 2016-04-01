@@ -25,6 +25,7 @@ public class Player {
 	private List<Integer> tokens = new ArrayList<Integer>();
 	private List<Card> specialCards = new ArrayList<Card>();
 	private int cardsAddedToDisplayThisTurn = 0;
+	private int actionCardsPlayedThisTurn = 0;
 
 	public Player(String name) {
 		this.name = name;
@@ -36,6 +37,14 @@ public class Player {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getCardsPlayedThisTurn() {
+		return cardsAddedToDisplayThisTurn + actionCardsPlayedThisTurn;
+	}
+	
+	public void addActionCardPlayed() {
+		actionCardsPlayedThisTurn++;
 	}
 
 	public void addCardToHand(Card card) {
@@ -517,8 +526,9 @@ public class Player {
 		return result;
 	}
 
-	public void clearCardDisplayCounter() {
+	public void clearCardCounter() {
 		cardsAddedToDisplayThisTurn = 0;
+		actionCardsPlayedThisTurn = 0;
 	}
 
 	public Boolean hasIvanhoeCard() {

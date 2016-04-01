@@ -102,7 +102,7 @@ public class Game {
 
 	private void clearAllCardCounters() {
 		for (Player p : players) {
-			p.clearCardDisplayCounter();
+			p.clearCardCounter();
 		}
 	}
 
@@ -122,9 +122,7 @@ public class Game {
 		// player
 		// Make sure that the player is not withdrawn
 		String returnValue = "";
-
-		// If the current player's display is not the highest, they must
-		// withdraw
+		
 		if (announcingEndOfTurn) {
 			int maxScore = -1;
 			int playerNum = -1;
@@ -138,7 +136,15 @@ public class Game {
 				}
 			}
 
+			// If the current player's display is not the highest, they must
+			// withdraw
 			if (maxScore != currentPlayer.getDisplayTotal(tournamentColour)) {
+				returnValue = withdrawPlayer(playerNum, false);
+			}
+			
+			// If the current player has not yet played a card in their turn, they
+			// must withdraw
+			if (currentPlayer.getCardsPlayedThisTurn() == 0) {
 				returnValue = withdrawPlayer(playerNum, false);
 			}
 		}
@@ -390,7 +396,7 @@ public class Game {
 					|| tournamentColour == Config.YELLOW) {
 				tournamentColour = Config.GREEN;
 				moveCardFromHandToDiscardPile(playerNum, name);
-
+				players[playerNum].addActionCardPlayed();
 				return "true";
 			} else {
 				return "false:Tournament colour must be red, blue or yellow to play a drop weapon card!";
@@ -404,7 +410,7 @@ public class Game {
 			if (!moreThanOneCardInOtherDisplays(playerNum)) {
 				return "false:You cannot play an outmaneuver card when there are no cards you can remove from other player displays!";
 			}
-
+			players[playerNum].addActionCardPlayed();
 			moveCardFromHandToDiscardPile(playerNum, name);
 			for (int i = 0; i < numOfPlayers; i++) {
 				if (playerNum != i) {
@@ -426,7 +432,7 @@ public class Game {
 			if (!moreThanOneCardInOtherDisplays(playerNum)) {
 				return "false:You cannot play a charge card when there are no cards you can remove from other player displays!";
 			}
-
+			players[playerNum].addActionCardPlayed();
 			moveCardFromHandToDiscardPile(playerNum, name);
 			for (int i = 0; i < numOfPlayers; i++) {
 				if (playerNum != i) {
@@ -451,7 +457,7 @@ public class Game {
 			if (!moreThanOneCardInOtherDisplays(playerNum)) {
 				return "false:You cannot play a counter charge card when there are no cards you can remove from other player displays!";
 			}
-
+			players[playerNum].addActionCardPlayed();
 			moveCardFromHandToDiscardPile(playerNum, name);
 			for (int i = 0; i < numOfPlayers; i++) {
 				if (playerNum != i) {
@@ -485,7 +491,7 @@ public class Game {
 			if (!playerFound) {
 				return "false:You cannot play a disgrace card when there are no cards you can remove from other player displays!";
 			}
-
+			players[playerNum].addActionCardPlayed();
 			moveCardFromHandToDiscardPile(playerNum, name);
 			for (int i = 0; i < numOfPlayers; i++) {
 				if (playerNum != i) {
@@ -832,6 +838,8 @@ public class Game {
 		String cardName = info.split("@")[0];
 		String extraInfo = info.split("@")[1];
 
+		players[playerNum].addActionCardPlayed();
+		
 		Boolean allowedToDiscard = true;
 		if (info.contains("Riposte")) {
 			// Take the last card played on the given opponent's display and add
