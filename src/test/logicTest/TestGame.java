@@ -8,6 +8,7 @@ import logic.ActionCard;
 import logic.Card;
 import logic.ColourCard;
 import logic.Game;
+import logic.Player;
 import logic.SupporterCard;
 
 import org.junit.After;
@@ -2320,7 +2321,7 @@ public class TestGame {
 		// play
 		assertEquals(true, game.getPlayer(1).isWithdrawn());
 		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		
+
 		// Player 3 plays a card and remains in tournament
 		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
 		game.goToNextPlayer(true);
@@ -2331,7 +2332,7 @@ public class TestGame {
 		game.goToNextPlayer(true);
 		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
-	
+
 	@Test
 	public void onePlayerStartsSomePlaySeveralCards() {
 		// One player draws/starts, others draw but some participate by
@@ -2359,7 +2360,7 @@ public class TestGame {
 		// play
 		assertEquals(true, game.getPlayer(1).isWithdrawn());
 		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		
+
 		// Player 3 plays a card and remains in tournament
 		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
 		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -2374,7 +2375,7 @@ public class TestGame {
 		game.goToNextPlayer(true);
 		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
-	
+
 	@Test
 	public void onePlayerStartsAllPlayOneCard() {
 		// One player draws/starts, others draw but some participate by
@@ -2404,7 +2405,7 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(3).isWithdrawn());
 		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
-	
+
 	@Test
 	public void onePlayerStartsAllPlaySeveralCards() {
 		// One player draws/starts, others draw but some participate by
@@ -2435,6 +2436,35 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(2).isWithdrawn());
 		assertEquals(false, game.getPlayer(3).isWithdrawn());
 		assertEquals(false, game.getPlayer(4).isWithdrawn());
+	}
+
+	@Test
+	public void playingAnActionCardNoAutomaticWithdraw() {
+		// One player draws/starts, others draw but some participate by
+		// playing several cards card
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.startGame();
+		// Remove any ivanhoe cards from the players hands
+		for (Player p: game.getPlayers()) {
+			p.removeCardFromHand("Ivanhoe");
+		}
+		game.overrideTourColour(Config.RED);
+
+		// Player 0 starts
+		game.drawCard(0);
+		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
+		game.playCard(0, DROP_WEAPON_CARD.getName());
+		game.goToNextPlayer(true);
+		
+		// Player 0 should not be withdrawn because they played an action card
+		// during their turn
+		assertEquals(false, game.getPlayer(0).isWithdrawn());
 	}
 
 	@After
