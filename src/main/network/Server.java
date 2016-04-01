@@ -310,6 +310,7 @@ public class Server implements Runnable {
 					update(ID); //call update function
 				}
 				else if (input.contains("requestToEndTurn")){
+					//game.goToNextPlayer();
 					String endTurn = game.goToNextPlayer(true);
 					//call function with result(endTurn, ID);
 					determineIfWinner(endTurn, ID);
