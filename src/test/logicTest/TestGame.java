@@ -2451,7 +2451,7 @@ public class TestGame {
 
 		game.startGame();
 		// Remove any ivanhoe cards from the players hands
-		for (Player p: game.getPlayers()) {
+		for (Player p : game.getPlayers()) {
 			p.removeCardFromHand("Ivanhoe");
 		}
 		game.overrideTourColour(Config.RED);
@@ -2461,10 +2461,73 @@ public class TestGame {
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
 		game.playCard(0, DROP_WEAPON_CARD.getName());
 		game.goToNextPlayer(true);
-		
+
 		// Player 0 should not be withdrawn because they played an action card
 		// during their turn
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
+	}
+
+	@Test
+	public void tryPlayingChargeCardOnlyGreenOnes() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.startGame();
+		// Remove any ivanhoe cards from the players hands
+		for (Player p : game.getPlayers()) {
+			p.removeCardFromHand("Ivanhoe");
+		}
+		game.overrideTourColour(Config.GREEN);
+
+		game.getPlayer(0).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(1).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(1).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(2).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(2).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(2).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(3).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(3).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(3).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(3).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(4).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(4).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+		game.getPlayer(4).addCardToDisplay(GREEN_CARD_1, Config.GREEN);
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		String result = game.playCard(1, CHARGE_CARD.getName());
+		assertEquals(true, result.contains("actionCardPlayedMessage"));
+		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(3).getDisplayCards().size());
+		assertEquals(1, game.getPlayer(4).getDisplayCards().size());
+		assertEquals(8, game.getDiscardPile().size());
+
+		// It's important to note, that the action cards that we did for
+		// iteration 1 (including this card) do not affect the player that has
+		// played the action card. Because we understood the rules in this way
+		// and were told we did not need to change this.
+	}
+
+	@Test
+	public void playerHasWonGame() {
+		game.setNumPlayers(5);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+
+		game.addTokenToPlayer(4, Config.RED);
+		game.addTokenToPlayer(4, Config.YELLOW);
+		game.addTokenToPlayer(4, Config.GREEN);
+		game.addTokenToPlayer(4, Config.BLUE);
+		String result = game.checkForWinner();
+		
+		assertEquals(true, result.contains(PLAYER_FIVE_NAME));
 	}
 
 	@After
