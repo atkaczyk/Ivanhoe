@@ -2187,6 +2187,39 @@ public class TestGame {
 		assertEquals(2, game.getCurrentPlayerNumber());
 		assertEquals(true, game.getPlayer(1).isWithdrawn());
 	}
+	
+	@Test
+	public void automaticallyWithdrawingPlayerAnnouncesWinner() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		
+		game.startGame();
+		// Player 0 has a score of 3
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
+		game.goToNextPlayer(true);
+		// It is now player 1s turn
+		
+		// When I go to the next player, it should not withdraw player 0 because
+		// they have the highest display
+		assertEquals(false, game.getPlayer(0).isWithdrawn());
+		assertEquals(1, game.getCurrentPlayerNumber());
+		
+		// Player 1 has not played a card yet this turn
+		
+		game.goToNextPlayer(true);
+		// Is it now player 2's turn
+		// Player 1 is withdrawn because they haven't played a card yet
+		assertEquals(2, game.getCurrentPlayerNumber());
+		assertEquals(true, game.getPlayer(1).isWithdrawn());
+		
+		String result = game.goToNextPlayer(true);
+		
+		// Player 2 gets automatically withdrawn because they didn't play a card
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+	}
 
 	@After
 	public void tearDown() {

@@ -118,8 +118,6 @@ public class Game {
 
 	// Change the current player to be the next player
 	public String goToNextPlayer(boolean announcingEndOfTurn) {
-		// If the current player is the last one in the deque set to first
-		// player
 		// Make sure that the player is not withdrawn
 		String returnValue = "";
 		
@@ -144,7 +142,7 @@ public class Game {
 			
 			// If the current player has not yet played a card in their turn, they
 			// must withdraw
-			if (currentPlayer.getCardsPlayedThisTurn() == 0) {
+			else if (currentPlayer.getCardsPlayedThisTurn() == 0) {
 				returnValue = withdrawPlayer(playerNum, false);
 			}
 		}
