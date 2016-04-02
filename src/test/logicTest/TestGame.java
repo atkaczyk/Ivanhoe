@@ -491,7 +491,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playOutmaneuverTwoPlayersTwoCardsInDisplay() {
+	public void playOutmaneuverTwoPlayersTwoCardsInDisplayNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -515,7 +515,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playOutmaneuverFivePlayersManyCardsInDisplay() {
+	public void playOutmaneuverFivePlayersManyCardsInDisplayNoShield() {
 		game.setNumPlayers(5);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
@@ -596,7 +596,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playChargeCardTwoPlayersTwoOfLowestValueToRemove() {
+	public void playChargeCardTwoPlayersTwoOfLowestValueToRemoveNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -818,7 +818,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playCounterChargeCardTwoPlayersTwoOfHighestValueToRemove() {
+	public void playCounterChargeCardTwoPlayersTwoOfHighestValueToRemoveNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -898,7 +898,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playDisgraceCard() {
+	public void playDisgraceCardNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -955,7 +955,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playDisgraceCardAllSupporters() {
+	public void playDisgraceCardAllSupportersNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1059,7 +1059,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playRiposteCardTwoPlayers() {
+	public void playRiposteCardTwoPlayersNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1163,6 +1163,21 @@ public class TestGame {
 	}
 
 	@Test
+	public void playChangeWeapon() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.overrideTourColour(Config.PURPLE);
+
+		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
+
+		String info = CHANGE_WEAPON_CARD.getName() + "@" + Config.YELLOW;
+		game.playActionCardWithAdditionalInfo(0, info);
+		assertEquals(1, game.getDiscardPile().size());
+		assertEquals(Config.YELLOW, game.getTournamentColour());
+	}
+
+	@Test
 	public void notAllowedToPlayChangeWeapon() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
@@ -1244,7 +1259,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playBreakLance() {
+	public void playBreakLanceNoShield() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1316,7 +1331,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playDodge() {
+	public void playDodgeNoShield() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1388,7 +1403,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playRetreatCard() {
+	public void playRetreatCardNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1455,7 +1470,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void playKnockDown() {
+	public void playKnockDownNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -1606,6 +1621,10 @@ public class TestGame {
 		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
 		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("false"));
+
+		game.getPlayer(1).addCardToHand(ADAPT_CARD);
+		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
+		assertEquals(true, result.contains("false"));
 	}
 
 	@Test
@@ -1677,7 +1696,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void adaptChoicesGiven() {
+	public void playAdaptNoShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
@@ -2526,7 +2545,7 @@ public class TestGame {
 		game.addTokenToPlayer(4, Config.GREEN);
 		game.addTokenToPlayer(4, Config.BLUE);
 		String result = game.checkForWinner();
-		
+
 		assertEquals(true, result.contains(PLAYER_FIVE_NAME));
 	}
 
