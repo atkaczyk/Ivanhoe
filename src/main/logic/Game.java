@@ -74,8 +74,6 @@ public class Game {
 	}
 
 	public void startGame() {
-		// TODO: DELETE THIS
-
 		// Distribute 8 cards to each player
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = 1; j <= 8; j++) {
@@ -106,7 +104,7 @@ public class Game {
 		}
 	}
 
-	public boolean playerCanStart(Player p) {
+	private boolean playerCanStart(Player p) {
 		for (Card c : p.getHandCards()) {
 			if (c instanceof SimpleCard) {
 				return true;
@@ -221,7 +219,7 @@ public class Game {
 		return players[i];
 	}
 
-	public void startTournament() {
+	private void startTournament() {
 		// Move all cards from player display to to the discard pile
 		for (int i = 0; i < numOfPlayers; i++) {
 			ArrayDeque<Card> display = players[i].getDisplayCards();
@@ -332,7 +330,7 @@ public class Game {
 					return "false:You cannot play a retreat card when you don't have more than one card in your display!";
 				}
 			} else if (name.equals("Knock Down")) {
-				if (playersWithHandCards(playerNum)) {
+				if (checkForPlayersWithHandCards(playerNum)) {
 					return "moreInformationNeeded~Knock Down@"
 							+ playersWithHandToChoose(playerNum);
 				} else {
@@ -622,7 +620,7 @@ public class Game {
 		return result;
 	}
 
-	private boolean playersWithHandCards(int playerNum) {
+	private boolean checkForPlayersWithHandCards(int playerNum) {
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (!players[i].hasSpecialCard("Shield") && playerNum != i
 					&& !players[i].isWithdrawn()) {
