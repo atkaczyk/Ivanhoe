@@ -9,7 +9,7 @@ import utils.Config;
 
 public class DrawPile {
 
-	ArrayDeque<Card> cards = new ArrayDeque<Card>();
+	private ArrayDeque<Card> cards = new ArrayDeque<Card>();
 
 	public DrawPile() {
 		initSupporterCards();
