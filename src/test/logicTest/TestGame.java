@@ -326,14 +326,15 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 
-		game.startTournament();
+		game.withdrawPlayer(0, false);
+		// Automatically starts the next tournament
 
 		// When a tournament is started it should clear all the player displays
 		// and move the cards to the discard pile
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
 		assertEquals(0, game.getPlayer(1).getDisplayCards().size());
 		assertEquals(8, game.getDiscardPile().size());
-
+		assertEquals(2, game.getTournamentNumber());
 	}
 
 	@Test
@@ -3007,7 +3008,7 @@ public class TestGame {
 		game.playCard(1, SQUIRE_CARD_2.getName());
 		game.playCard(1, MAIDEN_CARD.getName());
 		game.goToNextPlayer(true);
-		// Player 1 started the tournament with one supporter
+		// Player 1 started the tournament with multiple supporters
 		
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
