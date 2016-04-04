@@ -25,6 +25,7 @@ import utils.Config;
 
 public class PlayerCard extends JPanel{
 	public JLayeredPane display;
+	JLabel avatar;
 	PlayerCardStats playerStats;
 	private int numCardsInDisplay;
 
@@ -48,8 +49,7 @@ public class PlayerCard extends JPanel{
 		playerStats.setPreferredSize(new Dimension(130, 70));
 
 		ImageIcon a = new ImageIcon(this.getClass().getResource("Images/Avatar.jpg"));
-		JLabel avatar = new JLabel();
-		avatar.setIcon(a);
+		avatar = new JLabel(a);
 		avatar.setSize(a.getIconWidth(),a.getIconHeight() + 5);
 		avatar.setLocation(playerStats.getWidth()+30, 15);
 		avatar.setBackground(new Color(137, 78, 72));
@@ -134,5 +134,9 @@ public class PlayerCard extends JPanel{
 		numCardsInDisplay ++;
 		//this.add(lp);
 		this.repaint();
+	}
+
+	public void setAvatar(String aviName) {
+		avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/"+aviName+".jpg")));
 	}
 }

@@ -49,6 +49,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 	JButton tokenRequest;
 
 	int tokenNum;
+
 	GUIController guiController;
 	JLabel Step;
 	JLabel avatar;
@@ -195,21 +196,25 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 				"Princess");
 		if(s.equals("Princess Alisa")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
+			avatar.setName("PrincessAvatar1");
 		} else if(s.equals("Princess Victoria")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar2.jpg"));
+			avatar.setName("PrincessAvatar2");
 		} else if(s.equals("Princess Sophia")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar3.jpg"));
+			avatar.setName("PrincessAvatar3");
 		} else if(s.equals("Cinderella")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar4.png"));
+			avatar.setName("PrincessAvatar4");
 		} else if(s.equals("Snow White")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar5.png"));
+			avatar.setName("PrincessAvatar5");
 		} 
 		
 		Image img = i.getImage() ;  
 		Image newimg = img.getScaledInstance(150, 180,  java.awt.Image.SCALE_SMOOTH ) ; 
 		i = new ImageIcon(newimg);
 		avatar.setIcon(i);
-
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -242,7 +247,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 			finalToken.setVisible(false);
 			gameReady.setVisible(false);
 
-			guiController.sendJoinGame(playerName.getText(), tokenNum);	
+			guiController.sendJoinGame(playerName.getText(), tokenNum, avatar.getName());	
 
 		}
 	}

@@ -121,6 +121,26 @@ public class GamePlayWindow extends JFrame{
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 	}
 
+	public void setAvatars(String avatars) {
+		String[] avi = avatars.split(",");
+		for(int i = 0; i < avi.length; i++){
+			if(i == 0) {
+				playerCard0.setAvatar(avi[0]);
+			}else if( i == 1) {
+				playerCard1.setAvatar(avi[0]);
+			}
+			else if (i ==2){
+				playerCard2.setAvatar(avi[0]);
+			}
+			else if (i ==3){
+				playerCard3.setAvatar(avi[0]);
+			}
+			else if (i ==4){
+				playerCard4.setAvatar(avi[0]);
+			}
+		}
+		
+	}
 	//can now take in a string and parse to all players.
 	public void setPlayerCardStats(int i, String playerInfo) { //String playerName, String numToken, String score, String turn) {
 		if(i == 0) {
@@ -232,6 +252,7 @@ public class GamePlayWindow extends JFrame{
 		buttonPanel.setDrawCardEnable(true);
 		buttonPanel.setWithdrawEnable(true);
 	}
+
 }
 
 //	public void setPlayerScreenEnabled(boolean b) {
