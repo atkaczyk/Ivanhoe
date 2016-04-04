@@ -25,9 +25,10 @@ public class GUIController {
 		gameReadyWindow = new GameReadyWindow(client);
 		gameReadyWindow.setVisible(true);
 	}
-	public void launchGamePlayWindow(){
+	public void launchGamePlayWindow(String avatars){
 		gameReadyWindow.setVisible(false);
 		gamePlayWindow = new GamePlayWindow(client);
+		gamePlayWindow.setAvatars(avatars);
 		client.handle("updateGameInformation");
 		gamePlayWindow.setVisible(true);
 	}
@@ -134,8 +135,8 @@ public class GUIController {
 	public void sendTokenRequest(){
 		client.handle("tokenRequest");
 	}
-	public void sendJoinGame(String playerName, int tokenColour) {
-		client.handle("joinGame," + playerName + "," + tokenColour);
+	public void sendJoinGame(String playerName, int tokenColour, String avatarName) {
+		client.handle("joinGame," + playerName + "," + tokenColour + "," + avatarName);
 	}
 	public void sendCardToPlay(String cardToSend) { //cardToSend is filename, "charge.jpg" 
 		client.handle("requestToPlayThisCard," + cardToSend);
