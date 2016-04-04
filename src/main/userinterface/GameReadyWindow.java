@@ -184,7 +184,7 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 
 	}
 	private void selectAvatar() {
-		Object[] possibilities = {"Princess Alisa", "Princess Victoria", "Princess Sophia", "Cinderella", "Snow White"};
+		Object[] possibilities = {"Princess Alisa", "Princess Victoria", "Princess Sophia", "Ariel", "Jasmine", "Cinderella", "Snow White"};
 		ImageIcon i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar0.png"));
 		String s = (String)JOptionPane.showInputDialog(
 				this,
@@ -195,20 +195,26 @@ public class GameReadyWindow extends JFrame implements ActionListener{
 				possibilities,
 				"Princess");
 		if(s.equals("Princess Alisa")){
-			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.jpg"));
-			avatar.setName("PrincessAvatar1");
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar1.png"));
+			avatar.setName("PrincessAvatar1.png");
 		} else if(s.equals("Princess Victoria")){
-			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar2.jpg"));
-			avatar.setName("PrincessAvatar2");
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar2.png"));
+			avatar.setName("PrincessAvatar2.png");
 		} else if(s.equals("Princess Sophia")){
-			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar3.jpg"));
-			avatar.setName("PrincessAvatar3");
-		} else if(s.equals("Cinderella")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar3.png"));
+			avatar.setName("PrincessAvatar3.png");
+		} else if(s.equals("Ariel")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar4.png"));
-			avatar.setName("PrincessAvatar4");
-		} else if(s.equals("Snow White")){
+			avatar.setName("PrincessAvatar4.png");
+		} else if(s.equals("Jasmine")){
 			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar5.png"));
-			avatar.setName("PrincessAvatar5");
+			avatar.setName("PrincessAvatar5.png");
+		} else if(s.equals("Cinderella")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar6.png"));
+			avatar.setName("PrincessAvatar6.png");
+		} else if(s.equals("Snow White")){
+			i = new ImageIcon(this.getClass().getResource("Images/PrincessAvatar7.png"));
+			avatar.setName("PrincessAvatar7.png");
 		} 
 		
 		Image img = i.getImage() ;  

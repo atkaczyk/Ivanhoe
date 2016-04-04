@@ -137,6 +137,10 @@ public class PlayerCard extends JPanel{
 	}
 
 	public void setAvatar(String aviName) {
-		avatar.setIcon(new ImageIcon(this.getClass().getResource("Images/"+aviName+".jpg")));
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/"+aviName));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(120, 125,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		avatar.setIcon(icon);
 	}
 }
