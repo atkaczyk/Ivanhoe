@@ -372,7 +372,7 @@ public class Game {
 			}
 		}
 
-		return "false:This action card has not been implemented yet!";
+		return "false:You will be promted for Ivanhoe, if an action card gets played!";
 	}
 
 	public int getPlayerWithIvanhoe() {
