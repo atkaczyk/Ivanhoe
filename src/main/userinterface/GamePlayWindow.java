@@ -123,20 +123,22 @@ public class GamePlayWindow extends JFrame{
 
 	public void setAvatars(String avatars) {
 		String[] avi = avatars.split(",");
+
+		System.out.println("THIS IS ALL I HAVE FOR AVATARS" + avatars);
 		for(int i = 0; i < avi.length; i++){
 			if(i == 0) {
-				playerCard0.setAvatar(avi[0]);
+				playerCard0.setAvatar(avi[i]);
 			}else if( i == 1) {
-				playerCard1.setAvatar(avi[0]);
+				playerCard1.setAvatar(avi[i]);
 			}
 			else if (i ==2){
-				playerCard2.setAvatar(avi[0]);
+				playerCard2.setAvatar(avi[i]);
 			}
 			else if (i ==3){
-				playerCard3.setAvatar(avi[0]);
+				playerCard3.setAvatar(avi[i]);
 			}
 			else if (i ==4){
-				playerCard4.setAvatar(avi[0]);
+				playerCard4.setAvatar(avi[i]);
 			}
 		}
 		
