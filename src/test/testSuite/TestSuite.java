@@ -18,8 +18,8 @@ import org.junit.runners.Suite;
 	TestColourCard.class,
 	TestActionCard.class,
 	TestDrawPile.class,
-	TestSupporterCard.class//,
-	//TestClient.class
+	TestSupporterCard.class,
+	TestClient.class
 })
 
 public class TestSuite {

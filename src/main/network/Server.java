@@ -179,15 +179,22 @@ public class Server implements Runnable {
 				}
 				if (input.contains("joinGame")){
 					String[] a = input.split(",");
-					game.addPlayer(a[1], Integer.parseInt(a[2]));
+					game.addPlayer(a[1], Integer.parseInt(a[2]), a[3]);
 					playerNumbers.put(ID, game.getPlayersRegistered()-1);
 					
 					// after adding a player, then game.isReadyToStart() then when all players have been added to the game
 					if (game.isReadyToStart()){
 						// call game.start() to initialize the deck and everything 
 						game.startGame();
+						String allAvatars = "";
+						for (Player p: game.getPlayers()) {
+							allAvatars += p.getAvatar() + ",";
+						}
+						if (allAvatars.endsWith(",")) {
+							allAvatars = allAvatars.substring(0, allAvatars.length() - 1);
+						}
 						for (int id: playerNumbers.keySet()){
-							broadcastMessageToPlayer("openMainGameScreen", id, 1);
+							broadcastMessageToPlayer("openMainGameScreen~" + allAvatars, id, 1);
 						}
 					}					
 				}
