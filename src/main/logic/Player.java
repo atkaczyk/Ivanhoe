@@ -26,6 +26,7 @@ public class Player {
 	private List<Card> specialCards = new ArrayList<Card>();
 	private int cardsAddedToDisplayThisTurn = 0;
 	private int actionCardsPlayedThisTurn = 0;
+	private String avatar = "";
 
 	public Player(String name) {
 		this.name = name;
@@ -546,5 +547,13 @@ public class Player {
 			result += token;
 		}
 		return result;
+	}
+
+	public void setAvatar(String avatarFile) {
+		avatar = avatarFile;
+	}
+	
+	public String getAvatar() {
+		return avatar;
 	}
 }

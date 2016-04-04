@@ -152,7 +152,7 @@ public class Client {
    		}
    		//from server to gui
    		else if (msg.contains("openMainGameScreen")){
-   			gui.launchGamePlayWindow();
+   			gui.launchGamePlayWindow(msg.split("~")[1]);
    		}
    		//from gui
    		else if (msg.contains("updateGameInformation")){

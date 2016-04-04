@@ -33,10 +33,11 @@ public class Game {
 		return numOfPlayers;
 	}
 
-	public void addPlayer(String playerName, int tokenColour) {
+	public void addPlayer(String playerName, int tokenColour, String avatarFile) {
 		for (int i = 0; i < numOfPlayers; i++) {
 			if (players[i] == null) {
 				players[i] = new Player(playerName);
+				players[i].setAvatar(avatarFile);
 
 				if (tokenColour == Config.PURPLE) {
 					currentPlayer = players[i];

@@ -87,38 +87,38 @@ public class TestGame {
 
 	@Test
 	public void addPlayer() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
 
 		assertNotEquals(null, game.getPlayers()[0]);
 	}
 
 	@Test
 	public void startingPlayer() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		assertEquals(PLAYER_TWO_NAME, game.getCurrentPlayer().getName());
 	}
 
 	@Test
 	public void gameReady() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		assertEquals(true, game.isReadyToStart());
 	}
 
 	@Test
 	public void gameNotReady() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 
 		assertEquals(false, game.isReadyToStart());
 	}
 
 	@Test
 	public void gameStart() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -128,8 +128,8 @@ public class TestGame {
 
 	@Test
 	public void playersActiveAfterStart() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -139,8 +139,8 @@ public class TestGame {
 
 	@Test
 	public void startGameTwoPlayersFirstPlayerStarts() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -149,8 +149,8 @@ public class TestGame {
 
 	@Test
 	public void getCurrentPlayerNumber() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -159,8 +159,8 @@ public class TestGame {
 
 	@Test
 	public void startGameTwoPlayersSecondPlayerStarts() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.RED, "");
 
 		game.startGame();
 
@@ -169,8 +169,8 @@ public class TestGame {
 
 	@Test
 	public void pickTournColourColourInHand() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
@@ -193,8 +193,8 @@ public class TestGame {
 
 	@Test
 	public void pickTournColourOneSupporterInHand() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
@@ -207,8 +207,8 @@ public class TestGame {
 
 	@Test
 	public void pickTournColourInvalidHand() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
@@ -218,8 +218,8 @@ public class TestGame {
 
 	@Test
 	public void invalidPurpleTokenPreviousPurpleTournament() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.getCurrentPlayer().clearHand();
@@ -232,15 +232,15 @@ public class TestGame {
 
 	@Test
 	public void getPlayerNumber() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 
 		assertEquals(PLAYER_ONE_NAME, game.getPlayer(0).getName());
 	}
 
 	@Test
 	public void tournamentStart() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -251,8 +251,8 @@ public class TestGame {
 
 	@Test
 	public void playerDrawsCard() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.drawCard(0);
 
@@ -261,8 +261,8 @@ public class TestGame {
 
 	@Test
 	public void twoPlayersStartTournament() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		// player one goes first
 		int before = game.getDrawPile().getNumCards();
@@ -273,8 +273,8 @@ public class TestGame {
 
 	@Test
 	public void playingSupporterCard() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 
@@ -285,8 +285,8 @@ public class TestGame {
 
 	@Test
 	public void playingValidColourCard() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.PURPLE);
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
@@ -298,8 +298,8 @@ public class TestGame {
 
 	@Test
 	public void playingInvalidColourCard() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
 		game.overrideTourColour(Config.RED);
@@ -312,8 +312,8 @@ public class TestGame {
 
 	@Test
 	public void startingTournamentClearsDisplay() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
@@ -339,8 +339,8 @@ public class TestGame {
 
 	@Test
 	public void twoPlayersWithdrawOne() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
@@ -354,9 +354,9 @@ public class TestGame {
 	@Test
 	public void threePlayersWithdrawTwo() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -373,9 +373,9 @@ public class TestGame {
 	@Test
 	public void threePlayersWithdrawOne() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
@@ -386,11 +386,11 @@ public class TestGame {
 	@Test
 	public void fivePlayersWithdrawFour() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.GREEN);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.GREEN, "");
 
 		game.startGame();
 
@@ -409,8 +409,8 @@ public class TestGame {
 	@Test
 	public void twoPlayersOneWins() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -426,8 +426,8 @@ public class TestGame {
 	@Test
 	public void twoPlayersNoWinner() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -442,10 +442,10 @@ public class TestGame {
 	@Test
 	public void fourPlayersOneWins() {
 		game.setNumPlayers(4);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
 		game.startGame();
 
@@ -461,10 +461,10 @@ public class TestGame {
 	@Test
 	public void fourPlayersNoWinner() {
 		game.setNumPlayers(4);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
 		game.startGame();
 
@@ -479,8 +479,8 @@ public class TestGame {
 	@Test
 	public void playDropWeaponCard() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
@@ -495,8 +495,8 @@ public class TestGame {
 	@Test
 	public void playOutmaneuverTwoPlayersTwoCardsInDisplayNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -520,11 +520,11 @@ public class TestGame {
 	@Test
 	public void playOutmaneuverFivePlayersManyCardsInDisplayNoShield() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 
@@ -564,8 +564,8 @@ public class TestGame {
 	@Test
 	public void playOutmaneuverTwoPlayersOneCardInDisplay() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 
@@ -585,8 +585,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayOutmaneuverWithdrawn() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).withdraw();
 
@@ -602,8 +602,8 @@ public class TestGame {
 	@Test
 	public void playChargeCardTwoPlayersTwoOfLowestValueToRemoveNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -635,8 +635,8 @@ public class TestGame {
 	@Test
 	public void playChargeCardTwoPlayersOnlyOneCardNumber() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
@@ -668,8 +668,8 @@ public class TestGame {
 	@Test
 	public void tryDropWeaponCardNotAllowed() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.PURPLE);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
@@ -684,11 +684,11 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayOutmaneuver() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(2).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
@@ -712,9 +712,9 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayCharge() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
 
@@ -731,9 +731,9 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayChargeBecauseWithdrawn() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
 		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
@@ -752,9 +752,9 @@ public class TestGame {
 	@Test
 	public void withdrawAPlayerClearsTheirDisplay() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
@@ -771,9 +771,9 @@ public class TestGame {
 	@Test
 	public void startGameWithFullTokenPool() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -783,8 +783,8 @@ public class TestGame {
 	@Test
 	public void addTokenToPlayer() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -796,8 +796,8 @@ public class TestGame {
 	@Test
 	public void addTwoOfSameColourTokensToPlayer() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -810,8 +810,8 @@ public class TestGame {
 	@Test
 	public void addThreeTokensToPlayer() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -825,8 +825,8 @@ public class TestGame {
 	@Test
 	public void playCounterChargeCardTwoPlayersTwoOfHighestValueToRemoveNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
@@ -856,8 +856,8 @@ public class TestGame {
 	@Test
 	public void playCounterchargeCardTwoPlayersOnlyOneCardNumber() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
@@ -887,9 +887,9 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayCountercharge() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(BLUE_CARD_3, Config.BLUE);
 
@@ -906,8 +906,8 @@ public class TestGame {
 	@Test
 	public void playDisgraceCardNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
@@ -937,8 +937,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayDisgraceCardTheyHaveNoSupporters() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
@@ -964,8 +964,8 @@ public class TestGame {
 	@Test
 	public void playDisgraceCardAllSupportersNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(MAIDEN_CARD, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -993,8 +993,8 @@ public class TestGame {
 
 	@Test
 	public void twoTournaments() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -1007,8 +1007,8 @@ public class TestGame {
 
 	@Test
 	public void playerUnableToStartTournament() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED); // jack
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, ""); // jack
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(new ActionCard("Charge"));
 		game.getPlayer(1).addCardToHand(new SupporterCard("", 0));
@@ -1022,8 +1022,8 @@ public class TestGame {
 
 	@Test
 	public void drawPileRefillsWhenEmpty() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getDiscardPile().add(new ActionCard(""));
 		game.getDiscardPile().add(new ActionCard(""));
@@ -1047,8 +1047,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingRiposteCardMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -1068,8 +1068,8 @@ public class TestGame {
 	@Test
 	public void playRiposteCardTwoPlayersNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
@@ -1092,8 +1092,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayRiposteCard() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
 
@@ -1112,8 +1112,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingUnhorseMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
@@ -1127,8 +1127,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayUnhorse() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.BLUE);
 
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
@@ -1142,8 +1142,8 @@ public class TestGame {
 	@Test
 	public void playUnhorseFromPurpleToYellow() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
@@ -1159,8 +1159,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingChangeWeaponMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.RED);
 
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
@@ -1174,8 +1174,8 @@ public class TestGame {
 	@Test
 	public void playChangeWeapon() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
@@ -1190,8 +1190,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayChangeWeapon() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.overrideTourColour(Config.PURPLE);
 
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
@@ -1205,9 +1205,9 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayBreakLance() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 
@@ -1230,9 +1230,9 @@ public class TestGame {
 	@Test
 	public void tryPlayingBreakLanceMoreInfoNeeded() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1255,9 +1255,9 @@ public class TestGame {
 	@Test
 	public void playBreakLanceNoShield() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1286,9 +1286,9 @@ public class TestGame {
 	@Test
 	public void tryPlayingDodgeMoreInfoNeeded() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1310,9 +1310,9 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayDodge() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1328,9 +1328,9 @@ public class TestGame {
 	@Test
 	public void playDodgeNoShield() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1362,8 +1362,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingRetreatMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1382,8 +1382,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayRetreat() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1401,8 +1401,8 @@ public class TestGame {
 	@Test
 	public void playRetreatCardNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1432,8 +1432,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingKnockDownMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
@@ -1452,8 +1452,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayKnockDown() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1469,8 +1469,8 @@ public class TestGame {
 	@Test
 	public void playKnockDownNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
@@ -1491,8 +1491,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingOutwitMoreInfoNeeded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
@@ -1513,8 +1513,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayOutwit() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1530,8 +1530,8 @@ public class TestGame {
 	@Test
 	public void playOutwitSwitchingDisplayForShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addSpecialCard(SHIELD_CARD);
 
@@ -1558,8 +1558,8 @@ public class TestGame {
 	@Test
 	public void playShieldCard() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(SHIELD_CARD);
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
@@ -1629,9 +1629,9 @@ public class TestGame {
 	@Test
 	public void withdrawPlayerRemovesShieldAndStunned() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
@@ -1651,9 +1651,9 @@ public class TestGame {
 
 	public void tryPlayingAdaptMoreInfoNeeded() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(2).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
@@ -1677,8 +1677,8 @@ public class TestGame {
 	@Test
 	public void notAllowedToPlayAdapt() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
@@ -1697,8 +1697,8 @@ public class TestGame {
 	@Test
 	public void playAdaptNoShield() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
@@ -1741,8 +1741,8 @@ public class TestGame {
 	@Test
 	public void tryPlayingStunnedCard() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(STUNNED_CARD);
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
@@ -1763,8 +1763,8 @@ public class TestGame {
 	@Test
 	public void playStunnedCard() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(STUNNED_CARD);
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
@@ -1803,10 +1803,10 @@ public class TestGame {
 	@Test
 	public void withdrawPlayerGoesToTheCorrectPlayer() {
 		game.setNumPlayers(4);
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.RED);
-		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW, "");
 
 		game.startGame();
 		game.withdrawPlayer(1, true);
@@ -1817,8 +1817,8 @@ public class TestGame {
 	@Test
 	public void playDropWeaponCardAskForIvanhoe() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
@@ -1834,8 +1834,8 @@ public class TestGame {
 	@Test
 	public void noToIvanhoeDropWeaponGetsPlayed() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
@@ -1854,8 +1854,8 @@ public class TestGame {
 	@Test
 	public void playKnockDownCardAskForIvanhoe() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
@@ -1874,8 +1874,8 @@ public class TestGame {
 	@Test
 	public void noToIvanhoeKnockDownGetsPlayed() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(1).addCardToHand(PURPLE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
@@ -1895,8 +1895,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeUnhorseGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.PURPLE);
 		game.getPlayer(0).addCardToHand(UNHORSE_CARD);
@@ -1917,8 +1917,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeChangeWeaponGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(CHANGE_WEAPON_CARD);
@@ -1939,8 +1939,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeDropWeaponGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DROP_WEAPON_CARD);
@@ -1961,8 +1961,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeShieldGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(SHIELD_CARD);
@@ -1983,8 +1983,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeStunnedGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(STUNNED_CARD);
@@ -2005,8 +2005,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeBreakLanceGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
@@ -2029,8 +2029,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeRiposteGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
@@ -2055,8 +2055,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeDodgeGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(DODGE_CARD);
@@ -2081,8 +2081,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeRetreatGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(RETREAT_CARD);
@@ -2107,8 +2107,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeKnockDownGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(KNOCK_DOWN_CARD);
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
@@ -2129,8 +2129,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeOutmaneuverGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
@@ -2155,8 +2155,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeChargeGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(CHARGE_CARD);
@@ -2181,8 +2181,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeCounterChargeGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(COUNTER_CHARGE_CARD);
@@ -2207,8 +2207,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeAdaptGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(ADAPT_CARD);
 
@@ -2228,8 +2228,8 @@ public class TestGame {
 	@Test
 	public void yesToIvanhoeOutwitGetsDiscarded() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.overrideTourColour(Config.RED);
 		game.getPlayer(0).addCardToHand(OUTWIT_CARD);
@@ -2254,8 +2254,8 @@ public class TestGame {
 	@Test
 	public void playAdaptCardAskForIvanhoe() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
@@ -2279,8 +2279,8 @@ public class TestGame {
 	@Test
 	public void noToIvanhoeAdaptAsksForMoreInfo() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
 		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
@@ -2304,8 +2304,8 @@ public class TestGame {
 	@Test
 	public void playerWithdrawWithMaidenInDisplay() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
 
@@ -2321,8 +2321,8 @@ public class TestGame {
 	@Test
 	public void processReturnToken() {
 		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2347,9 +2347,9 @@ public class TestGame {
 	@Test
 	public void playerStartsOthersDrawWithdraw() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 		game.startGame();
@@ -2374,9 +2374,9 @@ public class TestGame {
 	@Test
 	public void onlyOneMaidenAllowed() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
 		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
@@ -2394,11 +2394,11 @@ public class TestGame {
 	@Test
 	public void comingToTheEndOfTheDeck() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// 8 cards to each of the 5 players
@@ -2435,9 +2435,9 @@ public class TestGame {
 	@Test
 	public void automaticallyWithdrawingPlayerWithLowestScore() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// Player 0 has a score of 3
@@ -2469,9 +2469,9 @@ public class TestGame {
 	@Test
 	public void winningATournament() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		game.overrideTourColour(Config.BLUE);
@@ -2485,9 +2485,9 @@ public class TestGame {
 	@Test
 	public void automaticallyWithdrawingPlayerWhenNoCardPlayed() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// Player 0 has a score of 3
@@ -2513,9 +2513,9 @@ public class TestGame {
 	@Test
 	public void automaticallyWithdrawingPlayerAnnouncesWinner() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// Player 0 has a score of 3
@@ -2548,11 +2548,11 @@ public class TestGame {
 		// One player draws/starts, others draw but only one participates by
 		// playing a card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2583,11 +2583,11 @@ public class TestGame {
 		// One player draws/starts, others draw but only one participates by
 		// playing several cards
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2620,11 +2620,11 @@ public class TestGame {
 		// One player draws/starts, others draw but some participate by
 		// playing a card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2659,11 +2659,11 @@ public class TestGame {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2702,11 +2702,11 @@ public class TestGame {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2732,11 +2732,11 @@ public class TestGame {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
@@ -2764,11 +2764,11 @@ public class TestGame {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// Remove any ivanhoe cards from the players hands
@@ -2791,11 +2791,11 @@ public class TestGame {
 	@Test
 	public void tryPlayingChargeCardOnlyGreenOnes() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 		// Remove any ivanhoe cards from the players hands
@@ -2836,11 +2836,11 @@ public class TestGame {
 	@Test
 	public void playerHasWonGame() {
 		game.setNumPlayers(5);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN);
-		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW);
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.YELLOW, "");
+		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.addTokenToPlayer(4, Config.RED);
 		game.addTokenToPlayer(4, Config.YELLOW);
@@ -2854,11 +2854,11 @@ public class TestGame {
 	@Test
 	public void multipleRoundsWithSupporters() {
 		game.setNumPlayers(4);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED);
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN); // This player will
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, ""); // This player will
 															// start
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE);
+		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
 		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
@@ -2976,9 +2976,9 @@ public class TestGame {
 	@Test
 	public void startingWithOneSupporter() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);// This player starts
-		game.addPlayer(PLAYER_THREE_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
+		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
 		
 		game.startGame();
 		
@@ -2995,9 +2995,9 @@ public class TestGame {
 	@Test
 	public void startingWithMultipleSupporters() {
 		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE);
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE);// This player starts
-		game.addPlayer(PLAYER_THREE_NAME, Config.RED);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
+		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
 		
 		game.startGame();
 		
