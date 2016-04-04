@@ -339,20 +339,28 @@ public class Server implements Runnable {
 				else if(input.contains("PurpleWinTokenColourChoice~")){
 					String[] choice = input.split("~");
 					int playerNum = playerNumbers.get(ID); //gives the player number
-					game.addTokenToPlayer(playerNum, Integer.parseInt(choice[1]));
-					
+					game.addTokenToPlayer(playerNum, Integer.parseInt(choice[1]));					
+					updateAll();
 					broadcastToAllPlayers("tournamentWinner~"+game.getPlayer(playerNumbers.get(ID)).getName() + "," + game.getTournamentNumber() + ","
 							+ game.getTournamentColour());
 					
-					//launch to pick the tournament colour after a purple tournament
-					int currID = 0;
-					for (int serverThreadID : playerNumbers.keySet()) {
-						if (playerNumbers.get(serverThreadID) == game.getCurrentPlayerNumber()){
-							currID = serverThreadID;
-							break;
-						}
+					String fWinnerR = game.checkForWinner(); //returns name of winning player, and empty if no winner
+					if(!(fWinnerR.equals(""))){
+						// If there is a winner of the game
+						broadcastToAllPlayers("gameWinner~"+fWinnerR);
 					}
-					broadcastMessageToPlayer("launchTournamentColour", currID, 0);
+					else {
+						int currID = 0;
+						
+						for (int serverThreadID : playerNumbers.keySet()) {
+							if (playerNumbers.get(serverThreadID) == game.getCurrentPlayerNumber()){
+								currID = serverThreadID;
+								break;
+							}
+						}
+						
+						broadcastMessageToPlayer("launchTournamentColour", currID, 0);
+					}
 					
 					updateAll(); //maybe put this before the broadcast
 				}
@@ -406,39 +414,38 @@ public class Server implements Runnable {
 		
 		//someone has won the tournament
 		else{
-			String fWinnerR = game.checkForWinner(); //returns name of winning player, and empty if no winner
-			if(!(fWinnerR.equals(""))){
-				// If there is a winner of the game
-				broadcastToAllPlayers("gameWinner~"+fWinnerR);
+			String nameOfWinner = result.split(",")[0];
+			int playerW = 0;
+			for (int num: playerNumbers.values()) {
+				if (game.getPlayer(num).getName().equals(nameOfWinner)) {
+					playerW = num;
+					break;
+				}
 			}
-			//continue with the rest of the tournament win check
-			else{												
-				String nameOfWinner = result.split(",")[0];
-				int playerW = 0;
-				for (int num: playerNumbers.values()) {
-					if (game.getPlayer(num).getName().equals(nameOfWinner)) {
-						playerW = num;
+			//if it was a purple tournament
+			if(game.getTournamentColour() == Config.PURPLE){
+				//send to client and ask to pick colour
+				String colours = "PurpleWinTokenChoice~" + game.getTokensRemainingForPlayer(playerW);
+				int winnerID = 0;
+				for (int stID : playerNumbers.keySet()) {
+					if (playerNumbers.get(stID) == playerW){
+						winnerID = stID;
 						break;
 					}
+				}					
+				broadcastMessageToPlayer(colours, winnerID, 1);
+			//if it was another colour tournament
+			}else{
+				game.addTokenToPlayer(playerW ,game.getTournamentColour());
+				updateAll();
+				broadcastToAllPlayers("tournamentWinner~"+result);
+				
+				String fWinnerR = game.checkForWinner(); //returns name of winning player, and empty if no winner
+				if(!(fWinnerR.equals(""))){
+					// If there is a winner of the game
+					broadcastToAllPlayers("gameWinner~"+fWinnerR);
 				}
-				//if it was a purple tournament
-				if(game.getTournamentColour() == Config.PURPLE){
-					//send to client and ask to pick colour
-					String colours = "PurpleWinTokenChoice~" + game.getTokensRemainingForPlayer(playerW);
-					int winnerID = 0;
-					for (int stID : playerNumbers.keySet()) {
-						if (playerNumbers.get(stID) == playerW){
-							winnerID = stID;
-							break;
-						}
-					}					
-					broadcastMessageToPlayer(colours, winnerID, 1);
-				//if it was another colour tournament
-				}else{
-					game.addTokenToPlayer(playerW ,game.getTournamentColour());
-					updateAll();
-					broadcastToAllPlayers("tournamentWinner~"+result);
-					
+				else {
 					int currID = 0;
 					
 					for (int serverThreadID : playerNumbers.keySet()) {
