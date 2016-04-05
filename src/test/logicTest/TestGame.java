@@ -1314,11 +1314,86 @@ public class TestGame {
 		assertEquals(true, game.getDiscardPile().contains(BREAK_LANCE_CARD));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+
+		// Player 2 should still have one card in their display, it does not
+		// remove the last card
 		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
 		assertEquals(true,
 				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_7));
 		assertEquals(false,
 				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_3));
+	}
+
+	@Test
+	public void displayCannotLoseLastCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+
+		// Try playing break lance
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
+		// You cannot play break lance because player 1 only has one purple
+		// card, you cannot remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing riposte
+		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
+		result = game.playCard(0, RIPOSTE_CARD.getName());
+		// You cannot play riposte card, because player 1 only has one card in
+		// their display
+		assertEquals(true, result.contains("false"));
+
+		// Try playing dodge
+		game.getPlayer(0).addCardToHand(DODGE_CARD);
+		result = game.playCard(0, DODGE_CARD.getName());
+		// You cannot play dodge card, because player 1 only has one card in
+		// their display
+		assertEquals(true, result.contains("false"));
+
+		// Try playing retreat
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_2, Config.BLUE);
+		result = game.playCard(0, RETREAT_CARD.getName());
+		// You cannot play retreat card, because you only have one card in your
+		// display, you can't remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing charge
+		game.getPlayer(0).addCardToHand(CHARGE_CARD);
+		result = game.playCard(0, CHARGE_CARD.getName());
+		// You cannot play charge card when opponent only has one card
+		assertEquals(true, result.contains("false"));
+
+		// Try playing counter charge
+		game.getPlayer(0).addCardToHand(COUNTER_CHARGE_CARD);
+		result = game.playCard(0, COUNTER_CHARGE_CARD.getName());
+		// You cannot play counter charge card when opponent only has one card
+		assertEquals(true, result.contains("false"));
+
+		// Try playing disgrace
+		game.getPlayer(1).clearDisplay();
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToHand(DISGRACE_CARD);
+		result = game.playCard(0, DISGRACE_CARD.getName());
+		// You cannot play disgrace when your opponent only has one supporter
+		assertEquals(true, result.contains("false"));
+
+		// Try playing adapt
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		result = game.playCard(0, ADAPT_CARD.getName());
+		// You cannot play adapt because opponent only has one card in their
+		// display, you cannot remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing outmaneuver
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+		result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		// You cannot play outmaneuver because opponent only has one card in
+		// their
+		// display, you cannot remove it
+		assertEquals(true, result.contains("false"));
 	}
 
 	@Test
