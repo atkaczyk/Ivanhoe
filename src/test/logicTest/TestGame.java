@@ -26,6 +26,13 @@ public class TestGame {
 	private static final String PLAYER_FIVE_NAME = "Edward";
 	private static final Card PURPLE_CARD_3 = new ColourCard(
 			"Purple (Jousting) 3", 3, Config.PURPLE);
+	private static final Card RED_CARD_2 = new ColourCard("", 2, Config.RED);
+	private static final Card YELLOW_CARD_2 = new ColourCard("", 2,
+			Config.YELLOW);
+	private static final Card GREEN_CARD_2 = new ColourCard("", 2, Config.GREEN);
+	private static final Card BLUE_CARD_2 = new ColourCard("", 2, Config.BLUE);
+	private static final Card PURPLE_CARD_2 = new ColourCard("", 2,
+			Config.PURPLE);
 	private static final ArrayDeque<Card> HAND_WITH_ALL_COLOURS = new ArrayDeque<Card>();
 	static {
 		HAND_WITH_ALL_COLOURS.add(new ColourCard("", 2, Config.RED));
@@ -297,17 +304,43 @@ public class TestGame {
 	}
 
 	@Test
-	public void playingInvalidColourCard() {
+	public void playingInvalidColourCards() {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
-		game.getPlayer(0).addCardToHand(PURPLE_CARD_3);
-		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(RED_CARD_2);
+		game.getPlayer(0).addCardToHand(YELLOW_CARD_2);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_2);
+		game.getPlayer(0).addCardToHand(GREEN_CARD_2);
+		game.getPlayer(0).addCardToHand(PURPLE_CARD_2);
 
-		String result = game.playCard(0, PURPLE_CARD_3.getName());
+		game.overrideTourColour(Config.PURPLE);
+
+		String result = game.playCard(0, RED_CARD_2.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
-		assertEquals(1, game.getPlayer(0).getHandCards().size());
+		assertEquals(5, game.getPlayer(0).getHandCards().size());
+
+		result = game.playCard(0, YELLOW_CARD_2.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(5, game.getPlayer(0).getHandCards().size());
+
+		result = game.playCard(0, BLUE_CARD_2.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(5, game.getPlayer(0).getHandCards().size());
+
+		result = game.playCard(0, GREEN_CARD_2.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(5, game.getPlayer(0).getHandCards().size());
+
+		game.overrideTourColour(Config.BLUE);
+		result = game.playCard(0, PURPLE_CARD_2.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(5, game.getPlayer(0).getHandCards().size());
 	}
 
 	@Test
@@ -2250,7 +2283,7 @@ public class TestGame {
 		assertEquals(true, game.getDiscardPile().contains(IVANHOE_CARD));
 		assertEquals(true, game.getDiscardPile().contains(OUTWIT_CARD));
 	}
-	
+
 	@Test
 	public void yesToIvanhoeDisgraceGetsDiscarded() {
 		game.setNumPlayers(2);
@@ -2263,7 +2296,7 @@ public class TestGame {
 		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
 		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
 		game.getPlayer(0).addCardToHand(IVANHOE_CARD);
-		
+
 		String info = "Yes=" + DISGRACE_CARD.getName() + "=0";
 		game.processIvanhoeCard(info);
 
@@ -2883,7 +2916,7 @@ public class TestGame {
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, ""); // This player will
-															// start
+																// start
 		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
 		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
@@ -2998,35 +3031,35 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(2).isWithdrawn());
 		assertEquals(true, game.getPlayer(3).isWithdrawn());
 	}
-	
+
 	@Test
 	public void startingWithOneSupporter() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
 		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
-		
+
 		game.startGame();
-		
+
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
 		game.playCard(1, SQUIRE_CARD_3.getName());
 		game.goToNextPlayer(true);
 		// Player 1 started the tournament with one supporter
-		
+
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
 		assertEquals(false, game.getPlayer(2).isWithdrawn());
 	}
-	
+
 	@Test
 	public void startingWithMultipleSupporters() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
 		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
-		
+
 		game.startGame();
-		
+
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
 		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
 		game.getPlayer(1).addCardToHand(MAIDEN_CARD);
@@ -3035,25 +3068,26 @@ public class TestGame {
 		game.playCard(1, MAIDEN_CARD.getName());
 		game.goToNextPlayer(true);
 		// Player 1 started the tournament with multiple supporters
-		
+
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
 		assertEquals(false, game.getPlayer(2).isWithdrawn());
 	}
-	
+
 	@Test
 	public void getTokensRemainingForPlayer() {
 		game.setNumPlayers(3);
 		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
-		
+
 		game.getPlayer(0).addToken(Config.PURPLE);
 		game.getPlayer(0).addToken(Config.YELLOW);
 		game.getPlayer(0).addToken(Config.RED);
 		game.getPlayer(0).addToken(Config.GREEN);
-		
-		assertEquals(Config.BLUE, Integer.parseInt(game.getTokensRemainingForPlayer(0)));
+
+		assertEquals(Config.BLUE,
+				Integer.parseInt(game.getTokensRemainingForPlayer(0)));
 	}
 
 	@After
