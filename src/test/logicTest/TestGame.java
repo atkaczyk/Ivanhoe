@@ -3082,7 +3082,7 @@ public class TestGame {
 		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
 
 		game.startGame();

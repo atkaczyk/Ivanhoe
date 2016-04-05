@@ -119,7 +119,7 @@ public class Game {
 	public String goToNextPlayer(boolean announcingEndOfTurn) {
 		// Make sure that the player is not withdrawn
 		String returnValue = "";
-		
+
 		if (announcingEndOfTurn) {
 			int maxScore = -1;
 			int playerNum = -1;
@@ -138,8 +138,9 @@ public class Game {
 			if (maxScore != currentPlayer.getDisplayTotal(tournamentColour)) {
 				returnValue = withdrawPlayer(playerNum, false);
 			}
-			
-			// If the current player has not yet played a card in their turn, they
+
+			// If the current player has not yet played a card in their turn,
+			// they
 			// must withdraw
 			else if (currentPlayer.getCardsPlayedThisTurn() == 0) {
 				returnValue = withdrawPlayer(playerNum, false);
@@ -148,21 +149,24 @@ public class Game {
 
 		clearAllCardCounters();
 
-		do {
-			if (players[numOfPlayers - 1].getName().equals(
-					currentPlayer.getName())) {
-				currentPlayer = players[0];
-			} else {
-				// Otherwise, get position of current player
-				int i;
-				for (i = 0; i < numOfPlayers; i++) {
-					if (players[i].getName().equals(currentPlayer.getName())) {
-						currentPlayer = players[i + 1];
-						break;
+		if (!returnValue.contains("aWinnerWasFound")) {
+			do {
+				if (players[numOfPlayers - 1].getName().equals(
+						currentPlayer.getName())) {
+					currentPlayer = players[0];
+				} else {
+					// Otherwise, get position of current player
+					int i;
+					for (i = 0; i < numOfPlayers; i++) {
+						if (players[i].getName()
+								.equals(currentPlayer.getName())) {
+							currentPlayer = players[i + 1];
+							break;
+						}
 					}
 				}
-			}
-		} while (currentPlayer.isWithdrawn());
+			} while (currentPlayer.isWithdrawn());
+		}
 		return returnValue;
 	}
 
@@ -250,7 +254,7 @@ public class Game {
 		Card c = drawPile.getCard();
 		player.addCardToHand(c);
 		player.addToCardsDrawnThisTurn();
-		
+
 		// Check to see is the draw pile is empty
 		if (drawPile.getNumCards() == 0) {
 			// Shuffle the discard pile and add it to the drawPile
@@ -268,7 +272,7 @@ public class Game {
 				drawPile.addCard(card);
 			}
 		}
-		
+
 		return "";
 	}
 
@@ -781,7 +785,7 @@ public class Game {
 			}
 
 			return winningPlayer + "," + (tournamentNumber - 1) + ","
-					+ tournamentColour + "#" + maidenInfo;
+					+ tournamentColour + "#" + maidenInfo + "#aWinnerWasFound";
 		}
 
 		if (mustGoToNextPlayer) {
@@ -846,7 +850,7 @@ public class Game {
 		String extraInfo = info.split("@")[1];
 
 		players[playerNum].addActionCardPlayed();
-		
+
 		Boolean allowedToDiscard = true;
 		if (info.contains("Riposte")) {
 			// Take the last card played on the given opponent's display and add
