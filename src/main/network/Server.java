@@ -312,7 +312,10 @@ public class Server implements Runnable {
 		   		}
 				else if (input.contains("requestToDrawCard")){
 					int playerNum = playerNumbers.get(ID);
-					game.drawCard(playerNum);
+					String result = game.drawCard(playerNum);
+					if (!result.equals("")){
+						broadcastMessageToPlayer("ERROR~"+result, ID, 0);
+					}
 					update(ID); //call update function
 				}
 				else if (input.contains("requestToEndTurn")){
