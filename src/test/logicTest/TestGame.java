@@ -2648,29 +2648,36 @@ public class TestGame {
 
 	@Test
 	public void playerStartsOthersDrawWithdraw() {
-		game.setNumPlayers(3);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 		game.startGame();
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 
-		game.setTournamentColour(Config.RED);
+			game.setTournamentColour(colour);
 
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, colour);
 
-		game.goToNextPlayer(true);
-		game.drawCard(1);
-		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.withdrawPlayer(1, true);
+			game.goToNextPlayer(true);
+			game.drawCard(1);
+			game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.withdrawPlayer(1, true);
 
-		game.drawCard(2);
-		String result = game.withdrawPlayer(2, true);
+			game.drawCard(2);
+			game.withdrawPlayer(2, true);
 
-		// When other players withdraw, player 0 wins
-		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+			game.drawCard(3);
+			String result = game.withdrawPlayer(3, true);
+
+			// When other players withdraw, player 0 wins
+			assertEquals(true, result.contains(PLAYER_ONE_NAME));
+
+		}
 	}
 
 	@Test
@@ -2849,72 +2856,84 @@ public class TestGame {
 	public void onePlayerStartsOnlyOnePlayOneCard() {
 		// One player draws/starts, others draw but only one participates by
 		// playing a card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Green Tournament
+			game.overrideTourColour(colour);
 
-		// Players 1,2,3 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i < 4; i++) {
-			game.drawCard(i);
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
-		}
-		// Players 1,2,3 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		assertEquals(true, game.getPlayer(3).isWithdrawn());
 
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
+			// Players 1,2 draw but don't play a card (and get withdrawn)
+			for (int i = 1; i < 3; i++) {
+				game.drawCard(i);
+				game.goToNextPlayer(true);
+			}
+			// Players 1,2,3 should be automatically withdrawn because they
+			// didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+			assertEquals(true, game.getPlayer(2).isWithdrawn());
+
+			// Player 4 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			game.withdrawPlayer(1, false);
+			game.withdrawPlayer(2, false);
+			game.withdrawPlayer(3, false);
+		}
 	}
 
 	@Test
 	public void onePlayerStartsOnlyOnePlayMultipleCard() {
 		// One player draws/starts, others draw but only one participates by
 		// playing several cards
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-
-		// Players 1,2,3 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i < 4; i++) {
-			game.drawCard(i);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
-		}
-		// Players 1,2,3 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		assertEquals(true, game.getPlayer(3).isWithdrawn());
 
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
+			// Players 1,2 draw but don't play a card (and get withdrawn)
+			for (int i = 1; i < 3; i++) {
+				game.drawCard(i);
+				game.goToNextPlayer(true);
+			}
+			// Players 1,2 should be automatically withdrawn because they
+			// didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+			assertEquals(true, game.getPlayer(2).isWithdrawn());
+
+			// Player 4 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+			
+			// Withdraw player 4, so we can start next tournament
+			game.withdrawPlayer(3, false);
+		}
 	}
 
 	@Test
