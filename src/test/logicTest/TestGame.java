@@ -815,15 +815,20 @@ public class TestGame {
 
 	@Test
 	public void addTokenToPlayer() {
-		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(2);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
-		game.startGame();
+			game.startGame();
 
-		game.addTokenToPlayer(0, Config.BLUE);
-		assertEquals(true, game.getPlayer(0).getTokens().contains(Config.BLUE));
-		assertEquals(24, game.getTokenPool().size());
+			game.addTokenToPlayer(0, colour);
+			assertEquals(true, game.getPlayer(0).getTokens().contains(colour));
+			assertEquals(24, game.getTokenPool().size());
+
+		}
 	}
 
 	@Test
@@ -1309,11 +1314,86 @@ public class TestGame {
 		assertEquals(true, game.getDiscardPile().contains(BREAK_LANCE_CARD));
 		assertEquals(0, game.getPlayer(0).getHandCards().size());
 		assertEquals(3, game.getPlayer(1).getDisplayCards().size());
+
+		// Player 2 should still have one card in their display, it does not
+		// remove the last card
 		assertEquals(1, game.getPlayer(2).getDisplayCards().size());
 		assertEquals(true,
 				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_7));
 		assertEquals(false,
 				game.getPlayer(2).getDisplayCards().contains(PURPLE_CARD_3));
+	}
+
+	@Test
+	public void displayCannotLoseLastCard() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+
+		// Try playing break lance
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+		String result = game.playCard(0, BREAK_LANCE_CARD.getName());
+		// You cannot play break lance because player 1 only has one purple
+		// card, you cannot remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing riposte
+		game.getPlayer(0).addCardToHand(RIPOSTE_CARD);
+		result = game.playCard(0, RIPOSTE_CARD.getName());
+		// You cannot play riposte card, because player 1 only has one card in
+		// their display
+		assertEquals(true, result.contains("false"));
+
+		// Try playing dodge
+		game.getPlayer(0).addCardToHand(DODGE_CARD);
+		result = game.playCard(0, DODGE_CARD.getName());
+		// You cannot play dodge card, because player 1 only has one card in
+		// their display
+		assertEquals(true, result.contains("false"));
+
+		// Try playing retreat
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+		game.getPlayer(0).addCardToDisplay(BLUE_CARD_2, Config.BLUE);
+		result = game.playCard(0, RETREAT_CARD.getName());
+		// You cannot play retreat card, because you only have one card in your
+		// display, you can't remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing charge
+		game.getPlayer(0).addCardToHand(CHARGE_CARD);
+		result = game.playCard(0, CHARGE_CARD.getName());
+		// You cannot play charge card when opponent only has one card
+		assertEquals(true, result.contains("false"));
+
+		// Try playing counter charge
+		game.getPlayer(0).addCardToHand(COUNTER_CHARGE_CARD);
+		result = game.playCard(0, COUNTER_CHARGE_CARD.getName());
+		// You cannot play counter charge card when opponent only has one card
+		assertEquals(true, result.contains("false"));
+
+		// Try playing disgrace
+		game.getPlayer(1).clearDisplay();
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+		game.getPlayer(0).addCardToHand(DISGRACE_CARD);
+		result = game.playCard(0, DISGRACE_CARD.getName());
+		// You cannot play disgrace when your opponent only has one supporter
+		assertEquals(true, result.contains("false"));
+
+		// Try playing adapt
+		game.getPlayer(0).addCardToHand(ADAPT_CARD);
+		result = game.playCard(0, ADAPT_CARD.getName());
+		// You cannot play adapt because opponent only has one card in their
+		// display, you cannot remove it
+		assertEquals(true, result.contains("false"));
+
+		// Try playing outmaneuver
+		game.getPlayer(0).addCardToHand(OUTMANEUVER_CARD);
+		result = game.playCard(0, OUTMANEUVER_CARD.getName());
+		// You cannot play outmaneuver because opponent only has one card in
+		// their
+		// display, you cannot remove it
+		assertEquals(true, result.contains("false"));
 	}
 
 	@Test
@@ -2605,40 +2685,48 @@ public class TestGame {
 
 	@Test
 	public void playerWithdrawWithMaidenInDisplay() {
-		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.startGame();
 
-		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+			game.getPlayer(1).addToken(Config.BLUE);
+			game.getPlayer(1).addToken(Config.RED);
+			game.getPlayer(1).addToken(Config.YELLOW);
+			game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, colour);
 
-		game.getPlayer(1).addToken(Config.BLUE);
-		game.getPlayer(1).addToken(Config.RED);
-		game.getPlayer(1).addToken(Config.YELLOW);
-		game.getPlayer(1).addCardToDisplay(MAIDEN_CARD, Config.BLUE);
-
-		String result = game.withdrawPlayer(1, true);
-		assertEquals(true, result.contains("maidenPickTokenToReturn"));
+			// If player 1 withdraws with a maiden in display, it will ask them
+			// to return
+			String result = game.withdrawPlayer(1, true);
+			assertEquals(true, result.contains("maidenPickTokenToReturn"));
+		}
 	}
 
 	@Test
 	public void processReturnToken() {
-		game.setNumPlayers(2);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
-		game.startGame();
+			game.startGame();
 
-		game.addTokenToPlayer(1, Config.BLUE);
-		game.addTokenToPlayer(1, Config.RED);
-		game.addTokenToPlayer(1, Config.YELLOW);
+			game.addTokenToPlayer(1, colour);
 
-		assertEquals(22, game.getTokenPool().size());
-		game.processReturnToken(1, Config.RED);
-		assertEquals(23, game.getTokenPool().size());
-		assertEquals(false, game.getPlayer(1).getTokens().contains(Config.RED));
-		assertEquals(true, game.getPlayer(1).getTokens().contains(Config.BLUE));
-		assertEquals(true, game.getPlayer(1).getTokens()
-				.contains(Config.YELLOW));
+			assertEquals(24, game.getTokenPool().size());
+			game.processReturnToken(1, colour);
+			assertEquals(25, game.getTokenPool().size());
+			assertEquals(false, game.getPlayer(1).getTokens().contains(colour));
+		}
 	}
 
 	@Test
@@ -2648,49 +2736,64 @@ public class TestGame {
 
 	@Test
 	public void playerStartsOthersDrawWithdraw() {
-		game.setNumPlayers(3);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 		game.startGame();
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
 
-		game.setTournamentColour(Config.RED);
+			game.setTournamentColour(colour);
 
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, colour);
 
-		game.goToNextPlayer(true);
-		game.drawCard(1);
-		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.withdrawPlayer(1, true);
+			game.goToNextPlayer(true);
+			game.drawCard(1);
+			game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.withdrawPlayer(1, true);
 
-		game.drawCard(2);
-		String result = game.withdrawPlayer(2, true);
+			game.drawCard(2);
+			game.withdrawPlayer(2, true);
 
-		// When other players withdraw, player 0 wins
-		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+			game.drawCard(3);
+			String result = game.withdrawPlayer(3, true);
+
+			// When other players withdraw, player 0 wins
+			assertEquals(true, result.contains(PLAYER_ONE_NAME));
+
+		}
 	}
 
 	@Test
 	public void onlyOneMaidenAllowed() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
 
-		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
-		game.startGame();
+			game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+			game.startGame();
 
-		game.setTournamentColour(Config.RED);
+			game.setTournamentColour(colour);
 
-		game.playCard(0, "Maiden 6");
-		game.playCard(0, "Maiden 6");
+			game.playCard(0, "Maiden 6");
+			game.playCard(0, "Maiden 6");
 
-		// You are only allowed to add one maiden to your display
-		assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+			// You are only allowed to add one maiden to your display
+			// Their display will only contain the one maiden card
+			assertEquals(1, game.getPlayer(0).getDisplayCards().size());
+			assertEquals(true,
+					game.getPlayer(0).getHandCards().contains(MAIDEN_CARD));
+		}
 	}
 
 	@Test
@@ -2736,80 +2839,108 @@ public class TestGame {
 
 	@Test
 	public void automaticallyWithdrawingPlayerWithLowestScore() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
 
-		game.startGame();
-		// Player 0 has a score of 3
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
-		game.goToNextPlayer(true);
-		// It is now player 1s turn
+			game.startGame();
+			game.overrideTourColour(colour);
+			// Player 0 has a score of 3
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			// It is now player 1s turn
 
-		// When I go to the next player, it should not withdraw player 0 because
-		// they have the highest display
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(1, game.getCurrentPlayerNumber());
+			// When I go to the next player, it should not withdraw player 0
+			// because
+			// they have the highest display
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(1, game.getCurrentPlayerNumber());
 
-		// Player 2 has a score of 3
-		game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
+			// Player 2 has a score of 3
+			game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, colour);
 
-		game.goToNextPlayer(true);
-		// Is it now player 2's turn
-		// Player 1 is withdrawn because they have a score of 0
-		assertEquals(2, game.getCurrentPlayerNumber());
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
+			game.goToNextPlayer(true);
+			// Is it now player 2's turn
+			// Player 1 is withdrawn because they have a score of 0
+			assertEquals(2, game.getCurrentPlayerNumber());
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
 
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, Config.RED);
-		String result = game.goToNextPlayer(true);
-		// Automatically withdraws player 2, and player 0 wins
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.goToNextPlayer(true);
+			String result = game.goToNextPlayer(true);
+			// Player 0 wins
 
-		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+			assertEquals(true, result.contains(PLAYER_ONE_NAME));
+		}
 	}
 
 	@Test
 	public void winningATournament() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
 
-		game.startGame();
-		game.overrideTourColour(Config.BLUE);
-		game.withdrawPlayer(0, false);
-		String result = game.withdrawPlayer(1, false);
+			game.startGame();
+			game.overrideTourColour(colour);
+			game.withdrawPlayer(0, false);
+			game.withdrawPlayer(1, false);
+			String result = game.withdrawPlayer(2, false);
 
-		// Player 3 wins
-		assertEquals(true, result.contains(PLAYER_THREE_NAME));
+			// Player 4 wins
+			assertEquals(true, result.contains(PLAYER_FOUR_NAME));
+
+		}
 	}
 
 	@Test
 	public void automaticallyWithdrawingPlayerWhenNoCardPlayed() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
 
-		game.startGame();
-		// Player 0 has a score of 3
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
-		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, Config.RED);
-		game.goToNextPlayer(true);
-		// It is now player 1s turn
+			game.startGame();
+			game.overrideTourColour(colour);
+			// Player 0 has a score of 3
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			// It is now player 1s turn
 
-		// When I go to the next player, it should not withdraw player 0 because
-		// they have the highest display
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(1, game.getCurrentPlayerNumber());
+			// When I go to the next player, it should not withdraw player 0
+			// because
+			// they have the highest display
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(1, game.getCurrentPlayerNumber());
 
-		// Player 1 has not played a card yet this turn
+			// Player 1 has not played a card yet this turn
 
-		game.goToNextPlayer(true);
-		// Is it now player 2's turn
-		// Player 1 is withdrawn because they haven't played a card yet
-		assertEquals(2, game.getCurrentPlayerNumber());
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
+			game.goToNextPlayer(true);
+			// Is it now player 2's turn
+			// Player 1 is withdrawn because they haven't played a card yet
+			assertEquals(2, game.getCurrentPlayerNumber());
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+
+			game.goToNextPlayer(true);
+			// Is it now player 3's turn
+			// Player 2 is withdrawn because they haven't played a card yet
+			assertEquals(3, game.getCurrentPlayerNumber());
+			assertEquals(true, game.getPlayer(2).isWithdrawn());
+		}
 	}
 
 	@Test
@@ -2849,216 +2980,239 @@ public class TestGame {
 	public void onePlayerStartsOnlyOnePlayOneCard() {
 		// One player draws/starts, others draw but only one participates by
 		// playing a card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Green Tournament
+			game.overrideTourColour(colour);
 
-		// Players 1,2,3 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i < 4; i++) {
-			game.drawCard(i);
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
-		}
-		// Players 1,2,3 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		assertEquals(true, game.getPlayer(3).isWithdrawn());
 
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
+			// Players 1,2 draw but don't play a card (and get withdrawn)
+			for (int i = 1; i < 3; i++) {
+				game.drawCard(i);
+				game.goToNextPlayer(true);
+			}
+			// Players 1,2,3 should be automatically withdrawn because they
+			// didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+			assertEquals(true, game.getPlayer(2).isWithdrawn());
+
+			// Player 4 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			game.withdrawPlayer(1, false);
+			game.withdrawPlayer(2, false);
+			game.withdrawPlayer(3, false);
+		}
 	}
 
 	@Test
 	public void onePlayerStartsOnlyOnePlayMultipleCard() {
 		// One player draws/starts, others draw but only one participates by
 		// playing several cards
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-
-		// Players 1,2,3 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i < 4; i++) {
-			game.drawCard(i);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
-		}
-		// Players 1,2,3 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-		assertEquals(true, game.getPlayer(3).isWithdrawn());
 
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
+			// Players 1,2 draw but don't play a card (and get withdrawn)
+			for (int i = 1; i < 3; i++) {
+				game.drawCard(i);
+				game.goToNextPlayer(true);
+			}
+			// Players 1,2 should be automatically withdrawn because they
+			// didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+			assertEquals(true, game.getPlayer(2).isWithdrawn());
+
+			// Player 4 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			// Withdraw player 4, so we can start next tournament
+			game.withdrawPlayer(3, false);
+		}
 	}
 
 	@Test
 	public void onePlayerStartsSomePlayOneCard() {
 		// One player draws/starts, others draw but some participate by
 		// playing a card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-
-		// Players 1,2 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i <= 2; i++) {
-			game.drawCard(i);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
+
+			// Players 1 draws but don't play a card (and get withdrawn)
+			game.drawCard(1);
+			game.goToNextPlayer(true);
+
+			// Players 1 should be automatically withdrawn because they didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+
+			// Player 3 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			// Withdraw player 3 so we start the next tournament
+			game.withdrawPlayer(3, false);
 		}
-		// Players 1,2 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-
-		// Player 3 plays a card and remains in tournament
-		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
-
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
 
 	@Test
 	public void onePlayerStartsSomePlaySeveralCards() {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-
-		// Players 1,2 draw but don't play a card (and get withdrawn)
-		for (int i = 1; i <= 2; i++) {
-			game.drawCard(i);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
+
+			// Players 1 draw but don't play a card (and get withdrawn)
+			game.drawCard(1);
+			game.goToNextPlayer(true);
+
+			// Players 1 should be automatically withdrawn because they didn't
+			// play
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+
+			// Player 2 plays a card and remains in tournament
+			game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.getPlayer(2).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+
+			// Player 3 plays a card and remains in tournament
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, colour);
+			game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, colour);
+			game.goToNextPlayer(true);
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			// Withdraw the last two players to start a new tournament
+			game.withdrawPlayer(2, false);
+			game.withdrawPlayer(3, false);
 		}
-		// Players 1,2 should be automatically withdrawn because they didn't
-		// play
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(true, game.getPlayer(2).isWithdrawn());
-
-		// Player 3 plays a card and remains in tournament
-		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.getPlayer(3).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
-
-		// Player 4 plays a card and remains in tournament
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-		game.getPlayer(4).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
 
 	@Test
 	public void onePlayerStartsAllPlayOneCard() {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
-
-		// Everyone should play a card
-		for (int i = 1; i <= 4; i++) {
-			game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
+
+			// Everyone should play a card
+			for (int i = 1; i <= 3; i++) {
+				game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, colour);
+				game.goToNextPlayer(true);
+			}
+			// Everyone should still be active in the tournament
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			// Withdraw everyone to go to the next tournament
+			game.withdrawPlayer(1, false);
+			game.withdrawPlayer(2, false);
+			game.withdrawPlayer(3, false);
 		}
-		// Everyone should still be active in the tournament
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
 
 	@Test
 	public void onePlayerStartsAllPlaySeveralCards() {
 		// One player draws/starts, others draw but some participate by
 		// playing several cards card
-		game.setNumPlayers(5);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_FOUR_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_FIVE_NAME, Config.PURPLE, "");
 
 		game.startGame();
 
-		// Player 0 starts
-		game.drawCard(0);
-		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-		game.goToNextPlayer(true);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
 
-		// Everyone should play a card
-		for (int i = 1; i <= 4; i++) {
-			game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
-			game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_2, Config.BLUE);
-			game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, Config.BLUE);
+			// Player 0 starts
+			game.drawCard(0);
+			game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, colour);
 			game.goToNextPlayer(true);
+
+			// Everyone should play a card
+			for (int i = 1; i <= 3; i++) {
+				game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, colour);
+				game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_2, colour);
+				game.getPlayer(i).addCardToDisplay(SQUIRE_CARD_3, colour);
+				game.goToNextPlayer(true);
+			}
+			// Everyone should still be active in the tournament
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
+
+			// Withdraw everyone to go to the next tournament
+			game.withdrawPlayer(1, false);
+			game.withdrawPlayer(2, false);
+			game.withdrawPlayer(3, false);
 		}
-		// Everyone should still be active in the tournament
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
-		assertEquals(false, game.getPlayer(4).isWithdrawn());
 	}
 
 	@Test
@@ -3155,174 +3309,216 @@ public class TestGame {
 
 	@Test
 	public void multipleRoundsWithSupporters() {
-		game.setNumPlayers(4);
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, ""); // This player will
-																// start
-		game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.GREEN, ""); // This player
+																	// will
+																	// start
+			game.addPlayer(PLAYER_FOUR_NAME, Config.BLUE, "");
 
-		game.startGame();
-		game.overrideTourColour(Config.BLUE);
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
 
-		assertEquals(2, game.getCurrentPlayerNumber());
+			game.startGame();
+			game.overrideTourColour(colour);
 
-		// One round where everyone plays one supporter and stays in the
-		// tournament
-		game.playCard(2, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(3, game.getCurrentPlayerNumber());
+			assertEquals(2, game.getCurrentPlayerNumber());
 
-		game.playCard(3, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(0, game.getCurrentPlayerNumber());
+			// One round where everyone plays one supporter and stays in the
+			// tournament
+			game.playCard(2, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(3, game.getCurrentPlayerNumber());
 
-		game.playCard(0, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(1, game.getCurrentPlayerNumber());
+			game.playCard(3, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(0, game.getCurrentPlayerNumber());
 
-		game.playCard(1, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(2, game.getCurrentPlayerNumber());
+			game.playCard(0, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(1, game.getCurrentPlayerNumber());
 
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
+			game.playCard(1, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(2, game.getCurrentPlayerNumber());
 
-		// Round 2: everyone plays a few supporters
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(2).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(3).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(1).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(2).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(3).addCardToHand(MAIDEN_CARD);
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
 
-		game.playCard(2, SQUIRE_CARD_2.getName());
-		game.playCard(2, SQUIRE_CARD_3.getName());
-		game.playCard(2, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(3, game.getCurrentPlayerNumber());
+			// Round 2: everyone plays a few supporters
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(2).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(3).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(1).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(2).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(3).addCardToHand(MAIDEN_CARD);
 
-		game.playCard(3, SQUIRE_CARD_2.getName());
-		game.playCard(3, SQUIRE_CARD_3.getName());
-		game.playCard(3, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(0, game.getCurrentPlayerNumber());
+			game.playCard(2, SQUIRE_CARD_2.getName());
+			game.playCard(2, SQUIRE_CARD_3.getName());
+			game.playCard(2, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(3, game.getCurrentPlayerNumber());
 
-		game.playCard(0, SQUIRE_CARD_2.getName());
-		game.playCard(0, SQUIRE_CARD_3.getName());
-		game.playCard(0, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(1, game.getCurrentPlayerNumber());
+			game.playCard(3, SQUIRE_CARD_2.getName());
+			game.playCard(3, SQUIRE_CARD_3.getName());
+			game.playCard(3, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(0, game.getCurrentPlayerNumber());
 
-		game.playCard(1, SQUIRE_CARD_2.getName());
-		game.playCard(1, SQUIRE_CARD_3.getName());
-		game.playCard(1, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(2, game.getCurrentPlayerNumber());
+			game.playCard(0, SQUIRE_CARD_2.getName());
+			game.playCard(0, SQUIRE_CARD_3.getName());
+			game.playCard(0, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(1, game.getCurrentPlayerNumber());
 
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
-		assertEquals(false, game.getPlayer(3).isWithdrawn());
+			game.playCard(1, SQUIRE_CARD_2.getName());
+			game.playCard(1, SQUIRE_CARD_3.getName());
+			game.playCard(1, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(2, game.getCurrentPlayerNumber());
 
-		// Round 3: Some players play more cards than others, players get
-		// automatically withdrawn for not having a high score
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(0).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(2).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(0).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(1).addCardToHand(MAIDEN_CARD);
-		game.getPlayer(2).addCardToHand(MAIDEN_CARD);
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(false, game.getPlayer(3).isWithdrawn());
 
-		game.playCard(2, SQUIRE_CARD_2.getName());
-		game.playCard(2, SQUIRE_CARD_3.getName());
-		game.playCard(2, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(3, game.getCurrentPlayerNumber());
+			// Round 3: Some players play more cards than others, players get
+			// automatically withdrawn for not having a high score
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(2).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(3).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(0).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(2).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(0).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(1).addCardToHand(MAIDEN_CARD);
+			game.getPlayer(2).addCardToHand(MAIDEN_CARD);
 
-		game.playCard(3, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(0, game.getCurrentPlayerNumber());
+			game.playCard(2, SQUIRE_CARD_2.getName());
+			game.playCard(2, SQUIRE_CARD_3.getName());
+			game.playCard(2, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(3, game.getCurrentPlayerNumber());
 
-		game.playCard(0, SQUIRE_CARD_2.getName());
-		game.playCard(0, SQUIRE_CARD_3.getName());
-		game.playCard(0, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		assertEquals(1, game.getCurrentPlayerNumber());
+			game.playCard(3, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(0, game.getCurrentPlayerNumber());
 
-		game.playCard(1, SQUIRE_CARD_2.getName());
-		game.goToNextPlayer(true);
-		assertEquals(2, game.getCurrentPlayerNumber());
+			game.playCard(0, SQUIRE_CARD_2.getName());
+			game.playCard(0, SQUIRE_CARD_3.getName());
+			game.playCard(0, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			assertEquals(1, game.getCurrentPlayerNumber());
 
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(true, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
-		assertEquals(true, game.getPlayer(3).isWithdrawn());
+			game.playCard(1, SQUIRE_CARD_2.getName());
+			game.goToNextPlayer(true);
+			assertEquals(2, game.getCurrentPlayerNumber());
+
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(true, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(true, game.getPlayer(3).isWithdrawn());
+		}
 	}
 
 	@Test
 	public void startingWithOneSupporter() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
-		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.startGame();
 
-		game.startGame();
+			game.overrideTourColour(colour);
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
+			game.playCard(1, SQUIRE_CARD_3.getName());
+			game.goToNextPlayer(true);
+			// Player 1 started the tournament with one supporter
 
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
-		game.playCard(1, SQUIRE_CARD_3.getName());
-		game.goToNextPlayer(true);
-		// Player 1 started the tournament with one supporter
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+		}
+	}
 
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
+	@Test
+	public void startingWithOneMaiden() {
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.startGame();
+
+			game.overrideTourColour(colour);
+			game.getPlayer(1).addCardToHand(MAIDEN_CARD);
+			game.playCard(1, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			// Player 1 started the tournament with one supporter
+
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+		}
 	}
 
 	@Test
 	public void startingWithMultipleSupporters() {
-		game.setNumPlayers(3);
-		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");// This player starts
-		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+		for (int colour : Config.ALL_TOKEN_COLOURS) {
 
-		game.startGame();
+			game = null;
+			game = new Game();
+			game.setNumPlayers(4);
+			game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+			game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+			game.addPlayer(PLAYER_THREE_NAME, Config.YELLOW, "");
+			game.startGame();
+			game.overrideTourColour(colour);
 
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
-		game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
-		game.getPlayer(1).addCardToHand(MAIDEN_CARD);
-		game.playCard(1, SQUIRE_CARD_3.getName());
-		game.playCard(1, SQUIRE_CARD_2.getName());
-		game.playCard(1, MAIDEN_CARD.getName());
-		game.goToNextPlayer(true);
-		// Player 1 started the tournament with multiple supporters
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_3);
+			game.getPlayer(1).addCardToHand(SQUIRE_CARD_2);
+			game.getPlayer(1).addCardToHand(MAIDEN_CARD);
+			game.playCard(1, SQUIRE_CARD_3.getName());
+			game.playCard(1, SQUIRE_CARD_2.getName());
+			game.playCard(1, MAIDEN_CARD.getName());
+			game.goToNextPlayer(true);
+			// Player 1 started the tournament with multiple supporters
 
-		assertEquals(false, game.getPlayer(0).isWithdrawn());
-		assertEquals(false, game.getPlayer(1).isWithdrawn());
-		assertEquals(false, game.getPlayer(2).isWithdrawn());
+			assertEquals(false, game.getPlayer(0).isWithdrawn());
+			assertEquals(false, game.getPlayer(1).isWithdrawn());
+			assertEquals(false, game.getPlayer(2).isWithdrawn());
+		}
 	}
 
 	@Test
 	public void getTokensRemainingForPlayer() {
-		game.setNumPlayers(3);
+		game.setNumPlayers(4);
 		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
 		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_FOUR_NAME, Config.RED, "");
 
 		game.getPlayer(0).addToken(Config.PURPLE);
 		game.getPlayer(0).addToken(Config.YELLOW);
