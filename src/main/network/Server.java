@@ -666,7 +666,7 @@ public class Server implements Runnable {
 	public void update(int ID){
 		//update the game info for all players
 		String gameInfo = getAllPlayerInfo();
-		broadcastToAllPlayers(gameInfo);
+		broadcastMessageToPlayer(gameInfo, ID, 1);
 		
 		//update the player hand for the specific player
 		getPlayerHand(ID);
@@ -797,7 +797,7 @@ public class Server implements Runnable {
 	
 	/** update all the player and game information at once */
 	public void updateAll() {
-		for (int id: playerNumbers.keySet()) {
+		for (int id: serverThreads.keySet()) {
 			update(id);
 		}
 	}
