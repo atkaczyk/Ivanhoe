@@ -221,7 +221,6 @@ public class Server implements Runnable {
 					int playerNum = playerNumbers.get(ID); //gives the player number
 					String result = game.playCard(playerNum, cardInfo[1]);
 					if(result.contains("true")){
-						getPlayerHand(ID);
 						updateAll();
 					}
 					if(result.contains("false")){
