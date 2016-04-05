@@ -1059,30 +1059,6 @@ public class TestGame {
 	}
 
 	@Test
-	public void drawPileRefillsWhenEmpty() {
-		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
-		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
-
-		game.getDiscardPile().add(new ActionCard(""));
-		game.getDiscardPile().add(new ActionCard(""));
-		game.getDiscardPile().add(new ActionCard(""));
-		game.getDiscardPile().add(new ActionCard(""));
-
-		game.getDrawPile().clearCards();
-
-		// Add cards to the draw pile
-		game.getDrawPile().addCard(new SupporterCard("", 0));
-		game.getDrawPile().addCard(new SupporterCard("", 0));
-
-		// Empty the draw pile
-		// Draw pile should refill with the cards from the discard pile
-		game.drawCard(0);
-		game.drawCard(0);
-
-		assertEquals(4, game.getDrawPile().getNumCards());
-	}
-
-	@Test
 	public void tryPlayingRiposteCardMoreInfoNeeded() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
@@ -2827,14 +2803,17 @@ public class TestGame {
 		assertEquals(70, game.getDrawPile().getNumCards());
 
 		// Put the remaining 70 cards into player 0's hand
-		for (int i = 0; i < 70; i++) {
-			game.drawCard(0);
+		for (int i = 0; i < 69; i++) {
+			game.getPlayer(0).addCardToHand(game.getDrawPile().getCard());
 		}
+		game.drawCard(0);
 
+		assertEquals(70, game.getPlayer(0).getHandCards().size());
+		
 		// The draw pile should NOT be empty
 		// It should refill with the 8 cards from the discard pile
-		assertEquals(8, game.getDrawPile().getNumCards());
 		assertEquals(0, game.getDiscardPile().size());
+		assertEquals(8, game.getDrawPile().getNumCards());
 	}
 
 	@Test
@@ -3527,6 +3506,35 @@ public class TestGame {
 
 		assertEquals(Config.BLUE,
 				Integer.parseInt(game.getTokensRemainingForPlayer(0)));
+	}
+	
+	@Test
+	public void notAllowedToDrawTwoCards() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		
+		game.startGame();
+		game.drawCard(0);
+		// This will not work because they can't draw more than one card
+		game.drawCard(0);
+		
+		assertEquals(9, game.getPlayer(0).getHandCards().size());
+	}
+	
+	@Test
+	public void notAllowedToPlayCardAndThenDraw() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+		
+		game.startGame();
+		game.getPlayer(0).addCardToHand(SQUIRE_CARD_2);
+		game.playCard(0, SQUIRE_CARD_2.getName());
+		// This will not work, because they already played a card
+		game.drawCard(0);
+		
+		assertEquals(8, game.getPlayer(0).getHandCards().size());
 	}
 
 	@After

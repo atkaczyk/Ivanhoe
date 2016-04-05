@@ -240,7 +240,7 @@ public class Game {
 	 **/
 	public String drawCard(int playerNum) {
 		Player player = players[playerNum];
-		
+
 		if (player.getCardsPlayedThisTurn() > 0) {
 			return "You have already played a card, you can no longer draw a card!";
 		}
@@ -249,7 +249,8 @@ public class Game {
 		}
 		Card c = drawPile.getCard();
 		player.addCardToHand(c);
-
+		player.addToCardsDrawnThisTurn();
+		
 		// Check to see is the draw pile is empty
 		if (drawPile.getNumCards() == 0) {
 			// Shuffle the discard pile and add it to the drawPile
@@ -267,6 +268,7 @@ public class Game {
 				drawPile.addCard(card);
 			}
 		}
+		
 		return "";
 	}
 
