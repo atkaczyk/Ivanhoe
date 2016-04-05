@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -74,10 +73,11 @@ public class GamePlayWindow extends JFrame{
 		icon3 = new ImageIcon( newimg3 );
 
 		tournamentColour = new JLabel(icon3);
-		tournamentColour.setFont(new Font("Century", Font.BOLD, 18));
+		tournamentColour.setFont(new Font("Harrington", Font.BOLD, 18));
 
 		tournamentNumber = new JLabel();
 		tournamentNumber.setFont(new Font("Century", Font.BOLD, 28));
+		//tournamentNumber.setForeground(new Color(243, 235, 97));
 
 		GameStats = new JPanel(new FlowLayout());
 		GameStats.add(title);
@@ -218,6 +218,7 @@ public class GamePlayWindow extends JFrame{
 			} 
 		}
 		tournamentColour.setIcon(updatedIcon);
+		tournamentNumber.setForeground(tColour);
 
 	}
 	public void setDrawCardButton(boolean b) {
