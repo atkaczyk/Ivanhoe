@@ -238,8 +238,15 @@ public class Game {
 	/**
 	 * Gets the first card from the draw pile and moves it into the players hand
 	 **/
-	public void drawCard(int playerNum) {
+	public String drawCard(int playerNum) {
 		Player player = players[playerNum];
+		
+		if (player.getCardsPlayedThisTurn() > 0) {
+			return "You have already played a card, you can no longer draw a card!";
+		}
+		if (player.getCardsDrawnThisTurn() > 0) {
+			return "You have already drawn a card, you cannot draw another one!";
+		}
 		Card c = drawPile.getCard();
 		player.addCardToHand(c);
 
@@ -260,6 +267,7 @@ public class Game {
 				drawPile.addCard(card);
 			}
 		}
+		return "";
 	}
 
 	public DrawPile getDrawPile() {

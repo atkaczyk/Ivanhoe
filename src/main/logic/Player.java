@@ -26,6 +26,7 @@ public class Player {
 	private List<Card> specialCards = new ArrayList<Card>();
 	private int cardsAddedToDisplayThisTurn = 0;
 	private int actionCardsPlayedThisTurn = 0;
+	private int cardsDrawnThisTurn = 0;
 	private String avatar = "";
 
 	public Player(String name) {
@@ -34,6 +35,14 @@ public class Player {
 	
 	public void setWithdrawn(Boolean status) {
 		withdrawn = status;
+	}
+	
+	public void addToCardsDrawnThisTurn() {
+		cardsDrawnThisTurn++;
+	}
+	
+	public int getCardsDrawnThisTurn() {
+		return cardsDrawnThisTurn;
 	}
 
 	public String getName() {
@@ -530,6 +539,7 @@ public class Player {
 	public void clearCardCounter() {
 		cardsAddedToDisplayThisTurn = 0;
 		actionCardsPlayedThisTurn = 0;
+		cardsDrawnThisTurn = 0;
 	}
 
 	public Boolean hasIvanhoeCard() {
