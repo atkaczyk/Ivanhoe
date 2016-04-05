@@ -316,7 +316,9 @@ public class Server implements Runnable {
 					if (!result.equals("")){
 						broadcastMessageToPlayer("ERROR~"+result, ID, 0);
 					}
-					update(ID); //call update function
+					else {
+						update(ID); //call update function
+					}
 				}
 				else if (input.contains("requestToEndTurn")){
 					//game.goToNextPlayer();
