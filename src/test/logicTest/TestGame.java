@@ -1589,7 +1589,132 @@ public class TestGame {
 	}
 
 	@Test
-	public void playShieldCard() {
+	public void tryPlayingDodgeWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(1).addCardToHand(DODGE_CARD);
+		String result = game.playCard(1, DODGE_CARD.getName());
+		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+	}
+
+	@Test
+	public void tryPlayingDisgraceWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
+		String result = game.playCard(1, DISGRACE_CARD.getName());
+		assertEquals(true, result.contains("false"));
+		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+	}
+
+	@Test
+	public void tryPlayingRetreatWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(0).addCardToHand(RETREAT_CARD);
+		String result = game.playCard(0, RETREAT_CARD.getName());
+		assertEquals(true, result.contains("false"));
+	}
+
+	@Test
+	public void tryPlayingRiposteWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(1).addCardToHand(RIPOSTE_CARD);
+		String result = game.playCard(1, RIPOSTE_CARD.getName());
+		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+	}
+
+	@Test
+	public void tryPlayingOutmaneuverWithShield() {
 		game.setNumPlayers(2);
 		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
 		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
@@ -1618,44 +1743,162 @@ public class TestGame {
 		String result = game.playCard(1, OUTMANEUVER_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+	}
 
-		game.getPlayer(1).addCardToHand(CHARGE_CARD);
-		result = game.playCard(1, CHARGE_CARD.getName());
-		assertEquals(true, result.contains("false"));
-		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+	@Test
+	public void tryPlayingCounterChargeWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
 
 		game.getPlayer(1).addCardToHand(COUNTER_CHARGE_CARD);
-		result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
+		String result = game.playCard(1, COUNTER_CHARGE_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+	}
 
-		game.getPlayer(1).addCardToHand(DISGRACE_CARD);
-		result = game.playCard(1, DISGRACE_CARD.getName());
+	@Test
+	public void tryPlayingChargeWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(1).addCardToHand(CHARGE_CARD);
+		String result = game.playCard(1, CHARGE_CARD.getName());
 		assertEquals(true, result.contains("false"));
 		assertEquals(3, game.getPlayer(0).getDisplayCards().size());
+	}
 
-		game.getPlayer(1).addCardToHand(RIPOSTE_CARD);
-		result = game.playCard(1, RIPOSTE_CARD.getName());
-		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+	@Test
+	public void tryPlayingBreakLanceWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
 
 		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
-		result = game.playCard(1, BREAK_LANCE_CARD.getName());
+		String result = game.playCard(1, BREAK_LANCE_CARD.getName());
 		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+	}
 
-		game.getPlayer(1).addCardToHand(DODGE_CARD);
-		result = game.playCard(1, DODGE_CARD.getName());
-		assertEquals(false, result.contains(PLAYER_ONE_NAME));
+	@Test
+	public void tryPlayingAdaptWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
 
-		game.getPlayer(0).addCardToHand(RETREAT_CARD);
-		result = game.playCard(0, RETREAT_CARD.getName());
-		assertEquals(true, result.contains("false"));
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
 
-		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
-		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
-		assertEquals(true, result.contains("false"));
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
 
 		game.getPlayer(1).addCardToHand(ADAPT_CARD);
-		result = game.playCard(1, KNOCK_DOWN_CARD.getName());
+		String result = game.playCard(1, KNOCK_DOWN_CARD.getName());
+		assertEquals(true, result.contains("false"));
+	}
+
+	@Test
+	public void tryPlayingKnockDownWithShield() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.getPlayer(0).addCardToHand(SHIELD_CARD);
+		game.getPlayer(0).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(0).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(0).addCardToDisplay(SQUIRE_CARD_3, Config.PURPLE);
+
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.getPlayer(1).addCardToHand(BREAK_LANCE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_3, Config.PURPLE);
+
+		game.playCard(0, "Shield");
+		// Now action cards played on player 0 should have no affect anymore
+
+		assertEquals(true, game.getPlayer(0).hasSpecialCard("Shield"));
+
+		game.getPlayer(1).addCardToHand(KNOCK_DOWN_CARD);
+		String result = game.playCard(1, KNOCK_DOWN_CARD.getName());
 		assertEquals(true, result.contains("false"));
 	}
 
