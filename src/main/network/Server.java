@@ -320,7 +320,6 @@ public class Server implements Runnable {
 					String endTurn = game.goToNextPlayer(true);
 					//call function with result(endTurn, ID);
 					determineIfWinner(endTurn, ID);
-					updateAll();
 				}
 				else if (input.contains("requestToWithdraw")){
 					int playerNum = playerNumbers.get(ID); //gives the player number
