@@ -47,14 +47,14 @@ public class CardHand extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setName("Cards Panel");
 		panel.setLayout(new FlowLayout());
-		panel.setBackground(new Color(137, 78, 72));
+		panel.setBackground(new Color(43, 49, 31)); //153,125,106)
 		panel.setOpaque(true);
 		scrollPane.setViewportView(panel);
 		scrollPane.setName("Scroll Pane");
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setPreferredSize(new Dimension(900, 220));
-		scrollPane.setBackground(new Color(0, 0, 0));
-		scrollPane.setOpaque(true);
+		//scrollPane.setBackground(new Color(0, 0, 0));
+		scrollPane.setOpaque(false);
 		this.add(scrollPane, BorderLayout.CENTER);
 
 		setSize(150, 200); 

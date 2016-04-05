@@ -33,7 +33,8 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 
 		setLayout(new FlowLayout());//new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		curPlayerName = new JLabel("CurPlayerName");
-		curPlayerName.setFont(new Font("Century", Font.BOLD, 16));
+		curPlayerName.setFont(new Font("Lucida Handwriting", Font.ITALIC, 16));
+		curPlayerName.setForeground(new Color(220,212,200));
 		add(curPlayerName);
 
 		JLabel empty = new JLabel();
@@ -74,6 +75,8 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		drawCardButton.setBorderPainted(true);
 		drawCardButton.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
 		add(drawCardButton);
+		
+		this.setOpaque(false);
 		//add(Box.createRigidArea(new Dimension(5,10)));
 		setPreferredSize(new Dimension(200, 200)); 
 	}

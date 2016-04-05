@@ -2,6 +2,7 @@ package userinterface;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -10,8 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
-import logic.SimpleCard;
 
 /**
  * Connected to the PlayerCard: used to represent
@@ -25,7 +24,11 @@ import logic.SimpleCard;
 
 public class PlayerCardStats extends JPanel{
 	JLabel playerName;
-	JLabel numTokens;
+	JLabel pToken;
+	JLabel rToken;
+	JLabel yToken;
+	JLabel gToken;
+	JLabel bToken;
 	JLabel score;
 	JLabel specialCard;
 	JLabel turn;
@@ -41,40 +44,66 @@ public class PlayerCardStats extends JPanel{
 		sCards = "";
 
 		playerName = new JLabel(" " + pName);
-		playerName.setLocation(0, top);
-		playerName.setFont(new Font("Century", Font.BOLD, 14));
+		playerName.setLocation(0, 3);
+		playerName.setFont(new Font("Lucida Handwriting", Font.ITALIC, 14));
 		playerName.setSize(100,30);
+		playerName.setForeground(new Color(220,212,200));
 		add(playerName);
 
-		tokenSet = new JLayeredPane();
-		tokenSet.setLocation(0, top + 100);
-		tokenSet.setPreferredSize(new Dimension(100,30)); //setSize(100,30);
-		tokenSet.setBackground(new Color(0,0,0));
-		tokenSet.setOpaque(true);
-		//add(tokenSet);
 
-		numTokens = new JLabel(""); //"# Tokens: " + numToken1);
-		numTokens.setLocation(0, top + 15);
-		numTokens.setSize(100,30);
-		numTokens.setFont(new Font("Century", Font.PLAIN, 14));
-		add(numTokens);
+		pToken = new JLabel(); 
+		pToken.setLayout(new FlowLayout());
+		pToken.setLocation(0, top + 15);
+		pToken.setSize (20,20);
+		pToken.setPreferredSize(new Dimension (20,20));
+		add(pToken);
+
+		rToken = new JLabel(); 
+		rToken.setLayout(new FlowLayout());
+		rToken.setLocation(10, top + 15);
+		rToken.setSize (20,20);
+		rToken.setPreferredSize(new Dimension (20,20));
+		add(rToken);
+
+		yToken = new JLabel(); 
+		yToken.setLayout(new FlowLayout());
+		yToken.setLocation(20, top + 15);
+		yToken.setSize (20,20);
+		yToken.setPreferredSize(new Dimension(20,20));
+		add(yToken);
+
+		gToken = new JLabel(); 
+		gToken.setLayout(new FlowLayout());
+		gToken.setLocation(30, top + 15);
+		gToken.setSize(20,20);
+		gToken.setPreferredSize(new Dimension(20,20));
+		add(gToken);
+
+		bToken = new JLabel(); 
+		bToken.setLayout(new FlowLayout());
+		bToken.setLocation(40, top + 15);
+		bToken.setSize (20,20);
+		bToken.setPreferredSize(new Dimension(20,20));
+		add(bToken);
 
 		score = new JLabel(""); //Score:");
 		score.setLocation(0, top + 30);
 		score.setSize(100,30);
-		score.setFont(new Font("Century", Font.PLAIN, 14));
+		score.setForeground(new Color(220,212,200));
+		score.setFont(new Font("Century", Font.BOLD, 14));
 		add(score);
 
 		specialCard = new JLabel(""); //("Special Card " + score1 );
 		specialCard.setLocation(0, top + 45);
-		specialCard.setFont(new Font("Century", Font.PLAIN, 14));
+		specialCard.setFont(new Font("Century", Font.BOLD, 14));
+		specialCard.setForeground(new Color(220,212,200));
 		specialCard.setSize(100,30);
 		add(specialCard);  
 
 		turn = new JLabel(""); //("< Inactive >");
 		turn.setLocation(0, top + 60);
 		turn.setSize(100,30);
-		turn.setFont(new Font("Century", Font.PLAIN, 14));
+		turn.setFont(new Font("Century", Font.BOLD, 14));
 		turn.setForeground(Color.red);
 		add(turn);
 
@@ -82,10 +111,11 @@ public class PlayerCardStats extends JPanel{
 		isWithdrawn.setFont(new Font("Century", Font.BOLD, 14));
 		isWithdrawn.setLocation(0, top + 75);
 		isWithdrawn.setSize(100, 30);
+		isWithdrawn.setForeground(new Color(220,212,200));
 		isWithdrawn.setVisible(true);
 		add(isWithdrawn);
 
-		setOpaque(true);
+		setOpaque(false);
 		setBackground(new Color(153,125,106));
 		setSize(130, 140);	 
 	}
@@ -99,61 +129,47 @@ public class PlayerCardStats extends JPanel{
 	 */
 	public void setPlayerTokens(String s) {
 		// TURN STR which is 012 into its proper colour..
-		int space = 0;
+		ImageIcon purple =new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
+		Image imgP = purple.getImage() ;  
+		Image newimgP = imgP.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		purple = new ImageIcon( newimgP );
 
-		ImageIcon icon =new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
-		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ; 
-		icon = new ImageIcon( newimg );
-		String temp = "";
+		ImageIcon red =new ImageIcon(this.getClass().getResource("Images/Tokens/redToken.png"));
+		Image imgR = red.getImage() ;  
+		Image newimgR = imgR.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		red = new ImageIcon( newimgR );
+
+		ImageIcon yellow =new ImageIcon(this.getClass().getResource("Images/Tokens/goldToken.png"));
+		Image imgY = yellow.getImage() ;  
+		Image newimgY = imgY.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		yellow = new ImageIcon( newimgY );
+
+		ImageIcon green =new ImageIcon(this.getClass().getResource("Images/Tokens/greenToken.png"));
+		Image imgG = green.getImage() ;  
+		Image newimgG = imgG.getScaledInstance(20,20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		green = new ImageIcon( newimgG );
+
+		ImageIcon blue =new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
+		Image imgB = blue.getImage() ;  
+		Image newimgB = imgP.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		blue = new ImageIcon( newimgB );
+
+
 		if(s.contains("0")){
-			temp += "P";
-			space++;
-			JLabel pTok = new JLabel(icon);
-			pTok.setOpaque(false);
-			pTok.setSize(30, 30);
-			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
-			tokenSet.add(pTok, space);
+			pToken.setIcon(purple);
 		}
 		if(s.contains("1")){
-			temp += "R";
-			space++;
-			JLabel pTok = new JLabel(icon);
-			pTok.setOpaque(false);
-			pTok.setSize(30, 30);
-			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
-			tokenSet.add(pTok, space);
+			rToken.setIcon(red);
 		}
 		if(s.contains("2")){
-			temp += "Y";
-			space++;
-			JLabel pTok = new JLabel(icon);
-			pTok.setOpaque(false);
-			pTok.setSize(30, 30);
-			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
-			tokenSet.add(pTok, space);
+			yToken.setIcon(yellow);	
 		}
 		if(s.contains("3")){
-			temp += "G";
-			space++;
-			JLabel pTok = new JLabel(icon);
-			pTok.setOpaque(false);
-			pTok.setSize(30, 30);
-			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
-			tokenSet.add(pTok, space);
+			gToken.setIcon(green);	
 		}
 		if(s.contains("4")){
-			temp += "B";
-			space++;
-			JLabel pTok = new JLabel(icon);
-			pTok.setOpaque(false);
-			pTok.setSize(30, 30);
-			pTok.setBounds((space * 20), 0, pTok.getWidth(), pTok.getHeight());
-			tokenSet.add(pTok, space);
+			bToken.setIcon(blue);	
 		} 
-
-		//this.add(tokenSet);
-		numTokens.setText("Tokens: " +temp);	
 
 	}
 

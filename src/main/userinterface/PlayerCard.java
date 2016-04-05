@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import utils.Config;
 
@@ -38,12 +39,12 @@ public class PlayerCard extends JPanel{
 
 		background.setBounds(0,0, 500,160);
 		//add(background);
-
+		Border loweredbevel;
 		numCardsInDisplay= 0;
-
+		loweredbevel =BorderFactory.createLoweredBevelBorder();
 		//setLayout(new BoxLayout(this, BoxLayout.X_AXIS)); 
 		setLayout(null);
-		setBorder(BorderFactory.createTitledBorder(" ")); 
+		setBorder(BorderFactory.createTitledBorder(loweredbevel, " ")); 
 		playerStats = new PlayerCardStats(name, 0, 0, false);
 		playerStats.setLocation(15,15);
 		playerStats.setPreferredSize(new Dimension(130, 70));
@@ -59,7 +60,7 @@ public class PlayerCard extends JPanel{
 		display.setLocation(playerStats.getWidth()+avatar.getWidth()+45, 15 );
 		display.setBackground(new Color(137, 78, 72));
 		display.setSize(400, 130); 
-		display.setPreferredSize(new Dimension(300, 150));
+		display.setPreferredSize(new Dimension(300, 155));
 		add(playerStats);
 		add(avatar);
 		add(display);
@@ -123,12 +124,12 @@ public class PlayerCard extends JPanel{
 	public void addCardToDisplay(JLabel card,String str){
 		ImageIcon icon =new ImageIcon(this.getClass().getResource("Images/Cards/"+str));
 		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance(80, 125,  java.awt.Image.SCALE_SMOOTH ) ; 
+		Image newimg = img.getScaledInstance(90, 130,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		card.setIcon(icon);
 		card.setOpaque(false);
-		card.setSize(80, 125);
-		card.setBounds((numCardsInDisplay * 20), 0, card.getWidth(), card.getHeight());
+		card.setSize(90, 130);
+		card.setBounds((numCardsInDisplay * 20), 5, card.getWidth(), card.getHeight());
 		
 		display.add(card, new Integer(numCardsInDisplay));
 		numCardsInDisplay ++;
