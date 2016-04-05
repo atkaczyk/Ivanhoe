@@ -2250,6 +2250,32 @@ public class TestGame {
 		assertEquals(true, game.getDiscardPile().contains(IVANHOE_CARD));
 		assertEquals(true, game.getDiscardPile().contains(OUTWIT_CARD));
 	}
+	
+	@Test
+	public void yesToIvanhoeDisgraceGetsDiscarded() {
+		game.setNumPlayers(2);
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(0).addCardToHand(DISGRACE_CARD);
+
+		game.getPlayer(1).addCardToDisplay(PURPLE_CARD_7, Config.PURPLE);
+		game.getPlayer(1).addCardToDisplay(SQUIRE_CARD_2, Config.PURPLE);
+		game.getPlayer(0).addCardToHand(IVANHOE_CARD);
+		
+		String info = "Yes=" + DISGRACE_CARD.getName() + "=0";
+		game.processIvanhoeCard(info);
+
+		assertEquals(0, game.getPlayer(1).getHandCards().size());
+		assertEquals(0, game.getPlayer(0).getHandCards().size());
+		assertEquals(2, game.getPlayer(1).getDisplayCards().size());
+		assertEquals(0, game.getPlayer(0).getDisplayCards().size());
+		assertEquals(Config.RED, game.getTournamentColour());
+		assertEquals(2, game.getDiscardPile().size());
+		assertEquals(true, game.getDiscardPile().contains(IVANHOE_CARD));
+		assertEquals(true, game.getDiscardPile().contains(DISGRACE_CARD));
+	}
 
 	@Test
 	public void playAdaptCardAskForIvanhoe() {
@@ -3013,6 +3039,21 @@ public class TestGame {
 		assertEquals(false, game.getPlayer(0).isWithdrawn());
 		assertEquals(false, game.getPlayer(1).isWithdrawn());
 		assertEquals(false, game.getPlayer(2).isWithdrawn());
+	}
+	
+	@Test
+	public void getTokensRemainingForPlayer() {
+		game.setNumPlayers(3);
+		game.addPlayer(PLAYER_ONE_NAME, Config.PURPLE, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.BLUE, "");
+		game.addPlayer(PLAYER_THREE_NAME, Config.RED, "");
+		
+		game.getPlayer(0).addToken(Config.PURPLE);
+		game.getPlayer(0).addToken(Config.YELLOW);
+		game.getPlayer(0).addToken(Config.RED);
+		game.getPlayer(0).addToken(Config.GREEN);
+		
+		assertEquals(Config.BLUE, Integer.parseInt(game.getTokensRemainingForPlayer(0)));
 	}
 
 	@After
