@@ -126,8 +126,9 @@ public class GUIController {
 		client.handle("maidenTokenColourPicked~" + convertNameToNumber(rets));
 	}
 	
-	public void setCurrentPlayerName(String str){
-		gamePlayWindow.setCurrentPlayerName(str);
+	public void setPlayerSpecificInfo(String name, String aviName){
+		gamePlayWindow.setCurrentPlayerName(name);
+		gamePlayWindow.setCurrentPlayerAvi(aviName);
 	}
 	public void showPlayerHand(String hand){
 		gamePlayWindow.hand.showCardsInHand(hand); 

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,37 +21,28 @@ import javax.swing.JPanel;
  **/
 
 public class GamePlayButtonPanel extends JPanel implements ActionListener{
-	
+
 	GUIController gui;
-	JButton button;
 	JButton withdrawButton;
 	JButton endTurnButton;
 	JButton drawCardButton;
 	JLabel curPlayerName;
-	
+	JLabel avi;
+
 	GamePlayButtonPanel(GUIController gui1) {
 		gui = gui1;
-
-		setLayout(new FlowLayout());//new BoxLayout(this, BoxLayout.Y_AXIS)); 
+		setLayout(new FlowLayout()); //new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		curPlayerName = new JLabel("CurPlayerName");
 		curPlayerName.setFont(new Font("Lucida Handwriting", Font.ITALIC, 16));
-		curPlayerName.setForeground(new Color(220,212,200));
+		curPlayerName.setForeground(new Color(118, 108, 81));
 		add(curPlayerName);
 
 		JLabel empty = new JLabel();
-		empty.setSize(10, 10);
-		ImageIcon bImg = new ImageIcon(this.getClass().getResource("Images/buttonB.jpg"));
+		empty.setSize(5, 10);
 
-		button = new JButton("Discard Pile");
-		button.setHorizontalTextPosition(JButton.CENTER); //remove
-		button.setVerticalTextPosition(JButton.CENTER);//remove
-
-		button.setText("Discard Pile"); //remove
-		button.setBackground(new Color(118, 108, 81));
-		button.setBorderPainted(true);
-		button.setSize(new Dimension(bImg.getIconHeight(),bImg.getIconWidth()));
-		button.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
-		add(button);
+		avi = new JLabel();
+		avi.setSize(new Dimension(120, 90));
+		add(avi);
 		add(empty);
 
 		withdrawButton = new JButton("Withdraw");
@@ -75,10 +67,8 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		drawCardButton.setBorderPainted(true);
 		drawCardButton.setFont(new Font("Monotype Corsiva", Font.BOLD, 16));
 		add(drawCardButton);
-		
-		this.setOpaque(false);
-		//add(Box.createRigidArea(new Dimension(5,10)));
-		setPreferredSize(new Dimension(200, 200)); 
+
+		setPreferredSize(new Dimension(200, 230)); 
 	}
 
 	@Override
@@ -106,7 +96,7 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 	}
 
 	public void setName(String str){
-		curPlayerName.setText("Actions for " +str);
+		curPlayerName.setText(str);
 	}
 
 	public void setEnableOptionButtons(boolean b){
@@ -114,6 +104,13 @@ public class GamePlayButtonPanel extends JPanel implements ActionListener{
 		for (int i = 0; i < str.length; i++){
 			str[i].setEnabled(b);
 		}
+	}
+	public void setAvatar(String aviName) {
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("Images/"+aviName));
+		Image img = icon.getImage() ;  
+		Image newimg = img.getScaledInstance(120, 90,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon = new ImageIcon( newimg );
+		avi.setIcon(icon);
 	}
 
 }
