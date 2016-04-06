@@ -178,7 +178,7 @@ public class Client {
    			String[] result = msg.split("~");
    			String[] playerInfo = result[1].split(",");
    			gui.setEnableMainScreen(playerInfo[0]);
-   			gui.setCurrentPlayerName(playerInfo[1]);
+   			gui.setPlayerSpecificInfo(playerInfo[1],playerInfo[2]);
    		}
    		//from server to gui
    		else if(msg.contains("TOURNAMENTINFO~")){

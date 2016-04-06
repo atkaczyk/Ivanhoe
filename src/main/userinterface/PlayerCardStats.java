@@ -129,6 +129,12 @@ public class PlayerCardStats extends JPanel{
 	 */
 	public void setPlayerTokens(String s) {
 		// TURN STR which is 012 into its proper colour..
+		pToken.setIcon(null);
+		rToken.setIcon(null);
+		yToken.setIcon(null);
+		gToken.setIcon(null);
+		bToken.setIcon(null);
+		
 		ImageIcon purple =new ImageIcon(this.getClass().getResource("Images/Tokens/purpleToken.png"));
 		Image imgP = purple.getImage() ;  
 		Image newimgP = imgP.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
@@ -204,7 +210,11 @@ public class PlayerCardStats extends JPanel{
 				sCards += "Shield ";
 			}
 		} else if (str.equals("false")){
-			sCards= "";
+			if(sCards.contains("Stunned")){
+				sCards = "Stunned";
+			}else{
+				sCards = "";
+			}
 		}
 		specialCard.setText("* " + sCards);
 

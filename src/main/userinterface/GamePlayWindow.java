@@ -77,7 +77,6 @@ public class GamePlayWindow extends JFrame{
 
 		tournamentNumber = new JLabel();
 		tournamentNumber.setFont(new Font("Century", Font.BOLD, 28));
-		//tournamentNumber.setForeground(new Color(243, 235, 97));
 
 		GameStats = new JPanel(new FlowLayout());
 		GameStats.add(title);
@@ -91,7 +90,7 @@ public class GamePlayWindow extends JFrame{
 		playerCard3 = new PlayerCard("INACTIVE");
 		playerCard4 = new PlayerCard("INACTIVE");
 		
-		upperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //new GridLayout(3,2));
+		upperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		upperPanel.add(GameStats);
 		upperPanel.add(playerCard0);
 		upperPanel.add(playerCard1);
@@ -124,7 +123,6 @@ public class GamePlayWindow extends JFrame{
 	public void setAvatars(String avatars) {
 		String[] avi = avatars.split(",");
 
-		System.out.println("THIS IS ALL I HAVE FOR AVATARS" + avatars);
 		for(int i = 0; i < avi.length; i++){
 			if(i == 0) {
 				playerCard0.setAvatar(avi[i]);
@@ -184,6 +182,11 @@ public class GamePlayWindow extends JFrame{
 	public void setCurrentPlayerName(String str){
 		buttonPanel.setName(str);
 	}
+
+	public void setCurrentPlayerAvi(String name) {
+		buttonPanel.setAvatar(name);
+	}
+	
 	public void setTournamentNumAndColour(String s) {
 		String[] player = s.split(",");
 		setTournamentColour(player[0]);
@@ -255,6 +258,7 @@ public class GamePlayWindow extends JFrame{
 		buttonPanel.setDrawCardEnable(true);
 		buttonPanel.setWithdrawEnable(true);
 	}
+
 
 }
 

@@ -750,7 +750,7 @@ public class Server implements Runnable {
 		for (int id: playerNumbers.keySet()){
 			int playerNumber = playerNumbers.get(id);
 			String playerSI = "PLAYERSPECIFICINFO~";
-			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getPlayer(playerNumber).getName();
+			playerSI += (game.getCurrentPlayerNumber() == playerNumber) + "," + game.getPlayer(playerNumber).getName() + "," + game.getPlayer(playerNumber).getAvatar();
 			broadcastMessageToPlayer(playerSI, id, 1);	
 		}
 	}
