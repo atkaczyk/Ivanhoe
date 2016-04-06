@@ -157,7 +157,7 @@ public class PlayerCardStats extends JPanel{
 
 		ImageIcon blue =new ImageIcon(this.getClass().getResource("Images/Tokens/blueToken.png"));
 		Image imgB = blue.getImage() ;  
-		Image newimgB = imgP.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		Image newimgB = imgB.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH ) ; 
 		blue = new ImageIcon( newimgB );
 
 
