@@ -3536,6 +3536,87 @@ public class TestGame {
 		
 		assertEquals(8, game.getPlayer(0).getHandCards().size());
 	}
+	
+	@Test
+	public void oneRoundPlaying() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+		
+		// It is player 0s turn
+		game.getPlayer(0).addCardToHand(BLUE_CARD_2);
+		game.playCard(0, BLUE_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		// It is player 1s turn
+		game.getPlayer(1).addCardToHand(BLUE_CARD_2);
+		game.playCard(1, BLUE_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		// Player 0 will not play a card, they get automatically withdrawn
+		String result = game.goToNextPlayer(true);
+
+		assertEquals(true, result.contains(PLAYER_TWO_NAME));
+		assertEquals(2, game.getTournamentNumber());
+	}
+	
+	@Test
+	public void severalRoundsPlaying() {
+		game.addPlayer(PLAYER_ONE_NAME, Config.RED, "");
+		game.addPlayer(PLAYER_TWO_NAME, Config.PURPLE, "");
+
+		game.startGame();
+		game.overrideTourColour(Config.BLUE);
+		
+		// It is player 0s turn
+		game.getPlayer(0).addCardToHand(BLUE_CARD_2);
+		game.playCard(0, BLUE_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		// It is player 1s turn
+		game.getPlayer(1).addCardToHand(BLUE_CARD_2);
+		game.playCard(1, BLUE_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		// Player 0 will not play a card, they get automatically withdrawn
+		String result = game.goToNextPlayer(true);
+
+		assertEquals(true, result.contains(PLAYER_TWO_NAME));
+		assertEquals(2, game.getTournamentNumber());
+		
+		// Now player 1 is starting because they won
+		assertEquals(1, game.getCurrentPlayerNumber());
+		game.overrideTourColour(Config.RED);
+		game.getPlayer(1).addCardToHand(RED_CARD_2);
+		game.playCard(1, RED_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		game.getPlayer(0).addCardToHand(RED_CARD_2);
+		game.playCard(0, RED_CARD_2.getName());
+		game.goToNextPlayer(true);
+		
+		game.getPlayer(1).addCardToHand(BLUE_CARD_3);
+		game.playCard(1, BLUE_CARD_3.getName());
+		result = game.goToNextPlayer(true);
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+		
+		assertEquals(3, game.getTournamentNumber());
+		
+		assertEquals(0, game.getCurrentPlayerNumber());
+		
+		// Player 0 is starting because they won the last round
+		game.overrideTourColour(Config.YELLOW);
+		
+		game.getPlayer(1).addCardToHand(YELLOW_CARD_2);
+		game.playCard(1, YELLOW_CARD_2.getName());
+		game.getPlayer(1).addCardToHand(YELLOW_CARD_2);
+		game.playCard(1, YELLOW_CARD_2.getName());
+		result = game.withdrawPlayer(1, true);
+		
+		assertEquals(true, result.contains(PLAYER_ONE_NAME));
+	}
 
 	@After
 	public void tearDown() {
