@@ -367,24 +367,6 @@ public class Server implements Runnable {
 					
 					updateAll(); //maybe put this before the broadcast
 				}
-				else if (input.contains("finalWinnerCheck")){
-					//String result = game.checkForWinner(); //returns name of winning player, and empty if no winner
-					//if(result.equals("")){
-						// If there is no winner yet, start a new tournament
-						////updateAll();
-						//handle(ID, "updateGameInformation");
-					//}
-					//else{
-						//broadcastToAllPlayers("gameWinner~"+result);
-					//}
-				}
-				if (input.contains("gameReady")){
-					//String[] playerInfo = message.split(" ");
-	   				//String name = playerInfo[1];
-	   				//String tokenNumber = playerInfo[2];
-	   				//game.addPlayer(name, tokenNumber);
-	   				//check to see if game is ready using game.isReadyToStart()
-				}
 			}
 		}
 	}
